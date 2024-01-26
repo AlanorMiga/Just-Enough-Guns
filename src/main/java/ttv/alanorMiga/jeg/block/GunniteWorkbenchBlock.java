@@ -54,7 +54,7 @@ public class GunniteWorkbenchBlock extends RotatedObjectBlock implements EntityB
         shapes.add(VoxelShapeHelper.getRotatedShapes(VoxelShapeHelper.rotate(Block.box(2, 3, 0, 14, 5, 2), Direction.SOUTH))[direction.get2DDataValue()]);
         shapes.add(VoxelShapeHelper.getRotatedShapes(VoxelShapeHelper.rotate(Block.box(0, 3, 2, 16, 5, 14), Direction.SOUTH))[direction.get2DDataValue()]);
         shapes.add(VoxelShapeHelper.getRotatedShapes(VoxelShapeHelper.rotate(Block.box(2, 3, 14, 14, 11, 16), Direction.SOUTH))[direction.get2DDataValue()]);
-        shapes.add(VoxelShapeHelper.getRotatedShapes(VoxelShapeHelper.rotate(Block.box(0, 16, 14, 16, 32, 16), Direction.SOUTH))[direction.get2DDataValue()]);
+        shapes.add(VoxelShapeHelper.getRotatedShapes(VoxelShapeHelper.rotate(Block.box(0, 16, 14, 16, 24, 16), Direction.SOUTH))[direction.get2DDataValue()]);
         VoxelShape shape = VoxelShapeHelper.combineAll(shapes);
         SHAPES.put(state, shape);
         return shape;

@@ -154,6 +154,14 @@ public class ModItems {
                     .durability(800)
                     .tab(JustEnoughGuns.GROUP)));
 
+    public static final RegistryObject<Item> ANGLED_GRIP = REGISTER.register("angled_grip",
+            () -> new UnderBarrelItem(UnderBarrel.create(
+                    GunModifiers.REDUCED_RECOIL), new
+                    Item.Properties()
+                    .stacksTo(1)
+                    .durability(800)
+                    .tab(JustEnoughGuns.GROUP)));
+
     /* Items */
     public static final RegistryObject<Item> SCRAP = REGISTER.register("scrap",
             () -> new Item(new Item.Properties().tab(JustEnoughGuns.GROUP)));

@@ -30,7 +30,7 @@ public class SemiAutoRifleModel implements IOverrideModel {
         if(Gun.hasAttachmentEquipped(stack, IAttachment.Type.STOCK)) {
 
             if (Gun.getAttachment(IAttachment.Type.STOCK, stack).getItem() == ModItems.MAKESHIFT_STOCK.get())
-                RenderUtil.renderModel(SpecialModels.MAKESHIFT_STOCK_SEMI_AUTO_RIFLE.getModel(), stack, matrixStack, buffer, light, overlay);
+                RenderUtil.renderModel(SpecialModels.SEMI_AUTO_RIFLE_STOCK_MAKESHIFT.getModel(), stack, matrixStack, buffer, light, overlay);
 
         }
 

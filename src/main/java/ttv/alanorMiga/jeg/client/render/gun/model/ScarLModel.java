@@ -36,12 +36,25 @@ public class ScarLModel implements IOverrideModel {
         if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.STOCK)) {
 
             if (Gun.getAttachment(IAttachment.Type.STOCK, stack).getItem() == ModItems.TACTICAL_STOCK.get())
-                RenderUtil.renderModel(SpecialModels.TACTICAL_STOCK_SCAR_L.getModel(), stack, matrixStack, buffer, light, overlay);
+                RenderUtil.renderModel(SpecialModels.SCAR_L_STOCK_TACTICAL.getModel(), stack, matrixStack, buffer, light, overlay);
             else if (Gun.getAttachment(IAttachment.Type.STOCK, stack).getItem() == ModItems.LIGHT_STOCK.get())
-                RenderUtil.renderModel(SpecialModels.LIGHT_STOCK_SCAR_L.getModel(), stack, matrixStack, buffer, light, overlay);
+                RenderUtil.renderModel(SpecialModels.SCAR_L_STOCK_LIGHT.getModel(), stack, matrixStack, buffer, light, overlay);
             else if (Gun.getAttachment(IAttachment.Type.STOCK, stack).getItem() == ModItems.WEIGHTED_STOCK.get())
-                RenderUtil.renderModel(SpecialModels.WEIGHTED_STOCK_SCAR_L.getModel(), stack, matrixStack, buffer, light, overlay);
+                RenderUtil.renderModel(SpecialModels.SCAR_L_STOCK_WEIGHTED.getModel(), stack, matrixStack, buffer, light, overlay);
+        }
 
+        if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.BARREL)) {
+            if (Gun.getAttachment(IAttachment.Type.BARREL, stack).getItem() == ModItems.SILENCER.get())
+                RenderUtil.renderModel(SpecialModels.SCAR_L_SILENCER.getModel(), stack, matrixStack, buffer, light, overlay);
+        }
+
+        if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.UNDER_BARREL)) {
+            if (Gun.getAttachment(IAttachment.Type.UNDER_BARREL, stack).getItem() == ModItems.VERTICAL_GRIP.get())
+                RenderUtil.renderModel(SpecialModels.SCAR_L_VERTICAL_GRIP.getModel(), stack, matrixStack, buffer, light, overlay);
+            else if (Gun.getAttachment(IAttachment.Type.UNDER_BARREL, stack).getItem() == ModItems.LIGHT_GRIP.get())
+                RenderUtil.renderModel(SpecialModels.SCAR_L_LIGHT_GRIP.getModel(), stack, matrixStack, buffer, light, overlay);
+            else if (Gun.getAttachment(IAttachment.Type.UNDER_BARREL, stack).getItem() == ModItems.ANGLED_GRIP.get())
+                RenderUtil.renderModel(SpecialModels.SCAR_L_ANGLED_GRIP.getModel(), stack, matrixStack, buffer, light, overlay);
         }
 
 

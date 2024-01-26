@@ -23,6 +23,14 @@
       }
     ]
   },
+  "item.scar_l.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/scar_l/silenced_fire"
+      }
+    ]
+  },
   "item.assault_rifle.fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [

@@ -1,15 +1,17 @@
 {
-	"credit": "Model by MrCrayfish (https://twitter.com/MrCrayfish) using Blockbench. All Rights Reserved.",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
 	"textures": {
 		"4": "jeg:items/scopes",
-		"5": "jeg:effect/holo_reticle"
+		"5": "jeg:effect/holo_reticle",
+		"particle": "jeg:items/scopes"
 	},
 	"elements": [
 		{
 			"name": "Holographic 1",
-			"from": [7.5, 8, 7.53624],
-			"to": [8.5, 8.6, 8.93624],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5.7, 6.36124]},
+			"from": [7.5, 7.25, 7.53624],
+			"to": [8.5, 7.85, 8.93624],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.95, 6.36124]},
 			"faces": {
 				"north": {"uv": [1.75, 15.25, 3, 16], "texture": "#4"},
 				"east": {"uv": [0, 15.25, 1.75, 16], "texture": "#4"},
@@ -21,9 +23,9 @@
 		},
 		{
 			"name": "Holographic 2",
-			"from": [7.705, 8.2, 7.23624],
-			"to": [8.295, 8.6, 7.53624],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5.7, 6.36124]},
+			"from": [7.705, 7.45, 7.23624],
+			"to": [8.295, 7.85, 7.53624],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.95, 6.36124]},
 			"faces": {
 				"east": {"uv": [4.5, 15.75, 4.25, 16], "rotation": 90, "texture": "#4"},
 				"west": {"uv": [4.5, 15.75, 4.25, 16], "rotation": 90, "texture": "#4"},
@@ -32,9 +34,9 @@
 		},
 		{
 			"name": "Holographic 3",
-			"from": [7.7, 8.26, 7.09124],
-			"to": [8.3, 8.54, 7.37624],
-			"rotation": {"angle": -45, "axis": "x", "origin": [8, 8.4, 7.23624]},
+			"from": [7.7, 7.51, 7.09124],
+			"to": [8.3, 7.79, 7.37624],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 7.65, 7.23624]},
 			"faces": {
 				"north": {"uv": [4.5, 15.5, 4.25, 15.75], "rotation": 90, "texture": "#4"},
 				"east": {"uv": [4.5, 15.5, 4.25, 15.75], "rotation": 90, "texture": "#4"},
@@ -44,9 +46,9 @@
 		},
 		{
 			"name": "Holographic 4",
-			"from": [7.505, 8.6, 7.74624],
-			"to": [7.695, 9.1, 8.73624],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5.7, 6.36124]},
+			"from": [7.505, 7.85, 7.74624],
+			"to": [7.695, 8.35, 8.73624],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.95, 6.36124]},
 			"faces": {
 				"east": {"uv": [3, 15.25, 4.25, 16], "texture": "#4"},
 				"south": {"uv": [3, 15.25, 3.25, 16], "texture": "#4"},
@@ -55,9 +57,9 @@
 		},
 		{
 			"name": "Holographic 5",
-			"from": [8.305, 8.6, 7.74624],
-			"to": [8.495, 9.1, 8.73624],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5.7, 6.36124]},
+			"from": [8.305, 7.85, 7.74624],
+			"to": [8.495, 8.35, 8.73624],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.95, 6.36124]},
 			"faces": {
 				"east": {"uv": [3, 15.25, 4.25, 16], "texture": "#4"},
 				"south": {"uv": [4, 15.25, 4.25, 16], "texture": "#4"},
@@ -66,9 +68,9 @@
 		},
 		{
 			"name": "Holographic 6",
-			"from": [7.7, 9.1, 7.74624],
-			"to": [8.3, 9.3, 8.73624],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5.7, 6.36124]},
+			"from": [7.7, 8.35, 7.74624],
+			"to": [8.3, 8.55, 8.73624],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.95, 6.36124]},
 			"faces": {
 				"north": {"uv": [4.25, 14.25, 4, 15], "rotation": 90, "texture": "#4"},
 				"east": {"uv": [4.25, 14.25, 3, 15], "rotation": 90, "texture": "#4"},
@@ -79,9 +81,9 @@
 		},
 		{
 			"name": "Holographic 7",
-			"from": [7.5, 8.505, 7.65624],
-			"to": [7.7, 9.045, 7.85624],
-			"rotation": {"angle": 22.5, "axis": "x", "origin": [7.6, 8.85, 7.83624]},
+			"from": [7.5, 7.755, 7.65624],
+			"to": [7.7, 8.295, 7.85624],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [7.6, 8.1, 7.83624]},
 			"faces": {
 				"north": {"uv": [4.25, 15.25, 4, 15.5], "rotation": 90, "texture": "#4"},
 				"east": {"uv": [4.25, 15.25, 4, 15.5], "rotation": 90, "texture": "#4"},
@@ -90,9 +92,9 @@
 		},
 		{
 			"name": "Holographic 8",
-			"from": [8.3, 8.505, 7.65624],
-			"to": [8.5, 9.045, 7.85624],
-			"rotation": {"angle": 22.5, "axis": "x", "origin": [7.6, 8.85, 7.83624]},
+			"from": [8.3, 7.755, 7.65624],
+			"to": [8.5, 8.295, 7.85624],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [7.6, 8.1, 7.83624]},
 			"faces": {
 				"north": {"uv": [4.25, 15.25, 4, 15.5], "rotation": 90, "texture": "#4"},
 				"east": {"uv": [4.25, 15.25, 4, 15.5], "rotation": 90, "texture": "#4"},
@@ -101,9 +103,9 @@
 		},
 		{
 			"name": "Holographic 9",
-			"from": [7.505, 8.5, 8.69624],
-			"to": [7.695, 8.7, 8.97624],
-			"rotation": {"angle": 45, "axis": "x", "origin": [7.6, 8.7, 8.83624]},
+			"from": [7.505, 7.75, 8.69624],
+			"to": [7.695, 7.95, 8.97624],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.6, 7.95, 8.83624]},
 			"faces": {
 				"east": {"uv": [3.25, 15.75, 3, 16], "rotation": 90, "texture": "#4"},
 				"west": {"uv": [3.25, 15.75, 3, 16], "rotation": 90, "texture": "#4"},
@@ -112,9 +114,9 @@
 		},
 		{
 			"name": "Holographic 10",
-			"from": [8.305, 8.5, 8.69624],
-			"to": [8.495, 8.7, 8.97624],
-			"rotation": {"angle": 45, "axis": "x", "origin": [7.6, 8.7, 8.83624]},
+			"from": [8.305, 7.75, 8.69624],
+			"to": [8.495, 7.95, 8.97624],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.6, 7.95, 8.83624]},
 			"faces": {
 				"east": {"uv": [3.25, 15.75, 3, 16], "rotation": 90, "texture": "#4"},
 				"west": {"uv": [3.25, 15.75, 3, 16], "rotation": 90, "texture": "#4"},
@@ -123,9 +125,9 @@
 		},
 		{
 			"name": "Holographic 11",
-			"from": [7.46, 9, 7.74624],
-			"to": [7.74, 9.2, 8.73624],
-			"rotation": {"angle": 45, "axis": "z", "origin": [7.6, 9.2, 8.24124]},
+			"from": [7.46, 8.25, 7.74624],
+			"to": [7.74, 8.45, 8.73624],
+			"rotation": {"angle": 45, "axis": "z", "origin": [7.6, 8.45, 8.24124]},
 			"faces": {
 				"north": {"uv": [4.25, 14, 4, 14.25], "rotation": 90, "texture": "#4"},
 				"south": {"uv": [3, 14, 3.25, 14.25], "rotation": 90, "texture": "#4"},
@@ -135,9 +137,9 @@
 		},
 		{
 			"name": "Holographic 12",
-			"from": [8.26, 9, 7.74624],
-			"to": [8.54, 9.2, 8.73624],
-			"rotation": {"angle": -45, "axis": "z", "origin": [8.4, 9.2, 8.24124]},
+			"from": [8.26, 8.25, 7.74624],
+			"to": [8.54, 8.45, 8.73624],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8.4, 8.45, 8.24124]},
 			"faces": {
 				"north": {"uv": [4.25, 15, 4, 15.25], "rotation": 90, "texture": "#4"},
 				"south": {"uv": [3.25, 15, 3, 15.25], "rotation": 90, "texture": "#4"},
@@ -147,9 +149,9 @@
 		},
 		{
 			"name": "Reticle",
-			"from": [7.92, 8.77, 8.63624],
-			"to": [8.08, 8.93, 8.63624],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 5.7, 6.36124]},
+			"from": [7.92, 8.02, 8.63624],
+			"to": [8.08, 8.18, 8.63624],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 4.95, 6.36124]},
 			"faces": {
 				"south": {"uv": [16, 0, 0, 16], "rotation": 90, "texture": "#5"}
 			}
@@ -157,46 +159,39 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [47, 270, 0],
-			"translation": [-0.25, -0.5, -1],
-			"scale": [2, 2, 2]
+			"translation": [0, 6.5, -6.75]
 		},
 		"firstperson_righthand": {
-			"translation": [0, 2, 2],
-			"scale": [1.5, 1.5, 1.5]
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
 		},
 		"ground": {
-			"translation": [0, -3, 0.5],
-			"scale": [2, 2, 2]
+			"translation": [0, 5, -1]
 		},
 		"gui": {
 			"rotation": [30, 225, 0],
-			"translation": [-0.75, -3.75, 0],
-			"scale": [4, 4, 4]
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
 		},
 		"fixed": {
-			"translation": [0, -4.75, -2],
-			"scale": [4, 4, 4]
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
 		}
 	},
 	"groups": [
 		{
-			"name": "holographic_scope",
-			"origin": [8, 8, 8],
+			"name": "Scope",
+			"origin": [8, 10.505, 2.53624],
 			"color": 0,
 			"children": [
 				{
-					"name": "Scope",
-					"origin": [8, 10.505, 2.53624],
+					"name": "Holographic",
+					"origin": [8, 4.95, 6.36124],
 					"color": 0,
-					"children": [
-						{
-							"name": "Holographic",
-							"origin": [8, 4.95, 6.36124],
-							"color": 0,
-							"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-						}
-					]
+					"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 				}
 			]
 		}
