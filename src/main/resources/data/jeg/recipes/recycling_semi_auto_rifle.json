@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:semi_auto_rifle"
+  },
+  "result": {
+    "item": "jeg:scrap",
+    "count": 12
+  },
+  "experience": 15,
+  "recyclingtime": 1200
+}

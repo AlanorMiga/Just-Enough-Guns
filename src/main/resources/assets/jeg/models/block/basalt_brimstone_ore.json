@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "jeg:block/basalt_brimstone_ore"
+  }
+}

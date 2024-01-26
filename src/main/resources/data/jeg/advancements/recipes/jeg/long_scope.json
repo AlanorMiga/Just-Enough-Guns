@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "jeg:long_scope"
+    ]
+  },
+  "criteria": {
+    "has_iron_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:nuggets/iron"
+          }
+        ]
+      }
+    },
+    "has_amethyst": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/amethyst"
+          }
+        ]
+      }
+    },
+    "has_black_dye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:dyes/black"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "jeg:long_scope"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_ingot",
+      "has_amethyst",
+      "has_black_dye",
+      "has_the_recipe"
+    ]
+  ]
+}

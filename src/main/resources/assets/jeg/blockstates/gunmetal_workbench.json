@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "jeg:block/gunmetal_workbench", "y": 0   },
+        "facing=east":  { "model": "jeg:block/gunmetal_workbench", "y": 90  },
+        "facing=south": { "model": "jeg:block/gunmetal_workbench", "y": 180 },
+        "facing=west":  { "model": "jeg:block/gunmetal_workbench", "y": 270 }
+    }
+}

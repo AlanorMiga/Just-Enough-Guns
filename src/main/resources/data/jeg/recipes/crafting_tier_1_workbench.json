@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "CSC",
+    "C C"
+  ],
+  "key": {
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "jeg:scrap_block"
+    }
+  },
+  "result": {
+    "item": "jeg:scrap_workbench"
+  }
+}

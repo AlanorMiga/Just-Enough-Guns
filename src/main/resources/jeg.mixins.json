@@ -1,0 +1,24 @@
+{
+    "required": true,
+    "package": "ttv.alanorMiga.jeg.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "minVersion": "0.8",
+    "refmap": "jeg.refmap.json",
+    "plugin": "ttv.alanorMiga.jeg.mixin.MixinPlugin",
+    "mixins": [
+        "common.EndPortalBlockMixin",
+        "common.LivingEntityMixin",
+        "common.SittingPhaseMixin"
+    ],
+    "client": [
+        "client.GameRendererMixin",
+        "client.LevelRendererMixin",
+        "client.MinecraftMixin",
+        "client.MouseHandlerMixin",
+        "client.PlayerItemInHandLayerMixin",
+        "client.PlayerModelMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

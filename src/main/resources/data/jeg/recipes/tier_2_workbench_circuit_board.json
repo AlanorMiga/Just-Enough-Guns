@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunmetal_workbench",
+  "materials": [
+    {
+      "item": "jeg:tech_trash",
+      "count": 15
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 10
+    },
+    {
+      "item": "minecraft:redstone",
+      "count": 5
+    }
+  ],
+  "result": {
+    "item": "jeg:circuit_board"
+  },
+  "time": 30
+}

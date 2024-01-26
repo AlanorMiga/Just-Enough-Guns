@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunmetal_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 1
+    },
+    {
+      "item": "minecraft:diamond",
+      "count": 1
+    },
+    {
+      "item": "minecraft:coal",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "jeg:gunnite_ingot"
+  },
+  "time": 30
+}

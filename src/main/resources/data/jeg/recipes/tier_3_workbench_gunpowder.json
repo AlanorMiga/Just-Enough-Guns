@@ -1,0 +1,17 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:brimstone_crystal",
+      "count": 1
+    },
+    {
+      "item": "minecraft:charcoal",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "minecraft:gunpowder"
+  },
+  "time": 30
+}

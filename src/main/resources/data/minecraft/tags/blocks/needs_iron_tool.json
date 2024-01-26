@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "jeg:recycler",
+    "jeg:gunmetal_block",
+    "jeg:gunnite_block",
+    "jeg:brimstone_ore",
+    "jeg:blackstone_brimstone_ore",
+    "jeg:basalt_brimstone_ore"
+  ]
+}

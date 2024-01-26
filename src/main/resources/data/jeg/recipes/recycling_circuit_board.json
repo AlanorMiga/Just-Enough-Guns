@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:circuit_board"
+  },
+  "result": {
+    "item": "jeg:tech_trash",
+    "count": 2
+  },
+  "experience": 1.0,
+  "recyclingtime": 200
+}

@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunmetal_workbench",
+  "materials": [
+    {
+      "item": "minecraft:gunpowder",
+      "count": 1
+    },
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 4
+    },
+    {
+      "tag": "forge:ingots/iron",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "jeg:stun_grenade"
+  },
+  "time": 30
+}

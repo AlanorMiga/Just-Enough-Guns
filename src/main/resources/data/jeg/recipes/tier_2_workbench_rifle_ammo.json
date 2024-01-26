@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunmetal_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 2
+    },
+    {
+      "tag": "forge:ingots/iron",
+      "count": 2
+    },
+    {
+      "tag": "forge:gunpowder",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "jeg:rifle_ammo",
+    "count": 5
+  }
+}

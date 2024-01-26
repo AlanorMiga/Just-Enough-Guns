@@ -1,0 +1,62 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:items/semi_auto_rifle",
+		"particle": "jeg:items/semi_auto_rifle"
+	},
+	"elements": [
+		{
+			"name": "Ejector 1",
+			"from": [7.595, 2.76, 11.475],
+			"to": [7.605, 3.15, 13.475],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 2.745, 7.475]},
+			"faces": {
+				"west": {"uv": [9.75, 3, 10, 4.25], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Ejector 2",
+			"from": [7.85888, 3.3656, 11.475],
+			"to": [8.24888, 3.3756, 13.475],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.86388, 3.1781, 12.475]},
+			"faces": {
+				"up": {"uv": [10.25, 4.25, 10, 3], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Ejector 2",
+			"from": [7.7, 3.3, 11.8],
+			"to": [7.96, 3.4, 11.9],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.475, 3, 11.8]},
+			"faces": {
+				"north": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"south": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"up": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"down": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Ejector 1",
+			"from": [7.55, 3.2, 11.7],
+			"to": [7.7, 3.5, 12],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.475, 3, 11.8]},
+			"faces": {
+				"north": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"east": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"south": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"west": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"up": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"},
+				"down": {"uv": [9.75, 3, 9.5, 3.25], "texture": "#1"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Ejector",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "jeg:scrap_workbench",
+  "materials": [
+    {
+      "tag": "forge:ingots/iron",
+      "count": 2
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 2
+    },
+    {
+      "tag": "forge:gunpowder",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "jeg:handmade_shell",
+    "count": 5
+  }
+}

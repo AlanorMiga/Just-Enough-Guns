@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "jeg:gunmetal_grit"
+  },
+  "result": "jeg:gunmetal_ingot",
+  "experience": 0.1,
+  "cookingtime": 200
+}

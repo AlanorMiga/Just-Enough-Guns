@@ -1,0 +1,66 @@
+{
+  "general": {
+    "auto": true,
+    "rate": 3,
+    "gripType": "jeg:two_handed",
+    "recoilKick": 0.25,
+    "recoilAngle": 4,
+    "alwaysSpread": true,
+    "spread": 3.0
+  },
+  "reloads": {
+    "maxAmmo": 30,
+    "magFed": true,
+    "reloadTimer": 30,
+    "emptyMagTimer": 10
+  },
+  "projectile": {
+    "item": "jeg:rifle_ammo",
+    "visible": false,
+    "damage": 7,
+    "size": 0.05,
+    "speed": 10.0,
+    "life": 200,
+    "trailLengthMultiplier": 2,
+    "gravity": false
+  },
+  "sounds": {
+    "fire": "jeg:item.scar_l.fire",
+    "reload": "jeg:item.pistol.reload",
+    "cock": "jeg:item.scar_l.cock",
+    "silencedFire": "jeg:item.scar_l.suppressed_fire"
+  },
+  "display": {
+    "flash": {
+      "yOffset": 3.7,
+      "zOffset": -4.7
+    }
+  },
+  "modules": {
+    "zoom": {
+      "yOffset": 5.8,
+      "zOffset": -1.75,
+      "fovModifier": 0.6
+    },
+    "attachments": {
+      "scope": {
+        "yOffset": 4.75,
+        "zOffset": 4.0
+      },
+      "barrel": {
+        "yOffset": 3.6,
+        "zOffset": -5.9,
+        "scale": 0.5
+      },
+      "stock": {
+        "yOffset": 0.0,
+        "zOffset": 0.0,
+        "scale": 0.0
+      },
+      "underBarrel": {
+        "yOffset": 2.799,
+        "zOffset": -1.0
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:scrap",
+      "count": 20
+    },
+    {
+      "item": "jeg:circuit_board",
+      "count": 2
+    },
+    {
+      "item": "minecraft:cauldron",
+      "count": 1
+    },
+    {
+      "item": "minecraft:stonecutter",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "jeg:recycler"
+  },
+  "time": 30
+}

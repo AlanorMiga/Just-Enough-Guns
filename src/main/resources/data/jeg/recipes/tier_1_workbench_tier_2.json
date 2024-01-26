@@ -1,0 +1,25 @@
+{
+  "type": "jeg:scrap_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 32
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 16
+    },
+    {
+      "tag": "forge:ingots/iron",
+      "count": 12
+    },
+    {
+      "item": "minecraft:smooth_stone_slab",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "jeg:gunmetal_workbench"
+  },
+  "time": 30
+}

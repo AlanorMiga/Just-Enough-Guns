@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunmetal_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 64
+    },
+    {
+      "tag": "minecraft:planks",
+      "count": 16
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 50
+    }
+  ],
+  "result": {
+    "item": "jeg:assault_rifle"
+  },
+  "time": 30
+}

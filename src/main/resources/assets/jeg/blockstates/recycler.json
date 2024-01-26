@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "jeg:block/recycler", "y": 0   },
+        "facing=east":  { "model": "jeg:block/recycler", "y": 90  },
+        "facing=south": { "model": "jeg:block/recycler", "y": 180 },
+        "facing=west":  { "model": "jeg:block/recycler", "y": 270 }
+    }
+}

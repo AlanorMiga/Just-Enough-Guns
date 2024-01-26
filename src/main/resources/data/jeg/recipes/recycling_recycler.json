@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:recycler"
+  },
+  "result": {
+    "item": "minecraft:poisonous_potato",
+    "count": 1
+  },
+  "experience": 15,
+  "recyclingtime": 600
+}

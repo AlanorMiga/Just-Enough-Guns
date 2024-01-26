@@ -1,0 +1,17 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "minecraft:gunpowder",
+      "count": 3
+    },
+    {
+      "tag": "forge:ingots/iron",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "jeg:grenade"
+  },
+  "time": 30
+}

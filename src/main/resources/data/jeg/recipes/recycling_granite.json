@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "minecraft:granite"
+  },
+  "result": {
+    "item": "jeg:gunmetal_grit",
+    "count": 1
+  },
+  "experience": 0,
+  "recyclingtime": 50
+}

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "jeg:recycler",
+    "jeg:scrap_ore",
+    "jeg:deepslate_scrap_ore",
+    "jeg:scrap_block",
+    "jeg:gunmetal_block",
+    "jeg:gunnite_block",
+    "jeg:brimstone_ore",
+    "jeg:blackstone_brimstone_ore",
+    "jeg:basalt_brimstone_ore",
+    "jeg:gunmetal_workbench",
+    "jeg:gunnite_workbench"
+  ]
+}

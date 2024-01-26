@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:revolver"
+  },
+  "result": {
+    "item": "jeg:scrap",
+    "count": 5
+  },
+  "experience": 15,
+  "recyclingtime": 600
+}

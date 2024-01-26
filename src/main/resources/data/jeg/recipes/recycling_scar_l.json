@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:scar_l"
+  },
+  "result": {
+    "item": "jeg:scrap",
+    "count": 40
+  },
+  "experience": 30,
+  "recyclingtime": 1800
+}

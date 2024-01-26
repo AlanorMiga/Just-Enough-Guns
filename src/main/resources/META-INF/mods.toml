@@ -1,0 +1,42 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GNU GPLv3"
+
+[[mods]]
+modId="jeg"
+version="0.0.1"
+displayName="Just Enough Guns"
+authors="AlanorMiga"
+credits="MrCrayfish, Bomb787"
+description="The essentials needed for a survival friendly gun system done the right way!"
+
+[[dependencies.jeg]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40.2.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.jeg]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.jeg]]
+    modId="framework"
+    mandatory=true
+    versionRange="[0.4.2,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.jeg]]
+    modId="controllable"
+    mandatory=false
+    versionRange="[0.16.6,)"
+    ordering="AFTER"
+    side="CLIENT"
+[[dependencies.jeg]]
+    modId="backpacked"
+    mandatory=false
+    versionRange="[2.1.10,)"
+    ordering="AFTER"
+    side="CLIENT"

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "jeg:gunnite_block"
+    }
+  ],
+  "result": {
+    "item": "jeg:gunnite_ingot",
+    "count": 9
+  }
+}
