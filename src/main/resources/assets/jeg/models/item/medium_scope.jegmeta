@@ -3,7 +3,7 @@
         "origin": [8.0, 8.0, 8.0]
     },
     "jeg:scope": {
-        "camera": [8.0, 8.85, 20.0],
+        "camera": [8.0, 8.85, 15.0],
         "viewportFov": 30.0,
         "sightAnimation": {
             "viewportCurve": "ease_out_cubic",

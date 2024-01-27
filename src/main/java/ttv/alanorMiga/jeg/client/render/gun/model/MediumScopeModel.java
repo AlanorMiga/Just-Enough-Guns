@@ -5,24 +5,21 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.client.GunModel;
-import ttv.alanorMiga.jeg.client.GunRenderType;
-import ttv.alanorMiga.jeg.client.handler.AimingHandler;
-import ttv.alanorMiga.jeg.client.render.gun.IOverrideModel;
-import ttv.alanorMiga.jeg.client.util.RenderUtil;
-import ttv.alanorMiga.jeg.util.OptifineHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.client.GunModel;
+import ttv.alanorMiga.jeg.client.GunRenderType;
+import ttv.alanorMiga.jeg.client.handler.AimingHandler;
+import ttv.alanorMiga.jeg.client.render.gun.IOverrideModel;
+import ttv.alanorMiga.jeg.util.OptifineHelper;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +31,6 @@ import javax.annotation.Nullable;
 public class MediumScopeModel implements IOverrideModel
 {
     private static final ResourceLocation HOLO_RETICLE = new ResourceLocation(Reference.MOD_ID, "textures/effect/holo_reticle.png");
-    private static final ResourceLocation HOLO_RETICLE_GLOW = new ResourceLocation(Reference.MOD_ID, "textures/effect/holo_reticle_glow.png");
     private static final ResourceLocation VIGNETTE = new ResourceLocation(Reference.MOD_ID, "textures/effect/scope_vignette.png");
 
     @Override
@@ -103,34 +99,13 @@ public class MediumScopeModel implements IOverrideModel
                 poseStack.translate(-(size / scale) / 2, -(size / scale) / 2, 0);
                 poseStack.translate(0, 0, 0.0001);
 
-                int reticleGlowColor = RenderUtil.getItemStackColor(stack, parent, 0);
-                CompoundTag tag = stack.getTag();
-                if(tag != null && tag.contains("ReticleColor", Tag.TAG_INT))
-                {
-                    reticleGlowColor = tag.getInt("ReticleColor");
-                }
-
-                float red = ((reticleGlowColor >> 16) & 0xFF) / 255F;
-                float green = ((reticleGlowColor >> 8) & 0xFF) / 255F;
-                float blue = ((reticleGlowColor >> 0) & 0xFF) / 255F;
-                float alpha = (float) (1.0F * AimingHandler.get().getNormalisedAdsProgress());
-
-                if(!OptifineHelper.isShadersEnabled())
-                {
-                    builder = renderTypeBuffer.getBuffer(RenderType.entityTranslucent(HOLO_RETICLE_GLOW));
-                    builder.vertex(matrix, 0, (float) (size / scale), 0).color(red, green, blue, alpha).uv(0.0F, 0.9375F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                    builder.vertex(matrix, 0, 0, 0).color(red, green, blue, alpha).uv(0.0F, 0.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                    builder.vertex(matrix, (float) (size / scale), 0, 0).color(red, green, blue, alpha).uv(0.9375F, 0.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                    builder.vertex(matrix, (float) (size / scale), (float) (size / scale), 0).color(red, green, blue, alpha).uv(0.9375F, 0.9375F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                }
-
-                alpha = (float) (0.75F * AimingHandler.get().getNormalisedAdsProgress());
+                float alpha = 255F;
 
                 builder = renderTypeBuffer.getBuffer(RenderType.entityTranslucent(HOLO_RETICLE));
-                builder.vertex(matrix, 0, (float) (size / scale), 0).color(1.0F, 1.0F, 1.0F, alpha).uv(0.0F, 0.9375F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, 0, (float) (size / scale), 0).color(1.0F, 1.0F, 1.0F, alpha).uv(0.0F, 1.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
                 builder.vertex(matrix, 0, 0, 0).color(1.0F, 1.0F, 1.0F, alpha).uv(0.0F, 0.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, (float) (size / scale), 0, 0).color(1.0F, 1.0F, 1.0F, alpha).uv(0.9375F, 0.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, (float) (size / scale), (float) (size / scale), 0).color(1.0F, 1.0F, 1.0F, alpha).uv(0.9375F, 0.9375F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, (float) (size / scale), 0, 0).color(1.0F, 1.0F, 1.0F, alpha).uv(1.0F, 0.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, (float) (size / scale), (float) (size / scale), 0).color(1.0F, 1.0F, 1.0F, alpha).uv(1.0F, 1.0F).overlayCoords(overlay).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
             }
             poseStack.popPose();
         }

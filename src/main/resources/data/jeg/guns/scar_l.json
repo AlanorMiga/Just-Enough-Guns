@@ -45,12 +45,12 @@
     "attachments": {
       "scope": {
         "yOffset": 4.75,
-        "zOffset": 6.0
+        "zOffset": 5.5
       },
       "barrel": {
-        "yOffset": 3.6,
-        "zOffset": -5.9,
-        "scale": 0.0
+        "yOffset": 3.75,
+        "zOffset": -5.45,
+        "scale": 0.9
       },
       "stock": {
         "yOffset": 0.0,

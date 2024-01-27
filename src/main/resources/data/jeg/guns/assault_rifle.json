@@ -19,7 +19,7 @@
     "visible": false,
     "damage": 6,
     "size": 0.05,
-    "speed": 8.0,
+    "speed": 14.0,
     "life": 200,
     "trailLengthMultiplier": 2,
     "gravity": true

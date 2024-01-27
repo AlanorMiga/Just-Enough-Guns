@@ -1,0 +1,93 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"3": "jeg:items/attachments_1"
+	},
+	"elements": [
+		{
+			"name": "Angled Grip 1",
+			"from": [7.5, 8.00211, 6.9378],
+			"to": [8.5, 8.60211, 9.3378],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8.45211, 8.0128]},
+			"faces": {
+				"north": {"uv": [3, 6.25, 4.25, 7], "texture": "#3"},
+				"east": {"uv": [0, 6.25, 3, 7], "texture": "#3"},
+				"south": {"uv": [3, 6.25, 4.25, 7], "texture": "#3"},
+				"west": {"uv": [3, 6.25, 0, 7], "texture": "#3"},
+				"up": {"uv": [0, 3.75, 3, 5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [0, 5, 3, 6.25], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Angled Grip 2",
+			"from": [7.5, 7.40211, 6.9378],
+			"to": [8.5, 8.00211, 7.1378],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8.45211, 8.0128]},
+			"faces": {
+				"north": {"uv": [4.25, 5, 5.5, 5.75], "texture": "#3"},
+				"east": {"uv": [5.25, 5, 5.5, 5.75], "texture": "#3"},
+				"south": {"uv": [4.25, 5, 5.5, 5.75], "texture": "#3"},
+				"west": {"uv": [4.5, 5, 4.25, 5.75], "texture": "#3"},
+				"up": {"uv": [0, 3.75, 3, 5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [4.25, 5.5, 5.5, 5.75], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Angled Grip 3",
+			"from": [7.7, 7.05711, 8.8078],
+			"to": [8.3, 8.05711, 9.2078],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 7.70211, 9.1378]},
+			"faces": {
+				"north": {"uv": [3.5, 5, 4.25, 6.25], "texture": "#3"},
+				"east": {"uv": [3.5, 5, 3, 6.25], "texture": "#3"},
+				"south": {"uv": [3.5, 5, 4.25, 6.25], "texture": "#3"},
+				"west": {"uv": [3, 5, 3.5, 6.25], "texture": "#3"},
+				"down": {"uv": [4.75, 3, 5.25, 3.75], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Angled Grip 4",
+			"from": [7.7, 7.07963, 7.11959],
+			"to": [8.3, 7.47963, 8.75459],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 7.57963, 9.05459]},
+			"faces": {
+				"east": {"uv": [5, 4.5, 3, 5], "texture": "#3"},
+				"west": {"uv": [3, 4.5, 5, 5], "texture": "#3"},
+				"up": {"uv": [3, 3.75, 5, 4.5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [5, 3, 3, 3.75], "rotation": 90, "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Angled Grip",
+			"origin": [8, 13.39711, 7.1878],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

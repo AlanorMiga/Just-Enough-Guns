@@ -18,31 +18,37 @@ public class ModItems {
 
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
 
+    /*
+    // Implementation order:
+    //
+    // Scar-L
+    // Assault Rifle
+    // Revolver
+    // Waterpiper Shotgun
+    // Semi Auto Rifle
+    // HK G36
+    //
+    */
+
     /* Firearms */
-    public static final RegistryObject<GunItem> SCAR_L = REGISTER.register("scar_l",
-            () -> new RifleItem(new Item.Properties()
-            .stacksTo(1)
-            .durability(640)
-            .rarity(Rarity.EPIC)
-            .tab(JustEnoughGuns.GROUP)));
-    public static final RegistryObject<GunItem> ASSAULT_RIFLE = REGISTER.register("assault_rifle",
-            () -> new MakeshiftRifleItem(new Item.Properties()
-            .stacksTo(1)
-            .durability(384)
-            .rarity(Rarity.RARE)
-            .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<GunItem> REVOLVER = REGISTER.register("revolver",
             () -> new MakeshiftGunItem(new Item.Properties()
-            .stacksTo(1)
-            .durability(128)
-            .rarity(Rarity.UNCOMMON)
-            .tab(JustEnoughGuns.GROUP)));
+                    .stacksTo(1)
+                    .durability(128)
+                    .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<GunItem>WATERPIPE_SHOTGUN = REGISTER.register("waterpipe_shotgun",
             () -> new GunItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(128)
+                    .rarity(Rarity.UNCOMMON)
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<GunItem> SEMI_AUTO_RIFLE = REGISTER.register("semi_auto_rifle",
+            () -> new MakeshiftRifleItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(384)
+                    .rarity(Rarity.RARE)
+                    .tab(JustEnoughGuns.GROUP)));
+    public static final RegistryObject<GunItem> ASSAULT_RIFLE = REGISTER.register("assault_rifle",
             () -> new MakeshiftRifleItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(384)
@@ -54,6 +60,12 @@ public class ModItems {
                     .durability(640)
                     .rarity(Rarity.EPIC)
                     .tab(JustEnoughGuns.GROUP)));
+    public static final RegistryObject<GunItem> SCAR_L = REGISTER.register("scar_l",
+            () -> new RifleItem(new Item.Properties()
+            .stacksTo(1)
+            .durability(640)
+            .rarity(Rarity.EPIC)
+            .tab(JustEnoughGuns.GROUP)));
 
     //public static final RegistryObject<Item> GRENADE_LAUNCHER = REGISTER.register("grenade_launcher", () -> new GunItem(new Item.Properties().stacksTo(1).tab(JustEnoughGuns.GROUP)));
     //public static final RegistryObject<Item> BAZOOKA = REGISTER.register("bazooka", () -> new GunItem(new Item.Properties().stacksTo(1).tab(JustEnoughGuns.GROUP)));
@@ -94,17 +106,6 @@ public class ModItems {
     public static final RegistryObject<Item> LONG_SCOPE = REGISTER.register("long_scope",
             () -> new ScopeItem(Attachments.LONG_SCOPE, new Item.Properties().stacksTo(1).durability(800).tab(JustEnoughGuns.GROUP)));
 
-    /* Barrel Attachments */
-    public static final RegistryObject<Item> SILENCER = REGISTER.register("silencer",
-            () -> new BarrelItem(Barrel.create(
-                    8.0F,
-                    GunModifiers.SILENCED,
-                    GunModifiers.REDUCED_DAMAGE),
-                    new Item.Properties()
-                            .stacksTo(1)
-                            .durability(500)
-                            .tab(JustEnoughGuns.GROUP)));
-
     /* Stock Attachments */
     public static final RegistryObject<Item> MAKESHIFT_STOCK = REGISTER.register("makeshift_stock",
             () -> new MakeshiftStockItem(Stock.create(
@@ -113,14 +114,14 @@ public class ModItems {
                             .stacksTo(1)
                             .durability(300)
                             .tab(JustEnoughGuns.GROUP)
-                            , false));
+                    , false));
     public static final RegistryObject<Item> LIGHT_STOCK = REGISTER.register("light_stock",
             () -> new StockItem(Stock.create(
                     GunModifiers.BETTER_CONTROL),
                     new Item.Properties()
-                    .stacksTo(1)
-                    .durability(600)
-                    .tab(JustEnoughGuns.GROUP)
+                            .stacksTo(1)
+                            .durability(600)
+                            .tab(JustEnoughGuns.GROUP)
                     , false));
     public static final RegistryObject<Item> TACTICAL_STOCK = REGISTER.register("tactical_stock",
             () -> new StockItem(Stock.create(
@@ -129,7 +130,7 @@ public class ModItems {
                             .stacksTo(1)
                             .durability(800)
                             .tab(JustEnoughGuns.GROUP)
-                            , false));
+                    , false));
     public static final RegistryObject<Item> WEIGHTED_STOCK = REGISTER.register("weighted_stock",
             () -> new StockItem(Stock.create(
                     GunModifiers.SUPER_STABILISED),
@@ -137,6 +138,17 @@ public class ModItems {
                             .stacksTo(1)
                             .durability(1000)
                             .tab(JustEnoughGuns.GROUP)));
+
+    /* Barrel Attachments */
+    public static final RegistryObject<Item> SILENCER = REGISTER.register("silencer",
+            () -> new BarrelItem(Barrel.create(
+                    0.0F,
+                    GunModifiers.SILENCED),
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .durability(500)
+                            .tab(JustEnoughGuns.GROUP)));
+                            //GunModifiers.REDUCED_DAMAGE),
 
     /* Under Barrel Attachments */
     public static final RegistryObject<Item> LIGHT_GRIP = REGISTER.register("light_grip",

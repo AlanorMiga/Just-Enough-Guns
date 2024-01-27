@@ -1,7 +1,67 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "item/generated",
 	"textures": {
-		"layer0": "jeg:items/vertical_grip"
-	}
+		"3": "jeg:items/attachments_1"
+	},
+	"elements": [
+		{
+			"name": "Vertical Grip 1",
+			"from": [7.5, 8, 7.2],
+			"to": [8.5, 8.6, 8.8],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8.45, 7.875]},
+			"faces": {
+				"north": {"uv": [2, 13.5, 3.25, 14.25], "texture": "#3"},
+				"east": {"uv": [0, 13.5, 2, 14.25], "texture": "#3"},
+				"south": {"uv": [2, 13.5, 3.25, 14.25], "texture": "#3"},
+				"west": {"uv": [2, 13.5, 0, 14.25], "texture": "#3"},
+				"up": {"uv": [0, 11, 2, 12.25], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [0, 12.25, 2, 13.5], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Vertical Grip 2",
+			"from": [7.65, 6, 7.65],
+			"to": [8.35, 8, 8.35],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [2, 10.75, 2.75, 13.5], "texture": "#3"},
+				"east": {"uv": [3.5, 10.75, 2.75, 13.5], "texture": "#3"},
+				"south": {"uv": [2.75, 10.75, 3.5, 13.5], "texture": "#3"},
+				"west": {"uv": [2, 10.75, 2.75, 13.5], "texture": "#3"},
+				"down": {"uv": [3.5, 12.75, 4.25, 13.5], "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Vertical Grip",
+			"origin": [8, 13.705, 7.05],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
 }

@@ -19,7 +19,7 @@
     "visible": false,
     "damage": 5,
     "size": 0.05,
-    "speed": 7.0,
+    "speed": 10.0,
     "life": 200,
     "trailLengthMultiplier": 2,
     "gravity": true
@@ -41,6 +41,18 @@
       "yOffset": 3.45,
       "zOffset": -1.75,
       "fovModifier": 0.6
+    },
+    "attachments": {
+      "barrel": {
+        "yOffset": 3.6,
+        "zOffset": -5.9,
+        "scale": 0.5
+      },
+      "stock": {
+        "yOffset": 0.0,
+        "zOffset": 0.0,
+        "scale": 0.0
+      }
     }
   }
 }

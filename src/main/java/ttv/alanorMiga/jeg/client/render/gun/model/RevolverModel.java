@@ -13,6 +13,9 @@ import ttv.alanorMiga.jeg.client.GunModel;
 import ttv.alanorMiga.jeg.client.SpecialModels;
 import ttv.alanorMiga.jeg.client.render.gun.IOverrideModel;
 import ttv.alanorMiga.jeg.client.util.RenderUtil;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.init.ModItems;
+import ttv.alanorMiga.jeg.item.attachment.IAttachment;
 
 import javax.annotation.Nullable;
 
@@ -25,6 +28,14 @@ public class RevolverModel implements IOverrideModel
     public void render(float partialTicks, ItemTransforms.TransformType transformType, ItemStack stack, ItemStack parent, @Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay)
     {
         BakedModel bakedModel = SpecialModels.REVOLVER_MAIN.getModel();
+
+        if(Gun.hasAttachmentEquipped(stack, IAttachment.Type.STOCK)) {
+
+            if (Gun.getAttachment(IAttachment.Type.STOCK, stack).getItem() == ModItems.MAKESHIFT_STOCK.get())
+                RenderUtil.renderModel(SpecialModels.REVOLVER_STOCK_MAKESHIFT.getModel(), stack, poseStack, buffer, light, overlay);
+
+        }
+
         Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, poseStack, buffer, light, overlay, GunModel.wrap(bakedModel));
 
         float cooldown = 0F;
