@@ -39,11 +39,27 @@
       }
     ]
   },
+  "item.assault_rifle.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/assault_rifle/silenced_fire"
+      }
+    ]
+  },
   "item.revolver.fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [
       {
         "name": "jeg:item/revolver/fire"
+      }
+    ]
+  },
+  "item.revolver.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/revolver/silenced_fire"
       }
     ]
   },
@@ -63,11 +79,27 @@
       }
     ]
   },
+  "item.semi_auto_rifle.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/semi_auto_rifle/silenced_fire"
+      }
+    ]
+  },
   "item.hk_g36.fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [
       {
         "name": "jeg:item/hk_g36/fire"
+      }
+    ]
+  },
+  "item.hk_g36.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/hk_g36/silenced_fire"
       }
     ]
   },

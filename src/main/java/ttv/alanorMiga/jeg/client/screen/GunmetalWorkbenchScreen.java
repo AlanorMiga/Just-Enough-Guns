@@ -125,7 +125,7 @@ public class GunmetalWorkbenchScreen extends AbstractContainerScreen<GunmetalWor
 
         if(!attachments.isEmpty())
         {
-            this.tabs.add(new Tab(new ItemStack(ModItems.MEDIUM_SCOPE.get()), "attachments", attachments));
+            this.tabs.add(new Tab(new ItemStack(ModItems.HOLOGRAPHIC_SIGHT.get()), "attachments", attachments));
         }
 
         if(!ammo.isEmpty())

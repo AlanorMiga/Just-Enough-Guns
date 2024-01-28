@@ -125,7 +125,7 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
 
         if(!attachments.isEmpty())
         {
-            this.tabs.add(new Tab(new ItemStack(ModItems.MEDIUM_SCOPE.get()), "attachments", attachments));
+            this.tabs.add(new Tab(new ItemStack(ModItems.MAKESHIFT_STOCK.get()), "attachments", attachments));
         }
 
         if(!ammo.isEmpty())

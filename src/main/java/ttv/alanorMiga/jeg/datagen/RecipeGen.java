@@ -107,7 +107,7 @@ public class RecipeGen extends RecipeProvider
                 .addCriterion("has_amethyst", has(Tags.Items.GEMS_AMETHYST))
                 .addCriterion("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
                 .build(consumer);
-        GunniteWorkbenchRecipeBuilder.crafting(ModItems.MEDIUM_SCOPE.get())
+        GunniteWorkbenchRecipeBuilder.crafting(ModItems.HOLOGRAPHIC_SIGHT.get())
                 .addIngredient(GunniteWorkbenchIngredient.of(Tags.Items.NUGGETS_IRON, 4))
                 .addIngredient(GunniteWorkbenchIngredient.of(Tags.Items.GEMS_AMETHYST, 1))
                 .addIngredient(GunniteWorkbenchIngredient.of(Tags.Items.DUSTS_REDSTONE, 4))

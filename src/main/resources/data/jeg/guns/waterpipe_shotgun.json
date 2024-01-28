@@ -1,19 +1,19 @@
 {
   "general": {
     "auto": false,
-    "rate": 60,
+    "rate": 8,
     "gripType": "jeg:two_handed",
     "recoilKick": 0.5,
     "recoilAngle": 10,
     "alwaysSpread": true,
     "spread": 15.0,
-    "projectileAmount": 20
+    "projectileAmount": 18
   },
   "reloads": {
     "maxAmmo": 1,
-    "magFed": false,
-    "reloadTimer": 30,
-    "emptyMagTimer": 10
+    "magFed": true,
+    "reloadTimer": 45,
+    "emptyMagTimer": 0
   },
   "projectile": {
     "item": "jeg:handmade_shell",

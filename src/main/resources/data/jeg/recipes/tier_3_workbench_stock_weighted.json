@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 24
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 9
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 15
+    }
+  ],
+  "result": {
+    "item": "jeg:weighted_stock"
+  },
+  "time": 30
+}

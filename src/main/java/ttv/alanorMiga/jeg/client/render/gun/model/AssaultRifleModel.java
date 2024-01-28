@@ -31,7 +31,6 @@ public class AssaultRifleModel implements IOverrideModel {
 
             if (Gun.getAttachment(IAttachment.Type.STOCK, stack).getItem() == ModItems.MAKESHIFT_STOCK.get())
                 RenderUtil.renderModel(SpecialModels.ASSAULT_RIFLE_STOCK_MAKESHIFT.getModel(), stack, matrixStack, buffer, light, overlay);
-
         }
 
         if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.BARREL)) {

@@ -7,7 +7,7 @@
 	"elements": [
 		{
 			"name": "Supressor 1",
-			"from": [7.45, 3.295, 0.55],
+			"from": [7.45, 3.295, 0.45],
 			"to": [8.45, 4.195, 4.55],
 			"rotation": {"angle": -45, "axis": "z", "origin": [8, 3.745, 2.55]},
 			"faces": {

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "jeg:medium_scope"
+      "jeg:holographic_sight"
     ]
   },
   "criteria": {
@@ -39,7 +39,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "jeg:medium_scope"
+        "recipe": "jeg:holographic_sight"
       }
     }
   },

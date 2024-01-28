@@ -28,7 +28,7 @@
     "fire": "jeg:item.semi_auto_rifle.fire",
     "reload": "jeg:item.pistol.reload",
     "cock": "jeg:item.semi_auto_rifle.cock",
-    "silencedFire": "jeg:item.semi_auto.suppressed_fire"
+    "silencedFire": "jeg:item.semi_auto_rifle.silenced_fire"
   },
   "display": {
     "flash": {

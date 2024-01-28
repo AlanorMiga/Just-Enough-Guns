@@ -1,0 +1,21 @@
+{
+  "type": "jeg:scrap_workbench",
+  "materials": [
+    {
+      "tag": "forge:ingots/iron",
+      "count": 5
+    },
+    {
+      "tag": "minecraft:planks",
+      "count": 8
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "jeg:makeshift_stock"
+  },
+  "time": 30
+}

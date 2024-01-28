@@ -30,7 +30,7 @@
     "fire": "jeg:item.hk_g36.fire",
     "reload": "jeg:item.pistol.reload",
     "cock": "jeg:item.hk_g36.cock",
-    "silencedFire": "jeg:item.hk_g36.suppressed_fire"
+    "silencedFire": "jeg:item.hk_g36.silenced_fire"
   },
   "display": {
     "flash": {
@@ -51,7 +51,7 @@
       },
       "barrel": {
         "yOffset": 3.5,
-        "zOffset": -4
+        "zOffset": -6
       },
       "stock": {
         "yOffset": 0.0,
