@@ -31,22 +31,25 @@ public enum SpecialModels {
     SCAR_L_ANGLED_GRIP("scar_l/angled_grip"),
 
     ASSAULT_RIFLE("gun/assault_rifle"),
-    ASSAULT_RIFLE_MAIN("assault_rifle_main"),
-    ASSAULT_RIFLE_EJECTOR("assault_rifle_ejector"),
-    ASSAULT_RIFLE_STOCK_MAKESHIFT("assault_rifle_stock_makeshift"),
+    ASSAULT_RIFLE_MAIN("assault_rifle/main"),
+    ASSAULT_RIFLE_EJECTOR("assault_rifle/ejector"),
+    ASSAULT_RIFLE_STOCK_MAKESHIFT("assault_rifle/stock_makeshift"),
+    ASSAULT_RIFLE_SILENCER("assault_rifle/silencer"),
 
     REVOLVER("gun/revolver"),
     REVOLVER_MAIN("revolver/main"),
     REVOLVER_CHAMBER("revolver/chamber"),
     REVOLVER_BOLT("revolver/bolt"),
     REVOLVER_STOCK_MAKESHIFT("revolver/stock_makeshift"),
+    REVOLVER_SILENCER("revolver/silencer"),
 
     WATERPIPE_SHOTGUN("gun/waterpipe_shotgun"),
 
     SEMI_AUTO_RIFLE("gun/semi_auto_rifle"),
-    SEMI_AUTO_RIFLE_MAIN("semi_auto_rifle_main"),
-    SEMI_AUTO_RIFLE_EJECTOR("semi_auto_rifle_ejector"),
-    SEMI_AUTO_RIFLE_STOCK_MAKESHIFT("semi_auto_rifle_stock_makeshift"),
+    SEMI_AUTO_RIFLE_MAIN("semi_auto_rifle/main"),
+    SEMI_AUTO_RIFLE_EJECTOR("semi_auto_rifle/ejector"),
+    SEMI_AUTO_RIFLE_STOCK_MAKESHIFT("semi_auto_rifle/stock_makeshift"),
+    SEMI_AUTO_RIFLE_SILENCER("semi_auto_rifle/silencer"),
 
     HK_G36("gun/hk_g36"),
     HK_G36_MAIN("hk_g36/main"),

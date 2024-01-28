@@ -2,8 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "jeg:items/semi_auto_rifle",
-		"particle": "jeg:items/semi_auto_rifle"
+		"1": "jeg:items/semi_auto_rifle"
 	},
 	"elements": [
 		{
@@ -36,7 +35,7 @@
 			"name": "Receiver 1",
 			"from": [7.55, 2.145, 10.475],
 			"to": [8.45, 2.945, 15.475],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.345, 11.825]},
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.345, 11.825]},
 			"faces": {
 				"north": {"uv": [9.75, 1.25, 8.75, 2.25], "texture": "#1"},
 				"east": {"uv": [2.5, 1.25, 8.75, 2.25], "texture": "#1"},
@@ -48,12 +47,11 @@
 		},
 		{
 			"name": "Receiver 2",
-			"from": [7.995, 1.145, 13.775],
-			"to": [8.005, 2.145, 14.775],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.345, 11.825]},
+			"from": [8, 1.145, 13.775],
+			"to": [8, 2.145, 14.775],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.005, 2.345, 11.825]},
 			"faces": {
-				"east": {"uv": [0, 0, 1.25, 1.25], "texture": "#1"},
-				"west": {"uv": [1.25, 0, 0, 1.25], "texture": "#1"}
+				"east": {"uv": [0, 0, 1.25, 1.25], "texture": "#1"}
 			}
 		},
 		{
@@ -166,7 +164,7 @@
 			"name": "Receiver 11",
 			"from": [7.75, 1.945, 10.675],
 			"to": [8.25, 2.145, 10.875],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.345, 11.825]},
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.345, 11.825]},
 			"faces": {
 				"north": {"uv": [11.5, 1, 11.25, 1.25], "texture": "#1"},
 				"east": {"uv": [11.5, 1, 11.25, 1.25], "texture": "#1"},
@@ -180,7 +178,7 @@
 			"name": "Receiver 12",
 			"from": [7.75, 1.945, 11.075],
 			"to": [8.25, 2.145, 11.275],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.345, 11.775]},
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.345, 11.775]},
 			"faces": {
 				"north": {"uv": [11.5, 1, 11.25, 1.25], "texture": "#1"},
 				"east": {"uv": [11.5, 1, 11.25, 1.25], "texture": "#1"},
@@ -336,6 +334,30 @@
 			}
 		}
 	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
 	"groups": [
 		{
 			"name": "Assault Rifle",

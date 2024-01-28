@@ -44,9 +44,8 @@
     },
     "attachments": {
       "barrel": {
-        "yOffset": 3.6,
-        "zOffset": -5.9,
-        "scale": 0.5
+        "yOffset": 3,
+        "zOffset": -1.6
       },
       "stock": {
         "yOffset": 0.0,

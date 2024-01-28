@@ -36,6 +36,11 @@ public class RevolverModel implements IOverrideModel
 
         }
 
+        if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.BARREL)) {
+            if (Gun.getAttachment(IAttachment.Type.BARREL, stack).getItem() == ModItems.SILENCER.get())
+                RenderUtil.renderModel(SpecialModels.REVOLVER_SILENCER.getModel(), stack, poseStack, buffer, light, overlay);
+        }
+
         Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, poseStack, buffer, light, overlay, GunModel.wrap(bakedModel));
 
         float cooldown = 0F;

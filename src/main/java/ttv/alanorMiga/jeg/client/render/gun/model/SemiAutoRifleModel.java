@@ -34,6 +34,10 @@ public class SemiAutoRifleModel implements IOverrideModel {
 
         }
 
+        if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.BARREL)) {
+            if (Gun.getAttachment(IAttachment.Type.BARREL, stack).getItem() == ModItems.SILENCER.get())
+                RenderUtil.renderModel(SpecialModels.SEMI_AUTO_RIFLE_SILENCER.getModel(), stack, matrixStack, buffer, light, overlay);
+        }
 
         if (entity.equals(Minecraft.getInstance().player)) {
 
