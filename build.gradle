@@ -1,21 +1,13 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/maven' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'maven-publish'
-apply plugin: 'org.spongepowered.mixin'
 
-version = "0.0.1-1.18.2"
+version = "0.1.0-1.19.4"
 group = "ttv.alanormiga"
-archivesBaseName = "JustEnoughGuns-Forked"
+archivesBaseName = "JustEnoughGuns"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -23,10 +15,11 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 mixin {
     add sourceSets.main, "jeg.refmap.json"
+    config 'jeg.mixins.json'
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'official', version: '1.19.4'
 
     runs {
         client {
@@ -35,7 +28,6 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            arg '-mixin.config=jeg.mixins.json'
             mods {
                 jeg {
                     source sourceSets.main
@@ -83,17 +75,13 @@ repositories {
         name "Progwml6 maven"
         url "https://dvs1.progwml6.com/files/maven/"
     }
-    /*maven {
-        name "ModMaven"
-        url "https://modmaven.k-4u.nl"
-    }*/
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.2.0'
-    implementation fg.deobf('curse.maven:framework-549225:4287475')
-    implementation fg.deobf('curse.maven:backpacked-352835:3923041')
-    compileOnly fg.deobf('curse.maven:controllable-317269:4120618')
+    minecraft 'net.minecraftforge:forge:1.19.4-45.1.0'
+    implementation fg.deobf('curse.maven:framework-549225:4718249')
+    implementation fg.deobf('curse.maven:backpacked-352835:4510383')
+    compileOnly fg.deobf('curse.maven:controllable-317269:4511169')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

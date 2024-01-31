@@ -4,11 +4,11 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import ttv.alanorMiga.jeg.init.ModParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.registries.ForgeRegistries;
+import ttv.alanorMiga.jeg.init.ModParticleTypes;
 
 /**
  * Author: MrCrayfish
@@ -37,7 +37,7 @@ public class TrailData implements ParticleOptions
         }
     };
 
-    private boolean enchanted;
+    private final boolean enchanted;
 
     public TrailData(boolean enchanted)
     {

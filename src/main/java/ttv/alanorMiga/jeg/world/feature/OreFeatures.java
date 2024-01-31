@@ -1,28 +1,6 @@
 package ttv.alanorMiga.jeg.world.feature;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import ttv.alanorMiga.jeg.init.ModBlocks;
-
-import java.util.List;
-import java.util.Set;
-
-public class OreFeatures {
+public class OreFeatures {/*
 
     public static Holder<PlacedFeature> SCRAP_ORE_REPLACEABLES;
     public static Holder<PlacedFeature> BRIMSTONE_ORE_REPLACEABLES;
@@ -83,8 +61,8 @@ public class OreFeatures {
         return PlacementUtils.register(registryName, Holder.direct(feature), placementModifiers);
     }
 
-    public static void onBiomeLoadingEvent(BiomeLoadingEvent event) {
-        ResourceKey<Biome> key = ResourceKey.create(Registry.BIOME_REGISTRY, event.getName());
+    /*public static void onBiomeLoadingEvent(BiomeLoadingEvent event) {
+        ResourceKey<Biome> key = ResourceKey.create(ForgeRegistries.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         if (event.getCategory() == Biome.BiomeCategory.NETHER) {
@@ -103,5 +81,7 @@ public class OreFeatures {
             }
 
         }
-    }
+    }*/
+
+
 }

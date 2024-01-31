@@ -20,8 +20,8 @@ public class GunDurabilityEvent {
 
     @SubscribeEvent
     public static void postShoot(Post event) {
-        Player player = event.getPlayer();
-        Level level = event.getPlayer().getLevel();
+        Player player = event.getEntity();
+        Level level = event.getEntity().getLevel();
         ItemStack heldItem = player.getMainHandItem();
         CompoundTag tag = heldItem.getTag();
 
@@ -38,8 +38,8 @@ public class GunDurabilityEvent {
 
     @SubscribeEvent
     public static void preShoot(GunFireEvent.Pre event) {
-        Player player = event.getPlayer();
-        Level level = event.getPlayer().getLevel();
+        Player player = event.getEntity();
+        Level level = event.getEntity().getLevel();
         ItemStack heldItem = player.getMainHandItem();
         Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
         CompoundTag tag = heldItem.getTag();
@@ -47,7 +47,7 @@ public class GunDurabilityEvent {
         if (heldItem.isDamageableItem() && tag != null) {
             if (heldItem.getDamageValue() == (heldItem.getMaxDamage() - 1)) {
                 level.playSound(player, player.blockPosition(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F);
-                event.getPlayer().getCooldowns().addCooldown(event.getStack().getItem(), gun.getGeneral().getRate());
+                event.getEntity().getCooldowns().addCooldown(event.getStack().getItem(), gun.getGeneral().getRate());
                 event.setCanceled(true);
             }
             //This is the Jam function
@@ -55,12 +55,12 @@ public class GunDurabilityEvent {
             int currentDamage = heldItem.getDamageValue();
             if (currentDamage >= maxDamage / 1.5) {
                 if (Math.random() >= 0.975) {
-                    event.getPlayer().playSound(ModSounds.ITEM_PISTOL_COCK.get(), 1.0F, 1.0F);
+                    event.getEntity().playSound(ModSounds.ITEM_PISTOL_COCK.get(), 1.0F, 1.0F);
                     int coolDown = gun.getGeneral().getRate() * 10;
                     if (coolDown > 60) {
                         coolDown = 60;
                     }
-                    event.getPlayer().getCooldowns().addCooldown(event.getStack().getItem(), (coolDown));
+                    event.getEntity().getCooldowns().addCooldown(event.getStack().getItem(), (coolDown));
                     event.setCanceled(true);
                 }
             } else if (tag.getInt("AmmoCount") >= 1) {

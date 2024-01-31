@@ -16,12 +16,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ttv.alanorMiga.jeg.JustEnoughGuns;
+import ttv.alanorMiga.jeg.client.KeyBinds;
 import ttv.alanorMiga.jeg.client.util.PropertyHelper;
 import ttv.alanorMiga.jeg.common.GripType;
 import ttv.alanorMiga.jeg.common.Gun;
@@ -136,9 +137,9 @@ public class AimingHandler
     }
 
     @SubscribeEvent
-    public void onFovUpdate(EntityViewRenderEvent.FieldOfView event)
+    public void onFovUpdate(ViewportEvent.ComputeFov event)
     {
-        if(!GunRenderingHandler.get().getUsedConfiguredFov())
+        if(!event.usedConfiguredFov())
             return;
 
         Minecraft mc = Minecraft.getInstance();
@@ -166,7 +167,7 @@ public class AimingHandler
     }
 
     @SubscribeEvent
-    public void onClientTick(ClientPlayerNetworkEvent.LoggedOutEvent event)
+    public void onClientTick(ClientPlayerNetworkEvent.LoggingOut event)
     {
         this.aimingMap.clear();
     }
@@ -175,9 +176,9 @@ public class AimingHandler
      * Prevents the crosshair from rendering when aiming down sight
      */
     @SubscribeEvent(receiveCanceled = true)
-    public void onRenderOverlay(RenderGameOverlayEvent event)
+    public void onRenderOverlay(RenderGuiOverlayEvent event)
     {
-        this.normalisedAdsProgress = this.localTracker.getNormalProgress(event.getPartialTicks());
+        this.normalisedAdsProgress = this.localTracker.getNormalProgress(event.getPartialTick());
     }
 
     public boolean isZooming()
@@ -220,7 +221,7 @@ public class AimingHandler
         if(ModSyncedDataKeys.RELOADING.getValue(mc.player))
             return false;
 
-        boolean zooming = mc.options.keyUse.isDown();
+        boolean zooming = KeyBinds.getAimMapping().isDown();
         if(JustEnoughGuns.controllableLoaded)
         {
             zooming |= ControllerHandler.isAiming();
@@ -239,7 +240,7 @@ public class AimingHandler
                 BlockState state = mc.level.getBlockState(result.getBlockPos());
                 Block block = state.getBlock();
                 // Forge should add a tag for intractable blocks so modders can know which blocks can be interacted with :)
-                return block instanceof EntityBlock || block == Blocks.CRAFTING_TABLE || block == ModBlocks.GUNNITE_WORKBENCH.get() || state.is(BlockTags.DOORS) || state.is(BlockTags.TRAPDOORS) || state.is(Tags.Blocks.CHESTS) || state.is(Tags.Blocks.FENCE_GATES);
+                return block instanceof EntityBlock || block == Blocks.CRAFTING_TABLE || block == ModBlocks.SCRAP_WORKBENCH.get() || block == ModBlocks.GUNMETAL_WORKBENCH.get() || block == ModBlocks.GUNNITE_WORKBENCH.get() || state.is(BlockTags.DOORS) || state.is(BlockTags.TRAPDOORS) || state.is(Tags.Blocks.CHESTS) || state.is(Tags.Blocks.FENCE_GATES);
             }
             else if(mc.hitResult instanceof EntityHitResult result)
             {

@@ -1,17 +1,17 @@
 package ttv.alanorMiga.jeg.client.render.pose;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import ttv.alanorMiga.jeg.client.render.IHeldAnimation;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.util.Mth;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import ttv.alanorMiga.jeg.client.render.IHeldAnimation;
 
 import javax.annotation.Nullable;
 
@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
  */
 public abstract class WeaponPose implements IHeldAnimation
 {
-    private AimPose upPose;
-    private AimPose forwardPose;
-    private AimPose downPose;
+    private final AimPose upPose;
+    private final AimPose forwardPose;
+    private final AimPose downPose;
 
     public WeaponPose()
     {
@@ -62,7 +62,7 @@ public abstract class WeaponPose implements IHeldAnimation
     public void applyPlayerModelRotation(Player player, ModelPart rightArm, ModelPart leftArm, ModelPart head, InteractionHand hand, float aimProgress)
     {
         Minecraft mc = Minecraft.getInstance();
-        boolean right = mc.options.mainHand == HumanoidArm.RIGHT ? hand == InteractionHand.MAIN_HAND : hand == InteractionHand.OFF_HAND;
+        boolean right = mc.options.mainHand().get() == HumanoidArm.RIGHT ? hand == InteractionHand.MAIN_HAND : hand == InteractionHand.OFF_HAND;
         ModelPart mainArm = right ? rightArm : leftArm;
         ModelPart secondaryArm = right ? leftArm : rightArm;
 
@@ -116,7 +116,7 @@ public abstract class WeaponPose implements IHeldAnimation
     @OnlyIn(Dist.CLIENT)
     public void applyPlayerPreRender(Player player, InteractionHand hand, float aimProgress, PoseStack poseStack, MultiBufferSource buffer)
     {
-        boolean right = Minecraft.getInstance().options.mainHand == HumanoidArm.RIGHT ? hand == InteractionHand.MAIN_HAND : hand == InteractionHand.OFF_HAND;
+        boolean right = Minecraft.getInstance().options.mainHand().get() == HumanoidArm.RIGHT ? hand == InteractionHand.MAIN_HAND : hand == InteractionHand.OFF_HAND;
         float angle = this.getPlayerPitch(player);
         float angleAbs = Math.abs(angle);
         float zoom = this.hasAimPose() ? aimProgress : 0F;
@@ -132,7 +132,7 @@ public abstract class WeaponPose implements IHeldAnimation
     {
         if(hand == InteractionHand.MAIN_HAND)
         {
-            boolean right = Minecraft.getInstance().options.mainHand == HumanoidArm.RIGHT;
+            boolean right = Minecraft.getInstance().options.mainHand().get() == HumanoidArm.RIGHT;
             float leftHanded = right ? 1 : -1;
             poseStack.translate(0, 0, 0.05);
 
@@ -149,9 +149,9 @@ public abstract class WeaponPose implements IHeldAnimation
             float rotateX = this.getValue(targetPose.getIdle().getItemRotation().x(), targetPose.getAiming().getItemRotation().x(), this.forwardPose.getIdle().getItemRotation().x(), this.forwardPose.getAiming().getItemRotation().x(), 0F, angleAbs, zoom, 1F);
             float rotateY = this.getValue(targetPose.getIdle().getItemRotation().y(), targetPose.getAiming().getItemRotation().y(), this.forwardPose.getIdle().getItemRotation().y(), this.forwardPose.getAiming().getItemRotation().y(), 0F, angleAbs, zoom, 1F);
             float rotateZ = this.getValue(targetPose.getIdle().getItemRotation().z(), targetPose.getAiming().getItemRotation().z(), this.forwardPose.getIdle().getItemRotation().z(), this.forwardPose.getAiming().getItemRotation().z(), 0F, angleAbs, zoom, 1F);
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(rotateX));
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(rotateY * leftHanded));
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotateZ * leftHanded));
+            poseStack.mulPose(Axis.XP.rotationDegrees(rotateX));
+            poseStack.mulPose(Axis.YP.rotationDegrees(rotateY * leftHanded));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(rotateZ * leftHanded));
         }
     }
 }

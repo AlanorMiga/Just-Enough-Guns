@@ -1,9 +1,30 @@
 package ttv.alanorMiga.jeg.client.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.fml.ModList;
+import org.joml.Matrix4f;
+import org.lwjgl.glfw.GLFW;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.Reference;
 import ttv.alanorMiga.jeg.client.handler.GunRenderingHandler;
@@ -13,33 +34,9 @@ import ttv.alanorMiga.jeg.common.container.AttachmentContainer;
 import ttv.alanorMiga.jeg.common.container.slot.AttachmentSlot;
 import ttv.alanorMiga.jeg.item.GunItem;
 import ttv.alanorMiga.jeg.item.attachment.IAttachment;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.ConfigGuiHandler;
-import net.minecraftforge.fml.ModList;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,7 +45,7 @@ import java.util.List;
 public class AttachmentScreen extends AbstractContainerScreen<AttachmentContainer>
 {
     private static final ResourceLocation GUI_TEXTURES = new ResourceLocation("jeg:textures/gui/attachments.png");
-    private static final Component CONFIG_TOOLTIP = new TranslatableComponent("jeg.button.config.tooltip");
+    private static final Component CONFIG_TOOLTIP = Component.translatable("jeg.button.config.tooltip");
 
     private final Inventory playerInventory;
     private final Container weaponInventory;
@@ -82,13 +79,13 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
             {
                 case LEFT -> {
                     int titleWidth = this.minecraft.font.width(this.title);
-                    button.x = this.leftPos + titleWidth + 8 + 3 + i * 13;
+                    button.setX(this.leftPos + titleWidth + 8 + 3 + i * 13);
                 }
                 case RIGHT -> {
-                    button.x = this.leftPos + this.imageWidth - 7 - 10 - (buttons.size() - 1 - i) * 13;
+                    button.setX(this.leftPos + this.imageWidth - 7 - 10 - (buttons.size() - 1 - i) * 13);
                 }
             }
-            button.y = this.topPos + 5;
+            button.setY(this.topPos + 5);
             this.addRenderableWidget(button);
         }
     }
@@ -98,11 +95,9 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         List<MiniButton> buttons = new ArrayList<>();
         if(!Config.CLIENT.hideConfigButton.get())
         {
-            buttons.add(new MiniButton(0, 0, 192, 0, GUI_TEXTURES, onPress -> {
-                this.openConfigScreen();
-            }, (button, matrixStack, mouseX, mouseY) -> {
-                this.renderTooltip(matrixStack, CONFIG_TOOLTIP, mouseX, mouseY);
-            }));
+            MiniButton configButton = new MiniButton(0, 0, 192, 0, GUI_TEXTURES, onPress -> this.openConfigScreen());
+            configButton.setTooltip(Tooltip.create(CONFIG_TOOLTIP));
+            buttons.add(configButton);
         }
         return buttons;
     }
@@ -137,65 +132,50 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
                 IAttachment.Type type = IAttachment.Type.values()[i];
                 if(!this.menu.getSlot(i).isActive())
                 {
-                    this.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent("slot.jeg.attachment." + type.getTranslationKey()), new TranslatableComponent("slot.jeg.attachment.not_applicable")), mouseX, mouseY);
+                    this.renderComponentTooltip(poseStack, Arrays.asList(Component.translatable("slot.jeg.attachment." + type.getTranslationKey()), Component.translatable("slot.jeg.attachment.not_applicable")), mouseX, mouseY);
                 }
                 else if(this.menu.getSlot(i) instanceof AttachmentSlot slot && slot.getItem().isEmpty() && !this.isCompatible(this.menu.getCarried(), slot))
                 {
-                    this.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent("slot.jeg.attachment.incompatible").withStyle(ChatFormatting.YELLOW)), mouseX, mouseY);
-                }
-                else if(this.weaponInventory.getItem(i).isEmpty())
-                {
-                    this.renderComponentTooltip(poseStack, Collections.singletonList(new TranslatableComponent("slot.jeg.attachment." + type.getTranslationKey())), mouseX, mouseY);
+                    this.renderComponentTooltip(poseStack, Arrays.asList(Component.translatable("slot.jeg.attachment.incompatible").withStyle(ChatFormatting.YELLOW)), mouseX, mouseY);
                 }
             }
         }
-
-        this.children().forEach(widget ->
-        {
-            if(widget instanceof Button button && button.isHoveredOrFocused())
-            {
-                button.renderToolTip(poseStack, mouseX, mouseY);
-            }
-        });
     }
 
     @Override
     protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY)
     {
         Minecraft minecraft = Minecraft.getInstance();
-        this.font.draw(poseStack, this.title, (float)this.titleLabelX, (float)this.titleLabelY, 4210752);
-        this.font.draw(poseStack, this.playerInventory.getDisplayName(), (float)this.inventoryLabelX, (float)this.inventoryLabelY + 19, 4210752);
+        this.font.draw(poseStack, this.title, (float) this.titleLabelX, (float) this.titleLabelY, 4210752);
+        this.font.draw(poseStack, this.playerInventory.getDisplayName(), (float) this.inventoryLabelX, (float) this.inventoryLabelY + 19, 4210752);
 
-        GL11.glEnable(GL11.GL_SCISSOR_TEST);
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
-        RenderUtil.scissor(left + 26, top + 17, 142, 70);
-
-        PoseStack stack = RenderSystem.getModelViewStack();
-        stack.pushPose();
-        {
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            stack.translate(96, 50, 100);
-            stack.translate(this.windowX + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseX - this.mouseClickedX : 0), 0, 0);
-            stack.translate(0, this.windowY + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseY - this.mouseClickedY : 0), 0);
-            stack.mulPose(Vector3f.XP.rotationDegrees(-30F));
-            stack.mulPose(Vector3f.XP.rotationDegrees(this.windowRotationY - (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseY - this.mouseClickedY : 0)));
-            stack.mulPose(Vector3f.YP.rotationDegrees(this.windowRotationX + (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseX - this.mouseClickedX : 0)));
-            stack.mulPose(Vector3f.YP.rotationDegrees(150F));
-            stack.scale(this.windowZoom / 10F, this.windowZoom / 10F, this.windowZoom / 10F);
-            stack.scale(90F, -90F, 90F);
-            stack.mulPose(Vector3f.XP.rotationDegrees(5F));
-            stack.mulPose(Vector3f.YP.rotationDegrees(90F));
-            RenderSystem.applyModelViewMatrix();
-            MultiBufferSource.BufferSource buffer = this.minecraft.renderBuffers().bufferSource();
-            GunRenderingHandler.get().renderWeapon(this.minecraft.player, this.minecraft.player.getMainHandItem(), ItemTransforms.TransformType.GROUND, new PoseStack(), buffer, 15728880, 0F);
-            buffer.endBatch();
-        }
-        stack.popPose();
+        GuiComponent.enableScissor(left + 26, top + 17, left + 26 + 142, top + 17 + 70);
+        poseStack.pushPose();
+        poseStack.translate(96, 50, 150);
+        poseStack.translate(this.windowX + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseX - this.mouseClickedX : 0), 0, 0);
+        poseStack.translate(0, this.windowY + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseY - this.mouseClickedY : 0), 0);
+        poseStack.mulPose(Axis.XP.rotationDegrees(-30F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(this.windowRotationY - (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseY - this.mouseClickedY : 0)));
+        poseStack.mulPose(Axis.YP.rotationDegrees(this.windowRotationX + (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseX - this.mouseClickedX : 0)));
+        poseStack.mulPose(Axis.YP.rotationDegrees(150F));
+        poseStack.scale(this.windowZoom / 10F, this.windowZoom / 10F, this.windowZoom / 10F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(90F));
+        poseStack.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+        poseStack.scale(90.0F, 90.0F, 90.0F);
+        PoseStack modelStack = RenderSystem.getModelViewStack();
+        modelStack.pushPose();
+        modelStack.mulPoseMatrix(poseStack.last().pose());
         RenderSystem.applyModelViewMatrix();
 
-        GL11.glDisable(GL11.GL_SCISSOR_TEST);
+        MultiBufferSource.BufferSource buffer = this.minecraft.renderBuffers().bufferSource();
+        GunRenderingHandler.get().renderWeapon(this.minecraft.player, this.minecraft.player.getMainHandItem(), ItemDisplayContext.GROUND, new PoseStack(), buffer, 15728880, 0F);
+        buffer.endBatch();
+        poseStack.popPose();
+        modelStack.popPose();
+        RenderSystem.applyModelViewMatrix();
+        GuiComponent.disableScissor();
 
         if(this.showHelp)
         {
@@ -337,20 +317,20 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     {
         ModList.get().getModContainerById(Reference.MOD_ID).ifPresent(container ->
         {
-            Screen screen = container.getCustomExtension(ConfigGuiHandler.ConfigGuiFactory.class).map(function -> function.screenFunction().apply(this.minecraft, null)).orElse(null);
+            Screen screen = container.getCustomExtension(ConfigScreenHandler.ConfigScreenFactory.class).map(function -> function.screenFunction().apply(this.minecraft, null)).orElse(null);
             if(screen != null)
             {
                 this.minecraft.setScreen(screen);
             }
             else if(this.minecraft != null && this.minecraft.player != null)
             {
-                MutableComponent modName = new TextComponent("Configured");
+                MutableComponent modName = Component.literal("Configured");
                 modName.setStyle(modName.getStyle()
                         .withColor(ChatFormatting.YELLOW)
                         .withUnderlined(true)
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslatableComponent("jeg.chat.open_curseforge_page")))
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("jeg.chat.open_curseforge_page")))
                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/configured")));
-                Component message = new TranslatableComponent("jeg.chat.install_configured", modName);
+                Component message = Component.translatable("jeg.chat.install_configured", modName);
                 this.minecraft.player.displayClientMessage(message, false);
             }
         });

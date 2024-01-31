@@ -1,17 +1,17 @@
 package ttv.alanorMiga.jeg.common;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import ttv.alanorMiga.jeg.Reference;
 import ttv.alanorMiga.jeg.client.render.IHeldAnimation;
 import ttv.alanorMiga.jeg.client.render.pose.BazookaPose;
 import ttv.alanorMiga.jeg.client.render.pose.MiniGunPose;
 import ttv.alanorMiga.jeg.client.render.pose.OneHandedPose;
 import ttv.alanorMiga.jeg.client.render.pose.TwoHandedPose;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Items;
-import net.minecraft.resources.ResourceLocation;
-import com.mojang.math.Vector3f;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,13 +56,13 @@ public class GripType
             return false;
         }
 
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(180F));
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(180F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(180F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(180F));
 
         if(player.isCrouching())
         {
             poseStack.translate(0 * 0.0625, -7 * 0.0625, -4 * 0.0625);
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(30F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(30F));
         }
         else
         {
@@ -74,7 +74,7 @@ public class GripType
             poseStack.translate(0, 0, -1 * 0.0625);
         }
 
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(-45F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(-45F));
         poseStack.scale(0.5F, 0.5F, 0.5F);
 
         return true;
@@ -83,7 +83,7 @@ public class GripType
     /**
      * The grip type map.
      */
-    private static Map<ResourceLocation, GripType> gripTypeMap = new HashMap<>();
+    private static final Map<ResourceLocation, GripType> gripTypeMap = new HashMap<>();
 
     static
     {

@@ -1,8 +1,8 @@
 {
 	"credit": "Model by MrCrayfish (https://twitter.com/MrCraayfish) using Blockbench",
 	"textures": {
-		"1": "jeg:items/basic_bullet",
-		"particle": "jeg:items/basic_bullet"
+		"1": "jeg:item/basic_bullet",
+		"particle": "jeg:item/basic_bullet"
 	},
 	"elements": [
 		{

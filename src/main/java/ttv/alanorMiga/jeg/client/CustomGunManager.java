@@ -1,22 +1,22 @@
 package ttv.alanorMiga.jeg.client;
 
 import com.mrcrayfish.framework.api.data.login.ILoginData;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.common.CustomGun;
-import ttv.alanorMiga.jeg.common.CustomGunLoader;
-import ttv.alanorMiga.jeg.init.ModItems;
-import ttv.alanorMiga.jeg.network.message.S2CMessageUpdateGuns;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.Validate;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.common.CustomGun;
+import ttv.alanorMiga.jeg.common.CustomGunLoader;
+import ttv.alanorMiga.jeg.init.ModItems;
+import ttv.alanorMiga.jeg.network.message.S2CMessageUpdateGuns;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,26 +40,26 @@ public class CustomGunManager
         return true;
     }
 
-    public static void fill(NonNullList<ItemStack> items)
+    public static void fill(CreativeModeTab.Output output)
     {
         if(customGunMap != null)
         {
             customGunMap.forEach((id, gun) ->
             {
                 ItemStack stack = new ItemStack(ModItems.ASSAULT_RIFLE.get());
-                stack.setHoverName(new TranslatableComponent("item." + id.getNamespace() + "." + id.getPath() + ".name"));
+                stack.setHoverName(Component.translatable("item." + id.getNamespace() + "." + id.getPath() + ".name"));
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.put("Model", gun.getModel().save(new CompoundTag()));
                 tag.put("Gun", gun.getGun().serializeNBT());
                 tag.putBoolean("Custom", true);
                 tag.putInt("AmmoCount", gun.getGun().getReloads().getMaxAmmo());
-                items.add(stack);
+                output.accept(stack);
             });
         }
     }
 
     @SubscribeEvent
-    public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggedOutEvent event)
+    public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event)
     {
         customGunMap = null;
     }

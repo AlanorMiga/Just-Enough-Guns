@@ -7,15 +7,18 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.registries.ForgeRegistries;
+import ttv.alanorMiga.jeg.init.ModRecipeSerializers;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -25,14 +28,17 @@ import java.util.function.Consumer;
  */
 public class GunmetalWorkbenchRecipeBuilder
 {
+    @Nullable
+    private final RecipeCategory category;
     private final Item result;
     private final int count;
-    private final List<GunniteWorkbenchIngredient> ingredients;
+    private final List<ScrapWorkbenchIngredient> ingredients;
     private final Advancement.Builder advancementBuilder;
     private final List<ICondition> conditions = new ArrayList<>();
 
-    private GunmetalWorkbenchRecipeBuilder(ItemLike item, int count)
+    private GunmetalWorkbenchRecipeBuilder(@Nullable RecipeCategory category, ItemLike item, int count)
     {
+        this.category = category;
         this.result = item.asItem();
         this.count = count;
         this.ingredients = new ArrayList<>();
@@ -41,21 +47,31 @@ public class GunmetalWorkbenchRecipeBuilder
 
     public static GunmetalWorkbenchRecipeBuilder crafting(ItemLike item)
     {
-        return new GunmetalWorkbenchRecipeBuilder(item, 1);
+        return new GunmetalWorkbenchRecipeBuilder(null, item, 1);
     }
 
     public static GunmetalWorkbenchRecipeBuilder crafting(ItemLike item, int count)
     {
-        return new GunmetalWorkbenchRecipeBuilder(item, count);
+        return new GunmetalWorkbenchRecipeBuilder(null, item, count);
+    }
+
+    public static GunmetalWorkbenchRecipeBuilder crafting(@Nullable RecipeCategory category, ItemLike item)
+    {
+        return new GunmetalWorkbenchRecipeBuilder(category, item, 1);
+    }
+
+    public static GunmetalWorkbenchRecipeBuilder crafting(@Nullable RecipeCategory category, ItemLike item, int count)
+    {
+        return new GunmetalWorkbenchRecipeBuilder(category, item, count);
     }
 
     public GunmetalWorkbenchRecipeBuilder addIngredient(ItemLike item, int count)
     {
-        this.ingredients.add(GunniteWorkbenchIngredient.of(item, count));
+        this.ingredients.add(ScrapWorkbenchIngredient.of(item, count));
         return this;
     }
 
-    public GunmetalWorkbenchRecipeBuilder addIngredient(GunniteWorkbenchIngredient ingredient)
+    public GunmetalWorkbenchRecipeBuilder addIngredient(ScrapWorkbenchIngredient ingredient)
     {
         this.ingredients.add(ingredient);
         return this;
@@ -75,7 +91,7 @@ public class GunmetalWorkbenchRecipeBuilder
 
     public void build(Consumer<FinishedRecipe> consumer)
     {
-        ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
+        ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
         this.build(consumer, resourcelocation);
     }
 
@@ -83,7 +99,7 @@ public class GunmetalWorkbenchRecipeBuilder
     {
         this.validate(id);
         this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
-        consumer.accept(new GunmetalWorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + id.getPath())));
+        consumer.accept(new GunmetalWorkbenchRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.conditions, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + (this.category != null ? this.category.getFolderName() : "") + "/" + id.getPath())));
     }
 
     /**
@@ -102,12 +118,12 @@ public class GunmetalWorkbenchRecipeBuilder
         private final ResourceLocation id;
         private final Item item;
         private final int count;
-        private final List<GunniteWorkbenchIngredient> ingredients;
+        private final List<ScrapWorkbenchIngredient> ingredients;
         private final List<ICondition> conditions;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation id, ItemLike item, int count, List<GunniteWorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId)
+        public Result(ResourceLocation id, ItemLike item, int count, List<ScrapWorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId)
         {
             this.id = id;
             this.item = item.asItem();
@@ -133,7 +149,7 @@ public class GunmetalWorkbenchRecipeBuilder
             json.add("materials", materials);
 
             JsonObject resultObject = new JsonObject();
-            resultObject.addProperty("item", Registry.ITEM.getKey(this.item).toString());
+            resultObject.addProperty("item", ForgeRegistries.ITEMS.getKey(this.item).toString());
             if(this.count > 1)
             {
                 resultObject.addProperty("count", this.count);

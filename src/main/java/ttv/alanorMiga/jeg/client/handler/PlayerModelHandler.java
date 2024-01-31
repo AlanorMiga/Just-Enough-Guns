@@ -1,7 +1,5 @@
 package ttv.alanorMiga.jeg.client.handler;
 
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.item.GunItem;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.InteractionHand;
@@ -9,6 +7,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.item.GunItem;
 
 /**
  * Author: MrCrayfish
@@ -37,7 +37,7 @@ public class PlayerModelHandler
     @SubscribeEvent
     public void onRenderPlayer(RenderPlayerEvent.Pre event)
     {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack heldItem = player.getMainHandItem();
         if(!heldItem.isEmpty() && heldItem.getItem() instanceof GunItem)
         {
@@ -51,7 +51,7 @@ public class PlayerModelHandler
     {
         /* Makes sure the model part positions reset back to original definitions */
         PlayerModel<AbstractClientPlayer> model = event.getRenderer().getModel();
-        boolean slim = ((AbstractClientPlayer) event.getPlayer()).getModelName().equals("slim");
+        boolean slim = ((AbstractClientPlayer) event.getEntity()).getModelName().equals("slim");
         model.rightArm.x = -5.0F;
         model.rightArm.y = slim ? 2.5F : 2.0F;
         model.rightArm.z = 0.0F;

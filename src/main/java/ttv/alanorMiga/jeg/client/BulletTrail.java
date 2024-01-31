@@ -1,13 +1,13 @@
 package ttv.alanorMiga.jeg.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
@@ -17,22 +17,22 @@ import java.lang.ref.WeakReference;
  */
 public class BulletTrail
 {
-    private int entityId;
+    private final int entityId;
     private Vec3 position;
     private Vec3 motion;
     private float yaw;
     private float pitch;
     private boolean dead;
-    private ItemStack item;
-    private int trailColor;
-    private double trailLengthMultiplier;
+    private final ItemStack item;
+    private final int trailColor;
+    private final double trailLengthMultiplier;
     private int age;
-    private int maxAge;
-    private double gravity;
-    private int shooterId;
+    private final int maxAge;
+    private final double gravity;
+    private final int shooterId;
     private WeakReference<Entity> shooter;
-    private boolean enchanted;
-    private ParticleOptions particleData;
+    private final boolean enchanted;
+    private final ParticleOptions particleData;
     private float size;
 
     public BulletTrail(int entityId, Vec3 position, Vec3 motion, ItemStack item, int trailColor, double trailMultiplier, int maxAge, double gravity, int shooterId, boolean enchanted, ParticleOptions particleData)
@@ -55,7 +55,7 @@ public class BulletTrail
     {
         float horizontalLength = Mth.sqrt((float) (this.motion.x * this.motion.x + this.motion.z * this.motion.z));
         this.yaw = (float) Math.toDegrees(Mth.atan2(this.motion.x, this.motion.z));
-        this.pitch = (float) Math.toDegrees(Mth.atan2(this.motion.y, (double) horizontalLength));
+        this.pitch = (float) Math.toDegrees(Mth.atan2(this.motion.y, horizontalLength));
     }
 
     public void tick()

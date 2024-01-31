@@ -1,51 +1,43 @@
 package ttv.alanorMiga.jeg.event.loot;
 
-import com.google.gson.JsonObject;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
 public class ScrapOnSimpleDungeonModifier extends LootModifier {
-    private final Item addition;
+    public static final Supplier<Codec<ScrapOnSimpleDungeonModifier>> CODEC = Suppliers.memoize(()
+            -> RecordCodecBuilder.create(inst -> codecStart(inst).and(ForgeRegistries.ITEMS.getCodec()
+            .fieldOf("item").forGetter(m -> m.item)).apply(inst, ScrapOnSimpleDungeonModifier::new)));
+    private final Item item;
 
-    protected ScrapOnSimpleDungeonModifier(LootItemCondition[] conditionsIn, Item addition) {
+    protected ScrapOnSimpleDungeonModifier(LootItemCondition[] conditionsIn, Item item) {
         super(conditionsIn);
-        this.addition = addition;
+        this.item = item;
     }
 
-    @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if(context.getRandom().nextFloat() > 0.25F) { //75% chance of the item spawning in.
             int random = new Random().nextInt(6) + 1; //Min 1, Max 6.
-            generatedLoot.add(new ItemStack(addition, random));
+            generatedLoot.add(new ItemStack(item, random));
         }
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<ScrapOnSimpleDungeonModifier> {
-
-        @Override
-        public ScrapOnSimpleDungeonModifier read(ResourceLocation name, JsonObject object, LootItemCondition[] conditionsIn) {
-            Item addition = ForgeRegistries.ITEMS.getValue(new ResourceLocation(GsonHelper.getAsString(object, "addition")));
-            return new ScrapOnSimpleDungeonModifier(conditionsIn, addition);
-        }
-
-        @Override
-        public JsonObject write(ScrapOnSimpleDungeonModifier instance) {
-            JsonObject json = makeConditions(instance.conditions);
-            json.addProperty("addition", ForgeRegistries.ITEMS.getKey(instance.addition).toString());
-            return json;
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

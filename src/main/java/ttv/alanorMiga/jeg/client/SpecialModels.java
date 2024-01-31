@@ -4,9 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ForgeModelBakery;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.alanorMiga.jeg.Reference;
@@ -100,9 +98,9 @@ public enum SpecialModels {
      * load of the game.
      */
     @SubscribeEvent
-    public static void register(ModelRegistryEvent event) {
+    public static void register(ModelEvent.RegisterAdditional event) {
         for (SpecialModels model : values()) {
-            ForgeModelBakery.addSpecialModel(model.modelLocation);
+            event.register(model.modelLocation);
         }
     }
 
@@ -111,7 +109,7 @@ public enum SpecialModels {
      * have changed when a resource pack was applied, or if resources are reloaded.
      */
     @SubscribeEvent
-    public static void onBake(ModelBakeEvent event) {
+    public static void onBake(ModelEvent.BakingCompleted event) {
         for (SpecialModels model : values()) {
             model.cachedModel = null;
         }

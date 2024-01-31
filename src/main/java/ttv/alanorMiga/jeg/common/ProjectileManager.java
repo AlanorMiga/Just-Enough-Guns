@@ -1,10 +1,11 @@
 package ttv.alanorMiga.jeg.common;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 import ttv.alanorMiga.jeg.init.ModEntities;
 import ttv.alanorMiga.jeg.interfaces.IProjectileFactory;
-import net.minecraft.world.item.Item;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class ProjectileManager
      */
     public void registerFactory(Item ammo, IProjectileFactory factory)
     {
-        this.projectileFactoryMap.put(ammo.getRegistryName(), factory);
+        this.projectileFactoryMap.put(ForgeRegistries.ITEMS.getKey(ammo), factory);
     }
 
     /**

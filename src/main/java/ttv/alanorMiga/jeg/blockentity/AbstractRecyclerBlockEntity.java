@@ -7,6 +7,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import ttv.alanorMiga.jeg.crafting.AbstractRecyclingRecipe;
 
 import javax.annotation.Nullable;
@@ -160,7 +162,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
         add(map, Items.STICK, 100);
         add(map, ItemTags.SAPLINGS, 100);
         add(map, Items.BOWL, 100);
-        add(map, ItemTags.CARPETS, 67);
+        add(map, ItemTags.WOOL_CARPETS, 67);
         add(map, Blocks.DRIED_KELP_BLOCK, 4001);
         add(map, Items.CROSSBOW, 300);
         add(map, Blocks.BAMBOO, 50);
@@ -182,7 +184,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
     }
 
     private static void add(Map<Item, Integer> p_204303_, TagKey<Item> p_204304_, int p_204305_) {
-        for (Holder<Item> holder : Registry.ITEM.getTagOrEmpty(p_204304_)) {
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(p_204304_)) {
             if (!isNeverARecyclerFuel(holder.value())) {
                 p_204303_.put(holder.value(), p_204305_);
             }
@@ -194,7 +196,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
         Item item = p_58376_.asItem();
         if (isNeverARecyclerFuel(item)) {
             if (SharedConstants.IS_RUNNING_IN_IDE) {
-                throw (IllegalStateException) Util.pauseInIde(new IllegalStateException("A developer tried to explicitly make fire resistant item " + item.getName((ItemStack) null).getString() + " a recycler fuel. That will not work!"));
+                throw Util.pauseInIde(new IllegalStateException("A developer tried to explicitly make fire resistant item " + item.getName(null).getString() + " a recycler fuel. That will not work!"));
             }
         } else {
             p_58375_.put(item, p_58377_);
@@ -248,29 +250,29 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
 
         ItemStack itemstack = p_155017_.items.get(1);
         if (p_155017_.isLit() || !itemstack.isEmpty() && !p_155017_.items.get(0).isEmpty()) {
-            if (!p_155017_.isLit() && p_155017_.canBurn(recipe, p_155017_.items, i)) {
+            if (!p_155017_.isLit() && p_155017_.canBurn(p_155014_.registryAccess(), recipe, p_155017_.items, i)) {
                 p_155017_.litTime = p_155017_.getBurnDuration(itemstack);
                 p_155017_.litDuration = p_155017_.litTime;
                 if (p_155017_.isLit()) {
                     flag1 = true;
-                    if (itemstack.hasContainerItem())
-                        p_155017_.items.set(1, itemstack.getContainerItem());
+                    if (itemstack.hasCraftingRemainingItem())
+                        p_155017_.items.set(1, itemstack.getCraftingRemainingItem());
                     else if (!itemstack.isEmpty()) {
                         Item item = itemstack.getItem();
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            p_155017_.items.set(1, itemstack.getContainerItem());
+                            p_155017_.items.set(1, itemstack.getCraftingRemainingItem());
                         }
                     }
                 }
             }
 
-            if (p_155017_.isLit() && p_155017_.canBurn(recipe, p_155017_.items, i)) {
+            if (p_155017_.isLit() && p_155017_.canBurn(p_155014_.registryAccess(), recipe, p_155017_.items, i)) {
                 ++p_155017_.recyclingProgress;
                 if (p_155017_.recyclingProgress == p_155017_.recyclingTotalTime) {
                     p_155017_.recyclingProgress = 0;
                     p_155017_.recyclingTotalTime = getTotalRecyclingTime(p_155014_, p_155017_.recipeType, p_155017_);
-                    if (p_155017_.burn(recipe, p_155017_.items, i)) {
+                    if (p_155017_.burn(p_155014_.registryAccess(), recipe, p_155017_.items, i)) {
                         p_155017_.setRecipeUsed(recipe);
                     }
 
@@ -295,9 +297,9 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
 
     }
 
-    private boolean canBurn(@Nullable Recipe<?> p_155006_, NonNullList<ItemStack> p_155007_, int p_155008_) {
+    private boolean canBurn(RegistryAccess access, @Nullable Recipe<?> p_155006_, NonNullList<ItemStack> p_155007_, int p_155008_) {
         if (!p_155007_.get(0).isEmpty() && p_155006_ != null) {
-            ItemStack itemstack = ((Recipe<WorldlyContainer>) p_155006_).assemble(this);
+            ItemStack itemstack = ((Recipe<WorldlyContainer>) p_155006_).assemble(this, access);
             if (itemstack.isEmpty()) {
                 return false;
             } else {
@@ -317,10 +319,10 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
         }
     }
 
-    private boolean burn(@Nullable Recipe<?> p_155027_, NonNullList<ItemStack> p_155028_, int p_155029_) {
-        if (p_155027_ != null && this.canBurn(p_155027_, p_155028_, p_155029_)) {
+    private boolean burn(RegistryAccess access, @Nullable Recipe<?> p_155027_, NonNullList<ItemStack> p_155028_, int p_155029_) {
+        if (p_155027_ != null && this.canBurn(access, p_155027_, p_155028_, p_155029_)) {
             ItemStack itemstack = p_155028_.get(0);
-            ItemStack itemstack1 = ((Recipe<WorldlyContainer>) p_155027_).assemble(this);
+            ItemStack itemstack1 = ((Recipe<WorldlyContainer>) p_155027_).assemble(this, access);
             ItemStack itemstack2 = p_155028_.get(2);
             if (itemstack2.isEmpty()) {
                 p_155028_.set(2, itemstack1.copy());
@@ -498,7 +500,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
 
     @Override
     public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing) {
-        if (!this.remove && facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (!this.remove && facing != null && capability == ForgeCapabilities.ITEM_HANDLER) {
             if (facing == Direction.UP)
                 return handlers[0].cast();
             else if (facing == Direction.DOWN)

@@ -1,7 +1,7 @@
 package ttv.alanorMiga.jeg.debug.client.screen.widget;
 
+import net.minecraft.network.chat.Component;
 import ttv.alanorMiga.jeg.debug.IDebugWidget;
-import net.minecraft.network.chat.TextComponent;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class DebugToggle extends DebugButton implements IDebugWidget
 
     public DebugToggle(boolean initialValue, Consumer<Boolean> callback)
     {
-        super(TextComponent.EMPTY, btn -> ((DebugToggle) btn).toggle());
+        super(Component.empty(), btn -> ((DebugToggle) btn).toggle());
         this.enabled = initialValue;
         this.callback = callback;
         this.updateMessage();
@@ -30,6 +30,6 @@ public class DebugToggle extends DebugButton implements IDebugWidget
 
     private void updateMessage()
     {
-        this.setMessage(this.enabled ? new TextComponent("On") : new TextComponent("Off"));
+        this.setMessage(this.enabled ? Component.literal("On") : Component.literal("Off"));
     }
 }

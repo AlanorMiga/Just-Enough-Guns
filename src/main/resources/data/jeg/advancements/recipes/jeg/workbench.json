@@ -2,28 +2,28 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "jeg:workbench"
+      "jeg:scrap_workbench"
     ]
   },
   "criteria": {
-    "has_concrete": {
+    "has_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:planks"
+          }
+        ]
+      }
+    },
+    "has_sticks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:light_gray_concrete"
+              "minecraft:stick"
             ]
-          }
-        ]
-      }
-    },
-    "has_iron": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:ingots/iron"
           }
         ]
       }
@@ -37,8 +37,8 @@
   },
   "requirements": [
     [
-      "has_concrete",
-      "has_iron",
+      "has_planks",
+      "has_sticks",
       "has_the_recipe"
     ]
   ]

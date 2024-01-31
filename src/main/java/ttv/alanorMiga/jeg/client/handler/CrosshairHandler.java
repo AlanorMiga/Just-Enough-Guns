@@ -2,6 +2,16 @@ package ttv.alanorMiga.jeg.client.handler;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.Reference;
 import ttv.alanorMiga.jeg.client.render.crosshair.Crosshair;
@@ -9,16 +19,6 @@ import ttv.alanorMiga.jeg.client.render.crosshair.TechCrosshair;
 import ttv.alanorMiga.jeg.client.render.crosshair.TexturedCrosshair;
 import ttv.alanorMiga.jeg.event.GunFireEvent;
 import ttv.alanorMiga.jeg.item.GunItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -109,9 +109,9 @@ public class CrosshairHandler
     }
 
     @SubscribeEvent
-    public void onRenderOverlay(RenderGameOverlayEvent.PreLayer event)
+    public void onRenderOverlay(RenderGuiOverlayEvent.Pre event)
     {
-        if(event.getOverlay() != ForgeIngameGui.CROSSHAIR_ELEMENT)
+        if(event.getOverlay() != VanillaGuiOverlay.CROSSHAIR.type())
             return;
 
         Crosshair crosshair = this.getCurrentCrosshair();
@@ -142,11 +142,11 @@ public class CrosshairHandler
         if(mc.player.getUseItem().getItem() == Items.SHIELD)
             return;
 
-        PoseStack stack = event.getMatrixStack();
+        PoseStack stack = event.getPoseStack();
         stack.pushPose();
         int scaledWidth = event.getWindow().getGuiScaledWidth();
         int scaledHeight = event.getWindow().getGuiScaledHeight();
-        crosshair.render(mc, stack, scaledWidth, scaledHeight, event.getPartialTicks());
+        crosshair.render(mc, stack, scaledWidth, scaledHeight, event.getPartialTick());
         stack.popPose();
     }
 

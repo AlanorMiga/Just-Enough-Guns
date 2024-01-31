@@ -1,6 +1,6 @@
 package ttv.alanorMiga.jeg.debug.client.screen.widget;
 
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.function.Consumer;
@@ -16,7 +16,7 @@ public class DebugEnum<T extends Enum<T> & StringRepresentable> extends DebugBut
 
     public DebugEnum(Class<T> enumClass, T currentValue, Consumer<T> callback)
     {
-        super(new TextComponent(currentValue.getSerializedName()), btn -> ((DebugEnum<T>) btn).next());
+        super(Component.literal(currentValue.getSerializedName()), btn -> ((DebugEnum<T>) btn).next());
         this.enumClass = enumClass;
         this.callback = callback;
         this.ordinal = currentValue.ordinal();
@@ -27,7 +27,7 @@ public class DebugEnum<T extends Enum<T> & StringRepresentable> extends DebugBut
         int nextIndex = (this.ordinal + 1) % this.enumClass.getEnumConstants().length;
         T value = this.enumClass.getEnumConstants()[nextIndex];
         this.ordinal = value.ordinal();
-        this.setMessage(new TextComponent(value.getSerializedName()));
+        this.setMessage(Component.literal(value.getSerializedName()));
         this.callback.accept(value);
     }
 }

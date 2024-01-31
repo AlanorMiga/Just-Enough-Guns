@@ -1,19 +1,20 @@
 package ttv.alanorMiga.jeg.client.audio;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.init.ModEffects;
 import ttv.alanorMiga.jeg.init.ModSounds;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.sounds.SoundSource;
 
 public class StunRingingSound extends AbstractTickableSoundInstance
 {
     public StunRingingSound()
     {
-        super(ModSounds.ENTITY_STUN_GRENADE_RING.get(), SoundSource.MASTER);
+        super(ModSounds.ENTITY_STUN_GRENADE_RING.get(), SoundSource.MASTER, SoundInstance.createUnseededRandom());
         this.looping = true;
         this.attenuation = Attenuation.NONE;
         this.tick();

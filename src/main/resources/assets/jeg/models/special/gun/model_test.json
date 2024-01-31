@@ -3,11 +3,11 @@
 	"parent": "builtin/entity",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "jeg:items/semi_auto_rifle",
-		"2": "jeg:items/revolver",
-		"1_1": "jeg:items/scar_l",
-		"particle": "jeg:items/g36",
-		"2_1": "jeg:items/g36"
+		"1": "jeg:item/semi_auto_rifle",
+		"2": "jeg:item/revolver",
+		"1_1": "jeg:item/scar_l",
+		"particle": "jeg:item/g36",
+		"2_1": "jeg:item/g36"
 	},
 	"elements": [
 		{

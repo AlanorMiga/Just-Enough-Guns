@@ -66,7 +66,7 @@ public class ScrapWorkbenchBlock extends RotatedObjectBlock implements EntityBlo
             BlockEntity tileEntity = world.getBlockEntity(pos);
             if(tileEntity instanceof MenuProvider)
             {
-                NetworkHooks.openGui((ServerPlayer) playerEntity, (MenuProvider) tileEntity, pos);
+                NetworkHooks.openScreen((ServerPlayer) playerEntity, (MenuProvider) tileEntity, pos);
             }
         }
         return InteractionResult.SUCCESS;

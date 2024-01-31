@@ -1,17 +1,7 @@
 package ttv.alanorMiga.jeg.debug;
 
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.client.ClientHandler;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.debug.client.screen.widget.DebugButton;
-import ttv.alanorMiga.jeg.debug.client.screen.widget.DebugToggle;
-import ttv.alanorMiga.jeg.item.GunItem;
-import ttv.alanorMiga.jeg.item.ScopeItem;
-import ttv.alanorMiga.jeg.item.attachment.impl.Scope;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,6 +10,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.client.ClientHandler;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.debug.client.screen.widget.DebugButton;
+import ttv.alanorMiga.jeg.debug.client.screen.widget.DebugToggle;
+import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.item.ScopeItem;
+import ttv.alanorMiga.jeg.item.attachment.impl.Scope;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +71,7 @@ public class Debug
         @Override
         public Component getEditorLabel()
         {
-            return new TextComponent("Editor Menu");
+            return Component.literal("Editor Menu");
         }
 
         @Override
@@ -83,11 +81,11 @@ public class Debug
                 ItemStack heldItem = Objects.requireNonNull(Minecraft.getInstance().player).getMainHandItem();
                 if(heldItem.getItem() instanceof GunItem gunItem)
                 {
-                    widgets.add(Pair.of(new TranslatableComponent(gunItem.getDescriptionId()), () -> new DebugButton(new TextComponent("Edit"), btn -> {
+                    widgets.add(Pair.of(Component.translatable(gunItem.getDescriptionId()), () -> new DebugButton(Component.literal("Edit"), btn -> {
                         Minecraft.getInstance().setScreen(ClientHandler.createEditorScreen(getGun(gunItem)));
                     })));
                 }
-                widgets.add(Pair.of(new TextComponent("Settings"), () -> new DebugButton(new TextComponent(">"), btn -> {
+                widgets.add(Pair.of(Component.literal("Settings"), () -> new DebugButton(Component.literal(">"), btn -> {
                     Minecraft.getInstance().setScreen(ClientHandler.createEditorScreen(new Settings()));
                 })));
             });
@@ -99,14 +97,14 @@ public class Debug
         @Override
         public Component getEditorLabel()
         {
-            return new TextComponent("Settings");
+            return Component.literal("Settings");
         }
 
         @Override
         public void getEditorWidgets(List<Pair<Component, Supplier<IDebugWidget>>> widgets)
         {
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                widgets.add(Pair.of(new TextComponent("Force Aim"), () -> new DebugToggle(Debug.forceAim, value -> Debug.forceAim = value)));
+                widgets.add(Pair.of(Component.literal("Force Aim"), () -> new DebugToggle(Debug.forceAim, value -> Debug.forceAim = value)));
             });
         }
     }

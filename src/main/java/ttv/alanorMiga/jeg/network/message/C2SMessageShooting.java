@@ -1,12 +1,10 @@
 package ttv.alanorMiga.jeg.network.message;
 
-import com.mrcrayfish.framework.api.network.PlayMessage;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
 
 /**
  * Author: MrCrayfish
@@ -35,16 +33,16 @@ public class C2SMessageShooting extends PlayMessage<C2SMessageShooting>
     }
 
     @Override
-    public void handle(C2SMessageShooting message, Supplier<NetworkEvent.Context> supplier)
+    public void handle(C2SMessageShooting message, MessageContext context)
     {
-        supplier.get().enqueueWork(() ->
+        context.execute(() ->
         {
-            ServerPlayer player = supplier.get().getSender();
+            ServerPlayer player = context.getPlayer();
             if(player != null)
             {
                 ModSyncedDataKeys.SHOOTING.setValue(player, message.shooting);
             }
         });
-        supplier.get().setPacketHandled(true);
+        context.setHandled(true);
     }
 }

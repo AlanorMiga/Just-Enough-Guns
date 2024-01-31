@@ -111,7 +111,7 @@ public class RecyclerBlock extends AbstractRecyclerBlock {
         if (p_53635_.getValue(LIT))
         {
             double d0 = (double) p_53637_.getX() + 0.5D;
-            double d1 = (double) p_53637_.getY();
+            double d1 = p_53637_.getY();
             double d2 = (double) p_53637_.getZ() + 0.5D;
             if (p_53638_.nextDouble() < 0.1D) {
                 p_53636_.playLocalSound(d0, d1, d2, ModSounds.RECYCLER_SHREDDING.get(), SoundSource.BLOCKS, 0.2F, 1.0F, false);

@@ -1,12 +1,12 @@
 package ttv.alanorMiga.jeg.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import ttv.alanorMiga.jeg.client.handler.GunRenderingHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import ttv.alanorMiga.jeg.client.handler.GunRenderingHandler;
 
 /**
  * Author: MrCrayfish
@@ -19,7 +19,7 @@ public class GunItemStackRenderer extends BlockEntityWithoutLevelRenderer
     }
 
     @Override
-    public void renderByItem(ItemStack stack, ItemTransforms.TransformType transform, PoseStack poseStack, MultiBufferSource source, int light, int overlay)
+    public void renderByItem(ItemStack stack, ItemDisplayContext display, PoseStack poseStack, MultiBufferSource source, int light, int overlay)
     {
         // Hack to remove transforms created by ItemRenderer#render
         poseStack.popPose();
@@ -27,11 +27,11 @@ public class GunItemStackRenderer extends BlockEntityWithoutLevelRenderer
         poseStack.pushPose();
         {
             Minecraft mc = Minecraft.getInstance();
-            if(transform == ItemTransforms.TransformType.GROUND)
+            if(display == ItemDisplayContext.GROUND)
             {
                 GunRenderingHandler.get().applyWeaponScale(stack, poseStack);
             }
-            GunRenderingHandler.get().renderWeapon(mc.player, stack, transform, poseStack, source, light, Minecraft.getInstance().getDeltaFrameTime());
+            GunRenderingHandler.get().renderWeapon(mc.player, stack, display, poseStack, source, light, Minecraft.getInstance().getDeltaFrameTime());
         }
         poseStack.popPose();
 

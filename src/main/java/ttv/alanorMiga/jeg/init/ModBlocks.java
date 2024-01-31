@@ -9,7 +9,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import ttv.alanorMiga.jeg.JustEnoughGuns;
 import ttv.alanorMiga.jeg.Reference;
 import ttv.alanorMiga.jeg.block.GunmetalWorkbenchBlock;
 import ttv.alanorMiga.jeg.block.GunniteWorkbenchBlock;
@@ -80,7 +79,7 @@ public class ModBlocks {
                     .lightLevel(light_Level_3)));
 
     private static <T extends Block> RegistryObject<T> register(String id, Supplier<T> blockSupplier) {
-        return register(id, blockSupplier, block1 -> new BlockItem(block1, new Item.Properties().tab(JustEnoughGuns.GROUP)));
+        return register(id, blockSupplier, block1 -> new BlockItem(block1, new Item.Properties()));
     }
 
     private static <T extends Block> RegistryObject<T> register(String id, Supplier<T> blockSupplier, @Nullable Function<T, BlockItem> supplier) {

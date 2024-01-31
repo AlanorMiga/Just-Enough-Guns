@@ -1,20 +1,18 @@
 package ttv.alanorMiga.jeg.network.message;
 
-import com.mrcrayfish.framework.api.network.PlayMessage;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import ttv.alanorMiga.jeg.client.network.ClientPlayHandler;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 import ttv.alanorMiga.jeg.network.BufferUtil;
-import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 /**
  * Author: MrCrayfish
@@ -89,7 +87,7 @@ public class S2CMessageBulletTrail extends PlayMessage<S2CMessageBulletTrail>
         buffer.writeDouble(message.gravity);
         buffer.writeInt(message.shooterId);
         buffer.writeBoolean(message.enchanted);
-        buffer.writeInt(Registry.PARTICLE_TYPE.getId(message.particleData.getType()));
+        buffer.writeId(BuiltInRegistries.PARTICLE_TYPE, message.particleData.getType());
         message.particleData.writeToNetwork(buffer);
     }
 
@@ -113,22 +111,22 @@ public class S2CMessageBulletTrail extends PlayMessage<S2CMessageBulletTrail>
         double gravity = buffer.readDouble();
         int shooterId = buffer.readInt();
         boolean enchanted = buffer.readBoolean();
-        ParticleType<?> type = Registry.PARTICLE_TYPE.byId(buffer.readInt());
+        ParticleType<?> type = buffer.readById(BuiltInRegistries.PARTICLE_TYPE);
         if (type == null) type = ParticleTypes.CRIT;
         ParticleOptions particleData = this.readParticle(buffer, type);
         return new S2CMessageBulletTrail(entityIds, positions, motions, item, trailColor, trailLengthMultiplier, life, gravity,shooterId, enchanted, particleData);
     }
 
+    @Override
+    public void handle(S2CMessageBulletTrail message, MessageContext context)
+    {
+        context.execute(() -> ClientPlayHandler.handleMessageBulletTrail(message));
+        context.setHandled(true);
+    }
+
     private <T extends ParticleOptions> T readParticle(FriendlyByteBuf buffer, ParticleType<T> type)
     {
         return type.getDeserializer().fromNetwork(type, buffer);
-    }
-
-    @Override
-    public void handle(S2CMessageBulletTrail message, Supplier<NetworkEvent.Context> supplier)
-    {
-        supplier.get().enqueueWork(() -> ClientPlayHandler.handleMessageBulletTrail(message));
-        supplier.get().setPacketHandled(true);
     }
 
     public int getCount()

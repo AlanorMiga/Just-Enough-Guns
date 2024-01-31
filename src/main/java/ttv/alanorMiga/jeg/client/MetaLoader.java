@@ -1,9 +1,8 @@
 package ttv.alanorMiga.jeg.client;
 
-import com.mrcrayfish.framework.api.client.resources.IDataLoader;
-import com.mrcrayfish.framework.api.client.resources.IResourceSupplier;
 import com.mrcrayfish.framework.api.serialize.DataObject;
-import ttv.alanorMiga.jeg.item.IMeta;
+import com.mrcrayfish.framework.client.resources.IDataLoader;
+import com.mrcrayfish.framework.client.resources.IResourceSupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenCustomHashMap;
 import net.minecraft.Util;
@@ -11,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
+import ttv.alanorMiga.jeg.item.IMeta;
 
 import java.util.ArrayList;
 import java.util.List;

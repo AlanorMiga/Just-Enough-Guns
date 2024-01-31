@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "jeg:items/scar_l"
+		"1": "jeg:item/scar_l"
 	},
 	"elements": [
 		{

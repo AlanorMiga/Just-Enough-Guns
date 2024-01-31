@@ -2,7 +2,7 @@
 	"credit": "Model by MrCrayfish (https://twitter.com/MrCrayfish) using Blockbench. All Rights Reserved.",
 	"textures": {
 		"2": "jeg:effect/scope_vignette",
-		"4": "jeg:items/scopes",
+		"4": "jeg:item/scopes",
 		"5": "jeg:effect/holo_reticle",
 		"particle": "jeg:effect/scope_vignette"
 	},

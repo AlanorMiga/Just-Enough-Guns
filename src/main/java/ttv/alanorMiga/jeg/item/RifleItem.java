@@ -33,7 +33,7 @@ public class RifleItem extends GunItem {
 
     @SubscribeEvent
     public void onReequipAnimation(PlayerEvent.ItemPickupEvent event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack mainHandItem = player.getMainHandItem();
         Gun gun = ((GunItem) mainHandItem.getItem()).getModifiedGun(mainHandItem);
         if (!cooldownActive) {

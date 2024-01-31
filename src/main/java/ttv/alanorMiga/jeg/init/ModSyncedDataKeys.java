@@ -1,12 +1,11 @@
 package ttv.alanorMiga.jeg.init;
 
-import com.mrcrayfish.framework.api.FrameworkAPI;
-import com.mrcrayfish.framework.api.data.sync.Serializers;
-import com.mrcrayfish.framework.api.data.sync.SyncedClassKey;
-import com.mrcrayfish.framework.api.data.sync.SyncedDataKey;
-import ttv.alanorMiga.jeg.Reference;
+import com.mrcrayfish.framework.api.sync.Serializers;
+import com.mrcrayfish.framework.api.sync.SyncedClassKey;
+import com.mrcrayfish.framework.api.sync.SyncedDataKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import ttv.alanorMiga.jeg.Reference;
 
 /**
  * Author: MrCrayfish
@@ -37,10 +36,4 @@ public class ModSyncedDataKeys
             .resetOnDeath()
             .build();
 
-    public static void register()
-    {
-        FrameworkAPI.registerSyncedDataKey(AIMING);
-        FrameworkAPI.registerSyncedDataKey(SHOOTING);
-        FrameworkAPI.registerSyncedDataKey(RELOADING);
-    }
 }

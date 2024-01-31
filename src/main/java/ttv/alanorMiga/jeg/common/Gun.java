@@ -6,9 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -78,7 +76,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
     @Override
     public Component getEditorLabel()
     {
-        return new TextComponent("Gun");
+        return Component.translatable("Gun");
     }
 
     @Override
@@ -89,12 +87,12 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             ItemStack scope = Gun.getScopeStack(heldItem);
             if(scope.getItem() instanceof ScopeItem scopeItem)
             {
-                widgets.add(Pair.of(scope.getItem().getName(scope), () -> new DebugButton(new TextComponent("Edit"), btn -> {
+                widgets.add(Pair.of(scope.getItem().getName(scope), () -> new DebugButton(Component.translatable("Edit"), btn -> {
                     Minecraft.getInstance().setScreen(ClientHandler.createEditorScreen(Debug.getScope(scopeItem)));
                 })));
             }
 
-            widgets.add(Pair.of(this.modules.getEditorLabel(), () -> new DebugButton(new TextComponent(">"), btn -> {
+            widgets.add(Pair.of(this.modules.getEditorLabel(), () -> new DebugButton(Component.translatable(">"), btn -> {
                 Minecraft.getInstance().setScreen(ClientHandler.createEditorScreen(this.modules));
             })));
         });
@@ -950,14 +948,14 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         @Override
         public Component getEditorLabel()
         {
-            return new TextComponent("Modules");
+            return Component.translatable("Modules");
         }
 
         @Override
         public void getEditorWidgets(List<Pair<Component, Supplier<IDebugWidget>>> widgets)
         {
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                widgets.add(Pair.of(new TextComponent("Enabled Iron Sights"), () -> new DebugToggle(this.zoom != null, val -> {
+                widgets.add(Pair.of(Component.translatable("Enabled Iron Sights"), () -> new DebugToggle(this.zoom != null, val -> {
                     if(val) {
                         if(this.cachedZoom != null) {
                             this.zoom = this.cachedZoom;
@@ -971,7 +969,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                     }
                 })));
 
-                widgets.add(Pair.of(new TextComponent("Adjust Iron Sights"), () -> new DebugButton(new TextComponent(">"), btn -> {
+                widgets.add(Pair.of(Component.translatable("Adjust Iron Sights"), () -> new DebugButton(Component.translatable(">"), btn -> {
                     if(btn.active && this.zoom != null) {
                         Minecraft.getInstance().setScreen(ClientHandler.createEditorScreen(this.zoom));
                     }
@@ -1022,14 +1020,14 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             @Override
             public Component getEditorLabel()
             {
-                return new TextComponent("Zoom");
+                return Component.translatable("Zoom");
             }
 
             @Override
             public void getEditorWidgets(List<Pair<Component, Supplier<IDebugWidget>>> widgets)
             {
                 DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                    widgets.add(Pair.of(new TextComponent("FOV Modifier"), () -> new DebugSlider(0.0, 1.0, this.fovModifier, 0.01, 3, val -> {
+                    widgets.add(Pair.of(Component.translatable("FOV Modifier"), () -> new DebugSlider(0.0, 1.0, this.fovModifier, 0.01, 3, val -> {
                         this.fovModifier = val.floatValue();
                     })));
                 });
@@ -1765,7 +1763,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
 
     public static boolean isAmmo(ItemStack stack, ResourceLocation id)
     {
-        return stack != null && stack.getItem().getRegistryName().equals(id);
+        return stack != null && Objects.equals(ForgeRegistries.ITEMS.getKey(stack.getItem()), id);
     }
 
     public static boolean hasAmmo(ItemStack gunStack)
@@ -1786,7 +1784,6 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                 {
                     return Mth.clamp(scope.getFovModifier(), 0.01F, 1.0F);
                 }
-                modifier -= scope.getAdditionalZoom();
             }
         }
         Modules.Zoom zoom = modifiedGun.getModules().getZoom();
@@ -1916,7 +1913,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
 
         public Builder setAmmo(Item item)
         {
-            this.gun.projectile.item = item.getRegistryName();
+            this.gun.projectile.item = ForgeRegistries.ITEMS.getKey(item);
             return this;
         }
 
@@ -1968,54 +1965,6 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        public Builder setReduceDamageOverLife(boolean damageReduceOverLife)
-        {
-            this.gun.projectile.damageReduceOverLife = damageReduceOverLife;
-            return this;
-        }
-
-        public Builder setFireSound(SoundEvent sound)
-        {
-            this.gun.sounds.fire = sound.getRegistryName();
-            return this;
-        }
-
-        public Builder setReloadSound(SoundEvent sound)
-        {
-            this.gun.sounds.reload = sound.getRegistryName();
-            return this;
-        }
-
-        public Builder setCockSound(SoundEvent sound)
-        {
-            this.gun.sounds.cock = sound.getRegistryName();
-            return this;
-        }
-
-        public Builder setSilencedFireSound(SoundEvent sound)
-        {
-            this.gun.sounds.silencedFire = sound.getRegistryName();
-            return this;
-        }
-
-        public Builder setEnchantedFireSound(SoundEvent sound)
-        {
-            this.gun.sounds.enchantedFire = sound.getRegistryName();
-            return this;
-        }
-
-        @Deprecated(since = "1.3.0", forRemoval = true)
-        public Builder setMuzzleFlash(double size, double xOffset, double yOffset, double zOffset)
-        {
-            Display.Flash flash = new Display.Flash();
-            flash.size = size;
-            flash.xOffset = xOffset;
-            flash.yOffset = yOffset;
-            flash.zOffset = zOffset;
-            this.gun.display.flash = flash;
-            return this;
-        }
-
         public Builder setZoom(float fovModifier, double xOffset, double yOffset, double zOffset)
         {
             Modules.Zoom zoom = new Modules.Zoom();
@@ -2024,61 +1973,6 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             zoom.yOffset = yOffset;
             zoom.zOffset = zOffset;
             this.gun.modules.zoom = zoom;
-            return this;
-        }
-
-        @Deprecated(since = "1.3.0", forRemoval = true)
-        public Builder setZoom(Modules.Zoom.Builder builder)
-        {
-            this.gun.modules.zoom = builder.build();
-            return this;
-        }
-
-        @Deprecated(since = "1.3.0", forRemoval = true)
-        public Builder setScope(float scale, double xOffset, double yOffset, double zOffset)
-        {
-            ScaledPositioned positioned = new ScaledPositioned();
-            positioned.scale = scale;
-            positioned.xOffset = xOffset;
-            positioned.yOffset = yOffset;
-            positioned.zOffset = zOffset;
-            this.gun.modules.attachments.scope = positioned;
-            return this;
-        }
-
-        @Deprecated(since = "1.3.0", forRemoval = true)
-        public Builder setBarrel(float scale, double xOffset, double yOffset, double zOffset)
-        {
-            ScaledPositioned positioned = new ScaledPositioned();
-            positioned.scale = scale;
-            positioned.xOffset = xOffset;
-            positioned.yOffset = yOffset;
-            positioned.zOffset = zOffset;
-            this.gun.modules.attachments.barrel = positioned;
-            return this;
-        }
-
-        @Deprecated(since = "1.3.0", forRemoval = true)
-        public Builder setStock(float scale, double xOffset, double yOffset, double zOffset)
-        {
-            ScaledPositioned positioned = new ScaledPositioned();
-            positioned.scale = scale;
-            positioned.xOffset = xOffset;
-            positioned.yOffset = yOffset;
-            positioned.zOffset = zOffset;
-            this.gun.modules.attachments.stock = positioned;
-            return this;
-        }
-
-        @Deprecated(since = "1.3.0", forRemoval = true)
-        public Builder setUnderBarrel(float scale, double xOffset, double yOffset, double zOffset)
-        {
-            ScaledPositioned positioned = new ScaledPositioned();
-            positioned.scale = scale;
-            positioned.xOffset = xOffset;
-            positioned.yOffset = yOffset;
-            positioned.zOffset = zOffset;
-            this.gun.modules.attachments.underBarrel = positioned;
             return this;
         }
     }

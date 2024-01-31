@@ -1,15 +1,13 @@
 package ttv.alanorMiga.jeg.network.message;
 
-import com.mrcrayfish.framework.api.network.PlayMessage;
-import ttv.alanorMiga.jeg.event.GunReloadEvent;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import ttv.alanorMiga.jeg.event.GunReloadEvent;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
 
 /**
  * Author: MrCrayfish
@@ -38,11 +36,11 @@ public class C2SMessageReload extends PlayMessage<C2SMessageReload>
     }
 
     @Override
-    public void handle(C2SMessageReload message, Supplier<NetworkEvent.Context> supplier)
+    public void handle(C2SMessageReload message, MessageContext context)
     {
-        supplier.get().enqueueWork(() ->
+        context.execute(() ->
         {
-            ServerPlayer player = supplier.get().getSender();
+            ServerPlayer player = context.getPlayer();
             if(player != null && !player.isSpectator())
             {
                 ModSyncedDataKeys.RELOADING.setValue(player, message.reload); // This has to be set in order to verify the packet is sent if the event is cancelled
@@ -58,6 +56,6 @@ public class C2SMessageReload extends PlayMessage<C2SMessageReload>
                 MinecraftForge.EVENT_BUS.post(new GunReloadEvent.Post(player, gun));
             }
         });
-        supplier.get().setPacketHandled(true);
+        context.setHandled(true);
     }
 }

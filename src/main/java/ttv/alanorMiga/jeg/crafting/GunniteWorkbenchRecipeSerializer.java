@@ -17,17 +17,17 @@ import javax.annotation.Nullable;
 /**
  * Author: MrCrayfish
  */
-public class GunniteWorkbenchRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<GunniteWorkbenchRecipe>
+public class GunniteWorkbenchRecipeSerializer implements RecipeSerializer<GunniteWorkbenchRecipe>
 {
     @Override
     public GunniteWorkbenchRecipe fromJson(ResourceLocation recipeId, JsonObject parent)
     {
-        ImmutableList.Builder<GunniteWorkbenchIngredient> builder = ImmutableList.builder();
+        ImmutableList.Builder<ScrapWorkbenchIngredient> builder = ImmutableList.builder();
         JsonArray input = GsonHelper.getAsJsonArray(parent, "materials");
         for(int i = 0; i < input.size(); i++)
         {
             JsonObject object = input.get(i).getAsJsonObject();
-            builder.add(GunniteWorkbenchIngredient.fromJson(object));
+            builder.add(ScrapWorkbenchIngredient.fromJson(object));
         }
         if(!parent.has("result"))
         {
@@ -43,11 +43,11 @@ public class GunniteWorkbenchRecipeSerializer extends net.minecraftforge.registr
     public GunniteWorkbenchRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
     {
         ItemStack result = buffer.readItem();
-        ImmutableList.Builder<GunniteWorkbenchIngredient> builder = ImmutableList.builder();
+        ImmutableList.Builder<ScrapWorkbenchIngredient> builder = ImmutableList.builder();
         int size = buffer.readVarInt();
         for(int i = 0; i < size; i++)
         {
-            builder.add((GunniteWorkbenchIngredient) Ingredient.fromNetwork(buffer));
+            builder.add((ScrapWorkbenchIngredient) Ingredient.fromNetwork(buffer));
         }
         return new GunniteWorkbenchRecipe(recipeId, result, builder.build());
     }
@@ -57,7 +57,7 @@ public class GunniteWorkbenchRecipeSerializer extends net.minecraftforge.registr
     {
         buffer.writeItem(recipe.getItem());
         buffer.writeVarInt(recipe.getMaterials().size());
-        for(GunniteWorkbenchIngredient ingredient : recipe.getMaterials())
+        for(ScrapWorkbenchIngredient ingredient : recipe.getMaterials())
         {
             ingredient.toNetwork(buffer);
         }

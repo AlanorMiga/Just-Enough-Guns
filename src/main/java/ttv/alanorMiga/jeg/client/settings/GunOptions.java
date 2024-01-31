@@ -1,25 +1,14 @@
 package ttv.alanorMiga.jeg.client.settings;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.client.handler.CrosshairHandler;
-import ttv.alanorMiga.jeg.client.render.crosshair.Crosshair;
-import net.minecraft.client.CycleOption;
-import net.minecraft.client.ProgressOption;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.network.chat.TranslatableComponent;
-
-import java.text.DecimalFormat;
-import java.util.stream.Collectors;
 
 /**
  * Author: MrCrayfish
  */
-public class GunOptions
+/*public class GunOptions
 {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.0#");
 
-    public static final ProgressOption ADS_SENSITIVITY = new GunSliderPercentageOption("jeg.options.adsSensitivity", 0.0, 1.0, 0.01F, gameSettings -> {
+    /*public static final ProgressOption ADS_SENSITIVITY = new GunSliderPercentageOption("jeg.options.adsSensitivity", 0.0, 1.0, 0.01F, gameSettings -> {
         return Config.CLIENT.controls.aimDownSightSensitivity.get();
     }, (gameSettings, value) -> {
         Config.CLIENT.controls.aimDownSightSensitivity.set(Mth.clamp(value, 0.0, 1.0));
@@ -41,7 +30,7 @@ public class GunOptions
         CrosshairHandler.get().setCrosshair(id);
     });
 
-    /*public static final Option CROSSHAIR = CycleOption.create("jeg.options.crosshair", () -> {
+    public static final Option CROSSHAIR = CycleOption.create("jeg.options.crosshair", () -> {
         return CrosshairHandler.get().getRegisteredCrosshairs();
     }, (t) -> {
         return ResourceLocation.tryParse(Config.CLIENT.display.crosshair.get());
@@ -70,4 +59,5 @@ public class GunOptions
             }
         }
     });*/
-}
+    /*}
+}*/

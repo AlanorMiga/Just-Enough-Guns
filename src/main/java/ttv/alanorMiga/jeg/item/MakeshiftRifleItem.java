@@ -30,7 +30,7 @@ public class MakeshiftRifleItem extends MakeshiftGunItem {
 
     @SubscribeEvent
     public void onReequipAnimation(PlayerEvent.ItemPickupEvent event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack mainHandItem = player.getMainHandItem();
         Gun gun = ((GunItem) mainHandItem.getItem()).getModifiedGun(mainHandItem);
         if (!cooldownActive) {

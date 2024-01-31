@@ -2,30 +2,25 @@ package ttv.alanorMiga.jeg.client.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import ttv.alanorMiga.jeg.client.BulletTrail;
-
-import ttv.alanorMiga.jeg.client.GunRenderType;
-import ttv.alanorMiga.jeg.client.util.RenderUtil;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
-import com.mojang.math.Matrix4f;
-import net.minecraft.world.phys.Vec3;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.item.GunItem;
+import org.joml.Matrix4f;
+import ttv.alanorMiga.jeg.client.BulletTrail;
+import ttv.alanorMiga.jeg.client.GunRenderType;
+import ttv.alanorMiga.jeg.client.util.RenderUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +41,7 @@ public class BulletTrailRenderingHandler
         return instance;
     }
 
-    private Map<Integer, BulletTrail> bullets = new HashMap<>();
+    private final Map<Integer, BulletTrail> bullets = new HashMap<>();
 
     private BulletTrailRenderingHandler() {}
 
@@ -102,13 +97,13 @@ public class BulletTrailRenderingHandler
     }
 
     @SubscribeEvent
-    public void onRespawn(ClientPlayerNetworkEvent.RespawnEvent event)
+    public void onRespawn(ClientPlayerNetworkEvent.Clone event)
     {
         this.bullets.clear();
     }
 
     @SubscribeEvent
-    public void onLoggedOut(ClientPlayerNetworkEvent.LoggedOutEvent event)
+    public void onLoggedOut(ClientPlayerNetworkEvent.LoggingOut event)
     {
         this.bullets.clear();
     }
@@ -130,8 +125,8 @@ public class BulletTrailRenderingHandler
         double bulletZ = position.z + motion.z * deltaTicks;
         poseStack.translate(bulletX - view.x(), bulletY - view.y(), bulletZ - view.z());
 
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(trail.getYaw()));
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-trail.getPitch() + 90));
+        poseStack.mulPose(Axis.YP.rotationDegrees(trail.getYaw()));
+        poseStack.mulPose(Axis.XP.rotationDegrees(-trail.getPitch() + 90));
 
         Vec3 motionVec = new Vec3(motion.x, motion.y, motion.z);
         float trailLength = (float) (motionVec.length() * trail.getTrailLengthMultiplier());
@@ -167,12 +162,12 @@ public class BulletTrailRenderingHandler
 
         if(!trail.getItem().isEmpty())
         {
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((trail.getAge() + deltaTicks) * (float) 50));
+            poseStack.mulPose(Axis.YP.rotationDegrees((trail.getAge() + deltaTicks) * (float) 50));
             poseStack.scale(0.275F, 0.275F, 0.275F);
 
-            int combinedLight = LevelRenderer.getLightColor(entity.level, new BlockPos(entity.position()));
+            int combinedLight = LevelRenderer.getLightColor(entity.level, BlockPos.containing(entity.position()));
             ItemStack stack = trail.getItem();
-            RenderUtil.renderModel(stack, ItemTransforms.TransformType.NONE, poseStack, renderTypeBuffer, combinedLight, OverlayTexture.NO_OVERLAY, null, null);
+            RenderUtil.renderModel(stack, ItemDisplayContext.NONE, poseStack, renderTypeBuffer, combinedLight, OverlayTexture.NO_OVERLAY, null, null);
         }
 
         poseStack.popPose();

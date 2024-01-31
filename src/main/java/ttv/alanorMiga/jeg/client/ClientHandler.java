@@ -9,13 +9,21 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
@@ -27,13 +35,14 @@ import ttv.alanorMiga.jeg.client.handler.*;
 import ttv.alanorMiga.jeg.client.render.gun.ModelOverrides;
 import ttv.alanorMiga.jeg.client.render.gun.model.*;
 import ttv.alanorMiga.jeg.client.screen.*;
-import ttv.alanorMiga.jeg.client.settings.GunOptions;
 import ttv.alanorMiga.jeg.client.util.PropertyHelper;
 import ttv.alanorMiga.jeg.debug.IEditorMenu;
 import ttv.alanorMiga.jeg.debug.client.screen.EditorScreen;
+import ttv.alanorMiga.jeg.enchantment.EnchantmentTypes;
 import ttv.alanorMiga.jeg.init.ModBlocks;
 import ttv.alanorMiga.jeg.init.ModContainers;
 import ttv.alanorMiga.jeg.init.ModItems;
+import ttv.alanorMiga.jeg.item.GunItem;
 import ttv.alanorMiga.jeg.item.IColored;
 import ttv.alanorMiga.jeg.item.attachment.IAttachment;
 import ttv.alanorMiga.jeg.network.PacketHandler;
@@ -64,8 +73,6 @@ public class ClientHandler {
             MinecraftForge.EVENT_BUS.register(new ControllerHandler());
             GunButtonBindings.register();
         }
-
-        KeyBinds.register();
 
         setupRenderLayers();
         registerColors();
@@ -131,7 +138,7 @@ public class ClientHandler {
     }
 
     @SubscribeEvent
-    public static void onScreenInit(ScreenEvent.InitScreenEvent.Post event) {
+    public static void onScreenInit(ScreenEvent.Init.Post event) {
         if (event.getScreen() instanceof MouseSettingsScreen) {
             MouseSettingsScreen screen = (MouseSettingsScreen) event.getScreen();
             if (mouseOptionsField == null) {
@@ -140,7 +147,7 @@ public class ClientHandler {
             }
             try {
                 OptionsList list = (OptionsList) mouseOptionsField.get(screen);
-                list.addSmall(GunOptions.ADS_SENSITIVITY, GunOptions.CROSSHAIR);
+                //list.addSmall(GunOptions.ADS_SENSITIVITY, GunOptions.CROSSHAIR);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -148,7 +155,7 @@ public class ClientHandler {
     }
 
     @SubscribeEvent
-    public static void onKeyPressed(InputEvent.KeyInputEvent event) {
+    public static void onKeyPressed(InputEvent.Key event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null && mc.screen == null && event.getAction() == GLFW.GLFW_PRESS) {
             if (KeyBinds.KEY_ATTACHMENTS.isDown()) {
@@ -164,6 +171,46 @@ public class ClientHandler {
     public static void onRegisterReloadListener(RegisterClientReloadListenersEvent event) {
         event.registerReloadListener((ResourceManagerReloadListener) manager -> {
             PropertyHelper.resetCache();
+        });
+    }
+
+    public static void registerAdditional(ModelEvent.RegisterAdditional event)
+    {
+        event.register(new ResourceLocation(Reference.MOD_ID, "special/test"));
+    }
+
+    public static void onRegisterCreativeTab(CreativeModeTabEvent.Register event)
+    {
+        event.registerCreativeModeTab(new ResourceLocation(Reference.MOD_ID, "creative_tab"), builder ->
+        {
+            builder.title(Component.translatable("itemGroup." + Reference.MOD_ID));
+            builder.icon(() -> {
+                ItemStack stack = new ItemStack(ModItems.ASSAULT_RIFLE.get());
+                stack.getOrCreateTag().putBoolean("IgnoreAmmo", true);
+                return stack;
+            });
+            builder.displayItems((flags, output) ->
+            {
+                ModItems.REGISTER.getEntries().forEach(registryObject ->
+                {
+                    if(registryObject.get() instanceof GunItem item)
+                    {
+                        ItemStack stack = new ItemStack(item);
+                        stack.getOrCreateTag().putInt("AmmoCount", item.getGun().getReloads().getMaxAmmo());
+                        output.accept(stack);
+                        return;
+                    }
+                    output.accept(registryObject.get());
+                });
+                CustomGunManager.fill(output);
+                for(Enchantment enchantment : ForgeRegistries.ENCHANTMENTS)
+                {
+                    if(enchantment.category == EnchantmentTypes.GUN || enchantment.category == EnchantmentTypes.SEMI_AUTO_GUN)
+                    {
+                        output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, enchantment.getMaxLevel())), CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+                    }
+                }
+            });
         });
     }
 

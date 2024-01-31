@@ -1,6 +1,7 @@
 package ttv.alanorMiga.jeg.crafting;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -8,6 +9,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import ttv.alanorMiga.jeg.blockentity.ScrapWorkbenchBlockEntity;
+import ttv.alanorMiga.jeg.init.ModRecipeSerializers;
+import ttv.alanorMiga.jeg.init.ModRecipeTypes;
 import ttv.alanorMiga.jeg.util.InventoryUtil;
 
 /**
@@ -17,9 +20,9 @@ public class ScrapWorkbenchRecipe implements Recipe<ScrapWorkbenchBlockEntity>
 {
     private final ResourceLocation id;
     private final ItemStack item;
-    private final ImmutableList<GunniteWorkbenchIngredient> materials;
+    private final ImmutableList<ScrapWorkbenchIngredient> materials;
 
-    public ScrapWorkbenchRecipe(ResourceLocation id, ItemStack item, ImmutableList<GunniteWorkbenchIngredient> materials)
+    public ScrapWorkbenchRecipe(ResourceLocation id, ItemStack item, ImmutableList<ScrapWorkbenchIngredient> materials)
     {
         this.id = id;
         this.item = item;
@@ -31,7 +34,7 @@ public class ScrapWorkbenchRecipe implements Recipe<ScrapWorkbenchBlockEntity>
         return this.item.copy();
     }
 
-    public ImmutableList<GunniteWorkbenchIngredient> getMaterials()
+    public ImmutableList<ScrapWorkbenchIngredient> getMaterials()
     {
         return this.materials;
     }
@@ -43,7 +46,7 @@ public class ScrapWorkbenchRecipe implements Recipe<ScrapWorkbenchBlockEntity>
     }
 
     @Override
-    public ItemStack assemble(ScrapWorkbenchBlockEntity inv)
+    public ItemStack assemble(ScrapWorkbenchBlockEntity entity, RegistryAccess access)
     {
         return ItemStack.EMPTY;
     }
@@ -55,7 +58,7 @@ public class ScrapWorkbenchRecipe implements Recipe<ScrapWorkbenchBlockEntity>
     }
 
     @Override
-    public ItemStack getResultItem()
+    public ItemStack getResultItem(RegistryAccess access)
     {
         return this.item.copy();
     }
@@ -73,11 +76,11 @@ public class ScrapWorkbenchRecipe implements Recipe<ScrapWorkbenchBlockEntity>
     }
 
     @Override
-    public net.minecraft.world.item.crafting.RecipeType<?> getType()  { return ModRecipeType.SCRAP_WORKBENCH; }
+    public net.minecraft.world.item.crafting.RecipeType<?> getType()  { return ModRecipeTypes.SCRAP_WORKBENCH.get(); }
 
     public boolean hasMaterials(Player player)
     {
-        for(GunniteWorkbenchIngredient ingredient : this.getMaterials())
+        for(ScrapWorkbenchIngredient ingredient : this.getMaterials())
         {
             if(!InventoryUtil.hasWorkstationIngredient(player, ingredient))
             {
@@ -89,7 +92,7 @@ public class ScrapWorkbenchRecipe implements Recipe<ScrapWorkbenchBlockEntity>
 
     public void consumeMaterials(Player player)
     {
-        for(GunniteWorkbenchIngredient ingredient : this.getMaterials())
+        for(ScrapWorkbenchIngredient ingredient : this.getMaterials())
         {
             InventoryUtil.removeWorkstationIngredient(player, ingredient);
         }

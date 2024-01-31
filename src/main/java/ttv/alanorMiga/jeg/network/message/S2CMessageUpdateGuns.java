@@ -1,18 +1,16 @@
 package ttv.alanorMiga.jeg.network.message;
 
 import com.google.common.collect.ImmutableMap;
-import com.mrcrayfish.framework.api.network.PlayMessage;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.lang3.Validate;
 import ttv.alanorMiga.jeg.client.network.ClientPlayHandler;
 import ttv.alanorMiga.jeg.common.CustomGun;
 import ttv.alanorMiga.jeg.common.CustomGunLoader;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.common.NetworkGunManager;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkEvent;
-import org.apache.commons.lang3.Validate;
-
-import java.util.function.Supplier;
 
 /**
  * Author: MrCrayfish
@@ -43,10 +41,10 @@ public class S2CMessageUpdateGuns extends PlayMessage<S2CMessageUpdateGuns>
     }
 
     @Override
-    public void handle(S2CMessageUpdateGuns message, Supplier<NetworkEvent.Context> supplier)
+    public void handle(S2CMessageUpdateGuns message, MessageContext context)
     {
-        supplier.get().enqueueWork(() -> ClientPlayHandler.handleUpdateGuns(message));
-        supplier.get().setPacketHandled(true);
+        context.execute(() -> ClientPlayHandler.handleUpdateGuns(message));
+        context.setHandled(true);
     }
 
     public ImmutableMap<ResourceLocation, Gun> getRegisteredGuns()

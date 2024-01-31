@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +31,7 @@ import ttv.alanorMiga.jeg.network.message.*;
 import ttv.alanorMiga.jeg.particles.BulletHoleData;
 
 import javax.annotation.Nullable;
-import java.util.Random;
+import java.util.Objects;
 
 /**
  * Author: MrCrayfish
@@ -40,7 +41,7 @@ public class ClientPlayHandler
     public static void handleMessageGunSound(S2CMessageGunSound message)
     {
         Minecraft mc = Minecraft.getInstance();
-        if(mc.player == null)
+        if(mc.player == null || mc.level == null)
             return;
 
         if(message.showMuzzleFlash())
@@ -50,11 +51,11 @@ public class ClientPlayHandler
 
         if(message.getShooterId() == mc.player.getId())
         {
-            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(message.getId(), SoundSource.PLAYERS, message.getVolume(), message.getPitch(), false, 0, SoundInstance.Attenuation.NONE, 0, 0, 0, true));
+            Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(message.getId(), SoundSource.PLAYERS, message.getVolume(), message.getPitch(), mc.level.getRandom(), false, 0, SoundInstance.Attenuation.NONE, 0, 0, 0, true));
         }
         else
         {
-            Minecraft.getInstance().getSoundManager().play(new GunShotSound(message.getId(), SoundSource.PLAYERS, message.getX(), message.getY(), message.getZ(), message.getVolume(), message.getPitch(), message.isReload()));
+            Minecraft.getInstance().getSoundManager().play(new GunShotSound(message.getId(), SoundSource.PLAYERS, message.getX(), message.getY(), message.getZ(), message.getVolume(), message.getPitch(), message.isReload(), mc.level.getRandom()));
         }
     }
 
@@ -101,7 +102,7 @@ public class ClientPlayHandler
     {
         Minecraft mc = Minecraft.getInstance();
         ParticleEngine particleManager = mc.particleEngine;
-        Level world = mc.level;
+        Level world = Objects.requireNonNull(mc.level);
         double x = message.getX();
         double y = message.getY();
         double z = message.getZ();
@@ -121,7 +122,7 @@ public class ClientPlayHandler
         }
     }
 
-    private static Particle spawnParticle(ParticleEngine manager, ParticleOptions data, double x, double y, double z, Random rand, double velocityMultiplier)
+    private static Particle spawnParticle(ParticleEngine manager, ParticleOptions data, double x, double y, double z, RandomSource rand, double velocityMultiplier)
     {
         return manager.createParticle(data, x, y, z, (rand.nextDouble() - 0.5) * velocityMultiplier, (rand.nextDouble() - 0.5) * velocityMultiplier, (rand.nextDouble() - 0.5) * velocityMultiplier);
     }
@@ -155,7 +156,7 @@ public class ClientPlayHandler
         }
     }
 
-    private static double getRandomDir(Random random)
+    private static double getRandomDir(RandomSource random)
     {
         return -0.25 + random.nextDouble() * 0.5;
     }

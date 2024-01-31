@@ -2,20 +2,15 @@ package ttv.alanorMiga.jeg.client.render.crosshair;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.client.handler.AimingHandler;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.joml.Matrix4f;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.client.handler.AimingHandler;
 
 /**
  * Author: MrCrayfish
@@ -73,7 +68,7 @@ public class TechCrosshair extends Crosshair
             buffer.vertex(matrix, size, 0, 0).uv(1, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.vertex(matrix, 0, 0, 0).uv(0, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.end();
-            BufferUploader.end(buffer);
+            BufferUploader.drawWithShader(buffer.end());
         }
         stack.popPose();
 
@@ -83,7 +78,7 @@ public class TechCrosshair extends Crosshair
             stack.translate(windowWidth / 2F, windowHeight / 2F, 0);
             float scale = 1F + Mth.lerp(partialTicks, this.prevScale, this.scale);
             stack.scale(scale, scale, scale);
-            stack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, this.prevRotation, this.rotation)));
+            stack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, this.prevRotation, this.rotation)));
             stack.translate(-size / 2F, -size / 2F, 0);
             RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -94,7 +89,7 @@ public class TechCrosshair extends Crosshair
             buffer.vertex(matrix, size, 0, 0).uv(1, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.vertex(matrix, 0, 0, 0).uv(0, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.end();
-            BufferUploader.end(buffer);
+            BufferUploader.drawWithShader(buffer.end());
         }
         stack.popPose();
 

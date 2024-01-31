@@ -1,13 +1,11 @@
 package ttv.alanorMiga.jeg.network.message;
 
-import com.mrcrayfish.framework.api.network.PlayMessage;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
 import ttv.alanorMiga.jeg.common.network.ServerPlayHandler;
-
-import java.util.function.Supplier;
 
 /**
  * Author: MrCrayfish
@@ -47,17 +45,17 @@ public class C2SMessageShoot extends PlayMessage<C2SMessageShoot>
     }
 
     @Override
-    public void handle(C2SMessageShoot message, Supplier<NetworkEvent.Context> supplier)
+    public void handle(C2SMessageShoot message, MessageContext context)
     {
-        supplier.get().enqueueWork(() ->
+        context.execute(() ->
         {
-            ServerPlayer player = supplier.get().getSender();
+            ServerPlayer player = context.getPlayer();
             if(player != null)
             {
                 ServerPlayHandler.handleShoot(message, player);
             }
         });
-        supplier.get().setPacketHandled(true);
+        context.setHandled(true);
     }
 
     public float getRotationYaw()

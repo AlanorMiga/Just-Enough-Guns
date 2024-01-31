@@ -4,9 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -124,7 +124,7 @@ public abstract class ThrowableItemEntity extends ThrowableProjectile implements
                     double speed = this.getDeltaMovement().length();
                     if(speed > 0.1)
                     {
-                        entity.hurt(DamageSource.thrown(this, this.getOwner()), 1.0F);
+                        entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 1.0F);
                     }
                     this.bounce(Direction.getNearest(this.getDeltaMovement().x(), this.getDeltaMovement().y(), this.getDeltaMovement().z()).getOpposite());
                     this.setDeltaMovement(this.getDeltaMovement().multiply(0.25, 1.0, 0.25));
@@ -183,7 +183,7 @@ public abstract class ThrowableItemEntity extends ThrowableProjectile implements
     }
 
     @Override
-    public Packet<?> getAddEntityPacket()
+    public Packet<ClientGamePacketListener> getAddEntityPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

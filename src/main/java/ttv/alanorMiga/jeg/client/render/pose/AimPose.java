@@ -1,14 +1,14 @@
 package ttv.alanorMiga.jeg.client.render.pose;
 
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
 /**
  * Author: MrCrayfish
  */
 public class AimPose
 {
-    private Instance idle = new Instance();
-    private Instance aiming = new Instance();
+    private final Instance idle = new Instance();
+    private final Instance aiming = new Instance();
 
     public Instance getIdle()
     {

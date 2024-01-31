@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "jeg:items/semi_auto_rifle",
-		"particle": "jeg:items/attachments_1"
+		"1": "jeg:item/semi_auto_rifle",
+		"particle": "jeg:item/attachments_1"
 	},
 	"elements": [
 		{

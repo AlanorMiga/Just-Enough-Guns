@@ -1,18 +1,18 @@
 package ttv.alanorMiga.jeg.client.handler;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.event.GunFireEvent;
 import ttv.alanorMiga.jeg.item.GunItem;
 import ttv.alanorMiga.jeg.util.GunModifierHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemCooldowns;
-import net.minecraft.world.InteractionHand;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Random;
 
@@ -32,7 +32,7 @@ public class RecoilHandler
         return instance;
     }
 
-    private Random random = new Random();
+    private final Random random = new Random();
     private double gunRecoilNormal;
     private double gunRecoilAngle;
     private float gunRecoilRandom;
@@ -79,14 +79,14 @@ public class RecoilHandler
     @SubscribeEvent
     public void onRenderTick(TickEvent.RenderTickEvent event)
     {
-        if(!Config.SERVER.enableCameraRecoil.get())
-            return;
-
         if(event.phase != TickEvent.Phase.END || this.cameraRecoil <= 0)
             return;
 
         Minecraft mc = Minecraft.getInstance();
         if(mc.player == null)
+            return;
+
+        if(!Config.SERVER.enableCameraRecoil.get())
             return;
 
         float recoilAmount = this.cameraRecoil * mc.getDeltaFrameTime() * 0.15F;

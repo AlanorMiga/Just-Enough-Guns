@@ -14,7 +14,7 @@ public class GunInWaterEvent
     @SubscribeEvent
     public static void preShoot(GunFireEvent.Pre event)
     {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack heldItem = player.getMainHandItem();
 
         if (!(heldItem.getItem() instanceof UnderwaterFirearmItem) && player.isUnderWater())

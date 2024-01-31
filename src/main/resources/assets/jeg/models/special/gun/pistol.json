@@ -1,8 +1,8 @@
 {
 	"credit": "Model by MrCrayfish (https://twitter.com/MrCraayfish) using Blockbench",
 	"textures": {
-		"particle": "jeg:items/pistol",
-		"1": "jeg:items/pistol"
+		"particle": "jeg:item/pistol",
+		"1": "jeg:item/pistol"
 	},
 	"elements": [
 		{

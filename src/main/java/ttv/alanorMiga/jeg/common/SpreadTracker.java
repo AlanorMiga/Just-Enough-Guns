@@ -1,9 +1,5 @@
 package ttv.alanorMiga.jeg.common;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
-import ttv.alanorMiga.jeg.item.GunItem;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -12,6 +8,10 @@ import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableLong;
 import org.apache.commons.lang3.tuple.Pair;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import ttv.alanorMiga.jeg.item.GunItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,10 +74,10 @@ public class SpreadTracker
     @SubscribeEvent
     public static void onPlayerDisconnect(PlayerEvent.PlayerLoggedOutEvent event)
     {
-        MinecraftServer server = event.getPlayer().getServer();
+        MinecraftServer server = event.getEntity().getServer();
         if(server != null)
         {
-            server.execute(() -> TRACKER_MAP.remove(event.getPlayer()));
+            server.execute(() -> TRACKER_MAP.remove(event.getEntity()));
         }
     }
 }

@@ -2,7 +2,7 @@ package ttv.alanorMiga.jeg.util;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchIngredient;
+import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchIngredient;
 
 /**
  * Author: MrCrayfish
@@ -69,7 +69,7 @@ public class InventoryUtil
         }
     }
 
-    public static boolean hasWorkstationIngredient(Player player, GunniteWorkbenchIngredient find)
+    public static boolean hasWorkstationIngredient(Player player, ScrapWorkbenchIngredient find)
     {
         int count = 0;
         for(ItemStack stack : player.getInventory().items)
@@ -82,7 +82,7 @@ public class InventoryUtil
         return find.getCount() <= count;
     }
 
-    public static boolean removeWorkstationIngredient(Player player, GunniteWorkbenchIngredient find)
+    public static boolean removeWorkstationIngredient(Player player, ScrapWorkbenchIngredient find)
     {
         int amount = find.getCount();
         for(int i = 0; i < player.getInventory().getContainerSize(); i++)

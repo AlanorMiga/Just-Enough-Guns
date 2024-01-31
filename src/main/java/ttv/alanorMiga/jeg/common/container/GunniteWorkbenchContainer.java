@@ -16,8 +16,8 @@ import ttv.alanorMiga.jeg.init.ModContainers;
  */
 public class GunniteWorkbenchContainer extends AbstractContainerMenu
 {
-    private GunniteWorkbenchBlockEntity workbench;
-    private BlockPos pos;
+    private final GunniteWorkbenchBlockEntity workbench;
+    private final BlockPos pos;
 
     public GunniteWorkbenchContainer(int windowId, Container playerInventory, GunniteWorkbenchBlockEntity workbench)
     {

@@ -1,26 +1,26 @@
 package ttv.alanorMiga.jeg.common.container;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.common.container.slot.AttachmentSlot;
 import ttv.alanorMiga.jeg.init.ModContainers;
 import ttv.alanorMiga.jeg.item.attachment.IAttachment;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 
 /**
  * Author: MrCrayfish
  */
 public class AttachmentContainer extends AbstractContainerMenu
 {
-    private ItemStack weapon;
-    private Container playerInventory;
-    private Container weaponInventory = new SimpleContainer(IAttachment.Type.values().length)
+    private final ItemStack weapon;
+    private final Container playerInventory;
+    private final Container weaponInventory = new SimpleContainer(IAttachment.Type.values().length)
     {
         @Override
         public void setChanged()

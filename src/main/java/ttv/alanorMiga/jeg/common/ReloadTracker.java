@@ -1,13 +1,6 @@
 package ttv.alanorMiga.jeg.common;
 
-import net.minecraft.world.item.Item;
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
-import ttv.alanorMiga.jeg.item.GunItem;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.S2CMessageGunSound;
-import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
+import com.mrcrayfish.framework.api.network.LevelLocation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -19,7 +12,13 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.S2CMessageGunSound;
+import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -156,8 +155,11 @@ public class ReloadTracker
         if(reloadSound != null)
         {
             double radius = Config.SERVER.reloadMaxDistance.get();
-            S2CMessageGunSound message = new S2CMessageGunSound(reloadSound, SoundSource.PLAYERS, (float) player.getX(), (float) player.getY() + 1.0F, (float) player.getZ(), 1.0F, 1.0F, player.getId(), false, true);
-            PacketHandler.getPlayChannel().send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(player.getX(), (player.getY() + 1.0), player.getZ(), radius, player.level.dimension())), message);
+            double soundX = player.getX();
+            double soundY = player.getY() + 1.0;
+            double soundZ = player.getZ();
+            S2CMessageGunSound message = new S2CMessageGunSound(reloadSound, SoundSource.PLAYERS, (float) soundX, (float) soundY, (float) soundZ, 1.0F, 1.0F, player.getId(), false, true);
+            PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(player.level, soundX, soundY, soundZ, radius), message);
         }
     }
 
@@ -189,8 +191,11 @@ public class ReloadTracker
         if(reloadSound != null)
         {
             double radius = Config.SERVER.reloadMaxDistance.get();
-            S2CMessageGunSound message = new S2CMessageGunSound(reloadSound, SoundSource.PLAYERS, (float) player.getX(), (float) player.getY() + 1.0F, (float) player.getZ(), 1.0F, 1.0F, player.getId(), false, true);
-            PacketHandler.getPlayChannel().send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(player.getX(), (player.getY() + 1.0), player.getZ(), radius, player.level.dimension())), message);
+            double soundX = player.getX();
+            double soundY = player.getY() + 1.0;
+            double soundZ = player.getZ();
+            S2CMessageGunSound message = new S2CMessageGunSound(reloadSound, SoundSource.PLAYERS, (float) soundX, (float) soundY, (float) soundZ, 1.0F, 1.0F, player.getId(), false, true);
+            PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(player.level, soundX, soundY, soundZ, radius), message);
         }
     }
 
@@ -238,28 +243,28 @@ public class ReloadTracker
                             ResourceLocation cockSound = gun.getSounds().getCock();
                             if(cockSound != null && finalPlayer.isAlive())
                             {
+                                double soundX = finalPlayer.getX();
+                                double soundY = finalPlayer.getY() + 1.0;
+                                double soundZ = finalPlayer.getZ();
                                 double radius = Config.SERVER.reloadMaxDistance.get();
-                                S2CMessageGunSound messageSound = new S2CMessageGunSound(cockSound, SoundSource.PLAYERS, (float) finalPlayer.getX(), (float) (finalPlayer.getY() + 1.0), (float) finalPlayer.getZ(), 1.0F, 1.0F, finalPlayer.getId(), false, true);
-                                PacketHandler.getPlayChannel().send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(finalPlayer.getX(), (finalPlayer.getY() + 1.0), finalPlayer.getZ(), radius, finalPlayer.level.dimension())), messageSound);
+                                S2CMessageGunSound messageSound = new S2CMessageGunSound(cockSound, SoundSource.PLAYERS, (float) soundX, (float) soundY, (float) soundZ, 1.0F, 1.0F, finalPlayer.getId(), false, true);
+                                PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(finalPlayer.level, soundX, soundY, soundZ, radius), messageSound);
                             }
                         });
                     }
                 }
             }
-            else if(RELOAD_TRACKER_MAP.containsKey(player))
-            {
-                RELOAD_TRACKER_MAP.remove(player);
-            }
+            else RELOAD_TRACKER_MAP.remove(player);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerEvent.PlayerLoggedOutEvent event)
     {
-        MinecraftServer server = event.getPlayer().getServer();
+        MinecraftServer server = event.getEntity().getServer();
         if(server != null)
         {
-            server.execute(() -> RELOAD_TRACKER_MAP.remove(event.getPlayer()));
+            server.execute(() -> RELOAD_TRACKER_MAP.remove(event.getEntity()));
         }
     }
 }

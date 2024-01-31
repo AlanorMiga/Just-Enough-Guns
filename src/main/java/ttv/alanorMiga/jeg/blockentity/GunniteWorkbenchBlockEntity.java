@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,7 @@ import javax.annotation.Nullable;
  */
 public class GunniteWorkbenchBlockEntity extends SyncedBlockEntity implements IStorageBlock
 {
-    private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public GunniteWorkbenchBlockEntity(BlockPos pos, BlockState state)
     {
@@ -64,7 +63,7 @@ public class GunniteWorkbenchBlockEntity extends SyncedBlockEntity implements IS
     @Override
     public Component getDisplayName()
     {
-        return new TranslatableComponent("container.jeg.gunnite_workbench");
+        return Component.translatable("container.jeg.gunnite_workbench");
     }
 
     @Nullable

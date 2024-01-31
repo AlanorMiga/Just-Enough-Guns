@@ -35,6 +35,6 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RECYCLER_SHREDDING = register("block.recycler_shredding");
 
     private static RegistryObject<SoundEvent> register(String key) {
-        return REGISTER.register(key, () -> new SoundEvent(new ResourceLocation(Reference.MOD_ID, key)));
+        return REGISTER.register(key, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Reference.MOD_ID, key)));
     }
 }

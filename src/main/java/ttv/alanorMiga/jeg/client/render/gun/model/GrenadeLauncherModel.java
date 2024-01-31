@@ -1,28 +1,12 @@
 package ttv.alanorMiga.jeg.client.render.gun.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import ttv.alanorMiga.jeg.client.GunModel;
-import ttv.alanorMiga.jeg.client.SpecialModels;
-import ttv.alanorMiga.jeg.client.render.gun.IOverrideModel;
-import ttv.alanorMiga.jeg.client.util.RenderUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemCooldowns;
-import com.mojang.math.Vector3f;
-
-import javax.annotation.Nullable;
-
 /**
  * Author: MrCrayfish
  */
-public class GrenadeLauncherModel implements IOverrideModel
+/*public class GrenadeLauncherModel implements IOverrideModel
 {
     @Override
-    public void render(float partialTicks, ItemTransforms.TransformType transformType, ItemStack stack, ItemStack parent, @Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay)
+    public void render(float partialTicks, ItemDisplayContext transformType, ItemStack stack, ItemStack parent, @Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay)
     {
         BakedModel bakedModel = SpecialModels.GRENADE_LAUNCHER_BASE.getModel();
         Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, poseStack, buffer, light, overlay, GunModel.wrap(bakedModel));
@@ -46,10 +30,10 @@ public class GrenadeLauncherModel implements IOverrideModel
     /**
      * Easing function based on code from https://easings.net/#easeInOutBack
      */
-    private double easeInOutBack(double x)
+    /*private double easeInOutBack(double x)
     {
         double c1 = 1.70158;
         double c2 = c1 * 1.525;
         return (x < 0.5 ? (Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2 : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2);
     }
-}
+}*/

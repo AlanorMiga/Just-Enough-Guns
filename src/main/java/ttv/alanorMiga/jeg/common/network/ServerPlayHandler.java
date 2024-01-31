@@ -1,10 +1,11 @@
 package ttv.alanorMiga.jeg.common.network;
 
+import com.mrcrayfish.framework.api.network.LevelLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -14,6 +15,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -26,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.JustEnoughGuns;
@@ -60,7 +61,7 @@ import java.util.function.Predicate;
  * Author: MrCrayfish
  */
 public class ServerPlayHandler {
-    private static final Predicate<LivingEntity> HOSTILE_ENTITIES = entity -> entity.getSoundSource() == SoundSource.HOSTILE && !(entity instanceof NeutralMob) && !Config.COMMON.aggroMobs.exemptEntities.get().contains(entity.getType().getRegistryName().toString());
+    private static final Predicate<LivingEntity> HOSTILE_ENTITIES = entity -> entity.getSoundSource() == SoundSource.HOSTILE && !(entity instanceof NeutralMob) && !Config.COMMON.aggroMobs.exemptEntities.get().contains(EntityType.getKey(entity.getType()).toString());
 
     /**
      * Fires the weapon the player is currently holding.
@@ -107,7 +108,8 @@ public class ServerPlayHandler {
                 int count = modifiedGun.getGeneral().getProjectileAmount();
                 Gun.Projectile projectileProps = modifiedGun.getProjectile();
                 ProjectileEntity[] spawnedProjectiles = new ProjectileEntity[count];
-                for (int i = 0; i < count; i++) {
+                for(int i = 0; i < count; i++)
+                {
                     IProjectileFactory factory = ProjectileManager.getInstance().getFactory(projectileProps.getItem());
                     ProjectileEntity projectileEntity = factory.create(world, player, heldItem, item, modifiedGun);
                     projectileEntity.setWeapon(heldItem);
@@ -116,10 +118,15 @@ public class ServerPlayHandler {
                     spawnedProjectiles[i] = projectileEntity;
                     projectileEntity.tick();
                 }
-                if (!projectileProps.isVisible()) {
+                if(!projectileProps.isVisible())
+                {
+                    double spawnX = player.getX();
+                    double spawnY = player.getY() + 1.0;
+                    double spawnZ = player.getZ();
+                    double radius = Config.COMMON.network.projectileTrackingRange.get();
                     ParticleOptions data = GunEnchantmentHelper.getParticle(heldItem);
                     S2CMessageBulletTrail messageBulletTrail = new S2CMessageBulletTrail(spawnedProjectiles, projectileProps, player.getId(), data);
-                    PacketHandler.getPlayChannel().send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(player.getX(), player.getY(), player.getZ(), Config.COMMON.network.projectileTrackingRange.get(), player.level.dimension())), messageBulletTrail);
+                    PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(player.level, spawnX, spawnY, spawnZ, radius), messageBulletTrail);
                 }
 
                 MinecraftForge.EVENT_BUS.post(new GunFireEvent.Post(player, heldItem));
@@ -143,7 +150,8 @@ public class ServerPlayHandler {
                 }
 
                 ResourceLocation fireSound = getFireSound(heldItem, modifiedGun);
-                if (fireSound != null) {
+                if(fireSound != null)
+                {
                     double posX = player.getX();
                     double posY = player.getY() + player.getEyeHeight();
                     double posZ = player.getZ();
@@ -152,8 +160,7 @@ public class ServerPlayHandler {
                     double radius = GunModifierHelper.getModifiedFireSoundRadius(heldItem, Config.SERVER.gunShotMaxDistance.get());
                     boolean muzzle = modifiedGun.getDisplay().getFlash() != null;
                     S2CMessageGunSound messageSound = new S2CMessageGunSound(fireSound, SoundSource.PLAYERS, (float) posX, (float) posY, (float) posZ, volume, pitch, player.getId(), muzzle, false);
-                    PacketDistributor.TargetPoint targetPoint = new PacketDistributor.TargetPoint(posX, posY, posZ, radius, player.level.dimension());
-                    PacketHandler.getPlayChannel().send(PacketDistributor.NEAR.with(() -> targetPoint), messageSound);
+                    PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(player.level, posX, posY, posZ, radius), messageSound);
                 }
 
                 if (!player.isCreative()) {
@@ -312,7 +319,7 @@ public class ServerPlayHandler {
     public static void handleAttachments(ServerPlayer player) {
         ItemStack heldItem = player.getMainHandItem();
         if (heldItem.getItem() instanceof GunItem) {
-            NetworkHooks.openGui(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new AttachmentContainer(windowId, playerInventory, heldItem), new TranslatableComponent("container.jeg.attachments")));
+            NetworkHooks.openScreen(player, new SimpleMenuProvider((windowId, playerInventory, player1) -> new AttachmentContainer(windowId, playerInventory, heldItem), Component.translatable("container.jeg.attachments")));
         }
     }
 }

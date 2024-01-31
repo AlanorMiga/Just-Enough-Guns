@@ -1,13 +1,6 @@
 package ttv.alanorMiga.jeg.entity;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.Config.EffectCriteria;
-import ttv.alanorMiga.jeg.init.ModEffects;
-import ttv.alanorMiga.jeg.init.ModEntities;
-import ttv.alanorMiga.jeg.init.ModItems;
-import ttv.alanorMiga.jeg.init.ModSounds;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.S2CMessageStunGrenade;
+import com.mrcrayfish.framework.api.network.LevelLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -30,7 +23,14 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.Config.EffectCriteria;
+import ttv.alanorMiga.jeg.init.ModEffects;
+import ttv.alanorMiga.jeg.init.ModEntities;
+import ttv.alanorMiga.jeg.init.ModItems;
+import ttv.alanorMiga.jeg.init.ModSounds;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.S2CMessageStunGrenade;
 
 import javax.annotation.Nullable;
 
@@ -58,9 +58,9 @@ public class ThrowableStunGrenadeEntity extends ThrowableGrenadeEntity
     @SubscribeEvent
     public static void blindMobs(LivingSetAttackTargetEvent event)
     {
-        if(Config.COMMON.stunGrenades.blind.blindMobs.get() && event.getTarget() != null && event.getEntityLiving() instanceof Mob && event.getEntityLiving().hasEffect(ModEffects.BLINDED.get()))
+        if(Config.COMMON.stunGrenades.blind.blindMobs.get() && event.getTarget() != null && event.getEntity() instanceof Mob && event.getEntity().hasEffect(ModEffects.BLINDED.get()))
         {
-            ((Mob) event.getEntityLiving()).setTarget(null);
+            ((Mob) event.getEntity()).setTarget(null);
         }
     }
 
@@ -73,7 +73,7 @@ public class ThrowableStunGrenadeEntity extends ThrowableGrenadeEntity
         {
             return;
         }
-        PacketHandler.getPlayChannel().send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(this.getX(), y, this.getZ(), 64, this.level.dimension())), new S2CMessageStunGrenade(this.getX(), y, this.getZ()));
+        PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(this.level, this.getX(), y, this.getZ(), 64), new S2CMessageStunGrenade(this.getX(), y, this.getZ()));
 
         // Calculate bounds of area where potentially effected players may be
         double diameter = Math.max(Config.COMMON.stunGrenades.deafen.criteria.radius.get(), Config.COMMON.stunGrenades.blind.criteria.radius.get()) * 2 + 1;

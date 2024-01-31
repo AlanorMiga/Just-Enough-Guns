@@ -19,7 +19,7 @@ public class GunBurstEvent {
     public static void preShoot(Pre event)
     {
 
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack heldItem = player.getMainHandItem();
         if(heldItem.getItem() instanceof GunItem gunItem)
         {

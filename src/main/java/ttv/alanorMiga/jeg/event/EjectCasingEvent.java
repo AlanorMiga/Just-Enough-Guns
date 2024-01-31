@@ -22,8 +22,8 @@ public class EjectCasingEvent
     @SubscribeEvent
     public static void postShoot(Post event)
     {
-        Player player = event.getPlayer();
-        Level level = event.getPlayer().getLevel();
+        Player player = event.getEntity();
+        Level level = event.getEntity().getLevel();
         ItemStack heldItem = player.getMainHandItem();
         CompoundTag tag = heldItem.getTag();
 

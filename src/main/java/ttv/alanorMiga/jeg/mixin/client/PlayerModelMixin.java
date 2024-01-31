@@ -1,8 +1,5 @@
 package ttv.alanorMiga.jeg.mixin.client;
 
-import ttv.alanorMiga.jeg.client.handler.AimingHandler;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.item.GunItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -14,6 +11,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import ttv.alanorMiga.jeg.client.handler.AimingHandler;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.item.GunItem;
 
 /**
  * I eventually want to get rid of this.
@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PlayerModelMixin<T extends LivingEntity>
 {
     @SuppressWarnings({"unchecked", "ConstantConditions"})
-    @Inject(method = "setupAnim", at = @At(value = "TAIL"))
+    @Inject(method = "setupAnim*", at = @At(value = "TAIL"))
     private void setupAnimTail(T entity, float animationPos, float animationSpeed, float animationBob, float deltaHeadYaw, float headPitch, CallbackInfo ci)
     {
         if(!(entity instanceof Player player))

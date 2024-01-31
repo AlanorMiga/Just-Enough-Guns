@@ -4,35 +4,30 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.opengl.GL11;
 import ttv.alanorMiga.jeg.blockentity.GunniteWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.client.util.RenderUtil;
 import ttv.alanorMiga.jeg.common.NetworkGunManager;
 import ttv.alanorMiga.jeg.common.container.GunniteWorkbenchContainer;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchIngredient;
 import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipe;
 import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipes;
+import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchIngredient;
 import ttv.alanorMiga.jeg.init.ModBlocks;
 import ttv.alanorMiga.jeg.init.ModItems;
 import ttv.alanorMiga.jeg.item.GunItem;
@@ -59,11 +54,11 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
     private static boolean showRemaining = false;
 
     private Tab currentTab;
-    private List<Tab> tabs = new ArrayList<>();
-    private List<MaterialItem> materials;
+    private final List<Tab> tabs = new ArrayList<>();
+    private final List<MaterialItem> materials;
     private List<MaterialItem> filteredMaterials;
-    private Inventory playerInventory;
-    private GunniteWorkbenchBlockEntity workbench;
+    private final Inventory playerInventory;
+    private final GunniteWorkbenchBlockEntity workbench;
     private Button btnCraft;
     private CheckBox checkBoxMaterials;
     private ItemStack displayStack;
@@ -118,8 +113,8 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
 
         if(!weapons.isEmpty())
         {
-            ItemStack icon = new ItemStack(ModItems.SCAR_L.get());
-            icon.getOrCreateTag().putInt("AmmoCount", ModItems.SCAR_L.get().getGun().getReloads().getMaxAmmo());
+            ItemStack icon = new ItemStack(ModItems.ASSAULT_RIFLE.get());
+            icon.getOrCreateTag().putInt("AmmoCount", ModItems.ASSAULT_RIFLE.get().getGun().getReloads().getMaxAmmo());
             this.tabs.add(new Tab(icon, "weapons", weapons));
         }
 
@@ -156,7 +151,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
         {
             return true;
         }
-        ResourceLocation id = stack.getItem().getRegistryName();
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
         Objects.requireNonNull(id);
         for(GunItem gunItem : NetworkGunManager.getClientRegisteredGuns())
         {
@@ -176,7 +171,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
         {
             this.topPos += 28;
         }
-        this.addRenderableWidget(new Button(this.leftPos + 9, this.topPos + 18, 15, 20, new TextComponent("<"), button ->
+        this.addRenderableWidget(Button.builder(Component.literal("<"), button ->
         {
             int index = this.currentTab.getCurrentIndex();
             if(index - 1 < 0)
@@ -187,8 +182,8 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
             {
                 this.loadItem(index - 1);
             }
-        }));
-        this.addRenderableWidget(new Button(this.leftPos + 153, this.topPos + 18, 15, 20, new TextComponent(">"), button ->
+        }).pos(this.leftPos + 9, this.topPos + 18).size(15, 20).build());
+        this.addRenderableWidget(Button.builder(Component.literal(">"), button ->
         {
             int index = this.currentTab.getCurrentIndex();
             if(index + 1 >= this.currentTab.getRecipes().size())
@@ -199,16 +194,16 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
             {
                 this.loadItem(index + 1);
             }
-        }));
-        this.btnCraft = this.addRenderableWidget(new Button(this.leftPos + 195, this.topPos + 16, 74, 20, new TranslatableComponent("gui.jeg.workbench.assemble"), button ->
+        }).pos(this.leftPos + 153, this.topPos + 18).size(15, 20).build());
+        this.btnCraft = this.addRenderableWidget(Button.builder(Component.translatable("gui.jeg.workbench.assemble"), button ->
         {
             int index = this.currentTab.getCurrentIndex();
             GunniteWorkbenchRecipe recipe = this.currentTab.getRecipes().get(index);
             ResourceLocation registryName = recipe.getId();
             PacketHandler.getPlayChannel().sendToServer(new C2SMessageCraft(registryName, this.workbench.getBlockPos()));
-        }));
+        }).pos(this.leftPos + 195, this.topPos + 16).size(74, 20).build());
         this.btnCraft.active = false;
-        this.checkBoxMaterials = this.addRenderableWidget(new CheckBox(this.leftPos + 172, this.topPos + 51, new TranslatableComponent("gui.jeg.workbench.show_remaining")));
+        this.checkBoxMaterials = this.addRenderableWidget(new CheckBox(this.leftPos + 172, this.topPos + 51, Component.translatable("gui.jeg.workbench.show_remaining")));
         this.checkBoxMaterials.setToggled(GunniteWorkbenchScreen.showRemaining);
         this.loadItem(this.currentTab.getCurrentIndex());
     }
@@ -298,10 +293,10 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
 
         this.materials.clear();
 
-        List<GunniteWorkbenchIngredient> ingredients = recipe.getMaterials();
+        List<ScrapWorkbenchIngredient> ingredients = recipe.getMaterials();
         if(ingredients != null)
         {
-            for(GunniteWorkbenchIngredient ingredient : ingredients)
+            for(ScrapWorkbenchIngredient ingredient : ingredients)
             {
                 MaterialItem item = new MaterialItem(ingredient);
                 item.updateEnabledState();
@@ -326,7 +321,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
         {
             if(RenderUtil.isMouseWithin(mouseX, mouseY, startX + 28 * i, startY - 28, 28, 28))
             {
-                this.renderTooltip(poseStack, new TranslatableComponent(this.tabs.get(i).getTabKey()), mouseX, mouseY);
+                this.renderTooltip(poseStack, Component.translatable(this.tabs.get(i).getTabKey()), mouseX, mouseY);
                 return;
             }
         }
@@ -380,19 +375,19 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, GUI_BASE);
-                this.blit(poseStack, startX + 28 * i, startY - 28, 80, 184, 28, 32);
-                Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
-                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(this.font, tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8, null);
+                blit(poseStack, startX + 28 * i, startY - 28, 80, 184, 28, 32);
+                Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(poseStack, tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
+                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(poseStack, this.font, tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8, null);
             }
         }
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_BASE);
-        this.blit(poseStack, startX, startY, 0, 0, 173, 184);
+        blit(poseStack, startX, startY, 0, 0, 173, 184);
         blit(poseStack, startX + 173, startY, 78, 184, 173, 0, 1, 184, 256, 256);
-        this.blit(poseStack, startX + 251, startY, 174, 0, 24, 184);
-        this.blit(poseStack, startX + 172, startY + 16, 198, 0, 20, 20);
+        blit(poseStack, startX + 251, startY, 174, 0, 24, 184);
+        blit(poseStack, startX + 172, startY + 16, 198, 0, 20, 20);
 
         /* Draw selected tab */
         if(this.currentTab != null)
@@ -402,9 +397,9 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, GUI_BASE);
-            this.blit(poseStack, startX + 28 * i, startY - 28, u, 214, 28, 32);
-            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
-            Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(this.font, this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8, null);
+            blit(poseStack, startX + 28 * i, startY - 28, u, 214, 28, 32);
+            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(poseStack, this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
+            Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(poseStack, this.font, this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8, null);
         }
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -413,7 +408,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
 
         if(this.workbench.getItem(0).isEmpty())
         {
-            this.blit(poseStack, startX + 174, startY + 18, 165, 199, 16, 16);
+            blit(poseStack, startX + 174, startY + 18, 165, 199, 16, 16);
         }
 
         ItemStack currentItem = this.displayStack;
@@ -435,11 +430,11 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
         {
             modelViewStack.translate(startX + 88, startY + 60, 100);
             modelViewStack.scale(50F, -50F, 50F);
-            modelViewStack.mulPose(Vector3f.XP.rotationDegrees(5F));
-            modelViewStack.mulPose(Vector3f.YP.rotationDegrees(Minecraft.getInstance().player.tickCount + partialTicks));
+            modelViewStack.mulPose(Axis.XP.rotationDegrees(5F));
+            modelViewStack.mulPose(Axis.YP.rotationDegrees(Minecraft.getInstance().player.tickCount + partialTicks));
             RenderSystem.applyModelViewMatrix();
             MultiBufferSource.BufferSource buffer = this.minecraft.renderBuffers().bufferSource();
-            Minecraft.getInstance().getItemRenderer().render(currentItem, ItemTransforms.TransformType.FIXED, false, poseStack, buffer, 15728880, OverlayTexture.NO_OVERLAY, RenderUtil.getModel(currentItem));
+            Minecraft.getInstance().getItemRenderer().render(currentItem, ItemDisplayContext.FIXED, false, poseStack, buffer, 15728880, OverlayTexture.NO_OVERLAY, RenderUtil.getModel(currentItem));
             buffer.endBatch();
         }
         modelViewStack.popPose();
@@ -474,7 +469,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
                 }
                 this.font.draw(poseStack, name, startX + 172 + 22, startY + i * 19 + 6 + 63, Color.WHITE.getRGB());
 
-                Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, startX + 172 + 2, startY + i * 19 + 1 + 63);
+                Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(poseStack, stack, startX + 172 + 2, startY + i * 19 + 1 + 63);
 
                 if(this.checkBoxMaterials.isToggled())
                 {
@@ -483,7 +478,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
                     stack.setCount(stack.getCount() - count);
                 }
 
-                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(this.font, stack, startX + 172 + 2, startY + i * 19 + 1 + 63, null);
+                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(poseStack, this.font, stack, startX + 172 + 2, startY + i * 19 + 1 + 63, null);
             }
         }
     }
@@ -511,12 +506,12 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
         private long lastTime = System.currentTimeMillis();
         private int displayIndex;
         private boolean enabled = false;
-        private GunniteWorkbenchIngredient ingredient;
+        private ScrapWorkbenchIngredient ingredient;
         private final List<ItemStack> displayStacks = new ArrayList<>();
 
         private MaterialItem() {}
 
-        private MaterialItem(GunniteWorkbenchIngredient ingredient)
+        private MaterialItem(ScrapWorkbenchIngredient ingredient)
         {
             this.ingredient = ingredient;
             Stream.of(ingredient.getItems()).forEach(stack -> {
@@ -526,7 +521,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
             });
         }
 
-        public GunniteWorkbenchIngredient getIngredient()
+        public ScrapWorkbenchIngredient getIngredient()
         {
             return this.ingredient;
         }

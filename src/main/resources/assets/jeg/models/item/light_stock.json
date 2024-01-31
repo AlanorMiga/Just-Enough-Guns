@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "jeg:items/hk_g36_stocks",
-		"particle": "jeg:items/hk_g36_stocks"
+		"0": "jeg:item/hk_g36_stocks",
+		"particle": "jeg:item/hk_g36_stocks"
 	},
 	"elements": [
 		{

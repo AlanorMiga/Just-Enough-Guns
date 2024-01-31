@@ -2,6 +2,6 @@
 	"credit": "Made with Blockbench",
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "jeg:items/brimstone_crystal"
+		"layer0": "jeg:item/brimstone_crystal"
 	}
 }

@@ -1,26 +1,21 @@
 package ttv.alanorMiga.jeg.client.render.crosshair;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import ttv.alanorMiga.jeg.client.handler.AimingHandler;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import com.mojang.math.Matrix4f;
+import org.joml.Matrix4f;
+import ttv.alanorMiga.jeg.client.handler.AimingHandler;
 
 /**
  * Author: MrCrayfish
  */
 public class TexturedCrosshair extends Crosshair
 {
-    private ResourceLocation texture;
-    private boolean blend;
+    private final ResourceLocation texture;
+    private final boolean blend;
 
     public TexturedCrosshair(ResourceLocation id)
     {
@@ -61,7 +56,7 @@ public class TexturedCrosshair extends Crosshair
         buffer.vertex(matrix, size, 0, 0).uv(1, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
         buffer.vertex(matrix, 0, 0, 0).uv(0, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
         buffer.end();
-        BufferUploader.end(buffer);
+        BufferUploader.drawWithShader(buffer.end());
 
         if(this.blend)
         {

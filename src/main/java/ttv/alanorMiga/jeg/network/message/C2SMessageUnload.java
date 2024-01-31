@@ -1,12 +1,10 @@
 package ttv.alanorMiga.jeg.network.message;
 
-import com.mrcrayfish.framework.api.network.PlayMessage;
-import ttv.alanorMiga.jeg.common.network.ServerPlayHandler;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import ttv.alanorMiga.jeg.common.network.ServerPlayHandler;
 
 /**
  * Author: MrCrayfish
@@ -23,16 +21,16 @@ public class C2SMessageUnload extends PlayMessage<C2SMessageUnload>
     }
 
     @Override
-    public void handle(C2SMessageUnload message, Supplier<NetworkEvent.Context> supplier)
+    public void handle(C2SMessageUnload message, MessageContext context)
     {
-        supplier.get().enqueueWork(() ->
+        context.execute(() ->
         {
-            ServerPlayer player = supplier.get().getSender();
+            ServerPlayer player = context.getPlayer();
             if(player != null && !player.isSpectator())
             {
                 ServerPlayHandler.handleUnload(player);
             }
         });
-        supplier.get().setPacketHandled(true);
+        context.setHandled(true);
     }
 }

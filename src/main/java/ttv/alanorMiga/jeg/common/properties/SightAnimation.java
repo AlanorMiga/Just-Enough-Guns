@@ -1,6 +1,14 @@
 package ttv.alanorMiga.jeg.common.properties;
 
 import com.google.gson.JsonObject;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fml.DistExecutor;
+import org.apache.commons.lang3.tuple.Pair;
 import ttv.alanorMiga.jeg.annotation.Optional;
 import ttv.alanorMiga.jeg.client.util.Easings;
 import ttv.alanorMiga.jeg.debug.Debug;
@@ -8,15 +16,6 @@ import ttv.alanorMiga.jeg.debug.IDebugWidget;
 import ttv.alanorMiga.jeg.debug.IEditorMenu;
 import ttv.alanorMiga.jeg.debug.client.screen.widget.DebugEnum;
 import ttv.alanorMiga.jeg.debug.client.screen.widget.DebugToggle;
-import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.fml.DistExecutor;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.Locale;
@@ -67,7 +66,7 @@ public class SightAnimation implements INBTSerializable<CompoundTag>, IEditorMen
     @Override
     public Component getEditorLabel()
     {
-        return new TextComponent("Sight Animation");
+        return Component.translatable("Sight Animation");
     }
 
     /**
@@ -77,17 +76,17 @@ public class SightAnimation implements INBTSerializable<CompoundTag>, IEditorMen
     public void getEditorWidgets(List<Pair<Component, Supplier<IDebugWidget>>> widgets)
     {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            widgets.add(Pair.of(new TextComponent("Debug: ").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD).append(new TextComponent("Force Aim").withStyle(ChatFormatting.WHITE)), () -> new DebugToggle(Debug.isForceAim(), Debug::setForceAim)));
-            widgets.add(Pair.of(new TextComponent("Viewport Curve"), () -> new DebugEnum<>(Easings.class, this.viewportCurve, value -> {
+            widgets.add(Pair.of(Component.translatable("Debug: ").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD).append(Component.translatable("Force Aim").withStyle(ChatFormatting.WHITE)), () -> new DebugToggle(Debug.isForceAim(), Debug::setForceAim)));
+            widgets.add(Pair.of(Component.translatable("Viewport Curve"), () -> new DebugEnum<>(Easings.class, this.viewportCurve, value -> {
                 this.viewportCurve = value;
             })));
-            widgets.add(Pair.of(new TextComponent("Sight Curve"), () -> new DebugEnum<>(Easings.class, this.sightCurve, value -> {
+            widgets.add(Pair.of(Component.translatable("Sight Curve"), () -> new DebugEnum<>(Easings.class, this.sightCurve, value -> {
                 this.sightCurve = value;
             })));
-            widgets.add(Pair.of(new TextComponent("FOV Curve"), () -> new DebugEnum<>(Easings.class, this.fovCurve, value -> {
+            widgets.add(Pair.of(Component.translatable("FOV Curve"), () -> new DebugEnum<>(Easings.class, this.fovCurve, value -> {
                 this.fovCurve = value;
             })));
-            widgets.add(Pair.of(new TextComponent("Aim Transform Curve"), () -> new DebugEnum<>(Easings.class, this.aimTransformCurve, value -> {
+            widgets.add(Pair.of(Component.translatable("Aim Transform Curve"), () -> new DebugEnum<>(Easings.class, this.aimTransformCurve, value -> {
                 this.aimTransformCurve = value;
             })));
         });

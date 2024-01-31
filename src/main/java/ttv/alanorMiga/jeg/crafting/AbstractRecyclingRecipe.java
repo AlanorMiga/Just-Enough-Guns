@@ -1,6 +1,7 @@
 package ttv.alanorMiga.jeg.crafting;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +33,7 @@ public abstract class AbstractRecyclingRecipe implements Recipe<Container> {
       return this.ingredient.test(p_43748_.getItem(0));
    }
 
-   public ItemStack assemble(Container p_43746_) {
+   public ItemStack assemble(Container p_43746_, RegistryAccess access) {
       return this.result.copy();
    }
 
@@ -50,7 +51,7 @@ public abstract class AbstractRecyclingRecipe implements Recipe<Container> {
       return this.experience;
    }
 
-   public ItemStack getResultItem() {
+   public ItemStack getResultItem(RegistryAccess access) {
       return this.result;
    }
 

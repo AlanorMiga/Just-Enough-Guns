@@ -1,16 +1,7 @@
 package ttv.alanorMiga.jeg.debug.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.debug.IDebugWidget;
-import ttv.alanorMiga.jeg.debug.IEditorMenu;
-import ttv.alanorMiga.jeg.util.ScreenUtil;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -21,9 +12,12 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.debug.IDebugWidget;
+import ttv.alanorMiga.jeg.debug.IEditorMenu;
+import ttv.alanorMiga.jeg.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +55,9 @@ public class EditorScreen extends Screen
         this.windowLeft = 10;
         this.windowTop = (this.height - this.windowHeight) / 2;
 
-        this.addRenderableWidget(new Button(this.windowLeft + WIDTH - 12 - 4, this.windowTop + 4, 12, 12, new TextComponent("<"), btn -> {
+        this.addRenderableWidget(Button.builder(Component.literal("<"), btn -> {
             Minecraft.getInstance().setScreen(this.parent);
-        }));
+        }).pos(this.windowLeft + WIDTH - 12 - 4, this.windowTop + 4).size(12, 12).build());
 
         this.list = new PropertyList();
         this.list.setRenderBackground(false);
@@ -133,7 +127,7 @@ public class EditorScreen extends Screen
         buffer.vertex(x + width, y + height, 0).uv((u + textureWidth) * uScale, (v + textureHeight) * vScale).endVertex();
         buffer.vertex(x + width, y, 0).uv((u + textureWidth) * uScale, v * vScale).endVertex();
         buffer.vertex(x, y, 0).uv(u * uScale, v * vScale).endVertex();
-        BufferUploader.end(buffer);
+        BufferUploader.drawWithShader(buffer.end());
     }
 
     private class PropertyList extends ContainerObjectSelectionList<PropertyEntry>
@@ -196,8 +190,8 @@ public class EditorScreen extends Screen
         public void render(PoseStack poseStack, int index, int top, int left, int rowWidth, int rowHeight, int mouseX, int mouseY, boolean hovered, float partialTicks)
         {
             Screen.drawString(poseStack, EditorScreen.this.minecraft.font, this.label, left + 5, top, 0xFFFFFF);
-            this.widget.x = left;
-            this.widget.y = top + 10;
+            this.widget.setX(left);
+            this.widget.setY(top + 10);
             this.widget.setWidth(rowWidth);
             this.widget.render(poseStack, mouseX, mouseY, partialTicks);
         }

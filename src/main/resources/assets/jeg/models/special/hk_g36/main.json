@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "jeg:items/hk_g36",
-		"particle": "jeg:items/hk_g36"
+		"1": "jeg:item/hk_g36",
+		"particle": "jeg:item/hk_g36"
 	},
 	"elements": [
 		{

@@ -1,14 +1,14 @@
 package ttv.alanorMiga.jeg.client;
 
-import ttv.alanorMiga.jeg.item.GunItem;
+import com.mrcrayfish.controllable.client.IBindingContext;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.settings.IKeyConflictContext;
 import net.minecraftforge.client.settings.KeyConflictContext;
+import ttv.alanorMiga.jeg.item.GunItem;
 
 /**
  * Author: MrCrayfish
  */
-public enum GunConflictContext implements IKeyConflictContext
+public enum GunConflictContext implements IBindingContext
 {
     IN_GAME_HOLDING_WEAPON
     {
@@ -19,7 +19,7 @@ public enum GunConflictContext implements IKeyConflictContext
         }
 
         @Override
-        public boolean conflicts(IKeyConflictContext other)
+        public boolean conflicts(IBindingContext other)
         {
             return this == other;
         }

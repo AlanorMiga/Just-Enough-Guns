@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "jeg:items/semi_auto_rifle"
+		"1": "jeg:item/semi_auto_rifle"
 	},
 	"elements": [
 		{

@@ -1,22 +1,27 @@
 package ttv.alanorMiga.jeg.event.loot;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import com.mojang.serialization.Codec;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import ttv.alanorMiga.jeg.Reference;
-
-import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModLootModifiers {
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS =
+            DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Reference.MOD_ID);
 
-    @SubscribeEvent
-    public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-        event.getRegistry().registerAll(
-                new TechTrashOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"tech_trash_on_simple_dungeon")),
-                new ScrapOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"scrap_on_simple_dungeon"))
-        );
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> SCRAP_SIMPLE_DUNGEON =
+            LOOT_MODIFIER_SERIALIZERS.register("scrap_simple_dungeon", ScrapOnSimpleDungeonModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> TECH_TRASH_SIMPLE_DUNGEON =
+            LOOT_MODIFIER_SERIALIZERS.register("tech_trash_simple_dungeon", TechTrashOnSimpleDungeonModifier.CODEC);
+
+
+    public static void register(IEventBus bus) {
+        LOOT_MODIFIER_SERIALIZERS.register(bus);
     }
 }

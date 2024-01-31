@@ -18,7 +18,8 @@ public class BurstFireHandler
 {
 
     @SubscribeEvent
-    public static void onMouseButtonEvent(InputEvent.MouseInputEvent event)
+    //InteractionKeyMappingTriggered
+    public static void onMouseButtonEvent(InputEvent.MouseButton event)
     {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;

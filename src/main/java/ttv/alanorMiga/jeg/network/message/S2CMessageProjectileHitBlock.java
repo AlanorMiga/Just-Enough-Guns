@@ -1,13 +1,11 @@
 package ttv.alanorMiga.jeg.network.message;
 
-import com.mrcrayfish.framework.api.network.PlayMessage;
-import ttv.alanorMiga.jeg.client.network.ClientPlayHandler;
+import com.mrcrayfish.framework.api.network.MessageContext;
+import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import ttv.alanorMiga.jeg.client.network.ClientPlayHandler;
 
 /**
  * Author: MrCrayfish
@@ -53,10 +51,10 @@ public class S2CMessageProjectileHitBlock extends PlayMessage<S2CMessageProjecti
     }
 
     @Override
-    public void handle(S2CMessageProjectileHitBlock message, Supplier<NetworkEvent.Context> supplier)
+    public void handle(S2CMessageProjectileHitBlock message, MessageContext context)
     {
-        supplier.get().enqueueWork(() -> ClientPlayHandler.handleProjectileHitBlock(message));
-        supplier.get().setPacketHandled(true);
+        context.execute(() -> ClientPlayHandler.handleProjectileHitBlock(message));
+        context.setHandled(true);
     }
 
     public double getX()

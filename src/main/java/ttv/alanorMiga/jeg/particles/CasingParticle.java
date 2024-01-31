@@ -13,10 +13,10 @@ public class CasingParticle extends TextureSheetParticle {
         this.gravity = 0.75F;
         this.friction = 0.999F;
         this.hasPhysics = true;
-        this.xd *= (double) 0.8F;
-        this.yd *= (double) 0.8F;
-        this.zd *= (double) 0.8F;
-        this.yd = (double) (this.random.nextFloat() * 0.225F + 0.22F);
+        this.xd *= 0.8F;
+        this.yd *= 0.8F;
+        this.zd *= 0.8F;
+        this.yd = this.random.nextFloat() * 0.225F + 0.22F;
         this.quadSize = 0.35F;
         this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
     }

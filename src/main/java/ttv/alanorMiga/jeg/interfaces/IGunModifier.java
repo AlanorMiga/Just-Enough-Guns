@@ -155,18 +155,6 @@ public interface IGunModifier
     }
 
     /**
-     * Changes the visual size of the muzzle flash.
-     *
-     * @param size the current size
-     * @return the new size for the muzzle flash
-     */
-    @Deprecated(since = "1.3.0", forRemoval = true)
-    default double modifyMuzzleFlashSize(double size)
-    {
-        return size;
-    }
-
-    /**
      * Changes the visual scale of the muzzle flash.
      *
      * @param scale the current scale

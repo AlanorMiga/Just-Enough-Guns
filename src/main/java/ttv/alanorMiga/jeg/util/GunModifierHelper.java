@@ -1,10 +1,10 @@
 package ttv.alanorMiga.jeg.util;
 
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.interfaces.IGunModifier;
 import ttv.alanorMiga.jeg.item.attachment.IAttachment;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.Mth;
 
 /**
  * Author: MrCrayfish
@@ -95,20 +95,6 @@ public class GunModifierHelper
             }
         }
         return Mth.clamp(volume, 0.0F, 16.0F);
-    }
-
-    @Deprecated(since = "1.3.0", forRemoval = true)
-    public static double getMuzzleFlashSize(ItemStack weapon, double size)
-    {
-        for(int i = 0; i < IAttachment.Type.values().length; i++)
-        {
-            IGunModifier[] modifiers = getModifiers(weapon, IAttachment.Type.values()[i]);
-            for(IGunModifier modifier : modifiers)
-            {
-                size = modifier.modifyMuzzleFlashSize(size);
-            }
-        }
-        return size;
     }
 
     public static double getMuzzleFlashScale(ItemStack weapon, double scale)

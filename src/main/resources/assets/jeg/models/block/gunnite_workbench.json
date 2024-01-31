@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "jeg:items/scar_l",
+		"1": "jeg:item/scar_l",
 		"2": "jeg:block/gunnite_workbench_side",
 		"3": "jeg:block/gunnite_workbench_top",
 		"4": "jeg:block/gunnite_workbench_back",
@@ -10,7 +10,7 @@
 		"7": "jeg:block/gunnite_workbench_surface",
 		"8": "jeg:block/gunnite_workbench_plate",
 		"particle": "jeg:block/gunnite_workbench_bottom_surface",
-		"2_1": "jeg:items/hk_g36"
+		"2_1": "jeg:block/gunnite_workbench_top"
 	},
 	"elements": [
 		{
