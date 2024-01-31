@@ -5,6 +5,11 @@ import com.mrcrayfish.framework.api.serialize.DataArray;
 import com.mrcrayfish.framework.api.serialize.DataNumber;
 import com.mrcrayfish.framework.api.serialize.DataObject;
 import com.mrcrayfish.framework.api.serialize.DataType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import ttv.alanorMiga.jeg.cache.ObjectCache;
 import ttv.alanorMiga.jeg.client.MetaLoader;
 import ttv.alanorMiga.jeg.common.Gun;
@@ -13,12 +18,6 @@ import ttv.alanorMiga.jeg.item.IMeta;
 import ttv.alanorMiga.jeg.item.attachment.IAttachment;
 import ttv.alanorMiga.jeg.item.attachment.IBarrel;
 import ttv.alanorMiga.jeg.item.attachment.IScope;
-import ttv.alanorMiga.jeg.item.attachment.impl.Scope;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
 
@@ -68,13 +67,6 @@ public final class PropertyHelper
                 DataArray cameraArray = scopeObject.getDataArray("camera");
                 return arrayToVec3(cameraArray, Vec3.ZERO);
             }
-        }
-
-        // Old method of getting the camera position
-        if(stack.getItem() instanceof IScope scope)
-        {
-            Scope properties = scope.getProperties();
-            return new Vec3(0, properties.getReticleOffset(), (properties.getViewFinderDistance()) * 16.0).add(ATTACHMENT_DEFAULT_ORIGIN); // 0.72 is magic number I decided to add long ago. Here for backwards compat.
         }
 
         return ATTACHMENT_DEFAULT_ORIGIN;

@@ -1,19 +1,15 @@
 package ttv.alanorMiga.jeg.client.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.TextureSheetParticle;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.client.particle.*;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import com.mojang.math.Quaternion;
 import net.minecraft.world.phys.Vec3;
-import com.mojang.math.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -54,9 +50,9 @@ public class BloodParticle extends TextureSheetParticle
     public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks)
     {
         Vec3 projectedView = renderInfo.getPosition();
-        float x = (float) (Mth.lerp((double) partialTicks, this.xo, this.x) - projectedView.x());
-        float y = (float) (Mth.lerp((double) partialTicks, this.yo, this.y) - projectedView.y());
-        float z = (float) (Mth.lerp((double) partialTicks, this.zo, this.z) - projectedView.z());
+        float x = (float) (Mth.lerp(partialTicks, this.xo, this.x) - projectedView.x());
+        float y = (float) (Mth.lerp(partialTicks, this.yo, this.y) - projectedView.y());
+        float z = (float) (Mth.lerp(partialTicks, this.zo, this.z) - projectedView.z());
 
         if(this.onGround)
         {

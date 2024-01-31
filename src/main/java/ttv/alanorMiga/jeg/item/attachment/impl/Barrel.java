@@ -10,7 +10,7 @@ import ttv.alanorMiga.jeg.interfaces.IGunModifier;
  */
 public class Barrel extends Attachment
 {
-    private float length;
+    private final float length;
 
     private Barrel(float length, IGunModifier... modifier)
     {

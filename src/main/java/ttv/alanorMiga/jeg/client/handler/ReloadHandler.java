@@ -1,14 +1,5 @@
 package ttv.alanorMiga.jeg.client.handler;
 
-import ttv.alanorMiga.jeg.client.KeyBinds;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.event.GunReloadEvent;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
-import ttv.alanorMiga.jeg.item.GunItem;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.C2SMessageReload;
-import ttv.alanorMiga.jeg.network.message.C2SMessageUnload;
-import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -19,6 +10,15 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
+import ttv.alanorMiga.jeg.client.KeyBinds;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.event.GunReloadEvent;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.C2SMessageReload;
+import ttv.alanorMiga.jeg.network.message.C2SMessageUnload;
+import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
 
 /**
  * Author: MrCrayfish
@@ -77,14 +77,7 @@ public class ReloadHandler
 
         if(KeyBinds.KEY_RELOAD.isDown() && event.getAction() == GLFW.GLFW_PRESS)
         {
-            if(!ModSyncedDataKeys.RELOADING.getValue(player))
-            {
-                this.setReloading(true);
-            }
-            else
-            {
-                this.setReloading(false);
-            }
+            this.setReloading(!ModSyncedDataKeys.RELOADING.getValue(player));
         }
         if(KeyBinds.KEY_UNLOAD.consumeClick() && event.getAction() == GLFW.GLFW_PRESS)
         {

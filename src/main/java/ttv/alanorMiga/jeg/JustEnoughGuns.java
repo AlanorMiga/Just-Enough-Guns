@@ -3,7 +3,6 @@ package ttv.alanorMiga.jeg;
 import com.mrcrayfish.framework.api.client.FrameworkClientAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +10,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -21,7 +19,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ttv.alanorMiga.jeg.client.ClientHandler;
@@ -30,13 +27,8 @@ import ttv.alanorMiga.jeg.client.MetaLoader;
 import ttv.alanorMiga.jeg.client.handler.CrosshairHandler;
 import ttv.alanorMiga.jeg.common.BoundingBoxManager;
 import ttv.alanorMiga.jeg.common.ProjectileManager;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchIngredient;
-import ttv.alanorMiga.jeg.crafting.ModRecipeSerializers;
-import ttv.alanorMiga.jeg.crafting.ModRecipeType;
-import ttv.alanorMiga.jeg.datagen.BlockTagGen;
-import ttv.alanorMiga.jeg.datagen.ItemTagGen;
-import ttv.alanorMiga.jeg.datagen.LanguageGen;
-import ttv.alanorMiga.jeg.datagen.LootTableGen;
+import ttv.alanorMiga.jeg.init.ModRecipeTypes;
+import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchIngredient;
 import ttv.alanorMiga.jeg.enchantment.EnchantmentTypes;
 import ttv.alanorMiga.jeg.entity.GrenadeEntity;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
@@ -89,7 +81,6 @@ public class JustEnoughGuns {
         MinecraftForge.EVENT_BUS.addListener(OreFeatures::onBiomeLoadingEvent);
         bus.addListener(this::onCommonSetup);
         bus.addListener(this::onClientSetup);
-        bus.addListener(this::onGatherData);
         bus.addListener(this::onParticlesRegistry);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             bus.addListener(CrosshairHandler::onConfigReload);
@@ -105,10 +96,10 @@ public class JustEnoughGuns {
     private void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() ->
         {
-            ModRecipeType.init();
+            ModRecipeTypes.init();
             ModSyncedDataKeys.register();
             OreFeatures.registerOreFeatures();
-            CraftingHelper.register(new ResourceLocation(Reference.MOD_ID, "workbench_ingredient"), GunniteWorkbenchIngredient.Serializer.INSTANCE);
+            CraftingHelper.register(new ResourceLocation(Reference.MOD_ID, "workbench_ingredient"), ScrapWorkbenchIngredient.Serializer.INSTANCE);
             ProjectileManager.getInstance().registerFactory(ModItems.RIFLE_AMMO.get(), (worldIn, entity, weapon, item, modifiedGun) -> new TracerProjectileEntity(ModEntities.TRACER.get(), worldIn, entity, weapon, item, modifiedGun));
             ProjectileManager.getInstance().registerFactory(ModItems.PISTOL_AMMO.get(), (worldIn, entity, weapon, item, modifiedGun) -> new TracerProjectileEntity(ModEntities.TRACER.get(), worldIn, entity, weapon, item, modifiedGun));
             ProjectileManager.getInstance().registerFactory(ModItems.HANDMADE_SHELL.get(), (worldIn, entity, weapon, item, modifiedGun) -> new ProjectileEntity(ModEntities.PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun));
@@ -129,18 +120,6 @@ public class JustEnoughGuns {
 
     private void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(ClientHandler::setup);
-    }
-
-    private void onGatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-        BlockTagGen blockTagGen = new BlockTagGen(generator, existingFileHelper);
-        //generator.addProvider(new RecipeGen(generator));
-        generator.addProvider(new LootTableGen(generator));
-        generator.addProvider(blockTagGen);
-        generator.addProvider(new ItemTagGen(generator, blockTagGen, existingFileHelper));
-        generator.addProvider(new LanguageGen(generator));
-        //generator.addProvider(new GunGen(generator));
     }
 
     public static boolean isDebugging() {

@@ -194,7 +194,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
         Item item = p_58376_.asItem();
         if (isNeverARecyclerFuel(item)) {
             if (SharedConstants.IS_RUNNING_IN_IDE) {
-                throw (IllegalStateException) Util.pauseInIde(new IllegalStateException("A developer tried to explicitly make fire resistant item " + item.getName((ItemStack) null).getString() + " a recycler fuel. That will not work!"));
+                throw Util.pauseInIde(new IllegalStateException("A developer tried to explicitly make fire resistant item " + item.getName(null).getString() + " a recycler fuel. That will not work!"));
             }
         } else {
             p_58375_.put(item, p_58377_);

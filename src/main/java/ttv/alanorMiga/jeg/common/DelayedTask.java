@@ -1,6 +1,5 @@
 package ttv.alanorMiga.jeg.common;
 
-import ttv.alanorMiga.jeg.Reference;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.LogicalSidedProvider;
 import net.minecraftforge.event.TickEvent;
@@ -9,6 +8,7 @@ import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import ttv.alanorMiga.jeg.Reference;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -74,8 +74,8 @@ public class DelayedTask
 
     private static class Impl
     {
-        private int executionTick;
-        private Runnable runnable;
+        private final int executionTick;
+        private final Runnable runnable;
 
         private Impl(int executionTick, Runnable runnable)
         {

@@ -7,8 +7,8 @@ import com.mojang.math.Vector3f;
  */
 public class AimPose
 {
-    private Instance idle = new Instance();
-    private Instance aiming = new Instance();
+    private final Instance idle = new Instance();
+    private final Instance aiming = new Instance();
 
     public Instance getIdle()
     {

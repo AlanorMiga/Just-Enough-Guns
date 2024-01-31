@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import ttv.alanorMiga.jeg.init.ModRecipeSerializers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class GunniteWorkbenchRecipeBuilder
 {
     private final Item result;
     private final int count;
-    private final List<GunniteWorkbenchIngredient> ingredients;
+    private final List<ScrapWorkbenchIngredient> ingredients;
     private final Advancement.Builder advancementBuilder;
     private final List<ICondition> conditions = new ArrayList<>();
 
@@ -51,11 +52,11 @@ public class GunniteWorkbenchRecipeBuilder
 
     public GunniteWorkbenchRecipeBuilder addIngredient(ItemLike item, int count)
     {
-        this.ingredients.add(GunniteWorkbenchIngredient.of(item, count));
+        this.ingredients.add(ScrapWorkbenchIngredient.of(item, count));
         return this;
     }
 
-    public GunniteWorkbenchRecipeBuilder addIngredient(GunniteWorkbenchIngredient ingredient)
+    public GunniteWorkbenchRecipeBuilder addIngredient(ScrapWorkbenchIngredient ingredient)
     {
         this.ingredients.add(ingredient);
         return this;
@@ -102,12 +103,12 @@ public class GunniteWorkbenchRecipeBuilder
         private final ResourceLocation id;
         private final Item item;
         private final int count;
-        private final List<GunniteWorkbenchIngredient> ingredients;
+        private final List<ScrapWorkbenchIngredient> ingredients;
         private final List<ICondition> conditions;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation id, ItemLike item, int count, List<GunniteWorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId)
+        public Result(ResourceLocation id, ItemLike item, int count, List<ScrapWorkbenchIngredient> ingredients, List<ICondition> conditions, Advancement.Builder advancement, ResourceLocation advancementId)
         {
             this.id = id;
             this.item = item.asItem();

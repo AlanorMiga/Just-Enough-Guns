@@ -1,4 +1,4 @@
-package ttv.alanorMiga.jeg.crafting;
+package ttv.alanorMiga.jeg.init;
 
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
@@ -6,6 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.crafting.*;
 
 /**
  * Author: MrCrayfish

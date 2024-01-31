@@ -1,13 +1,5 @@
 package ttv.alanorMiga.jeg.entity;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.Config.EffectCriteria;
-import ttv.alanorMiga.jeg.init.ModEffects;
-import ttv.alanorMiga.jeg.init.ModEntities;
-import ttv.alanorMiga.jeg.init.ModItems;
-import ttv.alanorMiga.jeg.init.ModSounds;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.S2CMessageStunGrenade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -31,6 +23,14 @@ import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.Config.EffectCriteria;
+import ttv.alanorMiga.jeg.init.ModEffects;
+import ttv.alanorMiga.jeg.init.ModEntities;
+import ttv.alanorMiga.jeg.init.ModItems;
+import ttv.alanorMiga.jeg.init.ModSounds;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.S2CMessageStunGrenade;
 
 import javax.annotation.Nullable;
 

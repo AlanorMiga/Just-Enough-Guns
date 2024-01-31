@@ -17,10 +17,10 @@ import ttv.alanorMiga.jeg.item.attachment.IAttachment;
  */
 public class AttachmentSlot extends Slot
 {
-    private AttachmentContainer container;
-    private ItemStack weapon;
-    private IAttachment.Type type;
-    private Player player;
+    private final AttachmentContainer container;
+    private final ItemStack weapon;
+    private final IAttachment.Type type;
+    private final Player player;
 
     public AttachmentSlot(AttachmentContainer container, Container weaponInventory, ItemStack weapon, IAttachment.Type type, Player player, int index, int x, int y)
     {

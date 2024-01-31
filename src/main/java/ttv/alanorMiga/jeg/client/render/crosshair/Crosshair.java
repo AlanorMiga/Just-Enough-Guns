@@ -1,10 +1,10 @@
 package ttv.alanorMiga.jeg.client.render.crosshair;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import ttv.alanorMiga.jeg.client.handler.CrosshairHandler;
-import ttv.alanorMiga.jeg.interfaces.IResourceLocation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import ttv.alanorMiga.jeg.client.handler.CrosshairHandler;
+import ttv.alanorMiga.jeg.interfaces.IResourceLocation;
 
 /**
  * Author: MrCrayfish
@@ -18,7 +18,7 @@ public abstract class Crosshair implements IResourceLocation
         CrosshairHandler.get().register(DEFAULT);
     }
 
-    private ResourceLocation id;
+    private final ResourceLocation id;
 
     /**
      * The default constructor for crosshairs

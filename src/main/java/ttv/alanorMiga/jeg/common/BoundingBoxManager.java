@@ -1,23 +1,19 @@
 package ttv.alanorMiga.jeg.common;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.common.headshot.BasicHeadshotBox;
-import ttv.alanorMiga.jeg.common.headshot.ChildHeadshotBox;
-import ttv.alanorMiga.jeg.common.headshot.NoChildHeadshotBox;
-import ttv.alanorMiga.jeg.common.headshot.NoChildRotatedHeadshotBox;
-import ttv.alanorMiga.jeg.common.headshot.RotatedHeadshotBox;
-import ttv.alanorMiga.jeg.interfaces.IHeadshotBox;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.common.headshot.*;
+import ttv.alanorMiga.jeg.interfaces.IHeadshotBox;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -30,8 +26,8 @@ import java.util.WeakHashMap;
  */
 public class BoundingBoxManager
 {
-    private static Map<EntityType<?>, IHeadshotBox<?>> headshotBoxes = new HashMap<>();
-    private static WeakHashMap<Player, LinkedList<AABB>> playerBoxes = new WeakHashMap<>();
+    private static final Map<EntityType<?>, IHeadshotBox<?>> headshotBoxes = new HashMap<>();
+    private static final WeakHashMap<Player, LinkedList<AABB>> playerBoxes = new WeakHashMap<>();
 
     static
     {

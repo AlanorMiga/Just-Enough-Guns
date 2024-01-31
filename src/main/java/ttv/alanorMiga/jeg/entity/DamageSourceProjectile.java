@@ -1,12 +1,12 @@
 package ttv.alanorMiga.jeg.entity;
 
-import ttv.alanorMiga.jeg.Reference;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import ttv.alanorMiga.jeg.Reference;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -19,7 +19,7 @@ public class DamageSourceProjectile extends IndirectEntityDamageSource
     private static final String[] DEATH_TYPES = { "killed", "eliminated", "executed", "annihilated", "decimated" };
     private static final Random RAND = new Random();
 
-    private ItemStack weapon;
+    private final ItemStack weapon;
 
     public DamageSourceProjectile(String damageTypeIn, Entity source, @Nullable Entity indirectEntityIn, ItemStack weapon)
     {

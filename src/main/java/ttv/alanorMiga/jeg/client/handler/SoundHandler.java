@@ -1,9 +1,5 @@
 package ttv.alanorMiga.jeg.client.handler;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.client.audio.StunRingingSound;
-import ttv.alanorMiga.jeg.init.ModEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -19,6 +15,10 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.client.audio.StunRingingSound;
+import ttv.alanorMiga.jeg.init.ModEffects;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -174,8 +174,9 @@ public class SoundHandler
 
     public static class SoundMuted implements SoundInstance
     {
-        private SoundInstance parent;
-        private float volume, volumeInitial;
+        private final SoundInstance parent;
+        private final float volume;
+        private float volumeInitial;
 
         public SoundMuted(SoundInstance parent, int duration, boolean isStunGrenade)
         {

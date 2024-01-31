@@ -1,13 +1,5 @@
 package ttv.alanorMiga.jeg.common;
 
-import net.minecraft.world.item.Item;
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
-import ttv.alanorMiga.jeg.item.GunItem;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.S2CMessageGunSound;
-import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -20,6 +12,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.S2CMessageGunSound;
+import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -246,10 +245,7 @@ public class ReloadTracker
                     }
                 }
             }
-            else if(RELOAD_TRACKER_MAP.containsKey(player))
-            {
-                RELOAD_TRACKER_MAP.remove(player);
-            }
+            else RELOAD_TRACKER_MAP.remove(player);
         }
     }
 

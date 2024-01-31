@@ -30,7 +30,7 @@ import ttv.alanorMiga.jeg.blockentity.GunniteWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.client.util.RenderUtil;
 import ttv.alanorMiga.jeg.common.NetworkGunManager;
 import ttv.alanorMiga.jeg.common.container.GunniteWorkbenchContainer;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchIngredient;
+import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchIngredient;
 import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipe;
 import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipes;
 import ttv.alanorMiga.jeg.init.ModBlocks;
@@ -59,11 +59,11 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
     private static boolean showRemaining = false;
 
     private Tab currentTab;
-    private List<Tab> tabs = new ArrayList<>();
-    private List<MaterialItem> materials;
+    private final List<Tab> tabs = new ArrayList<>();
+    private final List<MaterialItem> materials;
     private List<MaterialItem> filteredMaterials;
-    private Inventory playerInventory;
-    private GunniteWorkbenchBlockEntity workbench;
+    private final Inventory playerInventory;
+    private final GunniteWorkbenchBlockEntity workbench;
     private Button btnCraft;
     private CheckBox checkBoxMaterials;
     private ItemStack displayStack;
@@ -298,10 +298,10 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
 
         this.materials.clear();
 
-        List<GunniteWorkbenchIngredient> ingredients = recipe.getMaterials();
+        List<ScrapWorkbenchIngredient> ingredients = recipe.getMaterials();
         if(ingredients != null)
         {
-            for(GunniteWorkbenchIngredient ingredient : ingredients)
+            for(ScrapWorkbenchIngredient ingredient : ingredients)
             {
                 MaterialItem item = new MaterialItem(ingredient);
                 item.updateEnabledState();
@@ -511,12 +511,12 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
         private long lastTime = System.currentTimeMillis();
         private int displayIndex;
         private boolean enabled = false;
-        private GunniteWorkbenchIngredient ingredient;
+        private ScrapWorkbenchIngredient ingredient;
         private final List<ItemStack> displayStacks = new ArrayList<>();
 
         private MaterialItem() {}
 
-        private MaterialItem(GunniteWorkbenchIngredient ingredient)
+        private MaterialItem(ScrapWorkbenchIngredient ingredient)
         {
             this.ingredient = ingredient;
             Stream.of(ingredient.getItems()).forEach(stack -> {
@@ -526,7 +526,7 @@ public class GunniteWorkbenchScreen extends AbstractContainerScreen<GunniteWorkb
             });
         }
 
-        public GunniteWorkbenchIngredient getIngredient()
+        public ScrapWorkbenchIngredient getIngredient()
         {
             return this.ingredient;
         }

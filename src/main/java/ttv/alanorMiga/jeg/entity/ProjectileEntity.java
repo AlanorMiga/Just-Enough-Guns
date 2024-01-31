@@ -599,7 +599,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
         float f1 = Mth.sin(-yaw * 0.017453292F - (float) Math.PI);
         float f2 = -Mth.cos(-pitch * 0.017453292F);
         float f3 = Mth.sin(-pitch * 0.017453292F);
-        return new Vec3((double) (f1 * f2), (double) f3, (double) (f * f2));
+        return new Vec3(f1 * f2, f3, f * f2);
     }
 
     /**
@@ -827,9 +827,9 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
      */
     public static class EntityResult
     {
-        private Entity entity;
-        private Vec3 hitVec;
-        private boolean headshot;
+        private final Entity entity;
+        private final Vec3 hitVec;
+        private final boolean headshot;
 
         public EntityResult(Entity entity, Vec3 hitVec, boolean headshot)
         {

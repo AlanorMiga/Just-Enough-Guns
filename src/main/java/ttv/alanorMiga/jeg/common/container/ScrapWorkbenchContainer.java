@@ -16,8 +16,8 @@ import ttv.alanorMiga.jeg.init.ModContainers;
  */
 public class ScrapWorkbenchContainer extends AbstractContainerMenu
 {
-    private ScrapWorkbenchBlockEntity workbench;
-    private BlockPos pos;
+    private final ScrapWorkbenchBlockEntity workbench;
+    private final BlockPos pos;
 
     public ScrapWorkbenchContainer(int windowId, Container playerInventory, ScrapWorkbenchBlockEntity workbench)
     {

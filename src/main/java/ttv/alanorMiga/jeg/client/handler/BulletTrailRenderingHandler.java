@@ -2,30 +2,25 @@ package ttv.alanorMiga.jeg.client.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import ttv.alanorMiga.jeg.client.BulletTrail;
-
-import ttv.alanorMiga.jeg.client.GunRenderType;
-import ttv.alanorMiga.jeg.client.util.RenderUtil;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.BlockPos;
-import com.mojang.math.Matrix4f;
-import net.minecraft.world.phys.Vec3;
-import com.mojang.math.Vector3f;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.client.BulletTrail;
+import ttv.alanorMiga.jeg.client.GunRenderType;
+import ttv.alanorMiga.jeg.client.util.RenderUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +41,7 @@ public class BulletTrailRenderingHandler
         return instance;
     }
 
-    private Map<Integer, BulletTrail> bullets = new HashMap<>();
+    private final Map<Integer, BulletTrail> bullets = new HashMap<>();
 
     private BulletTrailRenderingHandler() {}
 

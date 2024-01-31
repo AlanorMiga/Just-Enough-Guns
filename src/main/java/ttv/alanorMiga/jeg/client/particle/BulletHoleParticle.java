@@ -3,7 +3,6 @@ package ttv.alanorMiga.jeg.client.particle;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import ttv.alanorMiga.jeg.Config;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import ttv.alanorMiga.jeg.Config;
 
 /**
  * Author: MrCrayfish
@@ -121,9 +121,9 @@ public class BulletHoleParticle extends TextureSheetParticle
     public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks)
     {
         Vec3 view = renderInfo.getPosition();
-        float particleX = (float) (Mth.lerp((double) partialTicks, this.xo, this.x) - view.x());
-        float particleY = (float) (Mth.lerp((double) partialTicks, this.yo, this.y) - view.y());
-        float particleZ = (float) (Mth.lerp((double) partialTicks, this.zo, this.z) - view.z());
+        float particleX = (float) (Mth.lerp(partialTicks, this.xo, this.x) - view.x());
+        float particleY = (float) (Mth.lerp(partialTicks, this.yo, this.y) - view.y());
+        float particleZ = (float) (Mth.lerp(partialTicks, this.zo, this.z) - view.z());
         Quaternion quaternion = this.direction.getRotation();
         Vector3f[] points = new Vector3f[]{new Vector3f(-1.0F, 0.0F, -1.0F), new Vector3f(-1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, 1.0F), new Vector3f(1.0F, 0.0F, -1.0F)};
         float scale = this.getQuadSize(partialTicks);

@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -17,15 +16,15 @@ public class ScrapParticle extends TextureSheetParticle {
 
     ScrapParticle(ClientLevel pLevel, double pX, double pY, double pZ, ItemStack itemStack) {
         super(pLevel, pX, pY, pZ, 0.0D, 0.0D, 0.0D);
-        var model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, pLevel, (LivingEntity) null, 0);
+        var model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, pLevel, null, 0);
         this.setSprite(model.getOverrides().resolve(model, itemStack, pLevel, null, 0).getParticleIcon(net.minecraftforge.client.model.data.EmptyModelData.INSTANCE));
         this.gravity = 0.75F;
         this.friction = 0.999F;
         this.hasPhysics = true;
-        this.xd *= (double) 0.8F;
-        this.yd *= (double) 0.8F;
-        this.zd *= (double) 0.8F;
-        this.yd = (double) (this.random.nextFloat() * 0.225F + 0.22F);
+        this.xd *= 0.8F;
+        this.yd *= 0.8F;
+        this.zd *= 0.8F;
+        this.yd = this.random.nextFloat() * 0.225F + 0.22F;
         this.quadSize = 0.1F;
         this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
         this.uo = this.random.nextFloat() * 3.0F;
@@ -53,19 +52,19 @@ public class ScrapParticle extends TextureSheetParticle {
     }
 
     protected float getU0() {
-        return this.sprite.getU((double) ((this.uo + 1.0F) / 4.0F * 16.0F));
+        return this.sprite.getU((this.uo + 1.0F) / 4.0F * 16.0F);
     }
 
     protected float getU1() {
-        return this.sprite.getU((double) (this.uo / 4.0F * 16.0F));
+        return this.sprite.getU(this.uo / 4.0F * 16.0F);
     }
 
     protected float getV0() {
-        return this.sprite.getV((double) (this.vo / 4.0F * 16.0F));
+        return this.sprite.getV(this.vo / 4.0F * 16.0F);
     }
 
     protected float getV1() {
-        return this.sprite.getV((double) ((this.vo + 1.0F) / 4.0F * 16.0F));
+        return this.sprite.getV((this.vo + 1.0F) / 4.0F * 16.0F);
     }
 
     @OnlyIn(Dist.CLIENT)

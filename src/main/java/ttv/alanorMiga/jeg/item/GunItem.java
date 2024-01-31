@@ -33,7 +33,7 @@ import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
 public class GunItem extends Item implements IColored, IMeta {
-    private WeakHashMap<CompoundTag, Gun> modifiedGunCache = new WeakHashMap<>();
+    private final WeakHashMap<CompoundTag, Gun> modifiedGunCache = new WeakHashMap<>();
 
     private Gun gun = new Gun();
 

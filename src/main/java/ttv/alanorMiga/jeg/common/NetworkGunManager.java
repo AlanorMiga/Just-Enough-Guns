@@ -5,13 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mrcrayfish.framework.api.data.login.ILoginData;
-import ttv.alanorMiga.jeg.JustEnoughGuns;
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.annotation.Validator;
-import ttv.alanorMiga.jeg.client.util.Easings;
-import ttv.alanorMiga.jeg.item.GunItem;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.S2CMessageUpdateGuns;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -28,21 +21,19 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.Validate;
+import ttv.alanorMiga.jeg.JustEnoughGuns;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.annotation.Validator;
+import ttv.alanorMiga.jeg.client.util.Easings;
+import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.S2CMessageUpdateGuns;
 
 import javax.annotation.Nullable;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.InvalidObjectException;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Author: MrCrayfish
@@ -60,7 +51,7 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
         return builder.create();
     });
 
-    private static List<GunItem> clientRegisteredGuns = new ArrayList<>();
+    private static final List<GunItem> clientRegisteredGuns = new ArrayList<>();
     private static NetworkGunManager instance;
 
     private Map<ResourceLocation, Gun> registeredGuns = new HashMap<>();
@@ -265,7 +256,7 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
      */
     public static class Supplier
     {
-        private Gun gun;
+        private final Gun gun;
 
         private Supplier(Gun gun)
         {

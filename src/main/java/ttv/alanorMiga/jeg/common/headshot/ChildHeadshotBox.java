@@ -10,8 +10,8 @@ import javax.annotation.Nullable;
  */
 public class ChildHeadshotBox<T extends LivingEntity> extends BasicHeadshotBox<T>
 {
-    private double childHeadScale;
-    private double headYOffsetScale;
+    private final double childHeadScale;
+    private final double headYOffsetScale;
 
     public ChildHeadshotBox(double headSize, double headYOffset, double childHeadScale, double headYOffsetScale)
     {

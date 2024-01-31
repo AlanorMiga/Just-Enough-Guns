@@ -21,9 +21,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-/**
- * Projectile entity for the Taki item, referenced from Mr. Pineapple and borrows most of its code from {@link ProjectileEntity}
- */
 public class TracerProjectileEntity extends ProjectileEntity
 {
 

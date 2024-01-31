@@ -55,13 +55,13 @@ public class GunModifiers
         @Override
         public float recoilModifier()
         {
-            return 0.6F;
+            return 0.7F;
         }
 
         @Override
         public float kickModifier()
         {
-            return 0.6F;
+            return 0.7F;
         }
 
         @Override
@@ -82,13 +82,13 @@ public class GunModifiers
         @Override
         public float recoilModifier()
         {
-            return 0.3F;
+            return 0.4F;
         }
 
         @Override
         public float kickModifier()
         {
-            return 0.8F;
+            return 0.9F;
         }
 
         @Override
@@ -109,13 +109,13 @@ public class GunModifiers
         @Override
         public float recoilModifier()
         {
-            return 0.4F;
+            return 0.5F;
         }
 
         @Override
         public float kickModifier()
         {
-            return 0.3F;
+            return 0.4F;
         }
 
         @Override
@@ -136,13 +136,13 @@ public class GunModifiers
         @Override
         public float recoilModifier()
         {
-            return 0.1F;
+            return 0.4F;
         }
 
         @Override
         public float kickModifier()
         {
-            return 0.1F;
+            return 0.3F;
         }
 
         @Override
@@ -158,9 +158,13 @@ public class GunModifiers
         }
 
         @Override
-        public int modifyFireRate(int rate)
+        /*public int modifyFireRate(int rate)
         {
             return Mth.clamp((int) (rate * 1.50), rate + 1, Integer.MAX_VALUE);
+        }*/
+        public int modifyFireRate(int rate)
+        {
+            return Mth.clamp((int) (rate), rate, Integer.MAX_VALUE);
         }
     };
 
@@ -196,13 +200,13 @@ public class GunModifiers
         @Override
         public float recoilModifier()
         {
-            return 0.5F;
+            return 0.65F;
         }
 
         @Override
         public float kickModifier()
         {
-            return 0.5F;
+            return 0.65F;
         }
 
         @Override

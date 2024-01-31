@@ -107,7 +107,7 @@ public class ControllerHandler
                 event.setPitchSpeed(7.5F * (float) adsSensitivity);
 
                 Scope scope = Gun.getScope(heldItem);
-                if(scope != null && scope.isStable() && Controllable.isButtonPressed(GunButtonBindings.STEADY_AIM.getButton()))
+                if(scope != null && Controllable.isButtonPressed(GunButtonBindings.STEADY_AIM.getButton()))
                 {
                     event.setYawSpeed(event.getYawSpeed() / 2.0F);
                     event.setPitchSpeed(event.getPitchSpeed() / 2.0F);
@@ -140,7 +140,7 @@ public class ControllerHandler
                 }
 
                 Scope scope = Gun.getScope(heldItem);
-                if(scope != null && scope.isStable() && AimingHandler.get().isAiming())
+                if(scope != null && AimingHandler.get().isAiming())
                 {
                     event.getActions().put(GunButtonBindings.STEADY_AIM, new Action(new TranslatableComponent("jeg.action.steady_aim"), Action.Side.RIGHT));
                 }

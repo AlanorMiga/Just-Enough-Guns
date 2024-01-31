@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  */
 public class GunniteWorkbenchBlockEntity extends SyncedBlockEntity implements IStorageBlock
 {
-    private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 
     public GunniteWorkbenchBlockEntity(BlockPos pos, BlockState state)
     {

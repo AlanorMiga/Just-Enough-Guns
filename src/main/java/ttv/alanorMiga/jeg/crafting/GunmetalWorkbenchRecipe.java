@@ -8,6 +8,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import ttv.alanorMiga.jeg.blockentity.GunmetalWorkbenchBlockEntity;
+import ttv.alanorMiga.jeg.init.ModRecipeSerializers;
+import ttv.alanorMiga.jeg.init.ModRecipeTypes;
 import ttv.alanorMiga.jeg.util.InventoryUtil;
 
 /**
@@ -17,9 +19,9 @@ public class GunmetalWorkbenchRecipe implements Recipe<GunmetalWorkbenchBlockEnt
 {
     private final ResourceLocation id;
     private final ItemStack item;
-    private final ImmutableList<GunniteWorkbenchIngredient> materials;
+    private final ImmutableList<ScrapWorkbenchIngredient> materials;
 
-    public GunmetalWorkbenchRecipe(ResourceLocation id, ItemStack item, ImmutableList<GunniteWorkbenchIngredient> materials)
+    public GunmetalWorkbenchRecipe(ResourceLocation id, ItemStack item, ImmutableList<ScrapWorkbenchIngredient> materials)
     {
         this.id = id;
         this.item = item;
@@ -31,7 +33,7 @@ public class GunmetalWorkbenchRecipe implements Recipe<GunmetalWorkbenchBlockEnt
         return this.item.copy();
     }
 
-    public ImmutableList<GunniteWorkbenchIngredient> getMaterials()
+    public ImmutableList<ScrapWorkbenchIngredient> getMaterials()
     {
         return this.materials;
     }
@@ -73,11 +75,11 @@ public class GunmetalWorkbenchRecipe implements Recipe<GunmetalWorkbenchBlockEnt
     }
 
     @Override
-    public net.minecraft.world.item.crafting.RecipeType<?> getType()  { return ModRecipeType.GUNMETAL_WORKBENCH; }
+    public net.minecraft.world.item.crafting.RecipeType<?> getType()  { return ModRecipeTypes.GUNMETAL_WORKBENCH; }
 
     public boolean hasMaterials(Player player)
     {
-        for(GunniteWorkbenchIngredient ingredient : this.getMaterials())
+        for(ScrapWorkbenchIngredient ingredient : this.getMaterials())
         {
             if(!InventoryUtil.hasWorkstationIngredient(player, ingredient))
             {
@@ -89,7 +91,7 @@ public class GunmetalWorkbenchRecipe implements Recipe<GunmetalWorkbenchBlockEnt
 
     public void consumeMaterials(Player player)
     {
-        for(GunniteWorkbenchIngredient ingredient : this.getMaterials())
+        for(ScrapWorkbenchIngredient ingredient : this.getMaterials())
         {
             InventoryUtil.removeWorkstationIngredient(player, ingredient);
         }

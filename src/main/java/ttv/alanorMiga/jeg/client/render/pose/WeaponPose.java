@@ -1,17 +1,17 @@
 package ttv.alanorMiga.jeg.client.render.pose;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import ttv.alanorMiga.jeg.client.render.IHeldAnimation;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.util.Mth;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import ttv.alanorMiga.jeg.client.render.IHeldAnimation;
 
 import javax.annotation.Nullable;
 
@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
  */
 public abstract class WeaponPose implements IHeldAnimation
 {
-    private AimPose upPose;
-    private AimPose forwardPose;
-    private AimPose downPose;
+    private final AimPose upPose;
+    private final AimPose forwardPose;
+    private final AimPose downPose;
 
     public WeaponPose()
     {

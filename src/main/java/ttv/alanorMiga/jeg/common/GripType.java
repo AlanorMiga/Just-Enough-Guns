@@ -1,17 +1,17 @@
 package ttv.alanorMiga.jeg.common;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import ttv.alanorMiga.jeg.Reference;
 import ttv.alanorMiga.jeg.client.render.IHeldAnimation;
 import ttv.alanorMiga.jeg.client.render.pose.BazookaPose;
 import ttv.alanorMiga.jeg.client.render.pose.MiniGunPose;
 import ttv.alanorMiga.jeg.client.render.pose.OneHandedPose;
 import ttv.alanorMiga.jeg.client.render.pose.TwoHandedPose;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Items;
-import net.minecraft.resources.ResourceLocation;
-import com.mojang.math.Vector3f;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,7 +83,7 @@ public class GripType
     /**
      * The grip type map.
      */
-    private static Map<ResourceLocation, GripType> gripTypeMap = new HashMap<>();
+    private static final Map<ResourceLocation, GripType> gripTypeMap = new HashMap<>();
 
     static
     {

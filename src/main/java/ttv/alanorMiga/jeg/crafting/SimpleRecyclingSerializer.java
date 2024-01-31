@@ -22,7 +22,7 @@ public class SimpleRecyclingSerializer<T extends AbstractRecyclingRecipe> extend
 
    public T fromJson(ResourceLocation p_44347_, JsonObject p_44348_) {
       String s = GsonHelper.getAsString(p_44348_, "group", "");
-      JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(p_44348_, "ingredient") ? GsonHelper.getAsJsonArray(p_44348_, "ingredient") : GsonHelper.getAsJsonObject(p_44348_, "ingredient"));
+      JsonElement jsonelement = GsonHelper.isArrayNode(p_44348_, "ingredient") ? GsonHelper.getAsJsonArray(p_44348_, "ingredient") : GsonHelper.getAsJsonObject(p_44348_, "ingredient");
       Ingredient ingredient = Ingredient.fromJson(jsonelement);
       //Forge: Check if primitive string to keep vanilla or a object which can contain a count field.
       if (!p_44348_.has("result")) throw new com.google.gson.JsonSyntaxException("Missing result, expected to find a string or object");
@@ -57,7 +57,7 @@ public class SimpleRecyclingSerializer<T extends AbstractRecyclingRecipe> extend
       p_44335_.writeVarInt(p_44336_.recyclingTime);
    }
 
-   interface CookieBaker<T extends AbstractRecyclingRecipe> {
+   public interface CookieBaker<T extends AbstractRecyclingRecipe> {
       T create(ResourceLocation p_44353_, String p_44354_, Ingredient p_44355_, ItemStack p_44356_, float p_44357_, int p_44358_);
    }
 }
