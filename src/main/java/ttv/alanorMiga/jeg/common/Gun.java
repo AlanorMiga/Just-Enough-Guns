@@ -8,6 +8,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -1966,6 +1967,54 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
+        public Builder setReduceDamageOverLife(boolean damageReduceOverLife)
+        {
+            this.gun.projectile.damageReduceOverLife = damageReduceOverLife;
+            return this;
+        }
+
+        public Builder setFireSound(SoundEvent sound)
+        {
+            this.gun.sounds.fire = sound.getRegistryName();
+            return this;
+        }
+
+        public Builder setReloadSound(SoundEvent sound)
+        {
+            this.gun.sounds.reload = sound.getRegistryName();
+            return this;
+        }
+
+        public Builder setCockSound(SoundEvent sound)
+        {
+            this.gun.sounds.cock = sound.getRegistryName();
+            return this;
+        }
+
+        public Builder setSilencedFireSound(SoundEvent sound)
+        {
+            this.gun.sounds.silencedFire = sound.getRegistryName();
+            return this;
+        }
+
+        public Builder setEnchantedFireSound(SoundEvent sound)
+        {
+            this.gun.sounds.enchantedFire = sound.getRegistryName();
+            return this;
+        }
+
+        @Deprecated(since = "1.3.0", forRemoval = true)
+        public Builder setMuzzleFlash(double size, double xOffset, double yOffset, double zOffset)
+        {
+            Display.Flash flash = new Display.Flash();
+            flash.size = size;
+            flash.xOffset = xOffset;
+            flash.yOffset = yOffset;
+            flash.zOffset = zOffset;
+            this.gun.display.flash = flash;
+            return this;
+        }
+
         public Builder setZoom(float fovModifier, double xOffset, double yOffset, double zOffset)
         {
             Modules.Zoom zoom = new Modules.Zoom();
@@ -1974,6 +2023,61 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             zoom.yOffset = yOffset;
             zoom.zOffset = zOffset;
             this.gun.modules.zoom = zoom;
+            return this;
+        }
+
+        @Deprecated(since = "1.3.0", forRemoval = true)
+        public Builder setZoom(Modules.Zoom.Builder builder)
+        {
+            this.gun.modules.zoom = builder.build();
+            return this;
+        }
+
+        @Deprecated(since = "1.3.0", forRemoval = true)
+        public Builder setScope(float scale, double xOffset, double yOffset, double zOffset)
+        {
+            ScaledPositioned positioned = new ScaledPositioned();
+            positioned.scale = scale;
+            positioned.xOffset = xOffset;
+            positioned.yOffset = yOffset;
+            positioned.zOffset = zOffset;
+            this.gun.modules.attachments.scope = positioned;
+            return this;
+        }
+
+        @Deprecated(since = "1.3.0", forRemoval = true)
+        public Builder setBarrel(float scale, double xOffset, double yOffset, double zOffset)
+        {
+            ScaledPositioned positioned = new ScaledPositioned();
+            positioned.scale = scale;
+            positioned.xOffset = xOffset;
+            positioned.yOffset = yOffset;
+            positioned.zOffset = zOffset;
+            this.gun.modules.attachments.barrel = positioned;
+            return this;
+        }
+
+        @Deprecated(since = "1.3.0", forRemoval = true)
+        public Builder setStock(float scale, double xOffset, double yOffset, double zOffset)
+        {
+            ScaledPositioned positioned = new ScaledPositioned();
+            positioned.scale = scale;
+            positioned.xOffset = xOffset;
+            positioned.yOffset = yOffset;
+            positioned.zOffset = zOffset;
+            this.gun.modules.attachments.stock = positioned;
+            return this;
+        }
+
+        @Deprecated(since = "1.3.0", forRemoval = true)
+        public Builder setUnderBarrel(float scale, double xOffset, double yOffset, double zOffset)
+        {
+            ScaledPositioned positioned = new ScaledPositioned();
+            positioned.scale = scale;
+            positioned.xOffset = xOffset;
+            positioned.yOffset = yOffset;
+            positioned.zOffset = zOffset;
+            this.gun.modules.attachments.underBarrel = positioned;
             return this;
         }
     }

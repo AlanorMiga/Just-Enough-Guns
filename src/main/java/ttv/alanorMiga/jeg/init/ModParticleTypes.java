@@ -30,6 +30,5 @@ public class ModParticleTypes {
         }
     });
     public static final RegistryObject<SimpleParticleType> CASING_PARTICLE = REGISTER.register("casing", () -> new SimpleParticleType(true));
-    public static final RegistryObject<SimpleParticleType> TRACER_PARTICLE = REGISTER.register("tracer", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> SCRAP = REGISTER.register("scrap", () -> new SimpleParticleType(true));
 }

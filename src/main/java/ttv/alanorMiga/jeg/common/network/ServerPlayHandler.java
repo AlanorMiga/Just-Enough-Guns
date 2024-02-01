@@ -30,15 +30,18 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.JustEnoughGuns;
+import ttv.alanorMiga.jeg.blockentity.GunmetalWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.blockentity.GunniteWorkbenchBlockEntity;
+import ttv.alanorMiga.jeg.blockentity.ScrapWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.common.ProjectileManager;
 import ttv.alanorMiga.jeg.common.ShootTracker;
 import ttv.alanorMiga.jeg.common.SpreadTracker;
 import ttv.alanorMiga.jeg.common.container.AttachmentContainer;
+import ttv.alanorMiga.jeg.common.container.GunmetalWorkbenchContainer;
 import ttv.alanorMiga.jeg.common.container.GunniteWorkbenchContainer;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipe;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipes;
+import ttv.alanorMiga.jeg.common.container.ScrapWorkbenchContainer;
+import ttv.alanorMiga.jeg.crafting.*;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 import ttv.alanorMiga.jeg.event.GunBurstEvent;
 import ttv.alanorMiga.jeg.event.GunFireEvent;
@@ -212,6 +215,62 @@ public class ServerPlayHandler {
     public static void handleCraft(ServerPlayer player, ResourceLocation id, BlockPos pos) {
         Level world = player.level;
 
+        if (player.containerMenu instanceof ScrapWorkbenchContainer workbench) {
+            if (workbench.getPos().equals(pos)) {
+                ScrapWorkbenchRecipe recipe = ScrapWorkbenchRecipes.getRecipeById(world, id);
+                if (recipe == null || !recipe.hasMaterials(player))
+                    return;
+
+                recipe.consumeMaterials(player);
+
+                ScrapWorkbenchBlockEntity scrapWorkbenchBlockEntity = workbench.getWorkbench();
+
+                /* Gets the color based on the dye */
+                ItemStack stack = recipe.getItem();
+                ItemStack dyeStack = scrapWorkbenchBlockEntity.getInventory().get(0);
+                if (dyeStack.getItem() instanceof DyeItem) {
+                    DyeItem dyeItem = (DyeItem) dyeStack.getItem();
+                    int color = dyeItem.getDyeColor().getTextColor();
+
+                    if (IColored.isDyeable(stack)) {
+                        IColored colored = (IColored) stack.getItem();
+                        colored.setColor(stack, color);
+                        scrapWorkbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
+                    }
+                }
+
+                Containers.dropItemStack(world, pos.getX() + 0.5, pos.getY() + 1.125, pos.getZ() + 0.5, stack);
+            }
+        }
+
+        if (player.containerMenu instanceof GunmetalWorkbenchContainer workbench) {
+            if (workbench.getPos().equals(pos)) {
+                GunmetalWorkbenchRecipe recipe = GunmetalWorkbenchRecipes.getRecipeById(world, id);
+                if (recipe == null || !recipe.hasMaterials(player))
+                    return;
+
+                recipe.consumeMaterials(player);
+
+                GunmetalWorkbenchBlockEntity gunmetalWorkbenchBlockEntity = workbench.getWorkbench();
+
+                /* Gets the color based on the dye */
+                ItemStack stack = recipe.getItem();
+                ItemStack dyeStack = gunmetalWorkbenchBlockEntity.getInventory().get(0);
+                if (dyeStack.getItem() instanceof DyeItem) {
+                    DyeItem dyeItem = (DyeItem) dyeStack.getItem();
+                    int color = dyeItem.getDyeColor().getTextColor();
+
+                    if (IColored.isDyeable(stack)) {
+                        IColored colored = (IColored) stack.getItem();
+                        colored.setColor(stack, color);
+                        gunmetalWorkbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
+                    }
+                }
+
+                Containers.dropItemStack(world, pos.getX() + 0.5, pos.getY() + 1.125, pos.getZ() + 0.5, stack);
+            }
+        }
+
         if (player.containerMenu instanceof GunniteWorkbenchContainer workbench) {
             if (workbench.getPos().equals(pos)) {
                 GunniteWorkbenchRecipe recipe = GunniteWorkbenchRecipes.getRecipeById(world, id);
@@ -220,11 +279,11 @@ public class ServerPlayHandler {
 
                 recipe.consumeMaterials(player);
 
-                GunniteWorkbenchBlockEntity workbenchBlockEntity = workbench.getWorkbench();
+                GunniteWorkbenchBlockEntity gunniteWorkbenchBlockEntity = workbench.getWorkbench();
 
                 /* Gets the color based on the dye */
                 ItemStack stack = recipe.getItem();
-                ItemStack dyeStack = workbenchBlockEntity.getInventory().get(0);
+                ItemStack dyeStack = gunniteWorkbenchBlockEntity.getInventory().get(0);
                 if (dyeStack.getItem() instanceof DyeItem) {
                     DyeItem dyeItem = (DyeItem) dyeStack.getItem();
                     int color = dyeItem.getDyeColor().getTextColor();
@@ -232,7 +291,7 @@ public class ServerPlayHandler {
                     if (IColored.isDyeable(stack)) {
                         IColored colored = (IColored) stack.getItem();
                         colored.setColor(stack, color);
-                        workbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
+                        gunniteWorkbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
                     }
                 }
 

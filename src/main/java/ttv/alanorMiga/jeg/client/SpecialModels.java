@@ -60,9 +60,8 @@ public enum SpecialModels {
     HK_G36_STOCK_WEIGHTED("hk_g36/stock_weighted"),
 
     BAZOOKA("gun/bazooka"),
-    FLAME("flame"),
-    GRENADE_LAUNCHER_BASE("grenade_launcher_base"),
-    GRENADE_LAUNCHER_CYLINDER("grenade_launcher_cylinder");
+
+    FLAME("flame");
 
     /**
      * The location of an item model in the [MOD_ID]/models/special/[NAME] folder

@@ -111,9 +111,6 @@ public class ClientHandler {
 
     private static void registerModelOverrides() {
         /* Weapons */
-        //ModelOverrides.register(ModItems.BAZOOKA.get(), new SimpleModel(SpecialModels.BAZOOKA::getModel));
-        //ModelOverrides.register(ModItems.GRENADE_LAUNCHER.get(), new GrenadeLauncherModel());
-
         ModelOverrides.register(ModItems.SCAR_L.get(), new ScarLModel());
         ModelOverrides.register(ModItems.ASSAULT_RIFLE.get(), new AssaultRifleModel());
         ModelOverrides.register(ModItems.REVOLVER.get(), new RevolverModel());

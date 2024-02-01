@@ -1,7 +1,5 @@
 package ttv.alanorMiga.jeg.init;
 
-import ttv.alanorMiga.jeg.Reference;
-import ttv.alanorMiga.jeg.entity.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -9,6 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import ttv.alanorMiga.jeg.Reference;
+import ttv.alanorMiga.jeg.entity.*;
 
 import java.util.function.BiFunction;
 
@@ -20,7 +20,6 @@ public class ModEntities
     public static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.ENTITIES, Reference.MOD_ID);
 
     public static final RegistryObject<EntityType<ProjectileEntity>> PROJECTILE = registerProjectile("projectile", ProjectileEntity::new);
-    public static final RegistryObject<EntityType<TracerProjectileEntity>> TRACER = registerBasic("tracer", TracerProjectileEntity::new);
     public static final RegistryObject<EntityType<GrenadeEntity>> GRENADE = registerBasic("grenade", GrenadeEntity::new);
     public static final RegistryObject<EntityType<MissileEntity>> MISSILE = registerBasic("missile", MissileEntity::new);
     public static final RegistryObject<EntityType<ThrowableGrenadeEntity>> THROWABLE_GRENADE = registerBasic("throwable_grenade", ThrowableGrenadeEntity::new);

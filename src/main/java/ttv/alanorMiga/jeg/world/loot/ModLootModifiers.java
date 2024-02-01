@@ -1,4 +1,4 @@
-package ttv.alanorMiga.jeg.event.loot;
+package ttv.alanorMiga.jeg.world.loot;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;

@@ -15,7 +15,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 version = "0.1.0-1.18.2"
 group = "ttv.alanormiga"
-archivesBaseName = "JustEnoughGuns-Forked"
+archivesBaseName = "JustEnoughGuns"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 

@@ -27,11 +27,11 @@ public class GunmetalWorkbenchRecipes
     }
 
     @Nullable
-    public static GunniteWorkbenchRecipe getRecipeById(Level world, ResourceLocation id)
+    public static GunmetalWorkbenchRecipe getRecipeById(Level world, ResourceLocation id)
     {
         return world.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getType() == ModRecipeTypes.GUNNITE_WORKBENCH)
-                .map(recipe -> (GunniteWorkbenchRecipe) recipe)
+                .filter(recipe -> recipe.getType() == ModRecipeTypes.GUNMETAL_WORKBENCH)
+                .map(recipe -> (GunmetalWorkbenchRecipe) recipe)
                 .filter(recipe -> recipe.getId().equals(id))
                 .findFirst().orElse(null);
     }
