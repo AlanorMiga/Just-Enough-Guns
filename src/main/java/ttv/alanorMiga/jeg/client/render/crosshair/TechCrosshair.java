@@ -67,7 +67,6 @@ public class TechCrosshair extends Crosshair
             buffer.vertex(matrix, size, size, 0).uv(1, 1).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.vertex(matrix, size, 0, 0).uv(1, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.vertex(matrix, 0, 0, 0).uv(0, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
-            buffer.end();
             BufferUploader.drawWithShader(buffer.end());
         }
         stack.popPose();
@@ -88,7 +87,6 @@ public class TechCrosshair extends Crosshair
             buffer.vertex(matrix, size, size, 0).uv(1, 1).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.vertex(matrix, size, 0, 0).uv(1, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
             buffer.vertex(matrix, 0, 0, 0).uv(0, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
-            buffer.end();
             BufferUploader.drawWithShader(buffer.end());
         }
         stack.popPose();

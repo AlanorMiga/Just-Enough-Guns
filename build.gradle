@@ -72,8 +72,8 @@ repositories {
         url "https://www.cursemaven.com"
     }
     maven {
-        name "Progwml6 maven"
-        url "https://dvs1.progwml6.com/files/maven/"
+        name = "ModMaven"
+        url = "https://modmaven.dev"
     }
 }
 
@@ -101,6 +101,10 @@ jar {
 }
 
 jar.finalizedBy('reobfJar')
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
 
 publishing {
     publications {

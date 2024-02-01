@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:dripstone_caves",
+  "features": "jeg:dripstone_brimstone_ore_placed",
+  "step": "underground_ores"
+}

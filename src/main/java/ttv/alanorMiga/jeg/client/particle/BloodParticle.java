@@ -51,9 +51,9 @@ public class BloodParticle extends TextureSheetParticle
     public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks)
     {
         Vec3 projectedView = renderInfo.getPosition();
-        float x = (float) (Mth.lerp(partialTicks, this.xo, this.x) - projectedView.x());
-        float y = (float) (Mth.lerp(partialTicks, this.yo, this.y) - projectedView.y());
-        float z = (float) (Mth.lerp(partialTicks, this.zo, this.z) - projectedView.z());
+        float x = (float) (Mth.lerp((double) partialTicks, this.xo, this.x) - projectedView.x());
+        float y = (float) (Mth.lerp((double) partialTicks, this.yo, this.y) - projectedView.y());
+        float z = (float) (Mth.lerp((double) partialTicks, this.zo, this.z) - projectedView.z());
 
         if(this.onGround)
         {
@@ -76,10 +76,10 @@ public class BloodParticle extends TextureSheetParticle
         }
 
         Vector3f[] vertices = new Vector3f[] {
-            new Vector3f(-1.0F, -1.0F, 0.0F),
-            new Vector3f(-1.0F, 1.0F, 0.0F),
-            new Vector3f(1.0F, 1.0F, 0.0F),
-            new Vector3f(1.0F, -1.0F, 0.0F)
+                new Vector3f(-1.0F, -1.0F, 0.0F),
+                new Vector3f(-1.0F, 1.0F, 0.0F),
+                new Vector3f(1.0F, 1.0F, 0.0F),
+                new Vector3f(1.0F, -1.0F, 0.0F)
         };
 
         float scale = this.getQuadSize(partialTicks);

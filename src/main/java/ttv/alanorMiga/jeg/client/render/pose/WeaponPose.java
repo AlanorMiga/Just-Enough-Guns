@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
  */
 public abstract class WeaponPose implements IHeldAnimation
 {
-    private final AimPose upPose;
-    private final AimPose forwardPose;
-    private final AimPose downPose;
+    private AimPose upPose;
+    private AimPose forwardPose;
+    private AimPose downPose;
 
     public WeaponPose()
     {

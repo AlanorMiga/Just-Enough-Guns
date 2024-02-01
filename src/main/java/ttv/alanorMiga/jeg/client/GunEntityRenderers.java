@@ -21,7 +21,6 @@ public class GunEntityRenderers
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event)
     {
         event.registerEntityRenderer(ModEntities.PROJECTILE.get(), ProjectileRenderer::new);
-        event.registerEntityRenderer(ModEntities.TRACER.get(), ProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.GRENADE.get(), GrenadeRenderer::new);
         event.registerEntityRenderer(ModEntities.MISSILE.get(), MissileRenderer::new);
         event.registerEntityRenderer(ModEntities.THROWABLE_GRENADE.get(), ThrowableGrenadeRenderer::new);

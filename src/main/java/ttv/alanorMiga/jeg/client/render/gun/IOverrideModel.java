@@ -31,7 +31,7 @@ public interface IOverrideModel
      * Renders the overridden model.
      *
      * @param partialTicks  the current partial ticks
-     * @param display the camera transform type
+     * @param transformType the camera transform type
      * @param stack         the itemstack of the item that has the overridden model
      * @param parent        if an attachment, the parent is the weapon this attachment is attached to otherwise it's an empty stack.
      * @param entity        the entity holding the item

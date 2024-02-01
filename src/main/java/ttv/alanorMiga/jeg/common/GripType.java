@@ -83,7 +83,7 @@ public class GripType
     /**
      * The grip type map.
      */
-    private static final Map<ResourceLocation, GripType> gripTypeMap = new HashMap<>();
+    private static Map<ResourceLocation, GripType> gripTypeMap = new HashMap<>();
 
     static
     {

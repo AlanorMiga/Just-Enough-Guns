@@ -29,6 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderHandEvent;
@@ -99,8 +100,6 @@ public class GunRenderingHandler
     private float fallSway;
     private float prevFallSway;
 
-    private boolean usedConfiguredFov;
-
     @Nullable
     private ItemStack renderingWeapon;
 
@@ -110,16 +109,6 @@ public class GunRenderingHandler
     public ItemStack getRenderingWeapon()
     {
         return this.renderingWeapon;
-    }
-
-    public void setUsedConfiguredFov(boolean value)
-    {
-        this.usedConfiguredFov = value;
-    }
-
-    public boolean getUsedConfiguredFov()
-    {
-        return this.usedConfiguredFov;
     }
 
     @SubscribeEvent
@@ -218,7 +207,7 @@ public class GunRenderingHandler
     public void onComputeFov(ViewportEvent.ComputeFov event)
     {
         // We only want to modify the FOV of the viewport for rendering hand/items in first person
-        if(this.usedConfiguredFov)
+        if(event.usedConfiguredFov())
             return;
 
         // Test if the gun has a scope
@@ -499,7 +488,6 @@ public class GunRenderingHandler
         }
     }
 
-    //Right arm that grabs the gun
     private void applyReloadTransforms(PoseStack poseStack, float partialTicks)
     {
         float reloadProgress = ReloadHandler.get().getReloadProgress(partialTicks);
@@ -679,7 +667,8 @@ public class GunRenderingHandler
         }
         else
         {
-            BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(stack);
+            Level level = entity != null ? entity.level : null;
+            BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getModel(stack, level, entity, 0);
             Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, bakedModel);
         }
     }
@@ -720,16 +709,17 @@ public class GunRenderingHandler
                         poseStack.scale((float) scale.x, (float) scale.y, (float) scale.z);
                         poseStack.translate(-center.x, -center.y, -center.z);
 
-                            IOverrideModel model = ModelOverrides.getModel(attachmentStack);
-                            if(model != null)
-                            {
-                                model.render(partialTicks, display, attachmentStack, stack, entity, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY);
-                            }
-                            else
-                            {
-                                BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(attachmentStack);
-                                Minecraft.getInstance().getItemRenderer().render(attachmentStack, ItemDisplayContext.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, GunModel.wrap(bakedModel));
-                            }
+                        IOverrideModel model = ModelOverrides.getModel(attachmentStack);
+                        if(model != null)
+                        {
+                            model.render(partialTicks, display, attachmentStack, stack, entity, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY);
+                        }
+                        else
+                        {
+                            Level level = entity != null ? entity.level : null;
+                            BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getModel(attachmentStack, level, entity, 0);
+                            Minecraft.getInstance().getItemRenderer().render(attachmentStack, ItemDisplayContext.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, GunModel.wrap(bakedModel));
+                        }
 
                         poseStack.popPose();
                     }
@@ -738,13 +728,13 @@ public class GunRenderingHandler
         }
     }
 
-    private void renderMuzzleFlash(@Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, ItemStack weapon, ItemDisplayContext transformType, float partialTicks)
+    private void renderMuzzleFlash(@Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, ItemStack weapon, ItemDisplayContext display, float partialTicks)
     {
         Gun modifiedGun = ((GunItem) weapon.getItem()).getModifiedGun(weapon);
         if(modifiedGun.getDisplay().getFlash() == null)
             return;
 
-        if(transformType != ItemDisplayContext.FIRST_PERSON_RIGHT_HAND && transformType != ItemDisplayContext.THIRD_PERSON_RIGHT_HAND && transformType != ItemDisplayContext.FIRST_PERSON_LEFT_HAND && transformType != ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+        if(display != ItemDisplayContext.FIRST_PERSON_RIGHT_HAND && display != ItemDisplayContext.THIRD_PERSON_RIGHT_HAND && display != ItemDisplayContext.FIRST_PERSON_LEFT_HAND && display != ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
             return;
 
         if(entity == null || !this.entityIdForMuzzleFlash.contains(entity.getId()))
@@ -803,7 +793,6 @@ public class GunRenderingHandler
         poseStack.popPose();
     }
 
-    //Left arm used for grabbing the ammo
     private void renderReloadArm(PoseStack poseStack, MultiBufferSource buffer, int light, Gun modifiedGun, ItemStack stack, HumanoidArm hand, float translateX)
     {
         Minecraft mc = Minecraft.getInstance();
@@ -829,7 +818,6 @@ public class GunRenderingHandler
         percent *= 2F;
         percent = percent < 0.5 ? 2 * percent * percent : -1 + (4 - 2 * percent) * percent;
 
-        //Renders the hand itself
         poseStack.translate(3.5 * side * 0.0625, -0.5625, -0.5625);
         poseStack.mulPose(Axis.YP.rotationDegrees(180F));
         poseStack.translate(0, -0.35 * (1.0 - percent), 0);
@@ -841,7 +829,6 @@ public class GunRenderingHandler
 
         RenderUtil.renderFirstPersonArm(mc.player, hand.getOpposite(), poseStack, buffer, light);
 
-        //Renders the ammo/magazine
         if(reload < 0.5F)
         {
             poseStack.pushPose();
@@ -853,7 +840,6 @@ public class GunRenderingHandler
             boolean isModel = model.isGui3d();
             this.random.setSeed(Item.getId(item));
             int count = Math.min(modifiedGun.getReloads().getReloadAmount(), 5);
-
             for(int i = 0; i < count; ++i)
             {
                 poseStack.pushPose();

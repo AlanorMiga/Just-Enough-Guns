@@ -21,12 +21,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SEMI_AUTO_RIFLE_SILENCED_FIRE = register("item.semi_auto_rifle.silenced_fire");
     public static final RegistryObject<SoundEvent> HK_G36_FIRE = register("item.hk_g36.fire");
     public static final RegistryObject<SoundEvent> HK_G36_SILENCED_FIRE = register("item.hk_g36.silenced_fire");
-    public static final RegistryObject<SoundEvent> ITEM_PISTOL_SILENCED_FIRE = register("item.pistol.silenced_fire");
-    public static final RegistryObject<SoundEvent> ITEM_PISTOL_ENCHANTED_FIRE = register("item.pistol.enchanted_fire");
     public static final RegistryObject<SoundEvent> ITEM_PISTOL_RELOAD = register("item.pistol.reload");
     public static final RegistryObject<SoundEvent> ITEM_PISTOL_COCK = register("item.pistol.cock");
-    public static final RegistryObject<SoundEvent> ITEM_GRENADE_LAUNCHER_FIRE = register("item.grenade_launcher.fire");
-    public static final RegistryObject<SoundEvent> ITEM_BAZOOKA_FIRE = register("item.bazooka.fire");
     public static final RegistryObject<SoundEvent> ITEM_GRENADE_PIN = register("item.grenade.pin");
     public static final RegistryObject<SoundEvent> ENTITY_STUN_GRENADE_EXPLOSION = register("entity.stun_grenade.explosion");
     public static final RegistryObject<SoundEvent> ENTITY_STUN_GRENADE_RING = register("entity.stun_grenade.ring");

@@ -31,15 +31,18 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.JustEnoughGuns;
+import ttv.alanorMiga.jeg.blockentity.GunmetalWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.blockentity.GunniteWorkbenchBlockEntity;
+import ttv.alanorMiga.jeg.blockentity.ScrapWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.common.ProjectileManager;
 import ttv.alanorMiga.jeg.common.ShootTracker;
 import ttv.alanorMiga.jeg.common.SpreadTracker;
 import ttv.alanorMiga.jeg.common.container.AttachmentContainer;
+import ttv.alanorMiga.jeg.common.container.GunmetalWorkbenchContainer;
 import ttv.alanorMiga.jeg.common.container.GunniteWorkbenchContainer;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipe;
-import ttv.alanorMiga.jeg.crafting.GunniteWorkbenchRecipes;
+import ttv.alanorMiga.jeg.common.container.ScrapWorkbenchContainer;
+import ttv.alanorMiga.jeg.crafting.*;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 import ttv.alanorMiga.jeg.event.GunBurstEvent;
 import ttv.alanorMiga.jeg.event.GunFireEvent;
@@ -60,7 +63,8 @@ import java.util.function.Predicate;
 /**
  * Author: MrCrayfish
  */
-public class ServerPlayHandler {
+public class ServerPlayHandler
+{
     private static final Predicate<LivingEntity> HOSTILE_ENTITIES = entity -> entity.getSoundSource() == SoundSource.HOSTILE && !(entity instanceof NeutralMob) && !Config.COMMON.aggroMobs.exemptEntities.get().contains(EntityType.getKey(entity.getType()).toString());
 
     /**
@@ -69,19 +73,22 @@ public class ServerPlayHandler {
      *
      * @param player the player for who's weapon to fire
      */
-    public static void handleShoot(C2SMessageShoot message, ServerPlayer player) {
-        if (player.isSpectator())
+    public static void handleShoot(C2SMessageShoot message, ServerPlayer player)
+    {
+        if(player.isSpectator())
             return;
 
-        if (player.getUseItem().getItem() == Items.SHIELD)
+        if(player.getUseItem().getItem() == Items.SHIELD)
             return;
 
         Level world = player.level;
         ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (heldItem.getItem() instanceof GunItem item && (Gun.hasAmmo(heldItem) || player.isCreative())) {
+        if(heldItem.getItem() instanceof GunItem item && (Gun.hasAmmo(heldItem) || player.isCreative()))
+        {
             Gun modifiedGun = item.getModifiedGun(heldItem);
-            if (modifiedGun != null) {
-                if (MinecraftForge.EVENT_BUS.post(new GunFireEvent.Pre(player, heldItem)))
+            if(modifiedGun != null)
+            {
+                if(MinecraftForge.EVENT_BUS.post(new GunFireEvent.Pre(player, heldItem)))
                     return;
 
                 /* Updates the yaw and pitch with the clients current yaw and pitch */
@@ -91,17 +98,20 @@ public class ServerPlayHandler {
                 // Bingo bango.
 
                 ShootTracker tracker = ShootTracker.getShootTracker(player);
-                if (tracker.hasCooldown(item) && tracker.getRemaining(item) > Config.SERVER.cooldownThreshold.get()) {
+                if(tracker.hasCooldown(item) && tracker.getRemaining(item) > Config.SERVER.cooldownThreshold.get())
+                {
                     JustEnoughGuns.LOGGER.warn(player.getName().getContents() + "(" + player.getUUID() + ") tried to fire before cooldown finished or server is lagging? Remaining milliseconds: " + tracker.getRemaining(item));
                     return;
                 }
                 tracker.putCooldown(heldItem, item, modifiedGun);
 
-                if (ModSyncedDataKeys.RELOADING.getValue(player)) {
+                if(ModSyncedDataKeys.RELOADING.getValue(player))
+                {
                     ModSyncedDataKeys.RELOADING.setValue(player, false);
                 }
 
-                if (!modifiedGun.getGeneral().isAlwaysSpread() && modifiedGun.getGeneral().getSpread() > 0.0F) {
+                if(!modifiedGun.getGeneral().isAlwaysSpread() && modifiedGun.getGeneral().getSpread() > 0.0F)
+                {
                     SpreadTracker.get(player).update(player, item);
                 }
 
@@ -131,7 +141,8 @@ public class ServerPlayHandler {
 
                 MinecraftForge.EVENT_BUS.post(new GunFireEvent.Post(player, heldItem));
 
-                if (Config.COMMON.aggroMobs.enabled.get()) {
+                if(Config.COMMON.aggroMobs.enabled.get())
+                {
                     double radius = GunModifierHelper.getModifiedFireSoundRadius(heldItem, Config.COMMON.aggroMobs.unsilencedRange.get());
                     double x = player.getX();
                     double y = player.getY() + 0.5;
@@ -139,11 +150,13 @@ public class ServerPlayHandler {
                     AABB box = new AABB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
                     radius *= radius;
                     double dx, dy, dz;
-                    for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, box, HOSTILE_ENTITIES)) {
+                    for(LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, box, HOSTILE_ENTITIES))
+                    {
                         dx = x - entity.getX();
                         dy = y - entity.getY();
                         dz = z - entity.getZ();
-                        if (dx * dx + dy * dy + dz * dz <= radius) {
+                        if(dx * dx + dy * dy + dz * dz <= radius)
+                        {
                             entity.setLastHurtByMob(Config.COMMON.aggroMobs.angerHostileMobs.get() ? player : entity);
                         }
                     }
@@ -163,11 +176,14 @@ public class ServerPlayHandler {
                     PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(player.level, posX, posY, posZ, radius), messageSound);
                 }
 
-                if (!player.isCreative()) {
+                if(!player.isCreative())
+                {
                     CompoundTag tag = heldItem.getOrCreateTag();
-                    if (!tag.getBoolean("IgnoreAmmo")) {
+                    if(!tag.getBoolean("IgnoreAmmo"))
+                    {
                         int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.RECLAIMED.get(), heldItem);
-                        if (level == 0 || player.level.random.nextInt(4 - Mth.clamp(level, 1, 2)) != 0) {
+                        if(level == 0 || player.level.random.nextInt(4 - Mth.clamp(level, 1, 2)) != 0)
+                        {
                             tag.putInt("AmmoCount", Math.max(0, tag.getInt("AmmoCount") - 1));
                         }
                     }
@@ -175,7 +191,9 @@ public class ServerPlayHandler {
 
                 player.awardStat(Stats.ITEM_USED.get(item));
             }
-        } else {
+        }
+        else
+        {
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, 0.8F);
         }
     }
@@ -195,14 +213,19 @@ public class ServerPlayHandler {
         }
     }
 
-    private static ResourceLocation getFireSound(ItemStack stack, Gun modifiedGun) {
+    private static ResourceLocation getFireSound(ItemStack stack, Gun modifiedGun)
+    {
         ResourceLocation fireSound = null;
-        if (GunModifierHelper.isSilencedFire(stack)) {
+        if(GunModifierHelper.isSilencedFire(stack))
+        {
             fireSound = modifiedGun.getSounds().getSilencedFire();
-        } else if (stack.isEnchanted()) {
+        }
+        else if(stack.isEnchanted())
+        {
             fireSound = modifiedGun.getSounds().getEnchantedFire();
         }
-        if (fireSound != null) {
+        if(fireSound != null)
+        {
             return fireSound;
         }
         return modifiedGun.getSounds().getFire();
@@ -219,6 +242,62 @@ public class ServerPlayHandler {
     public static void handleCraft(ServerPlayer player, ResourceLocation id, BlockPos pos) {
         Level world = player.level;
 
+        if (player.containerMenu instanceof ScrapWorkbenchContainer workbench) {
+            if (workbench.getPos().equals(pos)) {
+                ScrapWorkbenchRecipe recipe = ScrapWorkbenchRecipes.getRecipeById(world, id);
+                if (recipe == null || !recipe.hasMaterials(player))
+                    return;
+
+                recipe.consumeMaterials(player);
+
+                ScrapWorkbenchBlockEntity scrapWorkbenchBlockEntity = workbench.getWorkbench();
+
+                /* Gets the color based on the dye */
+                ItemStack stack = recipe.getItem();
+                ItemStack dyeStack = scrapWorkbenchBlockEntity.getInventory().get(0);
+                if (dyeStack.getItem() instanceof DyeItem) {
+                    DyeItem dyeItem = (DyeItem) dyeStack.getItem();
+                    int color = dyeItem.getDyeColor().getTextColor();
+
+                    if (IColored.isDyeable(stack)) {
+                        IColored colored = (IColored) stack.getItem();
+                        colored.setColor(stack, color);
+                        scrapWorkbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
+                    }
+                }
+
+                Containers.dropItemStack(world, pos.getX() + 0.5, pos.getY() + 1.125, pos.getZ() + 0.5, stack);
+            }
+        }
+
+        if (player.containerMenu instanceof GunmetalWorkbenchContainer workbench) {
+            if (workbench.getPos().equals(pos)) {
+                GunmetalWorkbenchRecipe recipe = GunmetalWorkbenchRecipes.getRecipeById(world, id);
+                if (recipe == null || !recipe.hasMaterials(player))
+                    return;
+
+                recipe.consumeMaterials(player);
+
+                GunmetalWorkbenchBlockEntity gunmetalWorkbenchBlockEntity = workbench.getWorkbench();
+
+                /* Gets the color based on the dye */
+                ItemStack stack = recipe.getItem();
+                ItemStack dyeStack = gunmetalWorkbenchBlockEntity.getInventory().get(0);
+                if (dyeStack.getItem() instanceof DyeItem) {
+                    DyeItem dyeItem = (DyeItem) dyeStack.getItem();
+                    int color = dyeItem.getDyeColor().getTextColor();
+
+                    if (IColored.isDyeable(stack)) {
+                        IColored colored = (IColored) stack.getItem();
+                        colored.setColor(stack, color);
+                        gunmetalWorkbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
+                    }
+                }
+
+                Containers.dropItemStack(world, pos.getX() + 0.5, pos.getY() + 1.125, pos.getZ() + 0.5, stack);
+            }
+        }
+
         if (player.containerMenu instanceof GunniteWorkbenchContainer workbench) {
             if (workbench.getPos().equals(pos)) {
                 GunniteWorkbenchRecipe recipe = GunniteWorkbenchRecipes.getRecipeById(world, id);
@@ -227,11 +306,11 @@ public class ServerPlayHandler {
 
                 recipe.consumeMaterials(player);
 
-                GunniteWorkbenchBlockEntity workbenchBlockEntity = workbench.getWorkbench();
+                GunniteWorkbenchBlockEntity gunniteWorkbenchBlockEntity = workbench.getWorkbench();
 
                 /* Gets the color based on the dye */
                 ItemStack stack = recipe.getItem();
-                ItemStack dyeStack = workbenchBlockEntity.getInventory().get(0);
+                ItemStack dyeStack = gunniteWorkbenchBlockEntity.getInventory().get(0);
                 if (dyeStack.getItem() instanceof DyeItem) {
                     DyeItem dyeItem = (DyeItem) dyeStack.getItem();
                     int color = dyeItem.getDyeColor().getTextColor();
@@ -239,7 +318,7 @@ public class ServerPlayHandler {
                     if (IColored.isDyeable(stack)) {
                         IColored colored = (IColored) stack.getItem();
                         colored.setColor(stack, color);
-                        workbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
+                        gunniteWorkbenchBlockEntity.getInventory().set(0, ItemStack.EMPTY);
                     }
                 }
 

@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "jeg:block/gunmetal_workbench_side",
-		"1": "jeg:items/assault_rifle",
+		"1": "jeg:item/assault_rifle",
 		"2": "jeg:block/gunmetal_workbench_surface",
 		"3": "jeg:block/gunmetal_workbench_iron_bars",
 		"4": "jeg:block/gunmetal_workbench_box",

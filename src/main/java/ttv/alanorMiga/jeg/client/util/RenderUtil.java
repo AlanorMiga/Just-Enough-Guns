@@ -26,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.StainedGlassPaneBlock;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
@@ -40,7 +41,6 @@ public class RenderUtil
 
     public static void scissor(int x, int y, int width, int height)
     {
-
         Minecraft mc = Minecraft.getInstance();
         int scale = (int) mc.getWindow().getGuiScale();
         GL11.glScissor(x * scale, mc.getWindow().getScreenHeight() - y * scale - height * scale, Math.max(0, width * scale), Math.max(0, height * scale));
@@ -117,6 +117,7 @@ public class RenderUtil
                     model = Minecraft.getInstance().getModelManager().getModel(SPYGLASS_MODEL);
                 }
             }
+
             model = model.applyTransform(display, poseStack, false);
             poseStack.translate(-0.5D, -0.5D, -0.5D);
             if(!model.isCustomRenderer() && (stack.getItem() != Items.TRIDENT || flag))
@@ -127,6 +128,7 @@ public class RenderUtil
                     Block block = ((BlockItem) stack.getItem()).getBlock();
                     entity = !(block instanceof HalfTransparentBlock) && !(block instanceof StainedGlassPaneBlock);
                 }
+
                 RenderType renderType = getRenderType(stack, entity);
                 VertexConsumer builder;
                 if(stack.getItem() == Items.COMPASS && stack.hasFoil())
@@ -150,6 +152,7 @@ public class RenderUtil
                     {
                         builder = ItemRenderer.getCompassFoilBuffer(buffer, renderType, entry);
                     }
+
                     poseStack.popPose();
                 }
                 else if(entity)
@@ -165,27 +168,35 @@ public class RenderUtil
             }
             else
             {
-        }
+                IClientItemExtensions.of(stack).getCustomRenderer().renderByItem(stack, display, poseStack, buffer, light, overlay);
+            }
 
-        poseStack.popPose();
+            poseStack.popPose();
+        }
     }
-}
 
     public static void renderModelWithTransforms(ItemStack child, ItemStack parent, ItemDisplayContext display, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay)
     {
         poseStack.pushPose();
         BakedModel model = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(child);
         model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(poseStack, model, display, false);
-        model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(poseStack, model, display, false);
         poseStack.translate(-0.5D, -0.5D, -0.5D);
         renderItemWithoutTransforms(model, child, parent, poseStack, buffer, light, overlay);
         poseStack.popPose();
     }
+
     public static void renderItemWithoutTransforms(BakedModel model, ItemStack stack, ItemStack parent, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay)
     {
         RenderType renderType = getRenderType(stack, false);
         VertexConsumer builder = ItemRenderer.getFoilBuffer(buffer, renderType, true, stack.hasFoil() || parent.hasFoil());
         renderModel(model, stack, parent, null, poseStack, builder, light, overlay);
+    }
+
+    public static void renderItemWithoutTransforms(BakedModel model, ItemStack stack, ItemStack parent, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay, @Nullable Runnable transform)
+    {
+        RenderType renderType = getRenderType(stack, false);
+        VertexConsumer builder = ItemRenderer.getFoilBuffer(buffer, renderType, true, stack.hasFoil() || parent.hasFoil());
+        renderModel(model, stack, parent, transform, poseStack, builder, light, overlay);
     }
 
     public static void renderModel(BakedModel model, ItemStack stack, ItemStack parent, @Nullable Runnable transform, PoseStack poseStack, VertexConsumer buffer, int light, int overlay)
@@ -217,7 +228,7 @@ public class RenderUtil
             float red = (float) (color >> 16 & 255) / 255.0F;
             float green = (float) (color >> 8 & 255) / 255.0F;
             float blue = (float) (color & 255) / 255.0F;
-            buffer.putBulkData(entry, quad, red, green, blue, light, overlay);
+            buffer.putBulkData(entry, quad, red, green, blue, light, overlay); //TODO check if right
         }
     }
 
@@ -239,21 +250,18 @@ public class RenderUtil
         BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity != null ? entity.level : null, entity, 0);
         boolean leftHanded = display == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || display == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
 
+        //TODO test
         model = model.applyTransform(display, poseStack, leftHanded);
 
         /* Flips the model and normals if left handed. */
         if(leftHanded)
         {
+            //TODO test
             Matrix4f scale = new Matrix4f().scale(-1, 1, 1);
             Matrix3f normal = new Matrix3f(scale);
             poseStack.last().pose().mul(scale);
             poseStack.last().normal().mul(normal);
         }
-    }
-
-    public interface Transform
-    {
-        void apply();
     }
 
     public static boolean isMouseWithin(int mouseX, int mouseY, int x, int y, int width, int height)

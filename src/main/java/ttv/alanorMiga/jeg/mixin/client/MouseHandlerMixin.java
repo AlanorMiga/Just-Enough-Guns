@@ -1,10 +1,5 @@
 package ttv.alanorMiga.jeg.mixin.client;
 
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.client.handler.AimingHandler;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
-import ttv.alanorMiga.jeg.item.GunItem;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
@@ -14,6 +9,11 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.client.handler.AimingHandler;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
+import ttv.alanorMiga.jeg.item.GunItem;
 
 /**
  * Author: MrCrayfish

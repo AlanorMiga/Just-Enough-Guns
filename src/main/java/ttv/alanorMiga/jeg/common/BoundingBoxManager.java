@@ -26,8 +26,8 @@ import java.util.WeakHashMap;
  */
 public class BoundingBoxManager
 {
-    private static final Map<EntityType<?>, IHeadshotBox<?>> headshotBoxes = new HashMap<>();
-    private static final WeakHashMap<Player, LinkedList<AABB>> playerBoxes = new WeakHashMap<>();
+    private static Map<EntityType<?>, IHeadshotBox<?>> headshotBoxes = new HashMap<>();
+    private static WeakHashMap<Player, LinkedList<AABB>> playerBoxes = new WeakHashMap<>();
 
     static
     {

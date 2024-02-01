@@ -175,7 +175,6 @@ public class ClientPlayHandler
         mc.getSoundManager().play(SimpleSoundInstance.forUI(event, 1.0F, 1.0F + world.random.nextFloat() * 0.2F));
     }
 
-    //Change critical sound
     @Nullable
     private static SoundEvent getHitSound(boolean critical, boolean headshot, boolean player)
     {

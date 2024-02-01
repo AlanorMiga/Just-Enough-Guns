@@ -74,8 +74,8 @@ public class DelayedTask
 
     private static class Impl
     {
-        private final int executionTick;
-        private final Runnable runnable;
+        private int executionTick;
+        private Runnable runnable;
 
         private Impl(int executionTick, Runnable runnable)
         {

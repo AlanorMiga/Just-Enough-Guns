@@ -14,8 +14,8 @@ import ttv.alanorMiga.jeg.client.handler.AimingHandler;
  */
 public class TexturedCrosshair extends Crosshair
 {
-    private final ResourceLocation texture;
-    private final boolean blend;
+    private ResourceLocation texture;
+    private boolean blend;
 
     public TexturedCrosshair(ResourceLocation id)
     {
@@ -55,7 +55,6 @@ public class TexturedCrosshair extends Crosshair
         buffer.vertex(matrix, size, size, 0).uv(1, 1).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
         buffer.vertex(matrix, size, 0, 0).uv(1, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
         buffer.vertex(matrix, 0, 0, 0).uv(0, 0).color(1.0F, 1.0F, 1.0F, alpha).endVertex();
-        buffer.end();
         BufferUploader.drawWithShader(buffer.end());
 
         if(this.blend)

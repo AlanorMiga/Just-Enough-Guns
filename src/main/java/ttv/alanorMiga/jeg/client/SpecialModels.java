@@ -57,10 +57,7 @@ public enum SpecialModels {
     HK_G36_STOCK_LIGHT("hk_g36/stock_light"),
     HK_G36_STOCK_WEIGHTED("hk_g36/stock_weighted"),
 
-    BAZOOKA("gun/bazooka"),
-    FLAME("flame"),
-    GRENADE_LAUNCHER_BASE("grenade_launcher_base"),
-    GRENADE_LAUNCHER_CYLINDER("grenade_launcher_cylinder");
+    FLAME("flame");
 
     /**
      * The location of an item model in the [MOD_ID]/models/special/[NAME] folder
@@ -77,7 +74,8 @@ public enum SpecialModels {
      *
      * @param modelName name of the model file
      */
-    SpecialModels(String modelName) {
+    SpecialModels(String modelName)
+    {
         this.modelLocation = new ResourceLocation(Reference.MOD_ID, "special/" + modelName);
     }
 
@@ -86,8 +84,10 @@ public enum SpecialModels {
      *
      * @return isolated model
      */
-    public BakedModel getModel() {
-        if (this.cachedModel == null) {
+    public BakedModel getModel()
+    {
+        if(this.cachedModel == null)
+        {
             this.cachedModel = Minecraft.getInstance().getModelManager().getModel(this.modelLocation);
         }
         return this.cachedModel;
@@ -98,8 +98,10 @@ public enum SpecialModels {
      * load of the game.
      */
     @SubscribeEvent
-    public static void register(ModelEvent.RegisterAdditional event) {
-        for (SpecialModels model : values()) {
+    public static void registerAdditional(ModelEvent.RegisterAdditional event)
+    {
+        for(SpecialModels model : values())
+        {
             event.register(model.modelLocation);
         }
     }
@@ -109,8 +111,10 @@ public enum SpecialModels {
      * have changed when a resource pack was applied, or if resources are reloaded.
      */
     @SubscribeEvent
-    public static void onBake(ModelEvent.BakingCompleted event) {
-        for (SpecialModels model : values()) {
+    public static void onBake(ModelEvent.BakingCompleted event)
+    {
+        for(SpecialModels model : values())
+        {
             model.cachedModel = null;
         }
     }

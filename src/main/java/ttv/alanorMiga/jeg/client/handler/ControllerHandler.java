@@ -17,7 +17,9 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.client.GunButtonBindings;
+import ttv.alanorMiga.jeg.client.screen.GunmetalWorkbenchScreen;
 import ttv.alanorMiga.jeg.client.screen.GunniteWorkbenchScreen;
+import ttv.alanorMiga.jeg.client.screen.ScrapWorkbenchScreen;
 import ttv.alanorMiga.jeg.common.Gun;
 import ttv.alanorMiga.jeg.init.ModSyncedDataKeys;
 import ttv.alanorMiga.jeg.item.GunItem;
@@ -214,13 +216,53 @@ public class ControllerHandler
     public void onGatherNavigationPoints(GatherNavigationPointsEvent event)
     {
         Minecraft mc = Minecraft.getInstance();
+        if(mc.screen instanceof ScrapWorkbenchScreen)
+        {
+            ScrapWorkbenchScreen scrapWorkbench = (ScrapWorkbenchScreen) mc.screen;
+            int startX = scrapWorkbench.getGuiLeft();
+            int startY = scrapWorkbench.getGuiTop();
+
+            for(int i = 0; i < scrapWorkbench.getTabs().size(); i++)
+            {
+                int tabX = startX + 28 * i + (28 / 2);
+                int tabY = startY - (28 / 2);
+                event.addPoint(new BasicNavigationPoint(tabX, tabY));
+            }
+
+            for(int i = 0; i < 6; i++)
+            {
+                int itemX = startX + 172 + (80 / 2);
+                int itemY = startY + i * 19 + 63 + (19 / 2);
+                event.addPoint(new BasicNavigationPoint(itemX, itemY));
+            }
+        }
+        if(mc.screen instanceof GunmetalWorkbenchScreen)
+        {
+            GunmetalWorkbenchScreen gunmetalWorkbench = (GunmetalWorkbenchScreen) mc.screen;
+            int startX = gunmetalWorkbench.getGuiLeft();
+            int startY = gunmetalWorkbench.getGuiTop();
+
+            for(int i = 0; i < gunmetalWorkbench.getTabs().size(); i++)
+            {
+                int tabX = startX + 28 * i + (28 / 2);
+                int tabY = startY - (28 / 2);
+                event.addPoint(new BasicNavigationPoint(tabX, tabY));
+            }
+
+            for(int i = 0; i < 6; i++)
+            {
+                int itemX = startX + 172 + (80 / 2);
+                int itemY = startY + i * 19 + 63 + (19 / 2);
+                event.addPoint(new BasicNavigationPoint(itemX, itemY));
+            }
+        }
         if(mc.screen instanceof GunniteWorkbenchScreen)
         {
-            GunniteWorkbenchScreen workbench = (GunniteWorkbenchScreen) mc.screen;
-            int startX = workbench.getGuiLeft();
-            int startY = workbench.getGuiTop();
+            GunniteWorkbenchScreen gunniteWorkbench = (GunniteWorkbenchScreen) mc.screen;
+            int startX = gunniteWorkbench.getGuiLeft();
+            int startY = gunniteWorkbench.getGuiTop();
 
-            for(int i = 0; i < workbench.getTabs().size(); i++)
+            for(int i = 0; i < gunniteWorkbench.getTabs().size(); i++)
             {
                 int tabX = startX + 28 * i + (28 / 2);
                 int tabY = startY - (28 / 2);

@@ -24,7 +24,11 @@ public class TrailParticle extends BaseAshSmokeParticle
         this.rCol = red;
         this.gCol = green;
         this.bCol = blue;
-        this.alpha = 0.25F;
+        this.alpha = 1.0F;
+    }
+
+    public int getLightColor(float pPartialTick) {
+        return 0xF000F0;
     }
 
     @OnlyIn(Dist.CLIENT)

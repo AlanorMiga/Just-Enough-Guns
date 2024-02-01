@@ -41,7 +41,7 @@ public class BulletTrailRenderingHandler
         return instance;
     }
 
-    private final Map<Integer, BulletTrail> bullets = new HashMap<>();
+    private Map<Integer, BulletTrail> bullets = new HashMap<>();
 
     private BulletTrailRenderingHandler() {}
 
@@ -133,7 +133,7 @@ public class BulletTrailRenderingHandler
         float red = (float) (trail.getTrailColor() >> 16 & 255) / 255.0F;
         float green = (float) (trail.getTrailColor() >> 8 & 255) / 255.0F;
         float blue = (float) (trail.getTrailColor() & 255) / 255.0F;
-        float alpha = 1.0F;
+        float alpha = 0.3F;
 
         // Prevents the trail length from being longer than the distance to shooter
         Entity shooter = trail.getShooter();

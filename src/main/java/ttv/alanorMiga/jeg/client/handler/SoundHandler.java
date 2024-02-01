@@ -174,9 +174,8 @@ public class SoundHandler
 
     public static class SoundMuted implements SoundInstance
     {
-        private final SoundInstance parent;
-        private final float volume;
-        private float volumeInitial;
+        private SoundInstance parent;
+        private float volume, volumeInitial;
 
         public SoundMuted(SoundInstance parent, int duration, boolean isStunGrenade)
         {

@@ -1,12 +1,12 @@
 package ttv.alanorMiga.jeg.mixin.common;
 
-import ttv.alanorMiga.jeg.entity.ProjectileEntity;
-import net.minecraft.world.entity.boss.enderdragon.phases.AbstractDragonSittingPhase;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.boss.enderdragon.phases.AbstractDragonSittingPhase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 
 /**
  * Author: MrCrayfish

@@ -1,22 +1,18 @@
 package ttv.alanorMiga.jeg.mixin.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import ttv.alanorMiga.jeg.Config;
-import ttv.alanorMiga.jeg.client.handler.GunRenderingHandler;
-import ttv.alanorMiga.jeg.init.ModEffects;
 import com.mojang.blaze3d.platform.Window;
-import net.minecraft.client.Camera;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import ttv.alanorMiga.jeg.Config;
+import ttv.alanorMiga.jeg.init.ModEffects;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin
@@ -40,11 +36,5 @@ public class GameRendererMixin
             Window window = Minecraft.getInstance().getWindow();
             GuiComponent.fill(new PoseStack(), 0, 0, window.getScreenWidth(), window.getScreenHeight(), ((int) (percent * Config.SERVER.alphaOverlay.get() + 0.5) << 24) | 16777215);
         }
-    }
-
-    @Inject(method = "getFov", at = @At(value = "HEAD"), locals = LocalCapture.CAPTURE_FAILHARD)
-    public void headGetFov(Camera camera, float partialTick, boolean worldFov, CallbackInfoReturnable<Double> cir)
-    {
-        GunRenderingHandler.get().setUsedConfiguredFov(worldFov);
     }
 }

@@ -7,8 +7,8 @@ import org.joml.Vector3f;
  */
 public class AimPose
 {
-    private final Instance idle = new Instance();
-    private final Instance aiming = new Instance();
+    private Instance idle = new Instance();
+    private Instance aiming = new Instance();
 
     public Instance getIdle()
     {

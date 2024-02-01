@@ -1,10 +1,10 @@
 {
+  "type": "jeg:scrap_on_simple_dungeon",
   "conditions": [
     {
       "condition": "forge:loot_table_id",
       "loot_table_id": "minecraft:chests/simple_dungeon"
     }
   ],
-  "addition": "jeg:scrap",
-  "type": "jeg:scrap_on_simple_dungeon"
+  "item": "jeg:scrap"
 }

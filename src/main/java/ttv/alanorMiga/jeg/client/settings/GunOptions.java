@@ -1,10 +1,12 @@
 package ttv.alanorMiga.jeg.client.settings;
 
 
+import java.text.DecimalFormat;
+
 /**
  * Author: MrCrayfish
  */
-/*public class GunOptions
+public class GunOptions
 {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.0#");
 
@@ -59,5 +61,4 @@ package ttv.alanorMiga.jeg.client.settings;
             }
         }
     });*/
-    /*}
-}*/
+}

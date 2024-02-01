@@ -50,7 +50,7 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
         return builder.create();
     });
 
-    private static final List<GunItem> clientRegisteredGuns = new ArrayList<>();
+    private static List<GunItem> clientRegisteredGuns = new ArrayList<>();
     private static NetworkGunManager instance;
 
     private Map<ResourceLocation, Gun> registeredGuns = new HashMap<>();
@@ -111,13 +111,11 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
                             e.printStackTrace();
                         }
                     });
-
-            });
-        }
-    });
+                });
+            }
+        });
         return map;
     }
-
 
     @Override
     protected void apply(Map<GunItem, Gun> objects, ResourceManager resourceManager, ProfilerFiller profiler)
@@ -142,7 +140,7 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
             buffer.writeResourceLocation(id);
             buffer.writeNbt(gun.serializeNBT());
         });
-}
+    }
 
     /**
      * Reads all registered guns from the provided packet buffer
@@ -259,7 +257,7 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
      */
     public static class Supplier
     {
-        private final Gun gun;
+        private Gun gun;
 
         private Supplier(Gun gun)
         {

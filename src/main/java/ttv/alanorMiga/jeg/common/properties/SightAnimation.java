@@ -66,7 +66,7 @@ public class SightAnimation implements INBTSerializable<CompoundTag>, IEditorMen
     @Override
     public Component getEditorLabel()
     {
-        return Component.translatable("Sight Animation");
+        return Component.literal("Sight Animation");
     }
 
     /**
@@ -76,17 +76,17 @@ public class SightAnimation implements INBTSerializable<CompoundTag>, IEditorMen
     public void getEditorWidgets(List<Pair<Component, Supplier<IDebugWidget>>> widgets)
     {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            widgets.add(Pair.of(Component.translatable("Debug: ").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD).append(Component.translatable("Force Aim").withStyle(ChatFormatting.WHITE)), () -> new DebugToggle(Debug.isForceAim(), Debug::setForceAim)));
-            widgets.add(Pair.of(Component.translatable("Viewport Curve"), () -> new DebugEnum<>(Easings.class, this.viewportCurve, value -> {
+            widgets.add(Pair.of(Component.literal("Debug: ").withStyle(ChatFormatting.BOLD, ChatFormatting.GOLD).append(Component.literal("Force Aim").withStyle(ChatFormatting.WHITE)), () -> new DebugToggle(Debug.isForceAim(), Debug::setForceAim)));
+            widgets.add(Pair.of(Component.literal("Viewport Curve"), () -> new DebugEnum<>(Easings.class, this.viewportCurve, value -> {
                 this.viewportCurve = value;
             })));
-            widgets.add(Pair.of(Component.translatable("Sight Curve"), () -> new DebugEnum<>(Easings.class, this.sightCurve, value -> {
+            widgets.add(Pair.of(Component.literal("Sight Curve"), () -> new DebugEnum<>(Easings.class, this.sightCurve, value -> {
                 this.sightCurve = value;
             })));
-            widgets.add(Pair.of(Component.translatable("FOV Curve"), () -> new DebugEnum<>(Easings.class, this.fovCurve, value -> {
+            widgets.add(Pair.of(Component.literal("FOV Curve"), () -> new DebugEnum<>(Easings.class, this.fovCurve, value -> {
                 this.fovCurve = value;
             })));
-            widgets.add(Pair.of(Component.translatable("Aim Transform Curve"), () -> new DebugEnum<>(Easings.class, this.aimTransformCurve, value -> {
+            widgets.add(Pair.of(Component.literal("Aim Transform Curve"), () -> new DebugEnum<>(Easings.class, this.aimTransformCurve, value -> {
                 this.aimTransformCurve = value;
             })));
         });
