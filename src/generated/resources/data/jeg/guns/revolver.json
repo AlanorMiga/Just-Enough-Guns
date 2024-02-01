@@ -1,6 +1,7 @@
 {
   "display": {
     "flash": {
+      "size": 0.8,
       "yOffset": 2.9,
       "zOffset": 1.7
     }

@@ -127,6 +127,7 @@ public class JustEnoughGuns {
         generator.addProvider(event.includeServer(), blockTagGen);
         generator.addProvider(event.includeServer(), new ItemTagGen(output, lookupProvider, blockTagGen.contentsGetter(), existingFileHelper));
         generator.addProvider(event.includeServer(), new GunGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new WorldGen(output, lookupProvider));
         //generator.addProvider(event.includeServer(), new DamageTypeGen(output, lookupProvider, existingFileHelper));
     }
 

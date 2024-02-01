@@ -5,12 +5,12 @@
     "size": 9,
     "targets": [
       {
+        "state": {
+          "Name": "jeg:brimstone_ore"
+        },
         "target": {
           "block": "minecraft:dripstone_block",
           "predicate_type": "minecraft:block_match"
-        },
-        "state": {
-          "Name": "jeg:brimstone_ore"
         }
       }
     ]
