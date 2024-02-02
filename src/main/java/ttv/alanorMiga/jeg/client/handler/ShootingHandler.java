@@ -77,12 +77,6 @@ public class ShootingHandler
             {
                 event.setSwingHand(false);
                 event.setCanceled(true);
-                this.fire(player, heldItem);
-                Gun gun = gunItem.getModifiedGun(heldItem);
-                if(!gun.getGeneral().isAuto())
-                {
-                    KeyBinds.getShootMapping().setDown(false);
-                }
             }
         }
         else if(event.isUseItem())
@@ -161,6 +155,7 @@ public class ShootingHandler
         }
     }
 
+    // Props to Moon-404 for the double-tap fix!
     @SubscribeEvent
     public void onPostClientTick(TickEvent.ClientTickEvent event)
     {
@@ -183,9 +178,10 @@ public class ShootingHandler
                 if(KeyBinds.getShootMapping().isDown())
                 {
                     Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
-                    if(gun.getGeneral().isAuto())
+                    this.fire(player, heldItem);
+                    if(!gun.getGeneral().isAuto())
                     {
-                        this.fire(player, heldItem);
+                        mc.options.keyAttack.setDown(false);
                     }
                 }
             }
