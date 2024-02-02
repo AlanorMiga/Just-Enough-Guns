@@ -38,7 +38,7 @@ public abstract class AbstractRecyclerMenu extends AbstractContainerMenu {
         checkContainerDataCount(p_38972_, 4);
         this.container = p_38971_;
         this.data = p_38972_;
-        this.level = p_38970_.player.level;
+        this.level = p_38970_.player.level();
         this.addSlot(new Slot(p_38971_, 0, 56, 17));
         this.addSlot(new RecyclerFuelSlot(this, p_38971_, 1, 56, 53));
         this.addSlot(new RecyclerResultSlot(p_38970_.player, p_38971_, 2, 116, 35));

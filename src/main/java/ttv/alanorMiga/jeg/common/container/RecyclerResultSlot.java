@@ -39,7 +39,7 @@ public class RecyclerResultSlot extends Slot {
     }
 
     protected void checkTakeAchievements(ItemStack p_39558_) {
-        p_39558_.onCraftedBy(this.player.level, this.player, this.removeCount);
+        p_39558_.onCraftedBy(this.player.level(), this.player, this.removeCount);
         if (this.player instanceof ServerPlayer && this.container instanceof AbstractRecyclerBlockEntity) {
             ((AbstractRecyclerBlockEntity) this.container).awardUsedRecipesAndPopExperience((ServerPlayer) this.player);
         }

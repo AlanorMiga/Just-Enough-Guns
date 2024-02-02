@@ -306,7 +306,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
                 ItemStack itemstack1 = p_155007_.get(2);
                 if (itemstack1.isEmpty()) {
                     return true;
-                } else if (!itemstack1.sameItem(itemstack)) {
+                } else if (!ItemStack.isSameItem(itemstack1, itemstack)) {
                     return false;
                 } else if (itemstack1.getCount() + itemstack.getCount() <= p_155008_ && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) { // Forge fix: make recycler respect stack sizes in recycler recipes
                     return true;
@@ -406,7 +406,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
 
     public void setItem(int p_58333_, ItemStack p_58334_) {
         ItemStack itemstack = this.items.get(p_58333_);
-        boolean flag = !p_58334_.isEmpty() && p_58334_.sameItem(itemstack) && ItemStack.tagMatches(p_58334_, itemstack);
+        boolean flag = !p_58334_.isEmpty() && ItemStack.isSameItemSameTags(itemstack, p_58334_);
         this.items.set(p_58333_, p_58334_);
         if (p_58334_.getCount() > this.getMaxStackSize()) {
             p_58334_.setCount(this.getMaxStackSize());
@@ -460,7 +460,7 @@ public abstract class AbstractRecyclerBlockEntity extends BaseContainerBlockEnti
     }
 
     public void awardUsedRecipesAndPopExperience(ServerPlayer p_155004_) {
-        List<Recipe<?>> list = this.getRecipesToAwardAndPopExperience(p_155004_.getLevel(), p_155004_.position());
+        List<Recipe<?>> list = this.getRecipesToAwardAndPopExperience(p_155004_.serverLevel(), p_155004_.position());
         p_155004_.awardRecipes(list);
         this.recipesUsed.clear();
     }

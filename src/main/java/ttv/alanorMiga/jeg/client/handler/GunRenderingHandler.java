@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
@@ -66,6 +66,8 @@ import java.util.*;
 
 public class GunRenderingHandler
 {
+    protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+
     private static GunRenderingHandler instance;
 
     public static GunRenderingHandler get()
@@ -287,7 +289,7 @@ public class GunRenderingHandler
         }
 
         LocalPlayer player = Objects.requireNonNull(Minecraft.getInstance().player);
-        BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(overrideModel.isEmpty() ? heldItem : overrideModel, player.level, player, 0);
+        BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(overrideModel.isEmpty() ? heldItem : overrideModel, player.level(), player, 0);
         float scaleX = model.getTransforms().firstPersonRightHand.scale.x();
         float scaleY = model.getTransforms().firstPersonRightHand.scale.y();
         float scaleZ = model.getTransforms().firstPersonRightHand.scale.z();
@@ -389,10 +391,10 @@ public class GunRenderingHandler
         this.applyShieldTransforms(poseStack, player, modifiedGun, event.getPartialTick());
 
         /* Determines the lighting for the weapon. Weapon will appear bright from muzzle flash or light sources */
-        int blockLight = player.isOnFire() ? 15 : player.level.getBrightness(LightLayer.BLOCK, BlockPos.containing(player.getEyePosition(event.getPartialTick())));
+        int blockLight = player.isOnFire() ? 15 : player.level().getBrightness(LightLayer.BLOCK, BlockPos.containing(player.getEyePosition(event.getPartialTick())));
         blockLight += (this.entityIdForMuzzleFlash.contains(player.getId()) ? 3 : 0);
         blockLight = Math.min(blockLight, 15);
-        int packedLight = LightTexture.pack(blockLight, player.level.getBrightness(LightLayer.SKY, BlockPos.containing(player.getEyePosition(event.getPartialTick()))));
+        int packedLight = LightTexture.pack(blockLight, player.level().getBrightness(LightLayer.SKY, BlockPos.containing(player.getEyePosition(event.getPartialTick()))));
 
         /* Renders the first persons arms from the grip type of the weapon */
         poseStack.pushPose();
@@ -568,13 +570,13 @@ public class GunRenderingHandler
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                     RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                    RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
+                    RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 
-                    PoseStack stack = new PoseStack();
-                    stack.scale(scale, scale, scale);
+                    GuiGraphics pGuiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
+                    pGuiGraphics.pose().scale(scale, scale, scale);
                     int progress = (int) Math.ceil((cookTime) * 17.0F) - 1;
-                    Screen.blit(stack, j, i, 36, 94, 16, 4, 256, 256);
-                    Screen.blit(stack, j, i, 52, 94, progress, 4, 256, 256);
+                    pGuiGraphics.blit(GUI_ICONS_LOCATION, j, i, 36, 94, 16, 4, 256, 256);
+                    pGuiGraphics.blit(GUI_ICONS_LOCATION, j, i, 52, 94, progress, 4, 256, 256);
 
                     RenderSystem.disableBlend();
                 }
@@ -599,13 +601,13 @@ public class GunRenderingHandler
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                     RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                    RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
+                    RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 
-                    PoseStack stack = new PoseStack();
-                    stack.scale(scale, scale, scale);
+                    GuiGraphics pGuiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
+                    pGuiGraphics.pose().scale(scale, scale, scale);
                     int progress = (int) Math.ceil((coolDown + 0.05) * 17.0F) - 1;
-                    Screen.blit(stack, j, i, 36, 94, 16, 4, 256, 256);
-                    Screen.blit(stack, j, i, 52, 94, progress, 4, 256, 256);
+                    pGuiGraphics.blit(GUI_ICONS_LOCATION, j, i, 36, 94, 16, 4, 256, 256);
+                    pGuiGraphics.blit(GUI_ICONS_LOCATION, j, i, 52, 94, progress, 4, 256, 256);
 
                     RenderSystem.disableBlend();
                 }
@@ -667,7 +669,7 @@ public class GunRenderingHandler
         }
         else
         {
-            Level level = entity != null ? entity.level : null;
+            Level level = entity != null ? entity.level() : null;
             BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getModel(stack, level, entity, 0);
             Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, bakedModel);
         }
@@ -716,7 +718,7 @@ public class GunRenderingHandler
                         }
                         else
                         {
-                            Level level = entity != null ? entity.level : null;
+                            Level level = entity != null ? entity.level() : null;
                             BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getModel(attachmentStack, level, entity, 0);
                             Minecraft.getInstance().getItemRenderer().render(attachmentStack, ItemDisplayContext.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, GunModel.wrap(bakedModel));
                         }

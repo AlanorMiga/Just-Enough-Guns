@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.MouseSettingsScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -23,10 +24,12 @@ import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 import ttv.alanorMiga.jeg.JustEnoughGuns;
@@ -179,10 +182,10 @@ public class ClientHandler {
         event.register(new ResourceLocation(Reference.MOD_ID, "special/assault_rifle/main"));
     }
 
-    public static void onRegisterCreativeTab(CreativeModeTabEvent.Register event)
+    public static void onRegisterCreativeTab(IEventBus bus)
     {
-        event.registerCreativeModeTab(new ResourceLocation(Reference.MOD_ID, "creative_tab"), builder ->
-        {
+        DeferredRegister<CreativeModeTab> register = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Reference.MOD_ID);
+        CreativeModeTab.Builder builder = CreativeModeTab.builder();
             builder.title(Component.translatable("itemGroup." + Reference.MOD_ID));
             builder.icon(() -> {
                 ItemStack stack = new ItemStack(ModItems.ASSAULT_RIFLE.get());
@@ -211,7 +214,8 @@ public class ClientHandler {
                     }
                 }
             });
-        });
+        register.register("creative_tab", builder::build);
+        register.register(bus);
     }
 
     public static Screen createEditorScreen(IEditorMenu menu) {

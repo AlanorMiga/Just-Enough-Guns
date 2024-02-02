@@ -21,7 +21,7 @@ public class GunDurabilityEvent {
     @SubscribeEvent
     public static void postShoot(Post event) {
         Player player = event.getEntity();
-        Level level = event.getEntity().getLevel();
+        Level level = event.getEntity().level();
         ItemStack heldItem = player.getMainHandItem();
         CompoundTag tag = heldItem.getTag();
 
@@ -39,7 +39,7 @@ public class GunDurabilityEvent {
     @SubscribeEvent
     public static void preShoot(GunFireEvent.Pre event) {
         Player player = event.getEntity();
-        Level level = event.getEntity().getLevel();
+        Level level = event.getEntity().level();
         ItemStack heldItem = player.getMainHandItem();
         Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
         CompoundTag tag = heldItem.getTag();

@@ -75,10 +75,10 @@ public class JustEnoughGuns {
         bus.addListener(this::onGatherData);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             FrameworkClientAPI.registerDataLoader(MetaLoader.getInstance());
+            ClientHandler.onRegisterCreativeTab(bus);
             bus.addListener(KeyBinds::registerKeyMappings);
             bus.addListener(CrosshairHandler::onConfigReload);
             bus.addListener(ClientHandler::onRegisterReloadListener);
-            bus.addListener(ClientHandler::onRegisterCreativeTab);
             bus.addListener(ClientHandler::registerAdditional);
         });
         controllableLoaded = ModList.get().isLoaded("controllable");

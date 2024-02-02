@@ -3,9 +3,10 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "0.1.0-1.19.4"
+version = "0.1.0-1.20.1"
 group = "ttv.alanormiga"
 archivesBaseName = "JustEnoughGuns"
 
@@ -19,7 +20,7 @@ mixin {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.19.4'
+    mappings channel: 'parchment', version: '2023.09.03-1.20.1'
 
     runs {
         client {
@@ -78,9 +79,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.4-45.1.0'
-    implementation fg.deobf('curse.maven:framework-549225:4718249')
-    implementation fg.deobf('curse.maven:backpacked-352835:4510383')
+    minecraft 'net.minecraftforge:forge:1.20.1-47.1.3'
+    implementation fg.deobf('curse.maven:framework-549225:4718251')
+    implementation fg.deobf('curse.maven:backpacked-352835:4725669')
     compileOnly fg.deobf('curse.maven:controllable-317269:4511169')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -25,9 +26,9 @@ import ttv.alanorMiga.jeg.blockentity.ScrapWorkbenchBlockEntity;
 import ttv.alanorMiga.jeg.client.util.RenderUtil;
 import ttv.alanorMiga.jeg.common.NetworkGunManager;
 import ttv.alanorMiga.jeg.common.container.ScrapWorkbenchContainer;
-import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchIngredient;
 import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchRecipe;
 import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchRecipes;
+import ttv.alanorMiga.jeg.crafting.ScrapWorkbenchIngredient;
 import ttv.alanorMiga.jeg.init.ModBlocks;
 import ttv.alanorMiga.jeg.init.ModItems;
 import ttv.alanorMiga.jeg.item.GunItem;
@@ -65,13 +66,14 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
 
     public ScrapWorkbenchScreen(ScrapWorkbenchContainer container, Inventory playerInventory, Component title)
     {
+
         super(container, playerInventory, title);
         this.playerInventory = playerInventory;
         this.workbench = container.getWorkbench();
         this.imageWidth = 275;
         this.imageHeight = 184;
         this.materials = new ArrayList<>();
-        this.createTabs(ScrapWorkbenchRecipes.getAll(playerInventory.player.level));
+        this.createTabs(ScrapWorkbenchRecipes.getAll(playerInventory.player.level()));
         if(!this.tabs.isEmpty())
         {
             this.imageHeight += 28;
@@ -308,11 +310,11 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
+    public void render(GuiGraphics pGuiGraphics, int mouseX, int mouseY, float partialTicks)
     {
-        this.renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(poseStack, mouseX, mouseY);
+        this.renderBackground(pGuiGraphics);
+        super.render(pGuiGraphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(pGuiGraphics, mouseX, mouseY);
 
         int startX = this.leftPos;
         int startY = this.topPos;
@@ -321,7 +323,8 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
         {
             if(RenderUtil.isMouseWithin(mouseX, mouseY, startX + 28 * i, startY - 28, 28, 28))
             {
-                this.renderTooltip(poseStack, Component.translatable(this.tabs.get(i).getTabKey()), mouseX, mouseY);
+                this.setTooltipForNextRenderPass(Component.translatable(this.tabs.get(i).getTabKey()));
+                this.renderTooltip(pGuiGraphics, mouseX, mouseY);
                 return;
             }
         }
@@ -335,29 +338,27 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
                 MaterialItem materialItem = this.filteredMaterials.get(i);
                 if(materialItem != MaterialItem.EMPTY)
                 {
-                    this.renderTooltip(poseStack, materialItem.getDisplayStack(), mouseX, mouseY);
+                    pGuiGraphics.renderTooltip(this.font, materialItem.getDisplayStack(), mouseX, mouseY);
                     return;
                 }
             }
         }
 
-        if(RenderUtil.isMouseWithin(mouseX, mouseY, startX + 8, startY + 38, 160, 48))
+        if (RenderUtil.isMouseWithin(mouseX, mouseY, startX + 8, startY + 38, 160, 48))
         {
-            this.renderTooltip(poseStack, this.displayStack, mouseX, mouseY);
+            pGuiGraphics.renderTooltip(this.font, this.displayStack, mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY)
-    {
+    protected void renderLabels(GuiGraphics pGuiGraphics, int mouseX, int mouseY) {
         int offset = this.tabs.isEmpty() ? 0 : 28;
-        this.font.draw(poseStack, this.title, (float)this.titleLabelX, (float)this.titleLabelY - 28 + offset, 4210752);
-        this.font.draw(poseStack, this.playerInventory.getDisplayName(), (float)this.inventoryLabelX, (float)this.inventoryLabelY - 9 + offset, 4210752);
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY - 28 + offset, Color.WHITE.getRGB());
+        pGuiGraphics.drawString(this.font, this.playerInventory.getDisplayName(), this.inventoryLabelX, this.inventoryLabelY - 9 + offset, Color.WHITE.getRGB());
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY)
-    {
+    protected void renderBg(GuiGraphics pGuiGraphics, float partialTicks, int mouseX, int mouseY) {
         /* Fixes partial ticks to use percentage from 0 to 1 */
         partialTicks = Minecraft.getInstance().getFrameTime();
 
@@ -367,60 +368,53 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
         RenderSystem.enableBlend();
 
         /* Draw unselected tabs */
-        for(int i = 0; i < this.tabs.size(); i++)
-        {
+        for (int i = 0; i < this.tabs.size(); i++) {
             Tab tab = this.tabs.get(i);
-            if(tab != this.currentTab)
-            {
+            if (tab != this.currentTab) {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, GUI_BASE);
-                blit(poseStack, startX + 28 * i, startY - 28, 80, 184, 28, 32);
-                Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(poseStack, tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
-                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(poseStack, this.font, tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8, null);
+                pGuiGraphics.blit(GUI_BASE, startX + 28 * i, startY - 28, 80, 184, 28, 32);
+                pGuiGraphics.renderItem(tab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
             }
         }
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_BASE);
-        blit(poseStack, startX, startY, 0, 0, 173, 184);
-        blit(poseStack, startX + 173, startY, 78, 184, 173, 0, 1, 184, 256, 256);
-        blit(poseStack, startX + 251, startY, 174, 0, 24, 184);
-        blit(poseStack, startX + 172, startY + 16, 198, 0, 20, 20);
+        pGuiGraphics.blit(GUI_BASE, startX, startY, 0, 0, 173, 184);
+        pGuiGraphics.blit(GUI_BASE, startX + 173, startY, 78, 184, 173, 0, 1, 184, 256, 256);
+        pGuiGraphics.blit(GUI_BASE, startX + 251, startY, 174, 0, 24, 184);
+        pGuiGraphics.blit(GUI_BASE, startX + 172, startY + 16, 198, 0, 20, 20);
 
         /* Draw selected tab */
-        if(this.currentTab != null)
-        {
+        if (this.currentTab != null) {
             int i = this.tabs.indexOf(this.currentTab);
             int u = i == 0 ? 80 : 108;
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, GUI_BASE);
-            blit(poseStack, startX + 28 * i, startY - 28, u, 214, 28, 32);
-            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(poseStack, this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
-            Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(poseStack, this.font, this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8, null);
+            pGuiGraphics.blit(GUI_BASE, startX + 28 * i, startY - 28, u, 214, 28, 32);
+            pGuiGraphics.renderItem(this.currentTab.getIcon(), startX + 28 * i + 6, startY - 28 + 8);
         }
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_BASE);
 
-        if(this.workbench.getItem(0).isEmpty())
-        {
-            blit(poseStack, startX + 174, startY + 18, 165, 199, 16, 16);
+        if (this.workbench.getItem(0).isEmpty()) {
+            pGuiGraphics.blit(GUI_BASE, startX + 174, startY + 18, 165, 199, 16, 16);
         }
 
         ItemStack currentItem = this.displayStack;
         StringBuilder builder = new StringBuilder(currentItem.getHoverName().getString());
-        if(currentItem.getCount() > 1)
-        {
+        if (currentItem.getCount() > 1) {
             builder.append(ChatFormatting.GOLD);
             builder.append(ChatFormatting.BOLD);
             builder.append(" x ");
             builder.append(currentItem.getCount());
         }
-        drawCenteredString(poseStack, this.font, builder.toString(), startX + 88, startY + 22, Color.WHITE.getRGB());
+        pGuiGraphics.drawCenteredString(this.font, builder.toString(), startX + 88, startY + 22, Color.WHITE.getRGB());
 
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         RenderUtil.scissor(startX + 8, startY + 17, 160, 70);
@@ -434,7 +428,7 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
             modelViewStack.mulPose(Axis.YP.rotationDegrees(Minecraft.getInstance().player.tickCount + partialTicks));
             RenderSystem.applyModelViewMatrix();
             MultiBufferSource.BufferSource buffer = this.minecraft.renderBuffers().bufferSource();
-            Minecraft.getInstance().getItemRenderer().render(currentItem, ItemDisplayContext.FIXED, false, poseStack, buffer, 15728880, OverlayTexture.NO_OVERLAY, RenderUtil.getModel(currentItem));
+            Minecraft.getInstance().getItemRenderer().render(currentItem, ItemDisplayContext.FIXED, false, pGuiGraphics.pose(), buffer, 15728880, OverlayTexture.NO_OVERLAY, RenderUtil.getModel(currentItem));
             buffer.endBatch();
         }
         modelViewStack.popPose();
@@ -443,45 +437,39 @@ public class ScrapWorkbenchScreen extends AbstractContainerScreen<ScrapWorkbench
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
         this.filteredMaterials = this.getMaterials();
-        for(int i = 0; i < this.filteredMaterials.size(); i++)
-        {
+        for (int i = 0; i < this.filteredMaterials.size(); i++) {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, GUI_BASE);
 
             MaterialItem materialItem = this.filteredMaterials.get(i);
             ItemStack stack = materialItem.getDisplayStack();
-            if(!stack.isEmpty())
-            {
+            if (!stack.isEmpty()) {
                 Lighting.setupForFlatItems();
-                if(materialItem.isEnabled())
-                {
-                    this.blit(poseStack, startX + 172, startY + i * 19 + 63, 0, 184, 80, 19);
-                }
-                else
-                {
-                    this.blit(poseStack, startX + 172, startY + i * 19 + 63, 0, 222, 80, 19);
+                if (materialItem.isEnabled()) {
+                    pGuiGraphics.blit(GUI_BASE,startX + 172, startY + i * 19 + 63, 0, 184, 80, 19);
+                } else {
+                    pGuiGraphics.blit(GUI_BASE,startX + 172, startY + i * 19 + 63, 0, 222, 80, 19);
                 }
 
                 String name = stack.getHoverName().getString();
-                if(this.font.width(name) > 55)
-                {
+                if (this.font.width(name) > 55) {
                     name = this.font.plainSubstrByWidth(name, 50).trim() + "...";
                 }
-                this.font.draw(poseStack, name, startX + 172 + 22, startY + i * 19 + 6 + 63, Color.WHITE.getRGB());
+                pGuiGraphics.drawString(this.font, name, startX + 172 + 22, startY + i * 19 + 6 + 63, Color.WHITE.getRGB());
 
-                Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(poseStack, stack, startX + 172 + 2, startY + i * 19 + 1 + 63);
+                pGuiGraphics.renderItem(stack, startX + 172 + 2, startY + i * 19 + 1 + 63);
 
-                if(this.checkBoxMaterials.isToggled())
-                {
+                if (this.checkBoxMaterials.isToggled()) {
                     int count = InventoryUtil.getItemStackAmount(Minecraft.getInstance().player, stack);
                     stack = stack.copy();
                     stack.setCount(stack.getCount() - count);
                 }
 
-                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(poseStack, this.font, stack, startX + 172 + 2, startY + i * 19 + 1 + 63, null);
+                pGuiGraphics.renderItemDecorations(this.font, stack, startX + 172 + 2, startY + i * 19 + 1 + 63);
             }
         }
     }
+
 
     private List<MaterialItem> getMaterials()
     {

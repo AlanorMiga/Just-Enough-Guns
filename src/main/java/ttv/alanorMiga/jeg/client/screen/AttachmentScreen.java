@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -116,11 +116,11 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
+    public void render(GuiGraphics pGuiGraphics, int mouseX, int mouseY, float partialTicks)
     {
-        this.renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(poseStack, mouseX, mouseY); //Render tool tips
+        this.renderBackground(pGuiGraphics);
+        super.render(pGuiGraphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(pGuiGraphics, mouseX, mouseY); //Render tool tips
 
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
@@ -132,80 +132,72 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
                 IAttachment.Type type = IAttachment.Type.values()[i];
                 if(!this.menu.getSlot(i).isActive())
                 {
-                    this.renderComponentTooltip(poseStack, Arrays.asList(Component.translatable("slot.jeg.attachment." + type.getTranslationKey()), Component.translatable("slot.jeg.attachment.not_applicable")), mouseX, mouseY);
+                    pGuiGraphics.renderComponentTooltip(this.font, Arrays.asList(Component.translatable("slot.jeg.attachment." + type.getTranslationKey()), Component.translatable("slot.jeg.attachment.not_applicable")), mouseX, mouseY);
                 }
                 else if(this.menu.getSlot(i) instanceof AttachmentSlot slot && slot.getItem().isEmpty() && !this.isCompatible(this.menu.getCarried(), slot))
                 {
-                    this.renderComponentTooltip(poseStack, Arrays.asList(Component.translatable("slot.jeg.attachment.incompatible").withStyle(ChatFormatting.YELLOW)), mouseX, mouseY);
+                    pGuiGraphics.renderComponentTooltip(this.font, Arrays.asList(Component.translatable("slot.jeg.attachment.incompatible").withStyle(ChatFormatting.YELLOW)), mouseX, mouseY);
                 }
             }
         }
     }
 
     @Override
-    protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY)
-    {
+    protected void renderLabels(GuiGraphics pGuiGraphics, int mouseX, int mouseY) {
         Minecraft minecraft = Minecraft.getInstance();
-        this.font.draw(poseStack, this.title, (float) this.titleLabelX, (float) this.titleLabelY, 4210752);
-        this.font.draw(poseStack, this.playerInventory.getDisplayName(), (float) this.inventoryLabelX, (float) this.inventoryLabelY + 19, 4210752);
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752);
+        pGuiGraphics.drawString(this.font, this.playerInventory.getDisplayName(), this.inventoryLabelX, this.inventoryLabelY + 19, 4210752);
 
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
-        GuiComponent.enableScissor(left + 26, top + 17, left + 26 + 142, top + 17 + 70);
-        poseStack.pushPose();
-        poseStack.translate(96, 50, 150);
-        poseStack.translate(this.windowX + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseX - this.mouseClickedX : 0), 0, 0);
-        poseStack.translate(0, this.windowY + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseY - this.mouseClickedY : 0), 0);
-        poseStack.mulPose(Axis.XP.rotationDegrees(-30F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(this.windowRotationY - (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseY - this.mouseClickedY : 0)));
-        poseStack.mulPose(Axis.YP.rotationDegrees(this.windowRotationX + (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseX - this.mouseClickedX : 0)));
-        poseStack.mulPose(Axis.YP.rotationDegrees(150F));
-        poseStack.scale(this.windowZoom / 10F, this.windowZoom / 10F, this.windowZoom / 10F);
-        poseStack.mulPose(Axis.YP.rotationDegrees(90F));
-        poseStack.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
-        poseStack.scale(90.0F, 90.0F, 90.0F);
+        pGuiGraphics.enableScissor(left + 26, top + 17, left + 26 + 142, top + 17 + 70);
+        pGuiGraphics.pose().pushPose();
+        pGuiGraphics.pose().translate(96, 50, 150);
+        pGuiGraphics.pose().translate(this.windowX + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseX - this.mouseClickedX : 0), 0, 0);
+        pGuiGraphics.pose().translate(0, this.windowY + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseY - this.mouseClickedY : 0), 0);
+        pGuiGraphics.pose().mulPose(Axis.XP.rotationDegrees(-30F));
+        pGuiGraphics.pose().mulPose(Axis.XP.rotationDegrees(this.windowRotationY - (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseY - this.mouseClickedY : 0)));
+        pGuiGraphics.pose().mulPose(Axis.YP.rotationDegrees(this.windowRotationX + (this.mouseGrabbed && this.mouseGrabbedButton == 1 ? mouseX - this.mouseClickedX : 0)));
+        pGuiGraphics.pose().mulPose(Axis.YP.rotationDegrees(150F));
+        pGuiGraphics.pose().scale(this.windowZoom / 10F, this.windowZoom / 10F, this.windowZoom / 10F);
+        pGuiGraphics.pose().mulPose(Axis.YP.rotationDegrees(90F));
+        pGuiGraphics.pose().mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+        pGuiGraphics.pose().scale(90.0F, 90.0F, 90.0F);
         PoseStack modelStack = RenderSystem.getModelViewStack();
         modelStack.pushPose();
-        modelStack.mulPoseMatrix(poseStack.last().pose());
+        modelStack.mulPoseMatrix(pGuiGraphics.pose().last().pose());
         RenderSystem.applyModelViewMatrix();
-
         MultiBufferSource.BufferSource buffer = this.minecraft.renderBuffers().bufferSource();
         GunRenderingHandler.get().renderWeapon(this.minecraft.player, this.minecraft.player.getMainHandItem(), ItemDisplayContext.GROUND, new PoseStack(), buffer, 15728880, 0F);
         buffer.endBatch();
-        poseStack.popPose();
+        pGuiGraphics.pose().popPose();
         modelStack.popPose();
         RenderSystem.applyModelViewMatrix();
-        GuiComponent.disableScissor();
+        pGuiGraphics.disableScissor();
 
-        if(this.showHelp)
-        {
-            poseStack.pushPose();
-            poseStack.scale(0.5F, 0.5F, 0.5F);
-            minecraft.font.draw(poseStack, I18n.get("container.jeg.attachments.window_help"), 56, 38, 0xFFFFFF);
-            poseStack.popPose();
+        if (this.showHelp) {
+            pGuiGraphics.pose().pushPose();
+            pGuiGraphics.pose().scale(0.5F, 0.5F, 0.5F);
+            pGuiGraphics.drawString(minecraft.font, I18n.get("container.jeg.attachments.window_help"), 56, 38, 0xFFFFFF);
+            pGuiGraphics.pose().popPose();
         }
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY)
-    {
+    protected void renderBg(GuiGraphics pGuiGraphics, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_TEXTURES);
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
-        this.blit(poseStack, left, top, 0, 0, this.imageWidth, this.imageHeight);
+        pGuiGraphics.blit(GUI_TEXTURES, left, top, 0, 0, this.imageWidth, this.imageHeight);
 
         /* Draws the icons for each attachment slot. If not applicable
          * for the weapon, it will draw a cross instead. */
-        for(int i = 0; i < IAttachment.Type.values().length; i++)
-        {
-            if(!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i)))
-            {
-                this.blit(poseStack, left + 8, top + 17 + i * 18, 176, 0, 16, 16);
-            }
-            else if(this.weaponInventory.getItem(i).isEmpty())
-            {
-                this.blit(poseStack, left + 8, top + 17 + i * 18, 176, 16 + i * 16, 16, 16);
+        for (int i = 0; i < IAttachment.Type.values().length; i++) {
+            if (!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i))) {
+                pGuiGraphics.blit(GUI_TEXTURES, left + 8, top + 17 + i * 18, 176, 0, 16, 16);
+            } else if (this.weaponInventory.getItem(i).isEmpty()) {
+                pGuiGraphics.blit(GUI_TEXTURES, left + 8, top + 17 + i * 18, 176, 16 + i * 16, 16, 16);
             }
         }
     }

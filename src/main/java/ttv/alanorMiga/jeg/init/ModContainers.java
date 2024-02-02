@@ -20,15 +20,15 @@ public class ModContainers {
     public static final DeferredRegister<MenuType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Reference.MOD_ID);
 
     public static final RegistryObject<MenuType<ScrapWorkbenchContainer>> SCRAP_WORKBENCH = register("scrap_workbench", (IContainerFactory<ScrapWorkbenchContainer>) (windowId, playerInventory, data) -> {
-        ScrapWorkbenchBlockEntity scrap_workbench = (ScrapWorkbenchBlockEntity) playerInventory.player.level.getBlockEntity(data.readBlockPos());
+        ScrapWorkbenchBlockEntity scrap_workbench = (ScrapWorkbenchBlockEntity) playerInventory.player.level().getBlockEntity(data.readBlockPos());
         return new ScrapWorkbenchContainer(windowId, playerInventory, scrap_workbench);
     });
     public static final RegistryObject<MenuType<GunmetalWorkbenchContainer>> GUNMETAL_WORKBENCH = register("gunmetal_workbench", (IContainerFactory<GunmetalWorkbenchContainer>) (windowId, playerInventory, data) -> {
-        GunmetalWorkbenchBlockEntity gunmetal_workbench = (GunmetalWorkbenchBlockEntity) playerInventory.player.level.getBlockEntity(data.readBlockPos());
+        GunmetalWorkbenchBlockEntity gunmetal_workbench = (GunmetalWorkbenchBlockEntity) playerInventory.player.level().getBlockEntity(data.readBlockPos());
         return new GunmetalWorkbenchContainer(windowId, playerInventory, gunmetal_workbench);
     });
     public static final RegistryObject<MenuType<GunniteWorkbenchContainer>> GUNNITE_WORKBENCH = register("gunnite_workbench", (IContainerFactory<GunniteWorkbenchContainer>) (windowId, playerInventory, data) -> {
-        GunniteWorkbenchBlockEntity gunnite_workbench = (GunniteWorkbenchBlockEntity) playerInventory.player.level.getBlockEntity(data.readBlockPos());
+        GunniteWorkbenchBlockEntity gunnite_workbench = (GunniteWorkbenchBlockEntity) playerInventory.player.level().getBlockEntity(data.readBlockPos());
         return new GunniteWorkbenchContainer(windowId, playerInventory, gunnite_workbench);
     });
 
