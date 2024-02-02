@@ -1,19 +1,5 @@
 package ttv.alanorMiga.jeg.client.handler;
 
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.item.Item;
-import ttv.alanorMiga.jeg.JustEnoughGuns;
-import ttv.alanorMiga.jeg.common.GripType;
-import ttv.alanorMiga.jeg.common.Gun;
-import ttv.alanorMiga.jeg.compat.PlayerReviveHelper;
-import ttv.alanorMiga.jeg.event.GunFireEvent;
-import ttv.alanorMiga.jeg.item.GunItem;
-import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.network.message.C2SMessageShoot;
-import ttv.alanorMiga.jeg.network.message.C2SMessageShooting;
-import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
-import ttv.alanorMiga.jeg.util.GunModifierHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +11,17 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import ttv.alanorMiga.jeg.JustEnoughGuns;
+import ttv.alanorMiga.jeg.common.GripType;
+import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.compat.PlayerReviveHelper;
+import ttv.alanorMiga.jeg.event.GunFireEvent;
+import ttv.alanorMiga.jeg.item.GunItem;
+import ttv.alanorMiga.jeg.network.PacketHandler;
+import ttv.alanorMiga.jeg.network.message.C2SMessageShoot;
+import ttv.alanorMiga.jeg.network.message.C2SMessageShooting;
+import ttv.alanorMiga.jeg.util.GunEnchantmentHelper;
+import ttv.alanorMiga.jeg.util.GunModifierHelper;
 
 /**
  * Author: MrCrayfish
@@ -79,12 +76,6 @@ public class ShootingHandler
             {
                 event.setSwingHand(false);
                 event.setCanceled(true);
-                this.fire(player, heldItem);
-                Gun gun = gunItem.getModifiedGun(heldItem);
-                if(!gun.getGeneral().isAuto())
-                {
-                    mc.options.keyAttack.setDown(false);
-                }
             }
         }
         else if(event.isUseItem())
@@ -163,6 +154,7 @@ public class ShootingHandler
         }
     }
 
+    // Props to Moon-404 for the double-tap fix!
     @SubscribeEvent
     public void onPostClientTick(TickEvent.ClientTickEvent event)
     {
@@ -185,9 +177,10 @@ public class ShootingHandler
                 if(mc.options.keyAttack.isDown())
                 {
                     Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
-                    if(gun.getGeneral().isAuto())
+                    this.fire(player, heldItem);
+                    if(!gun.getGeneral().isAuto())
                     {
-                        this.fire(player, heldItem);
+                        mc.options.keyAttack.setDown(false);
                     }
                 }
             }
