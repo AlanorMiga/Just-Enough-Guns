@@ -1,0 +1,57 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "jeg:item/custom_smg",
+		"particle": "jeg:item/custom_smg"
+	},
+	"elements": [
+		{
+			"name": "Stock 1",
+			"from": [7.75, 2.08, 15.4],
+			"to": [8.25, 2.28, 18.4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 2.73, 8.4]},
+			"faces": {
+				"north": {"uv": [0, 12.25, 0.75, 12.5], "texture": "#0"},
+				"east": {"uv": [0.5, 12.25, 0.75, 16], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [0, 16, 0.25, 12.25], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [0, 12.25, 0.75, 16], "texture": "#0"},
+				"down": {"uv": [0, 16, 0.75, 12.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Stock 2",
+			"from": [7.7, 0.08, 18.4],
+			"to": [8.3, 2.38, 19.4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 2.73, 8.4]},
+			"faces": {
+				"north": {"uv": [2, 13.25, 2.75, 16], "texture": "#0"},
+				"east": {"uv": [0.75, 13.25, 2, 16], "texture": "#0"},
+				"south": {"uv": [2, 13.25, 2.75, 16], "texture": "#0"},
+				"west": {"uv": [0.75, 13.25, 2, 16], "texture": "#0"},
+				"up": {"uv": [0.75, 12.5, 2, 13.25], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [0.75, 12.5, 2, 13.25], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"firstperson_righthand": {
+			"translation": [-5.5, 13.5, 7.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "Custom SMG",
+			"origin": [8, 3, 7.9],
+			"color": 0,
+			"children": [
+				{
+					"name": "Stock",
+					"origin": [0, 2.9, 8.4],
+					"color": 0,
+					"children": [0, 1]
+				}
+			]
+		}
+	]
+}

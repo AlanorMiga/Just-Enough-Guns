@@ -548,7 +548,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             object.addProperty("life", this.life);
             if(this.gravity) object.addProperty("gravity", true);
             if(this.damageReduceOverLife) object.addProperty("damageReduceOverLife", this.damageReduceOverLife);
-            if(this.trailColor != 0xFFD289) object.addProperty("trailColor", this.trailColor);
+            if(this.trailColor != 0xFFFF00) object.addProperty("trailColor", this.trailColor);
             if(this.trailLengthMultiplier != 1.0) object.addProperty("trailLengthMultiplier", this.trailLengthMultiplier);
             return object;
         }
@@ -1860,7 +1860,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
 
         public Builder setEmptyMagTimer(int emptyMagTimer)
         {
-            this.gun.reloads.reloadTimer = emptyMagTimer;
+            this.gun.reloads.emptyMagTimer = emptyMagTimer;
             return this;
         }
 

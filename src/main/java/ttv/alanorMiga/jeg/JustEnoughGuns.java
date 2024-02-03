@@ -6,9 +6,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -37,8 +39,6 @@ import ttv.alanorMiga.jeg.entity.GrenadeEntity;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 import ttv.alanorMiga.jeg.init.*;
 import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.particles.CasingParticle;
-import ttv.alanorMiga.jeg.particles.ScrapParticle;
 import ttv.alanorMiga.jeg.world.loot.ModLootModifiers;
 
 import java.util.concurrent.CompletableFuture;
@@ -71,7 +71,6 @@ public class JustEnoughGuns {
         ModLootModifiers.register(bus);
         bus.addListener(this::onCommonSetup);
         bus.addListener(this::onClientSetup);
-        bus.addListener(this::onParticlesRegistry);
         bus.addListener(this::onGatherData);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             FrameworkClientAPI.registerDataLoader(MetaLoader.getInstance());
@@ -106,11 +105,6 @@ public class JustEnoughGuns {
                 MinecraftForge.EVENT_BUS.register(new BoundingBoxManager());
             }
         });
-    }
-
-    private void onParticlesRegistry(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticleTypes.CASING_PARTICLE.get(), CasingParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.SCRAP.get(), ScrapParticle.Provider::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {

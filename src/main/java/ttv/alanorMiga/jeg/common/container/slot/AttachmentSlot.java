@@ -61,7 +61,7 @@ public class AttachmentSlot extends Slot
         {
             return false;
         }
-        if (item instanceof MakeshiftGunItem)
+        if (item instanceof MakeshiftGunItem || item instanceof MakeshiftShotgunItem)
         {
             if (attachment instanceof MakeshiftStockItem ||
                     attachment instanceof BarrelItem ||

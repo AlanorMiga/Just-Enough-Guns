@@ -1,0 +1,84 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "jeg:item/custom_smg",
+		"particle": "jeg:item/custom_smg"
+	},
+	"elements": [
+		{
+			"name": "Ejector 1",
+			"from": [7.05, 2.925, 13.5],
+			"to": [7.35, 3.275, 13.85],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.3, 3.1, 13.675]},
+			"faces": {
+				"north": {"uv": [1.75, 4, 2.25, 4.5], "texture": "#0"},
+				"east": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"south": {"uv": [1.75, 4, 2.25, 4.5], "texture": "#0"},
+				"west": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"up": {"uv": [1.75, 4, 2.25, 4.5], "texture": "#0"},
+				"down": {"uv": [1.75, 4, 2.25, 4.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Ejector 2",
+			"from": [7.35, 2.975, 13.55],
+			"to": [7.85, 3.225, 13.8],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.3, 3.1, 13.675]},
+			"faces": {
+				"north": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"east": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"south": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"west": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"up": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"},
+				"down": {"uv": [2.25, 4, 2.5, 4.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Ejector 3",
+			"from": [7.67004, 2.615, 12.475],
+			"to": [8.24004, 3.185, 14.575],
+			"rotation": {"angle": 45, "axis": "z", "origin": [7.85504, 3.1, 14.8]},
+			"faces": {
+				"north": {"uv": [12.25, 4.75, 12.75, 5.25], "texture": "#0"},
+				"east": {"uv": [12.25, 4.75, 14.75, 5.5], "texture": "#0"},
+				"south": {"uv": [14.25, 4.75, 14.75, 5.25], "texture": "#0"},
+				"west": {"uv": [12.25, 4.75, 14.75, 5.5], "texture": "#0"},
+				"up": {"uv": [12.25, 4.75, 14.75, 5.5], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [12.25, 4.75, 14.75, 5.5], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"firstperson_righthand": {
+			"translation": [-5.5, 13.5, 7.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "Custom SMG",
+			"origin": [8, 3, 7.9],
+			"color": 0,
+			"children": [
+				{
+					"name": "Barrel",
+					"origin": [-0.025, 2.9, 8.4],
+					"color": 0,
+					"children": []
+				},
+				{
+					"name": "Stock",
+					"origin": [0, 2.9, 8.4],
+					"color": 0,
+					"children": []
+				},
+				{
+					"name": "Ejector",
+					"origin": [7.85504, 3, 13.9],
+					"color": 0,
+					"children": [0, 1, 2]
+				}
+			]
+		}
+	]
+}

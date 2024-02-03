@@ -21,6 +21,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SEMI_AUTO_RIFLE_SILENCED_FIRE = register("item.semi_auto_rifle.silenced_fire");
     public static final RegistryObject<SoundEvent> HK_G36_FIRE = register("item.hk_g36.fire");
     public static final RegistryObject<SoundEvent> HK_G36_SILENCED_FIRE = register("item.hk_g36.silenced_fire");
+    public static final RegistryObject<SoundEvent> PUMP_SHOTGUN_FIRE = register("item.pump_shotgun.fire");
+    public static final RegistryObject<SoundEvent> PUMP_SHOTGUN_SILENCED_FIRE = register("item.pump_shotgun.silenced_fire");
+    public static final RegistryObject<SoundEvent> BOLT_ACTION_RIFLE_FIRE = register("item.bolt_action_rifle.fire");
+    public static final RegistryObject<SoundEvent> CUSTOM_SMG_FIRE = register("item.custom_smg.fire");
+    public static final RegistryObject<SoundEvent> CUSTOM_SMG_SILENCED_FIRE = register("item.custom_smg.silenced_fire");
+
     public static final RegistryObject<SoundEvent> ITEM_PISTOL_RELOAD = register("item.pistol.reload");
     public static final RegistryObject<SoundEvent> ITEM_PISTOL_COCK = register("item.pistol.cock");
     public static final RegistryObject<SoundEvent> ITEM_GRENADE_PIN = register("item.grenade.pin");

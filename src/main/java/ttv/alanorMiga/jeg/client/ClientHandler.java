@@ -24,7 +24,6 @@ import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -130,6 +129,9 @@ public class ClientHandler {
         ModelOverrides.register(ModItems.WATERPIPE_SHOTGUN.get(), new WaterpipeShotgunModel());
         ModelOverrides.register(ModItems.SEMI_AUTO_RIFLE.get(), new SemiAutoRifleModel());
         ModelOverrides.register(ModItems.HK_G36.get(), new HkG36Model());
+        ModelOverrides.register(ModItems.PUMP_SHOTGUN.get(), new PumpShotgunModel());
+        ModelOverrides.register(ModItems.BOLT_ACTION_RIFLE.get(), new BoltActionRifleModel());
+        ModelOverrides.register(ModItems.CUSTOM_SMG.get(), new CustomSMGModel());
     }
 
     private static void registerScreenFactories() {
