@@ -1,14 +1,12 @@
 package ttv.alanorMiga.jeg;
 
 import com.mrcrayfish.framework.api.client.FrameworkClientAPI;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -39,8 +37,6 @@ import ttv.alanorMiga.jeg.entity.GrenadeEntity;
 import ttv.alanorMiga.jeg.entity.ProjectileEntity;
 import ttv.alanorMiga.jeg.init.*;
 import ttv.alanorMiga.jeg.network.PacketHandler;
-import ttv.alanorMiga.jeg.particles.CasingParticle;
-import ttv.alanorMiga.jeg.particles.ScrapParticle;
 import ttv.alanorMiga.jeg.world.feature.OreFeatures;
 
 @Mod(Reference.MOD_ID)
@@ -84,7 +80,6 @@ public class JustEnoughGuns {
         MinecraftForge.EVENT_BUS.addListener(OreFeatures::onBiomeLoadingEvent);
         bus.addListener(this::onCommonSetup);
         bus.addListener(this::onClientSetup);
-        bus.addListener(this::onParticlesRegistry);
         bus.addListener(this::onGatherData);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             bus.addListener(CrosshairHandler::onConfigReload);
@@ -114,11 +109,6 @@ public class JustEnoughGuns {
                 MinecraftForge.EVENT_BUS.register(new BoundingBoxManager());
             }
         });
-    }
-
-    private void onParticlesRegistry(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particleEngine.register(ModParticleTypes.CASING_PARTICLE.get(), CasingParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ModParticleTypes.SCRAP.get(), ScrapParticle.Provider::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {

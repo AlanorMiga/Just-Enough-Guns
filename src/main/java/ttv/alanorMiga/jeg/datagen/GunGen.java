@@ -46,7 +46,7 @@ public class GunGen extends GunProvider
                 .setProjectileSpeed(10F)
                 .setProjectileLife(40)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(16776960)
+                .setProjectileTrailColor(0xFFFF00)
                 .setProjectileAffectedByGravity(true)
 
                 // Sounds
@@ -92,8 +92,8 @@ public class GunGen extends GunProvider
                 .setProjectileSpeed(6F)
                 .setProjectileLife(10)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(16776960)
-                .setProjectileAffectedByGravity(true)
+                .setProjectileTrailColor(0xFFFF00)
+                .setProjectileAffectedByGravity(false)
 
                 // Sounds
                 .setFireSound(ModSounds.WATERPIPE_SHOTGUN_FIRE.get())
@@ -106,6 +106,51 @@ public class GunGen extends GunProvider
                 .setZoom(Gun.Modules.Zoom.builder()
                         .setFovModifier(0.7F)
                         .setOffset(0.0, 3.0, 0.75))
+
+                .build());
+
+        this.addGun(new ResourceLocation(Reference.MOD_ID, "custom_smg"), Gun.Builder.create()
+
+                // General
+                .setAuto(true)
+                .setFireRate(1)
+                .setGripType(GripType.TWO_HANDED)
+                .setRecoilKick(0.33F)
+                .setRecoilAngle(1.0F)
+                .setAlwaysSpread(true)
+                .setSpread(4.0F)
+
+                // Reloads
+                .setMaxAmmo(24)
+                .setMagFed(true)
+                .setReloadTimer(30)
+                .setEmptyMagTimer(10)
+
+                // Projectile
+                .setAmmo(ModItems.PISTOL_AMMO.get())
+                .setProjectileVisible(false)
+                .setDamage(3.5F)
+                .setProjectileSize(0.05F)
+                .setProjectileSpeed(12F)
+                .setProjectileLife(60)
+                .setProjectileTrailLengthMultiplier(2)
+                .setProjectileTrailColor(0xFFFF00)
+                .setProjectileAffectedByGravity(true)
+
+                // Sounds
+                .setFireSound(ModSounds.CUSTOM_SMG_FIRE.get())
+                .setReloadSound(ModSounds.ITEM_PISTOL_RELOAD.get())
+                .setCockSound(ModSounds.ITEM_PISTOL_COCK.get())
+                .setSilencedFireSound(ModSounds.CUSTOM_SMG_SILENCED_FIRE.get())
+                .setEnchantedFireSound(ModSounds.CUSTOM_SMG_FIRE.get())
+
+                // Attachments
+                .setMuzzleFlash(0.8, 0.0, 2.95, 0.2)
+                .setZoom(Gun.Modules.Zoom.builder()
+                        .setFovModifier(0.6F)
+                        .setOffset(0.0, 3.85, -1.75))
+                .setBarrel(1.0F, 0.0, 3.0, -2.0)
+                .setStock(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 
@@ -134,7 +179,7 @@ public class GunGen extends GunProvider
                 .setProjectileSpeed(12F)
                 .setProjectileLife(60)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(16776960)
+                .setProjectileTrailColor(0xFFFF00)
                 .setProjectileAffectedByGravity(true)
 
                 // Sounds
@@ -181,7 +226,7 @@ public class GunGen extends GunProvider
                 .setProjectileSpeed(14F)
                 .setProjectileLife(60)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(16776960)
+                .setProjectileTrailColor(0xFFFF00)
                 .setProjectileAffectedByGravity(true)
 
                 // Sounds
@@ -196,10 +241,105 @@ public class GunGen extends GunProvider
                 .setZoom(Gun.Modules.Zoom.builder()
                         .setFovModifier(0.6F)
                         .setOffset(0.0, 3.75, 0.75))
-                .setScope(1.0F, 0.0, 4.4, 4.0)
+                .setScope(1.0F, 0.0, 3.35, 4.5)
                 .setBarrel(1.0F, 0.0, 2.75, -4.9)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(1.0F, 0.0, 1.5, 1.85)
+
+                .build());
+
+        this.addGun(new ResourceLocation(Reference.MOD_ID, "pump_shotgun"), Gun.Builder.create()
+
+                // General
+                .setAuto(false)
+                .setFireRate(22)
+                .setGripType(GripType.TWO_HANDED)
+                .setRecoilKick(0.5F)
+                .setRecoilAngle(10.0F)
+                .setAlwaysSpread(true)
+                .setSpread(25.0F)
+                .setProjectileAmount(12)
+
+                // Reloads
+                .setMaxAmmo(6)
+                .setMagFed(false)
+                .setReloadTimer(0)
+                .setEmptyMagTimer(0)
+
+                // Projectile
+                .setAmmo(ModItems.SHOTGUN_SHELL.get())
+                .setProjectileVisible(false)
+                .setDamage(20F)
+                .setReduceDamageOverLife(true)
+                .setProjectileSize(0.05F)
+                .setProjectileSpeed(6F)
+                .setProjectileLife(10)
+                .setProjectileTrailLengthMultiplier(2)
+                .setProjectileTrailColor(0xFFFF00)
+                .setProjectileAffectedByGravity(false)
+
+                // Sounds
+                .setFireSound(ModSounds.PUMP_SHOTGUN_FIRE.get())
+                .setReloadSound(ModSounds.ITEM_PISTOL_RELOAD.get())
+                .setCockSound(ModSounds.ITEM_PISTOL_COCK.get())
+                .setSilencedFireSound(ModSounds.PUMP_SHOTGUN_SILENCED_FIRE.get())
+                .setEnchantedFireSound(ModSounds.PUMP_SHOTGUN_FIRE.get())
+
+                // Attachments
+                .setMuzzleFlash(0.8, 0.0, 2.05, -2.03)
+                .setZoom(Gun.Modules.Zoom.builder()
+                        .setFovModifier(0.6F)
+                        .setOffset(0.0, 3.5, -1.25))
+                .setScope(1.0F, 0.0, 3.32, 3.835)
+                .setBarrel(1.0F, 0.0, 3.155, -4.6)
+                .setStock(0.0F, 0.0, 0.0, 0.0)
+                .setUnderBarrel(0.0F, 0.0, 1.77, 2.125)
+
+                .build());
+
+        this.addGun(new ResourceLocation(Reference.MOD_ID, "bolt_action_rifle"), Gun.Builder.create()
+
+                // General
+                .setAuto(false)
+                .setFireRate(22)
+                .setGripType(GripType.TWO_HANDED)
+                .setRecoilKick(0.25F)
+                .setRecoilAngle(4.0F)
+                .setAlwaysSpread(true)
+                .setSpread(0.5F)
+
+                // Reloads
+                .setMaxAmmo(4)
+                .setMagFed(false)
+                .setReloadTimer(30)
+                .setEmptyMagTimer(10)
+
+                // Projectile
+                .setAmmo(ModItems.RIFLE_AMMO.get())
+                .setProjectileVisible(false)
+                .setDamage(24F)
+                .setProjectileSize(0.05F)
+                .setProjectileSpeed(24F)
+                .setProjectileLife(60)
+                .setProjectileTrailLengthMultiplier(2)
+                .setProjectileTrailColor(0xFFFF00)
+                .setProjectileAffectedByGravity(true)
+
+                // Sounds
+                .setFireSound(ModSounds.BOLT_ACTION_RIFLE_FIRE.get())
+                .setReloadSound(ModSounds.ITEM_PISTOL_RELOAD.get())
+                .setCockSound(ModSounds.ITEM_PISTOL_COCK.get())
+                .setEnchantedFireSound(ModSounds.BOLT_ACTION_RIFLE_FIRE.get())
+
+                // Attachments
+                .setMuzzleFlash(0.8, 0.0, 3, -9.7)
+                .setZoom(Gun.Modules.Zoom.builder()
+                        .setFovModifier(0.6F)
+                        .setOffset(0.0, 3.35, -1.25))
+                .setScope(1.0F, 0.0, 2.94, -0.45)
+                .setBarrel(1.0F, 0.0, 3.05, -5.8)
+                .setStock(0.0F, 0.0, 0.0, 0.0)
+                .setUnderBarrel(1.0F, 0.0, 2.3, 1.4)
 
                 .build());
 
@@ -230,7 +370,7 @@ public class GunGen extends GunProvider
                 .setProjectileSpeed(16F)
                 .setProjectileLife(80)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(16776960)
+                .setProjectileTrailColor(0xFFFF00)
                 .setProjectileAffectedByGravity(false)
 
                 // Sounds
@@ -277,7 +417,7 @@ public class GunGen extends GunProvider
                 .setProjectileSpeed(16F)
                 .setProjectileLife(80)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(16776960)
+                .setProjectileTrailColor(0xFFFF00)
                 .setProjectileAffectedByGravity(false)
 
                 // Sounds
@@ -293,7 +433,7 @@ public class GunGen extends GunProvider
                         .setFovModifier(0.6F)
                         .setOffset(0.0, 5.8, -1.75))
                 .setScope(1.0F, 0.0, 4.75, 5.5)
-                .setBarrel(0.9F, 0.0, 3.75, -7.45)
+                .setBarrel(0.8F, 0.0, 3.75, -7.45)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(0.0F, 0.0, 2.8, -1.0)
 

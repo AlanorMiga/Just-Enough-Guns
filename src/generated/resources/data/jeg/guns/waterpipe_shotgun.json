@@ -11,8 +11,8 @@
   "reloads": {
     "maxAmmo": 1,
     "magFed": true,
-    "reloadTimer": 0,
-    "emptyMagTimer": 5
+    "reloadTimer": 45,
+    "emptyMagTimer": 0
   },
   "projectile": {
     "item": "jeg:handmade_shell",
@@ -20,7 +20,6 @@
     "size": 0.05,
     "speed": 6.0,
     "life": 10,
-    "gravity": true,
     "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
@@ -34,7 +33,7 @@
     "flash": {
       "yOffset": 2.05,
       "zOffset": -2.6,
-      "size": 1.5
+      "size": 1.2
     }
   },
   "modules": {

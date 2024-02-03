@@ -1,0 +1,25 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunnite_ingot",
+      "count": 24
+    },
+    {
+      "item": "minecraft:gunpowder",
+      "count": 10
+    },
+    {
+      "item": "minecraft:lever",
+      "count": 1
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 64
+    }
+  ],
+  "result": {
+    "item": "jeg:bolt_action_rifle"
+  },
+  "time": 30
+}

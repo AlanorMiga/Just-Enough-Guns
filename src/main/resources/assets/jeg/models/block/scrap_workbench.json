@@ -6,8 +6,8 @@
 		"2": "jeg:block/scrap_workbench_surface",
 		"3": "jeg:block/scrap_workbench_bottom_surface",
 		"4": "jeg:block/scrap_workbench_bottom_surface_top",
-		"1_2": "jeg:items/revolver",
 		"particle": "jeg:block/scrap_workbench_bottom_surface_top",
+		"1_2": "jeg:items/revolver",
 		"2_1": "jeg:items/waterpipe_shotgun"
 	},
 	"elements": [

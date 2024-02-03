@@ -1861,7 +1861,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
 
         public Builder setEmptyMagTimer(int emptyMagTimer)
         {
-            this.gun.reloads.reloadTimer = emptyMagTimer;
+            this.gun.reloads.emptyMagTimer = emptyMagTimer;
             return this;
         }
 

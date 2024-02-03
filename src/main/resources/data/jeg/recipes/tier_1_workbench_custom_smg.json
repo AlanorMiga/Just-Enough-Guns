@@ -1,0 +1,21 @@
+{
+  "type": "jeg:scrap_workbench",
+  "materials": [
+    {
+      "tag": "forge:ingots/iron",
+      "count": 22
+    },
+    {
+      "item": "minecraft:repeater",
+      "count": 1
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 30
+    }
+  ],
+  "result": {
+    "item": "jeg:custom_smg"
+  },
+  "time": 30
+}

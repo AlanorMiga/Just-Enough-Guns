@@ -1,7 +1,7 @@
 {
 	"credit": "Model by MrCrayfish (https://twitter.com/MrCrayfish) using Blockbench. All Rights Reserved.",
+	"texture_size": [32, 32],
 	"textures": {
-		"2": "jeg:effect/scope_vignette",
 		"4": "jeg:items/scopes",
 		"5": "jeg:effect/holo_reticle",
 		"particle": "jeg:effect/scope_vignette"
@@ -162,7 +162,7 @@
 			"to": [8.38, 9.23, 8.63624],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 5.7, 6.36124]},
 			"faces": {
-				"south": {"uv": [16, 0, 0, 16], "rotation": 90, "texture": "#2"}
+				"south": {"uv": [16, 0, 0, 16], "rotation": 90, "texture": "#particle"}
 			}
 		}
 	],
@@ -177,18 +177,18 @@
 			"scale": [2, 2, 2]
 		},
 		"ground": {
-			"translation": [0, -3, 0],
+			"translation": [0, -3, 1.25],
 			"scale": [2, 2, 2]
 		},
 		"gui": {
 			"rotation": [30, 225, 0],
-			"translation": [0.25, -2.25, 0],
-			"scale": [4, 4, 4]
+			"translation": [-1.5, -2.25, 0],
+			"scale": [2.75, 2.75, 2.75]
 		},
 		"fixed": {
 			"rotation": [0, 90, 0],
-			"translation": [-0.25, -2.75, -1.75],
-			"scale": [4, 4, 4]
+			"translation": [2, -2.75, -1.75],
+			"scale": [3, 3, 3]
 		}
 	},
 	"groups": [

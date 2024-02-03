@@ -8,8 +8,8 @@
   },
   "reloads": {
     "maxAmmo": 8,
-    "reloadTimer": 10,
-    "emptyMagTimer": 5
+    "reloadTimer": 30,
+    "emptyMagTimer": 10
   },
   "projectile": {
     "item": "jeg:pistol_ammo",
@@ -31,7 +31,8 @@
   "display": {
     "flash": {
       "yOffset": 2.9,
-      "zOffset": 1.7
+      "zOffset": 1.7,
+      "size": 0.8
     }
   },
   "modules": {

@@ -822,6 +822,25 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
         }
     }
 
+    public static void createFireExplosion(Entity entity, float radius, boolean forceNone)
+    {
+        Level world = entity.level;
+        if(world.isClientSide())
+            return;
+
+        DamageSource source = entity instanceof ProjectileEntity projectile ? DamageSource.explosion(projectile.getShooter()) : null;
+        Explosion.BlockInteraction mode = Explosion.BlockInteraction.NONE;
+        Explosion explosion = new ProjectileExplosion(world, entity, source, null, entity.getX(), entity.getY(), entity.getZ(), radius, true, mode);
+
+        if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion))
+            return;
+
+        // Do explosion logic
+        explosion.explode();
+        explosion.finalizeExplosion(true);
+
+    }
+
     /**
      * Author: MrCrayfish
      */

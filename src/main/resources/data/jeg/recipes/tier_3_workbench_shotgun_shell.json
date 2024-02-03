@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 2
+    },
+    {
+      "tag": "forge:nuggets/iron",
+      "count": 18
+    },
+    {
+      "tag": "forge:gunpowder",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "jeg:shotgun_shell",
+    "count": 6
+  }
+}

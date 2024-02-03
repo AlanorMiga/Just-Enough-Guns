@@ -11,8 +11,8 @@
   "reloads": {
     "maxAmmo": 30,
     "magFed": true,
-    "reloadTimer": 10,
-    "emptyMagTimer": 5
+    "reloadTimer": 30,
+    "emptyMagTimer": 10
   },
   "projectile": {
     "item": "jeg:rifle_ammo",
@@ -34,7 +34,8 @@
   "display": {
     "flash": {
       "yOffset": 2.7,
-      "zOffset": -2.7
+      "zOffset": -2.7,
+      "size": 0.8
     }
   },
   "modules": {
@@ -45,8 +46,8 @@
     },
     "attachments": {
       "scope": {
-        "yOffset": 4.4,
-        "zOffset": 4.0
+        "yOffset": 3.35,
+        "zOffset": 4.5
       },
       "barrel": {
         "yOffset": 2.75,

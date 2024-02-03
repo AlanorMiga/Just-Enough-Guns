@@ -8,4 +8,5 @@ import ttv.alanorMiga.jeg.item.attachment.impl.Scope;
 public class Attachments
 {
     public static final Scope HOLOGRAPHIC_SIGHT = Scope.builder().aimFovModifier(0.5F).modifiers(GunModifiers.SLOW_ADS).build();
+    public static final Scope TELESCOPIC_SIGHT = Scope.builder().aimFovModifier(0.5F).modifiers(GunModifiers.SLOWEST_ADS).build();
 }

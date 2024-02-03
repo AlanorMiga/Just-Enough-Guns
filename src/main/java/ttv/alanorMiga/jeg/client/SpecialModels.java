@@ -59,6 +59,25 @@ public enum SpecialModels {
     HK_G36_STOCK_LIGHT("hk_g36/stock_light"),
     HK_G36_STOCK_WEIGHTED("hk_g36/stock_weighted"),
 
+    PUMP_SHOTGUN("gun/pump_shotgun"),
+    PUMP_SHOTGUN_MAIN("pump_shotgun/main"),
+    PUMP_SHOTGUN_PUMPY("pump_shotgun/pumpy"),
+    PUMP_SHOTGUN_STOCK_MAKESHIFT("pump_shotgun/stock_makeshift"),
+    PUMP_SHOTGUN_SILENCER("pump_shotgun/silencer"),
+    PUMP_SHOTGUN_GRIP_LIGHT("pump_shotgun/grip_light"),
+    PUMP_SHOTGUN_GRIP_VERTICAL("pump_shotgun/grip_vertical"),
+    PUMP_SHOTGUN_GRIP_ANGLED("pump_shotgun/grip_angled"),
+
+    BOLT_ACTION_RIFLE("gun/bolt_action_rifle"),
+    BOLT_ACTION_RIFLE_MAIN("bolt_action_rifle/main"),
+    BOLT_ACTION_RIFLE_BOLT("bolt_action_rifle/bolt"),
+
+    CUSTOM_SMG("gun/custom_smg"),
+    CUSTOM_SMG_MAIN("custom_smg/main"),
+    CUSTOM_SMG_EJECTOR("custom_smg/ejector"),
+    CUSTOM_SMG_STOCK_MAKESHIFT("custom_smg/stock_makeshift"),
+    CUSTOM_SMG_SILENCER("custom_smg/silencer"),
+
     BAZOOKA("gun/bazooka"),
 
     FLAME("flame");
