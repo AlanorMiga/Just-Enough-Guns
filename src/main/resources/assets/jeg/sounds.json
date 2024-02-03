@@ -103,6 +103,46 @@
       }
     ]
   },
+  "item.pump_shotgun.fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/pump_shotgun/fire"
+      }
+    ]
+  },
+  "item.pump_shotgun.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/pump_shotgun/silenced_fire"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/bolt_action_rifle/fire"
+      }
+    ]
+  },
+  "item.custom_smg.fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/custom_smg/fire"
+      }
+    ]
+  },
+  "item.custom_smg.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/custom_smg/silenced_fire"
+      }
+    ]
+  },
   "item.pistol.silenced_fire": {
     "subtitle": "subtitle.jeg.fire.silenced",
     "sounds": [

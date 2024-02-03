@@ -22,8 +22,8 @@
         "zOffset": -4.9
       },
       "scope": {
-        "yOffset": 4.4,
-        "zOffset": 4.0
+        "yOffset": 3.35,
+        "zOffset": 4.5
       },
       "stock": {
         "scale": 0.0
@@ -46,14 +46,13 @@
     "life": 60,
     "size": 0.05,
     "speed": 14.0,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "reloads": {
-    "emptyMagTimer": 5,
+    "emptyMagTimer": 10,
     "magFed": true,
     "maxAmmo": 30,
-    "reloadTimer": 10
+    "reloadTimer": 30
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

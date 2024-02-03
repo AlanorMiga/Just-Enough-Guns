@@ -24,19 +24,17 @@
   },
   "projectile": {
     "damage": 20.0,
-    "gravity": true,
     "item": "jeg:handmade_shell",
     "life": 10,
     "size": 0.05,
     "speed": 6.0,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "reloads": {
-    "emptyMagTimer": 5,
+    "emptyMagTimer": 0,
     "magFed": true,
     "maxAmmo": 1,
-    "reloadTimer": 0
+    "reloadTimer": 45
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

@@ -47,14 +47,13 @@
     "life": 80,
     "size": 0.05,
     "speed": 16.0,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "reloads": {
-    "emptyMagTimer": 5,
+    "emptyMagTimer": 10,
     "magFed": true,
     "maxAmmo": 30,
-    "reloadTimer": 10
+    "reloadTimer": 30
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

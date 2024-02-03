@@ -71,7 +71,6 @@ public class JustEnoughGuns {
         ModLootModifiers.register(bus);
         bus.addListener(this::onCommonSetup);
         bus.addListener(this::onClientSetup);
-        bus.addListener(this::onParticlesRegistry);
         bus.addListener(this::onGatherData);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             FrameworkClientAPI.registerDataLoader(MetaLoader.getInstance());
@@ -106,11 +105,6 @@ public class JustEnoughGuns {
                 MinecraftForge.EVENT_BUS.register(new BoundingBoxManager());
             }
         });
-    }
-
-    private void onParticlesRegistry(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticleTypes.CASING_PARTICLE.get(), CasingParticle.Provider::new);
-        event.registerSpriteSet(ModParticleTypes.SCRAP.get(), ScrapParticle.Provider::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {

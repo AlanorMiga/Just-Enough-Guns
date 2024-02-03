@@ -41,11 +41,17 @@ public class ModItems {
                     .durability(128)
                     .rarity(Rarity.UNCOMMON)
                     ));
+    public static final RegistryObject<MakeshiftRifleItem>CUSTOM_SMG = REGISTER.register("custom_smg",
+            () -> new MakeshiftRifleItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(128)
+                    .rarity(Rarity.UNCOMMON)
+            ));
     public static final RegistryObject<GunItem> SEMI_AUTO_RIFLE = REGISTER.register("semi_auto_rifle",
             () -> new MakeshiftRifleItem(new Item.Properties()
                     .stacksTo(1)
                     .durability(384)
-                    .rarity(Rarity.RARE)
+                    .rarity(Rarity.UNCOMMON)
                     ));
     public static final RegistryObject<GunItem> ASSAULT_RIFLE = REGISTER.register("assault_rifle",
             () -> new MakeshiftRifleItem(new Item.Properties()
@@ -53,6 +59,12 @@ public class ModItems {
                     .durability(384)
                     .rarity(Rarity.RARE)
                     ));
+    public static final RegistryObject<MakeshiftShotgunItem> PUMP_SHOTGUN = REGISTER.register("pump_shotgun",
+            () -> new MakeshiftShotgunItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(384)
+                    .rarity(Rarity.RARE)
+            ));
     public static final RegistryObject<GunItem> HK_G36 = REGISTER.register("hk_g36",
             () -> new RifleItem(new Item.Properties()
                     .stacksTo(1)
@@ -65,6 +77,12 @@ public class ModItems {
             .durability(640)
             .rarity(Rarity.EPIC)
             ));
+    public static final RegistryObject<RifleItem> BOLT_ACTION_RIFLE = REGISTER.register("bolt_action_rifle",
+            () -> new RifleItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(384)
+                    .rarity(Rarity.EPIC)
+            ));
 
     //public static final RegistryObject<Item> GRENADE_LAUNCHER = REGISTER.register("grenade_launcher", () -> new GunItem(new Item.Properties().stacksTo(1)));
     //public static final RegistryObject<Item> BAZOOKA = REGISTER.register("bazooka", () -> new GunItem(new Item.Properties().stacksTo(1)));
@@ -73,11 +91,15 @@ public class ModItems {
     //public static final RegistryObject<Item> MISSILE = REGISTER.register("missile", () -> new AmmoItem(new Item.Properties()));
     public static final RegistryObject<Item> GRENADE = REGISTER.register("grenade",
             () -> new GrenadeItem(new Item.Properties()
-                    
+                    .stacksTo(16)
                     , 20 * 4));
     public static final RegistryObject<Item> STUN_GRENADE = REGISTER.register("stun_grenade",
             () -> new StunGrenadeItem(new Item.Properties()
-                    
+                    .stacksTo(16)
+                    , 72000));
+    public static final RegistryObject<Item> MOLOTOV_COCKTAIL = REGISTER.register("molotov_cocktail",
+            () -> new MolotovCocktailItem(new Item.Properties()
+                    .stacksTo(16)
                     , 72000));
 
     /* Ammo */
@@ -89,7 +111,12 @@ public class ModItems {
                     ));
     public static final RegistryObject<Item> HANDMADE_SHELL = REGISTER.register("handmade_shell",
             () -> new AmmoItem(new Item.Properties()
+                    .stacksTo(16)
                     ));
+    public static final RegistryObject<Item> SHOTGUN_SHELL = REGISTER.register("shotgun_shell",
+            () -> new AmmoItem(new Item.Properties()
+                    .stacksTo(16)
+            ));
 
     /* Scope Attachments */
     public static final RegistryObject<Item> HOLOGRAPHIC_SIGHT = REGISTER.register("holographic_sight",
@@ -97,6 +124,11 @@ public class ModItems {
                     .stacksTo(1)
                     .durability(800)
                     ));
+    public static final RegistryObject<Item> TELESCOPIC_SIGHT = REGISTER.register("telescopic_sight",
+            () -> new ScopeItem(Attachments.TELESCOPIC_SIGHT, new Item.Properties()
+                    .stacksTo(1)
+                    .durability(800)
+            ));
 
     /* Stock Attachments */
     public static final RegistryObject<Item> MAKESHIFT_STOCK = REGISTER.register("makeshift_stock",

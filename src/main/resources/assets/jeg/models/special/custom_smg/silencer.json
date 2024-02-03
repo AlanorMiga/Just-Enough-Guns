@@ -1,0 +1,65 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "jeg:item/custom_smg",
+		"particle": "jeg:item/custom_smg"
+	},
+	"elements": [
+		{
+			"name": "Silencer 1",
+			"from": [12.1846, 0.09464, 5.7],
+			"to": [13.7846, 1.69464, 10.1],
+			"rotation": {"angle": -45, "axis": "z", "origin": [13.0346, 7.96464, 8]},
+			"faces": {
+				"north": {"uv": [8.5, 10, 10.5, 12], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [10.5, 8, 16, 10], "texture": "#0"},
+				"south": {"uv": [8.5, 14, 10.5, 12], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [16, 14, 10.5, 12], "texture": "#0"},
+				"up": {"uv": [16, 16, 10.5, 14], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [10.5, 10, 16, 12], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [114, 0, 0],
+			"translation": [0, 5.25, 2],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [2.25, 5, 0],
+			"scale": [2, 2, 2]
+		},
+		"ground": {
+			"translation": [0, -2, -3.8],
+			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [4.25, -2, 0],
+			"scale": [3, 3, 3]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-8, 0, -1.75],
+			"scale": [4, 4, 4]
+		}
+	},
+	"groups": [
+		{
+			"name": "Silencer",
+			"origin": [12.99924, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Silencer",
+					"origin": [13.0346, 8.21964, 13.45],
+					"color": 0,
+					"children": [0]
+				}
+			]
+		}
+	]
+}

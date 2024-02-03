@@ -34,10 +34,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
-import ttv.alanorMiga.jeg.common.Gun.Projectile;
 import ttv.alanorMiga.jeg.Config;
 import ttv.alanorMiga.jeg.common.BoundingBoxManager;
 import ttv.alanorMiga.jeg.common.Gun;
+import ttv.alanorMiga.jeg.common.Gun.Projectile;
 import ttv.alanorMiga.jeg.common.ModTags;
 import ttv.alanorMiga.jeg.common.SpreadTracker;
 import ttv.alanorMiga.jeg.event.GunProjectileHitEvent;
@@ -78,7 +78,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
     protected LivingEntity shooter;
     protected Gun modifiedGun;
     protected Gun.General general;
-    protected Gun.Projectile projectile;
+    protected Projectile projectile;
     private ItemStack weapon = ItemStack.EMPTY;
     private ItemStack item = ItemStack.EMPTY;
     protected float additionalDamage = 0.0F;
@@ -436,7 +436,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                 }
             }
 
-            if(!state.getMaterial().isReplaceable())
+            if(!state.canBeReplaced())
             {
                 this.remove(RemovalReason.KILLED);
             }
@@ -544,7 +544,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
     @Override
     protected void readAdditionalSaveData(CompoundTag compound)
     {
-        this.projectile = new Gun.Projectile();
+        this.projectile = new Projectile();
         this.projectile.deserializeNBT(compound.getCompound("Projectile"));
         this.general = new Gun.General();
         this.general.deserializeNBT(compound.getCompound("General"));
@@ -575,7 +575,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
     @Override
     public void readSpawnData(FriendlyByteBuf buffer)
     {
-        this.projectile = new Gun.Projectile();
+        this.projectile = new Projectile();
         this.projectile.deserializeNBT(buffer.readNbt());
         this.general = new Gun.General();
         this.general.deserializeNBT(buffer.readNbt());
@@ -827,6 +827,25 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                 player.connection.send(new ClientboundExplodePacket(entity.getX(), entity.getY(), entity.getZ(), radius, explosion.getToBlow(), explosion.getHitPlayers().get(player)));
             }
         }
+    }
+
+    public static void createFireExplosion(Entity entity, float radius, boolean forceNone)
+    {
+        Level world = entity.level;
+        if(world.isClientSide())
+            return;
+
+        DamageSource source = entity instanceof ProjectileEntity projectile ? entity.damageSources().explosion(entity, projectile.getShooter()) : null;
+        Explosion.BlockInteraction mode = Explosion.BlockInteraction.KEEP;
+        Explosion explosion = new ProjectileExplosion(world, entity, source, null, entity.getX(), entity.getY(), entity.getZ(), radius, true, mode);
+
+        if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion))
+            return;
+
+        // Do explosion logic
+        explosion.explode();
+        explosion.finalizeExplosion(true);
+
     }
 
     /**

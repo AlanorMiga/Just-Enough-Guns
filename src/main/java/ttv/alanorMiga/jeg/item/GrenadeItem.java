@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
@@ -20,7 +19,7 @@ public class GrenadeItem extends AmmoItem
 {
     protected int maxCookTime;
 
-    public GrenadeItem(Item.Properties properties, int maxCookTime)
+    public GrenadeItem(Properties properties, int maxCookTime)
     {
         super(properties);
         this.maxCookTime = maxCookTime;
@@ -38,8 +37,7 @@ public class GrenadeItem extends AmmoItem
         return this.maxCookTime;
     }
 
-    @Override
-    public void onUsingTick(ItemStack stack, LivingEntity player, int count)
+    public void onUseTick(Level level, LivingEntity player, ItemStack stack, int count)
     {
         if(!this.canCook())
             return;
@@ -85,7 +83,7 @@ public class GrenadeItem extends AmmoItem
                 if(!(entityLiving instanceof Player) || !((Player) entityLiving).isCreative())
                     stack.shrink(1);
                 ThrowableGrenadeEntity grenade = this.create(worldIn, entityLiving, this.maxCookTime - duration);
-                grenade.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, Math.min(1.0F, duration / 20F), 1.0F);
+                grenade.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, Math.min(1.0F, duration / 10F), 1.0F);
                 worldIn.addFreshEntity(grenade);
                 this.onThrown(worldIn, grenade);
                 if(entityLiving instanceof Player)

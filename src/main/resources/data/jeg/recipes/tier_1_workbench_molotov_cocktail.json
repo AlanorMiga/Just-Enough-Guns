@@ -1,0 +1,22 @@
+{
+  "type": "jeg:scrap_workbench",
+  "materials": [
+    {
+      "item": "minecraft:glass_bottle",
+      "count": 3
+    },
+    {
+      "item": "minecraft:slime_ball",
+      "count": 2
+    },
+    {
+      "item": "minecraft:fire_charge",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "jeg:molotov_cocktail",
+    "count": 3
+  },
+  "time": 30
+}
