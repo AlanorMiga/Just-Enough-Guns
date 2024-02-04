@@ -1,11 +1,11 @@
 {
   "type": "jeg:recycling",
   "ingredient": {
-    "item": "jeg:hk_g36"
+    "item": "jeg:bolt_action_rifle"
   },
   "result": {
     "item": "jeg:gunnite_ingot",
-    "count": 6
+    "count": 10
   },
   "experience": 30,
   "recyclingtime": 700

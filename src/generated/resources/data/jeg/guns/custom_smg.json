@@ -10,7 +10,7 @@
     "alwaysSpread": true,
     "auto": true,
     "gripType": "jeg:two_handed",
-    "rate": 1,
+    "rate": 2,
     "recoilAngle": 1.0,
     "recoilKick": 0.33,
     "spread": 4.0
@@ -32,7 +32,7 @@
     }
   },
   "projectile": {
-    "damage": 3.5,
+    "damage": 4.0,
     "gravity": true,
     "item": "jeg:pistol_ammo",
     "life": 60,
