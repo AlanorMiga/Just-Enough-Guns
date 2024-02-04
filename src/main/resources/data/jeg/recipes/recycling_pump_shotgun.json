@@ -1,11 +1,11 @@
 {
   "type": "jeg:recycling",
   "ingredient": {
-    "item": "jeg:assault_rifle"
+    "item": "jeg:pump_shotgun"
   },
   "result": {
     "item": "jeg:scrap",
-    "count": 20
+    "count": 8
   },
   "experience": 15,
   "recyclingtime": 600

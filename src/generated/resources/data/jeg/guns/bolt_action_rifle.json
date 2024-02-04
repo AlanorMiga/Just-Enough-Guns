@@ -9,27 +9,16 @@
   "general": {
     "alwaysSpread": true,
     "gripType": "jeg:two_handed",
-    "rate": 20,
+    "rate": 22,
     "recoilAngle": 4.0,
     "recoilKick": 0.25,
     "spread": 0.5
   },
   "modules": {
     "attachments": {
-      "barrel": {
-        "yOffset": 3.05,
-        "zOffset": -5.8
-      },
       "scope": {
         "yOffset": 2.94,
         "zOffset": -0.45
-      },
-      "stock": {
-        "scale": 0.0
-      },
-      "underBarrel": {
-        "yOffset": 2.3,
-        "zOffset": 1.4
       }
     },
     "zoom": {

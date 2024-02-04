@@ -116,7 +116,7 @@ public class GunGen extends GunProvider
 
                 // General
                 .setAuto(true)
-                .setFireRate(1)
+                .setFireRate(2)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.33F)
                 .setRecoilAngle(1.0F)
@@ -132,7 +132,7 @@ public class GunGen extends GunProvider
                 // Projectile
                 .setAmmo(ModItems.PISTOL_AMMO.get())
                 .setProjectileVisible(false)
-                .setDamage(3.5F)
+                .setDamage(4.0F)
                 .setProjectileSize(0.05F)
                 .setProjectileSpeed(12F)
                 .setProjectileLife(60)
@@ -340,9 +340,6 @@ public class GunGen extends GunProvider
                         .setFovModifier(0.6F)
                         .setOffset(0.0, 3.35, -1.25))
                 .setScope(1.0F, 0.0, 2.94, -0.45)
-                .setBarrel(1.0F, 0.0, 3.05, -5.8)
-                .setStock(0.0F, 0.0, 0.0, 0.0)
-                .setUnderBarrel(1.0F, 0.0, 2.3, 1.4)
 
                 .build());
 
