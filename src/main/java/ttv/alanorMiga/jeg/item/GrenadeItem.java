@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
@@ -20,7 +19,7 @@ public class GrenadeItem extends AmmoItem
 {
     protected int maxCookTime;
 
-    public GrenadeItem(Item.Properties properties, int maxCookTime)
+    public GrenadeItem(Properties properties, int maxCookTime)
     {
         super(properties);
         this.maxCookTime = maxCookTime;

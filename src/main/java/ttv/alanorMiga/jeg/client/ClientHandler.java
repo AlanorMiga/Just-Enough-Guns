@@ -181,7 +181,7 @@ public class ClientHandler {
 
     public static void registerAdditional(ModelEvent.RegisterAdditional event)
     {
-        event.register(new ResourceLocation(Reference.MOD_ID, "special/assault_rifle/main"));
+        event.register(new ResourceLocation(Reference.MOD_ID, "special/test"));
     }
 
     public static void onRegisterCreativeTab(IEventBus bus)
