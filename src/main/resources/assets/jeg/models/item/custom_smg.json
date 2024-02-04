@@ -3,11 +3,11 @@
 	"parent": "builtin/entity",
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [0, 8.75, -8.5],
+			"translation": [-4.5, 8.75, -8.5],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"firstperson_righthand": {
-			"translation": [-2.25, 11, -2.5],
+			"translation": [-4.5, 11, -3.5],
 			"scale": [1.25, 1.25, 1.25]
 		},
 		"ground": {

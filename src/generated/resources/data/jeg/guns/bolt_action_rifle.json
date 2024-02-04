@@ -45,17 +45,6 @@
       "scope": {
         "yOffset": 2.94,
         "zOffset": -0.45
-      },
-      "barrel": {
-        "yOffset": 3.05,
-        "zOffset": -5.8
-      },
-      "stock": {
-        "scale": 0.0
-      },
-      "underBarrel": {
-        "yOffset": 2.3,
-        "zOffset": 1.4
       }
     }
   }
