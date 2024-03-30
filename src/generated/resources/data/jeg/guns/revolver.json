@@ -30,6 +30,7 @@
     }
   },
   "projectile": {
+    "advantage": "None",
     "damage": 5.0,
     "gravity": true,
     "item": "jeg:pistol_ammo",

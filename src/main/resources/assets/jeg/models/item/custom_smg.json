@@ -3,7 +3,7 @@
 	"parent": "builtin/entity",
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [-4.5, 8.75, -8.5],
+			"translation": [0, 8.75, -8.5],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"firstperson_righthand": {

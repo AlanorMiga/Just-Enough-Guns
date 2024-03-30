@@ -1,0 +1,13 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunmetal_nugget",
+      "count": 9
+    }
+  ],
+  "result": {
+    "item": "jeg:gunmetal_ingot"
+  },
+  "time": 30
+}

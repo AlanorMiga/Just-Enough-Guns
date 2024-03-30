@@ -1,0 +1,13 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:scrap",
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "jeg:repair_kit"
+  },
+  "time": 30
+}

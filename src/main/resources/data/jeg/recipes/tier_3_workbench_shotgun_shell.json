@@ -3,7 +3,7 @@
   "materials": [
     {
       "item": "jeg:gunmetal_ingot",
-      "count": 2
+      "count": 1
     },
     {
       "tag": "forge:nuggets/iron",
@@ -16,6 +16,6 @@
   ],
   "result": {
     "item": "jeg:shotgun_shell",
-    "count": 6
+    "count": 8
   }
 }

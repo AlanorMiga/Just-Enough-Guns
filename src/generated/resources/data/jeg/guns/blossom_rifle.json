@@ -1,0 +1,67 @@
+{
+  "display": {
+    "flash": {
+      "size": 0.8,
+      "yOffset": 3.5,
+      "zOffset": -4.7
+    }
+  },
+  "general": {
+    "alwaysSpread": true,
+    "auto": true,
+    "gripType": "jeg:two_handed",
+    "rate": 2,
+    "recoilAngle": 4.0,
+    "recoilKick": 0.25,
+    "spread": 3.0
+  },
+  "modules": {
+    "attachments": {
+      "barrel": {
+        "scale": 0.800000011920929,
+        "yOffset": 3.395,
+        "zOffset": -7.5
+      },
+      "scope": {
+        "yOffset": 3.85,
+        "zOffset": 4.6
+      },
+      "stock": {
+        "scale": 0.0
+      },
+      "underBarrel": {
+        "yOffset": 2.25,
+        "zOffset": 1.4
+      }
+    },
+    "zoom": {
+      "fovModifier": 0.6,
+      "yOffset": 4.15,
+      "zOffset": -1.75
+    }
+  },
+  "projectile": {
+    "advantage": "jeg:undead",
+    "damage": 6.75,
+    "ejectsCasing": true,
+    "item": "jeg:spectre_ammo",
+    "life": 80,
+    "size": 0.1,
+    "speed": 8.0,
+    "trailColor": 56575,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "emptyMagTimer": 10,
+    "magFed": true,
+    "maxAmmo": 30,
+    "reloadTimer": 30
+  },
+  "sounds": {
+    "cock": "jeg:item.pistol.cock",
+    "enchantedFire": "jeg:item.blossom_rifle.fire",
+    "fire": "jeg:item.blossom_rifle.fire",
+    "reload": "jeg:item.pistol.reload",
+    "silencedFire": "jeg:item.blossom_rifle.silenced_fire"
+  }
+}

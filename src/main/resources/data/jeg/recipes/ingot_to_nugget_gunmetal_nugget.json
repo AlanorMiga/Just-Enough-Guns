@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "jeg:gunmetal_ingot"
+    }
+  ],
+  "result": {
+    "item": "jeg:gunmetal_nugget",
+    "count": 9
+  }
+}
