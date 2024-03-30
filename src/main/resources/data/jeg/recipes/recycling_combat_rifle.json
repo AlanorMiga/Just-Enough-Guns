@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:combat_rifle"
+  },
+  "result": {
+    "item": "jeg:gunnite_ingot",
+    "count": 8
+  },
+  "experience": 30,
+  "recyclingtime": 600
+}

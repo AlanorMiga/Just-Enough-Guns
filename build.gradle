@@ -5,8 +5,8 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = "0.1.0-1.19.4"
-group = "ttv.alanormiga"
+version = "0.2.0-1.19.2"
+group = "ttv.migami"
 archivesBaseName = "JustEnoughGuns"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -19,7 +19,8 @@ mixin {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.19.4'
+    mappings channel: 'official', version: '1.19.2'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -78,10 +79,10 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.4-45.1.0'
-    implementation fg.deobf('curse.maven:framework-549225:4718249')
-    implementation fg.deobf('curse.maven:backpacked-352835:4510383')
-    compileOnly fg.deobf('curse.maven:controllable-317269:4511169')
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
+    implementation fg.deobf('curse.maven:framework-549225:4718247')
+    implementation fg.deobf('curse.maven:backpacked-352835:4725664')
+    compileOnly fg.deobf('curse.maven:controllable-317269:4445137')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
@@ -89,11 +90,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "Just Enough Guns",
-                "Specification-Vendor"    : "AlanorMiga",
+                "Specification-Vendor"    : "MigaMi",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : "Just Enough Guns",
                 "Implementation-Version"  : project.version,
-                "Implementation-Vendor"   : "AlanorMiga",
+                "Implementation-Vendor"   : "MigaMi",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConfigs"            : "jeg.mixins.json"
         ])

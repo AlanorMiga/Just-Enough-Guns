@@ -1,0 +1,57 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/blossom_rifle"
+	},
+	"elements": [
+		{
+			"name": "Chamber",
+			"from": [8.445, 2.945, 12.235],
+			"to": [8.445, 3.345, 13.435],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.345, 11.825]},
+			"faces": {
+				"east": {"uv": [3, 0.5, 3.75, 0.75], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Assault Rifle",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Chamber",
+					"origin": [8, 2.345, 11.825],
+					"color": 0,
+					"children": [0]
+				}
+			]
+		}
+	]
+}

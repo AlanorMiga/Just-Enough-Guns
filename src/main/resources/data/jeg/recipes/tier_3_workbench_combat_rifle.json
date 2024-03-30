@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunnite_ingot",
+      "count": 16
+    },
+    {
+      "tag": "forge:sandstone",
+      "count": 8
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 60
+    }
+  ],
+  "result": {
+    "item": "jeg:combat_rifle"
+  },
+  "time": 30
+}

@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": ["minecraft:dark_forest", "minecraft:birch_forest", "minecraft:old_growth_birch_forest", "minecraft:taiga", "minecraft:old_growth_spruce_taiga", "minecraft:old_growth_pine_taiga"],
+  "spawners": {
+    "type": "jeg:ghoul",
+    "weight": 25,
+    "minCount": 4,
+    "maxCount": 8
+  }
+}

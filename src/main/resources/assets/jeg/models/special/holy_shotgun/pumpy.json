@@ -1,0 +1,101 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "jeg:item/holy_shotgun"
+	},
+	"elements": [
+		{
+			"name": "Pumpy",
+			"from": [7.6, 2.125, 7.985],
+			"to": [8.4, 2.545, 10.475],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.155, 2.125, 9.23]},
+			"faces": {
+				"north": {"uv": [14, 1.5, 13, 2], "texture": "#0"},
+				"east": {"uv": [13, 1.5, 9.75, 2], "texture": "#0"},
+				"south": {"uv": [14, 1.5, 13, 2], "texture": "#0"},
+				"west": {"uv": [13, 1.5, 9.75, 2], "texture": "#0"},
+				"up": {"uv": [9.75, 3.75, 13, 2.75], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [13, 1.5, 9.75, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Pumpy",
+			"from": [7.71646, 1.845, 7.98],
+			"to": [8.28146, 2.41, 10.48],
+			"rotation": {"angle": -45, "axis": "z", "origin": [7.99646, 2.125, 9.23]},
+			"faces": {
+				"north": {"uv": [14, 2, 13, 3], "texture": "#0"},
+				"east": {"uv": [9.75, 2, 13, 2.75], "texture": "#0"},
+				"south": {"uv": [13, 3, 14, 2], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [9.75, 2.75, 13, 2], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Chamber",
+			"from": [8.39656, 2.595, 12.375],
+			"to": [8.39656, 2.975, 13.17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.67656, 1.745, 10.98]},
+			"faces": {
+				"east": {"uv": [4.5, 2, 5.5, 2.5], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [114, 0, 0],
+			"translation": [0, 5.25, 2],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [2.25, 5, 0],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, -2, -3.8],
+			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [4.25, -2, 0],
+			"scale": [3, 3, 3]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-8, 0, -1.75],
+			"scale": [4, 4, 4]
+		}
+	},
+	"groups": [
+		{
+			"name": "Pump",
+			"origin": [8, 0.8, -1.5],
+			"color": 0,
+			"children": [
+				{
+					"name": "Pumpy",
+					"origin": [8, 0.8, -1.5],
+					"color": 0,
+					"children": [0, 1]
+				}
+			]
+		},
+		{
+			"name": "chamber",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Pump",
+					"origin": [8, 0.8, -1.5],
+					"color": 0,
+					"children": [2]
+				}
+			]
+		}
+	]
+}

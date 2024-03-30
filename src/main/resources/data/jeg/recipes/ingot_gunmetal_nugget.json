@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "jeg:gunmetal_nugget"
+    }
+  },
+  "result": {
+    "item": "jeg:gunmetal_ingot"
+  }
+}

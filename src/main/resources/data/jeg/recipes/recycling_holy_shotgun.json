@@ -1,0 +1,12 @@
+{
+  "type": "jeg:recycling",
+  "ingredient": {
+    "item": "jeg:holy_shotgun"
+  },
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": 12
+  },
+  "experience": 30,
+  "recyclingtime": 600
+}

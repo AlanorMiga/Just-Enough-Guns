@@ -1,0 +1,25 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunnite_ingot",
+      "count": 12
+    },
+    {
+      "tag": "forge:dyes/black",
+      "count": 3
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 45
+    },
+    {
+      "item": "minecraft:repeater",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "jeg:burst_rifle"
+  },
+  "time": 30
+}

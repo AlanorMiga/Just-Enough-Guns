@@ -1,0 +1,67 @@
+{
+  "display": {
+    "flash": {
+      "size": 0.8,
+      "yOffset": 3.7,
+      "zOffset": -4.7
+    }
+  },
+  "general": {
+    "alwaysSpread": true,
+    "auto": true,
+    "gripType": "jeg:two_handed",
+    "rate": 3,
+    "recoilAngle": 4.0,
+    "recoilKick": 0.25,
+    "spread": 3.0
+  },
+  "modules": {
+    "attachments": {
+      "barrel": {
+        "scale": 0.800000011920929,
+        "yOffset": 3.75,
+        "zOffset": -7.45
+      },
+      "scope": {
+        "yOffset": 4.75,
+        "zOffset": 5.5
+      },
+      "stock": {
+        "scale": 0.0
+      },
+      "underBarrel": {
+        "scale": 0.0,
+        "yOffset": 2.8,
+        "zOffset": -1.0
+      }
+    },
+    "zoom": {
+      "fovModifier": 0.6,
+      "yOffset": 5.8,
+      "zOffset": -1.75
+    }
+  },
+  "projectile": {
+    "advantage": "jeg:heavy",
+    "damage": 8.0,
+    "ejectsCasing": true,
+    "item": "jeg:rifle_ammo",
+    "life": 80,
+    "size": 0.05,
+    "speed": 16.0,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "emptyMagTimer": 10,
+    "magFed": true,
+    "maxAmmo": 30,
+    "reloadTimer": 30
+  },
+  "sounds": {
+    "cock": "jeg:item.pistol.cock",
+    "enchantedFire": "jeg:item.combat_rifle.fire",
+    "fire": "jeg:item.combat_rifle.fire",
+    "reload": "jeg:item.pistol.reload",
+    "silencedFire": "jeg:item.combat_rifle.silenced_fire"
+  }
+}

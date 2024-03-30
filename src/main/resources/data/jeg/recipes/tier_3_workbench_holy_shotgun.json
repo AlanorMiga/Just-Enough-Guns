@@ -1,0 +1,25 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunnite_ingot",
+      "count": 18
+    },
+    {
+      "tag": "forge:ingots/gold",
+      "count": 32
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 64
+    },
+    {
+      "item": "jeg:ectoplasm",
+      "count": 20
+    }
+  ],
+  "result": {
+    "item": "jeg:holy_shotgun"
+  },
+  "time": 30
+}

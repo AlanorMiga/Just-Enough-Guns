@@ -38,7 +38,9 @@
     }
   },
   "projectile": {
-    "damage": 5.0,
+    "advantage": "None",
+    "damage": 6.5,
+    "ejectsCasing": true,
     "gravity": true,
     "item": "jeg:rifle_ammo",
     "life": 60,

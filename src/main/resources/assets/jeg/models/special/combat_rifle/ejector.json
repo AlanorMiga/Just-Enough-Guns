@@ -1,0 +1,102 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/combat_rifle"
+	},
+	"elements": [
+		{
+			"name": "Receiver 1",
+			"from": [8.295, 4.675, 10.5],
+			"to": [8.695, 4.875, 10.7],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.51, 4.515, 10.3]},
+			"faces": {
+				"north": {"uv": [14.25, 1, 14.5, 1.25], "texture": "#1"},
+				"east": {"uv": [14.25, 1, 14.5, 1.25], "texture": "#1"},
+				"south": {"uv": [14.25, 1, 14.5, 1.25], "texture": "#1"},
+				"west": {"uv": [14.25, 1, 14.5, 1.25], "texture": "#1"},
+				"up": {"uv": [14.25, 1, 14.5, 1.25], "texture": "#1"},
+				"down": {"uv": [14.25, 1, 14.5, 1.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Receiver 2",
+			"from": [7.305, 4.675, 10.5],
+			"to": [7.705, 4.875, 10.7],
+			"rotation": {"angle": 45, "axis": "x", "origin": [7.49, 4.515, 10.3]},
+			"faces": {
+				"north": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"east": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"south": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"west": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"up": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"down": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Receiver 3",
+			"from": [7.705, 4.38672, 8.27598],
+			"to": [8.295, 4.58672, 13.39598],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7.5, 4.48672, 10.69598]},
+			"faces": {
+				"north": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"east": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"south": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"west": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"up": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"},
+				"down": {"uv": [14.5, 1, 14.25, 1.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Receiver 4",
+			"from": [8.195, 3.58672, 11.57598],
+			"to": [8.395, 4.08672, 13.49598],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7.5, 4.48672, 10.69598]},
+			"faces": {
+				"north": {"uv": [15.25, 3.5, 14.75, 3.25], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [15.25, 3.5, 14.75, 1.25], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [15.25, 1.5, 14.75, 1.25], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [15.25, 1.25, 14.75, 3.5], "rotation": 90, "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "FN SCAR-L",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Receiver",
+					"origin": [8, 8, 8],
+					"color": 2,
+					"children": [0, 1, 2, 3]
+				}
+			]
+		}
+	]
+}

@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "jeg:scrap_ore_placed",
+  "features": "jeg:overworld_scrap_ore",
   "step": "underground_ores"
 }

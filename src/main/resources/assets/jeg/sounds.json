@@ -15,19 +15,19 @@
       }
     ]
   },
-  "item.scar_l.fire": {
+  "item.combat_rifle.fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [
       {
-        "name": "jeg:item/scar_l/fire"
+        "name": "jeg:item/combat_rifle/fire"
       }
     ]
   },
-  "item.scar_l.silenced_fire": {
+  "item.combat_rifle.silenced_fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [
       {
-        "name": "jeg:item/scar_l/silenced_fire"
+        "name": "jeg:item/combat_rifle/silenced_fire"
       }
     ]
   },
@@ -87,19 +87,19 @@
       }
     ]
   },
-  "item.hk_g36.fire": {
+  "item.burst_rifle.fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [
       {
-        "name": "jeg:item/hk_g36/fire"
+        "name": "jeg:item/burst_rifle/fire"
       }
     ]
   },
-  "item.hk_g36.silenced_fire": {
+  "item.burst_rifle.silenced_fire": {
     "subtitle": "subtitle.jeg.fire",
     "sounds": [
       {
-        "name": "jeg:item/hk_g36/silenced_fire"
+        "name": "jeg:item/burst_rifle/silenced_fire"
       }
     ]
   },
@@ -140,6 +140,46 @@
     "sounds": [
       {
         "name": "jeg:item/custom_smg/silenced_fire"
+      }
+    ]
+  },
+  "item.blossom_rifle.fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/blossom_rifle/fire"
+      }
+    ]
+  },
+  "item.blossom_rifle.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/blossom_rifle/silenced_fire"
+      }
+    ]
+  },
+  "item.double_barrel_shotgun.fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/double_barrel_shotgun/fire"
+      }
+    ]
+  },
+  "item.holy_shotgun.fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/holy_shotgun/fire"
+      }
+    ]
+  },
+  "item.holy_shotgun.silenced_fire": {
+    "subtitle": "subtitle.jeg.fire",
+    "sounds": [
+      {
+        "name": "jeg:item/holy_shotgun/silenced_fire"
       }
     ]
   },
@@ -204,7 +244,8 @@
     "subtitle": "subtitle.jeg.stun.explosion",
     "sounds": [
       {
-        "name": "jeg:entity/stun_grenade/explosion"
+        "name": "jeg:entity/stun_grenade/explosion",
+        "stream": true
       }
     ]
   },
@@ -213,6 +254,49 @@
     "sounds": [
       {
         "name": "jeg:entity/stun_grenade/ring",
+        "stream": true
+      }
+    ]
+  },
+  "entity.ghoul.death": {
+    "subtitle": "subtitle.jeg.ghoul.death",
+    "sounds": [
+      {
+        "name": "jeg:entity/ghoul/death1",
+        "stream": true
+      },
+      {
+        "name": "jeg:entity/ghoul/death2",
+        "stream": true
+      }
+    ]
+  },
+  "entity.ghoul.hurt": {
+    "subtitle": "subtitle.jeg.ghoul.hurt",
+    "sounds": [
+      {
+        "name": "jeg:entity/ghoul/hurt1",
+        "stream": true
+      },
+      {
+        "name": "jeg:entity/ghoul/hurt2",
+        "stream": true
+      }
+    ]
+  },
+  "entity.ghoul.ambient": {
+    "subtitle": "subtitle.jeg.ghoul.ambient",
+    "sounds": [
+      {
+        "name": "jeg:entity/ghoul/idle1",
+        "stream": true
+      },
+      {
+        "name": "jeg:entity/ghoul/idle2",
+        "stream": true
+      },
+      {
+        "name": "jeg:entity/ghoul/idle3",
         "stream": true
       }
     ]
