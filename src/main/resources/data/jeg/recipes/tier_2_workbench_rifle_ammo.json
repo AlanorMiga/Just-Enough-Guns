@@ -3,11 +3,11 @@
   "materials": [
     {
       "item": "jeg:gunmetal_ingot",
-      "count": 2
+      "count": 1
     },
     {
-      "tag": "forge:ingots/iron",
-      "count": 2
+      "tag": "forge:ingots/copper",
+      "count": 3
     },
     {
       "tag": "forge:gunpowder",
@@ -16,6 +16,6 @@
   ],
   "result": {
     "item": "jeg:rifle_ammo",
-    "count": 5
+    "count": 8
   }
 }

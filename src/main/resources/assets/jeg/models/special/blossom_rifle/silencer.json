@@ -1,0 +1,122 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:items/blossom_rifle"
+	},
+	"elements": [
+		{
+			"name": "Supressor 1",
+			"from": [7.88462, 2.67, 0.45],
+			"to": [8.88462, 3.67, 4.55],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8.45962, 3.745, 2.55]},
+			"faces": {
+				"north": {"uv": [13, 3.75, 13.75, 4.5], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [10, 4.5, 13, 5.25], "texture": "#1"},
+				"south": {"uv": [13, 5.25, 13.75, 4.5], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [13, 3.75, 10, 4.5], "texture": "#1"},
+				"up": {"uv": [13, 4.5, 10, 3.75], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10, 5.25, 13, 4.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Supressor 2",
+			"from": [7.83462, 2.62, 0.95],
+			"to": [8.93462, 3.72, 4.25],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8.45962, 3.745, 2.55]},
+			"faces": {
+				"east": {"uv": [10.5, 6, 12.25, 6.75], "texture": "#1"},
+				"west": {"uv": [12.25, 5.25, 10.5, 6], "texture": "#1"},
+				"up": {"uv": [12.25, 6, 10.5, 5.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10.5, 6.75, 12.25, 6], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.76725, 4.18654, 2.09786],
+			"to": [8.36725, 4.18654, 2.69786],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8.06725, 4.25654, 2.39786]},
+			"faces": {
+				"up": {"uv": [3.75, 5.75, 3, 6.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [8.84046, 3.09187, 0.89786],
+			"to": [8.84046, 3.69187, 1.49786],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.94046, 3.39187, 1.19786]},
+			"faces": {
+				"east": {"uv": [3.75, 5.75, 3, 6.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [8.54046, 3.39898, 3.40497],
+			"to": [8.54046, 3.99898, 4.00497],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8.54046, 3.69898, 3.70497]},
+			"faces": {
+				"east": {"uv": [3.75, 5.75, 3, 6.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.36331, 2.80903, 0.89786],
+			"to": [7.36331, 3.40903, 1.49786],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [7.42331, 3.10903, 1.19786]},
+			"faces": {
+				"east": {"uv": [3.75, 5.75, 3, 6.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.195, 3.19, 3.235],
+			"to": [7.195, 4.19, 4.235],
+			"rotation": {"angle": -45, "axis": "x", "origin": [7.095, 3.39, 4.035]},
+			"faces": {
+				"west": {"uv": [3, 5.5, 1.75, 6.75], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 7, -6.75],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_righthand": {
+			"translation": [-2.5, 10, -2.5],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "silencer",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Supressor",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [0, 1, 2, 3, 4, 5, 6]
+				}
+			]
+		}
+	]
+}

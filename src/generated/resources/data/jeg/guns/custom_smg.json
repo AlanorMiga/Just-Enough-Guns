@@ -16,12 +16,13 @@
   },
   "projectile": {
     "item": "jeg:pistol_ammo",
-    "damage": 4.0,
+    "ejectsCasing": true,
+    "damage": 2.8,
+    "advantage": "None",
     "size": 0.05,
     "speed": 12.0,
     "life": 60,
     "gravity": true,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {

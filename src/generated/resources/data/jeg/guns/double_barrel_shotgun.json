@@ -1,0 +1,51 @@
+{
+  "general": {
+    "rate": 8,
+    "gripType": "jeg:two_handed",
+    "recoilAngle": 10.0,
+    "recoilKick": 0.5,
+    "projectileAmount": 22,
+    "alwaysSpread": true,
+    "spread": 25.0
+  },
+  "reloads": {
+    "maxAmmo": 2,
+    "magFed": true,
+    "reloadTimer": 60,
+    "emptyMagTimer": 0
+  },
+  "projectile": {
+    "item": "jeg:handmade_shell",
+    "damage": 24.0,
+    "advantage": "None",
+    "size": 0.05,
+    "speed": 6.0,
+    "life": 6,
+    "trailLengthMultiplier": 2.0
+  },
+  "sounds": {
+    "fire": "jeg:item.double_barrel_shotgun.fire",
+    "reload": "jeg:item.pistol.reload",
+    "cock": "jeg:item.pistol.cock",
+    "enchantedFire": "jeg:item.double_barrel_shotgun.fire"
+  },
+  "display": {
+    "flash": {
+      "yOffset": 3.1,
+      "zOffset": -5.9,
+      "size": 1.2
+    }
+  },
+  "modules": {
+    "zoom": {
+      "yOffset": 3.9,
+      "zOffset": 0.75,
+      "fovModifier": 0.7
+    },
+    "attachments": {
+      "stock": {
+        "scale": 0.0
+      }
+    }
+  }
+}

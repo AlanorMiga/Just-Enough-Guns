@@ -14,11 +14,11 @@
   "projectile": {
     "item": "jeg:pistol_ammo",
     "damage": 5.0,
+    "advantage": "None",
     "size": 0.05,
     "speed": 10.0,
     "life": 40,
     "gravity": true,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {

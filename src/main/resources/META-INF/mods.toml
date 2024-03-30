@@ -4,7 +4,7 @@ license="GNU GPLv3"
 
 [[mods]]
 modId="jeg"
-version="0.1.0"
+version="0.2.0"
 displayName="Just Enough Guns"
 authors="AlanorMiga"
 credits="MrCrayfish, Bomb787"

@@ -17,10 +17,10 @@
   "projectile": {
     "item": "jeg:handmade_shell",
     "damage": 20.0,
+    "advantage": "None",
     "size": 0.05,
     "speed": 6.0,
     "life": 10,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {

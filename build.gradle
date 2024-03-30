@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "0.1.0-1.18.2"
+version = "0.2.0-1.18.2"
 group = "ttv.alanormiga"
 archivesBaseName = "JustEnoughGuns"
 
@@ -27,6 +27,7 @@ mixin {
 
 minecraft {
     mappings channel: 'official', version: '1.18.2'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {

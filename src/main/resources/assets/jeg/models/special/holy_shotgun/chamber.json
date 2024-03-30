@@ -1,0 +1,55 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "jeg:items/holy_shotgun"
+	},
+	"elements": [
+		{
+			"name": "Chamber",
+			"from": [8.39656, 2.595, 12.375],
+			"to": [8.39656, 2.975, 13.17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.67656, 1.745, 10.98]},
+			"faces": {
+				"east": {"uv": [4.5, 2, 5.5, 2.5], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [114, 0, 0],
+			"translation": [0, 5.25, 2],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [2.25, 5, 0],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, -2, -3.8],
+			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [4.25, -2, 0],
+			"scale": [3, 3, 3]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-8, 0, -1.75],
+			"scale": [4, 4, 4]
+		}
+	},
+	"groups": [
+		{
+			"name": "Pump",
+			"origin": [8, 0.8, -1.5],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

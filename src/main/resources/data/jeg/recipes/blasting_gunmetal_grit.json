@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "jeg:gunmetal_grit"
   },
-  "result": "jeg:gunmetal_ingot",
+  "result": "jeg:gunmetal_nugget",
   "experience": 0.1,
-  "cookingtime": 100
+  "cookingtime": 25
 }

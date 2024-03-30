@@ -1,11 +1,11 @@
 {
   "general": {
-    "rate": 22,
+    "rate": 28,
     "gripType": "jeg:two_handed",
     "recoilAngle": 4.0,
     "recoilKick": 0.25,
     "alwaysSpread": true,
-    "spread": 0.5
+    "spread": 0.25
   },
   "reloads": {
     "maxAmmo": 4,
@@ -14,12 +14,13 @@
   },
   "projectile": {
     "item": "jeg:rifle_ammo",
-    "damage": 24.0,
+    "ejectsCasing": true,
+    "damage": 21.0,
+    "advantage": "jeg:very_heavy",
     "size": 0.05,
     "speed": 24.0,
     "life": 60,
     "gravity": true,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {

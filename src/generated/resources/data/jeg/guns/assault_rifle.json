@@ -1,10 +1,10 @@
 {
   "general": {
     "auto": true,
-    "rate": 4,
+    "rate": 3,
     "gripType": "jeg:two_handed",
-    "recoilAngle": 4.0,
-    "recoilKick": 0.33,
+    "recoilAngle": 2.7,
+    "recoilKick": 0.22,
     "alwaysSpread": true,
     "spread": 4.0
   },
@@ -16,12 +16,13 @@
   },
   "projectile": {
     "item": "jeg:rifle_ammo",
+    "ejectsCasing": true,
     "damage": 6.0,
+    "advantage": "None",
     "size": 0.05,
     "speed": 14.0,
     "life": 60,
     "gravity": true,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {

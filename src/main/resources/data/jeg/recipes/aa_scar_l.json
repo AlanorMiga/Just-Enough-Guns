@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "jeg:scar_l"
+    }
+  ],
+  "result": {
+    "item": "jeg:combat_rifle",
+    "count": 1
+  }
+}

@@ -6,7 +6,7 @@
     "recoilKick": 0.5,
     "projectileAmount": 12,
     "alwaysSpread": true,
-    "spread": 25.0
+    "spread": 10.0
   },
   "reloads": {
     "maxAmmo": 6,
@@ -15,12 +15,13 @@
   },
   "projectile": {
     "item": "jeg:shotgun_shell",
+    "ejectsCasing": true,
     "damage": 20.0,
+    "advantage": "jeg:heavy",
     "size": 0.05,
     "speed": 6.0,
     "life": 10,
     "damageReduceOverLife": true,
-    "trailColor": 16776960,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {
