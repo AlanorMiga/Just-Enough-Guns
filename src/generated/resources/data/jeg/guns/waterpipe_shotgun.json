@@ -23,6 +23,7 @@
     }
   },
   "projectile": {
+    "advantage": "None",
     "damage": 20.0,
     "item": "jeg:handmade_shell",
     "life": 10,

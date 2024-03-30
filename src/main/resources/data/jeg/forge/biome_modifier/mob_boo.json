@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": ["minecraft:flower_forest", "minecraft:cherry_grove", "minecraft:dark_forest"],
+  "spawners": {
+    "type": "jeg:boo",
+    "weight": 50,
+    "minCount": 1,
+    "maxCount": 3
+  }
+}

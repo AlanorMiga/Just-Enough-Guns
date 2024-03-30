@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunnite_ingot",
+      "count": 2
+    },
+    {
+      "item": "minecraft:amethyst_shard",
+      "count": 16
+    },
+    {
+      "item": "jeg:tech_trash",
+      "count": 5
+    }
+  ],
+  "result": {
+    "item": "jeg:telescopic_sight"
+  },
+  "time": 30
+}

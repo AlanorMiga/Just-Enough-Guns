@@ -1,0 +1,78 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/burst_rifle",
+		"particle": "jeg:item/burst_rifle"
+	},
+	"elements": [
+		{
+			"name": "Ejector 1",
+			"from": [8.445, 3.245, 11.8],
+			"to": [8.445, 3.645, 13.8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.05, 2.345, 11.825]},
+			"faces": {
+				"east": {"uv": [7, 5.75, 9.5, 6.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Ejector 2",
+			"from": [7.8, 4.045, 11.6],
+			"to": [8.2, 4.245, 13.8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.005, 2.345, 11.825]},
+			"faces": {
+				"north": {"uv": [9.25, 6.25, 9.5, 6.5], "texture": "#1"},
+				"east": {"uv": [7, 6.25, 9.5, 6.5], "texture": "#1"},
+				"west": {"uv": [9.5, 6.25, 7, 6.5], "texture": "#1"},
+				"up": {"uv": [7, 6.25, 9.5, 6.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Ejector 3",
+			"from": [7.8, 4.045, 10.4],
+			"to": [8.2, 4.245, 11.6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.005, 2.345, 11.825]},
+			"faces": {
+				"north": {"uv": [11, 6.25, 11.25, 6.5], "texture": "#1"},
+				"east": {"uv": [9.75, 6.25, 11.25, 6.5], "texture": "#1"},
+				"west": {"uv": [11.25, 6.25, 9.75, 6.5], "texture": "#1"},
+				"up": {"uv": [11.25, 6.25, 9.75, 6.5], "rotation": 90, "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 7, -6.75],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_righthand": {
+			"translation": [-2.5, 10, -2.5],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Ejector",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

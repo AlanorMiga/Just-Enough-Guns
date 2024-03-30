@@ -1,0 +1,200 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"2": "jeg:item/combat_rifle_stocks",
+		"particle": "jeg:item/combat_rifle_stocks"
+	},
+	"elements": [
+		{
+			"name": "Tactical Stock 1",
+			"from": [8.4, 2.85, 15.7],
+			"to": [8.55, 4.65, 15.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.475, 3.75, 15.8]},
+			"faces": {
+				"north": {"uv": [0.75, 10.25, 1, 12.5], "texture": "#2"},
+				"east": {"uv": [0.5, 10.25, 1, 12.5], "texture": "#2"},
+				"up": {"uv": [0.5, 10.25, 0.75, 10.5], "texture": "#2"},
+				"down": {"uv": [0.75, 12.25, 1, 12.5], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 2",
+			"from": [8.125, 2.85, 15.755],
+			"to": [8.525, 4.65, 16.155],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8.45, 3.75, 15.8]},
+			"faces": {
+				"north": {"uv": [0, 10.25, 0.5, 12.5], "texture": "#2"},
+				"east": {"uv": [0, 10.25, 0.5, 12.5], "texture": "#2"},
+				"south": {"uv": [0, 10.25, 0.5, 12.5], "texture": "#2"},
+				"west": {"uv": [0, 10.25, 0.5, 12.5], "texture": "#2"},
+				"up": {"uv": [0, 10.25, 0.25, 10.5], "texture": "#2"},
+				"down": {"uv": [0.25, 12.25, 0.5, 12.5], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 3",
+			"from": [7.55, 3.445, 16],
+			"to": [8.45, 4.845, 16.2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.555, 3.75, 15.94142]},
+			"faces": {
+				"north": {"uv": [3.5, 13.25, 3, 14.25], "texture": "#2"},
+				"east": {"uv": [3, 13.25, 2.75, 14.5], "texture": "#2"},
+				"west": {"uv": [3, 13.25, 2.75, 14.5], "texture": "#2"},
+				"up": {"uv": [3, 13.25, 2.75, 13.5], "texture": "#2"},
+				"down": {"uv": [3, 14.25, 2.75, 14.5], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 4",
+			"from": [7.55, 4.38, 16.04],
+			"to": [8.45, 4.745, 16.24],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 4.745, 16.1]},
+			"faces": {
+				"east": {"uv": [2.75, 14.25, 3, 14.5], "texture": "#2"},
+				"south": {"uv": [2.75, 14.25, 3, 14.5], "texture": "#2"},
+				"west": {"uv": [2.75, 14.25, 3, 14.5], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 5",
+			"from": [7.55, 4.65757, 16.30899],
+			"to": [8.45, 4.75757, 16.70899],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 4.70257, 16.19899]},
+			"faces": {
+				"east": {"uv": [2.75, 13.75, 3, 14], "texture": "#2"},
+				"west": {"uv": [2.75, 13.75, 3, 14], "texture": "#2"},
+				"up": {"uv": [2.75, 13.75, 3, 14], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 7",
+			"from": [7.555, 3.55237, 18.21318],
+			"to": [8.445, 4.58737, 18.64318],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 4.45737, 18.18818]},
+			"faces": {
+				"east": {"uv": [0.75, 14.25, 1, 14.5], "texture": "#2"},
+				"south": {"uv": [0, 13.25, 0.75, 14.5], "texture": "#2"},
+				"west": {"uv": [0.75, 13.25, 1, 13.5], "texture": "#2"},
+				"up": {"uv": [0.25, 12.5, 0.75, 13.25], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 8",
+			"from": [7.55, 3.445, 16.2],
+			"to": [8.45, 4.57, 18.26],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.555, 3.75, 16.14142]},
+			"faces": {
+				"east": {"uv": [0.75, 13.25, 3, 14.5], "texture": "#2"},
+				"west": {"uv": [3, 13.25, 0.75, 14.5], "texture": "#2"},
+				"up": {"uv": [3, 13.25, 0.75, 12.5], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [0.75, 14, 0, 14.5], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 9",
+			"from": [7.6, 2.845, 16],
+			"to": [8.4, 3.445, 17.795],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.555, 3.75, 16.14142]},
+			"faces": {
+				"north": {"uv": [3, 14.25, 3.5, 15], "texture": "#2"},
+				"east": {"uv": [0.75, 14.5, 3, 15.25], "texture": "#2"},
+				"west": {"uv": [3, 14.5, 0.75, 15.25], "texture": "#2"},
+				"down": {"uv": [0.75, 15.25, 3, 16], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 10",
+			"from": [7.605, 2.81737, 18.04318],
+			"to": [8.395, 3.46737, 18.44318],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 4.45737, 18.18818]},
+			"faces": {
+				"east": {"uv": [0.75, 14.5, 1, 14.75], "texture": "#2"},
+				"south": {"uv": [0, 14.5, 0.75, 15.25], "texture": "#2"},
+				"west": {"uv": [0.75, 14.5, 1, 14.75], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 11",
+			"from": [7.7, 2.89543, 17.61113],
+			"to": [8.3, 4.29543, 20.30113],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8.05, 3.41543, 17.61613]},
+			"faces": {
+				"east": {"uv": [3.5, 12.5, 6.5, 14], "texture": "#2"},
+				"west": {"uv": [6.5, 12.5, 3.5, 14], "texture": "#2"},
+				"up": {"uv": [6, 12, 3.5, 12.5], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [3.5, 12, 6, 12.5], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 12",
+			"from": [7.71, 0.64043, 18.88613],
+			"to": [8.29, 2.64043, 19.59113],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8.05, 3.59543, 18.41113]},
+			"faces": {
+				"north": {"uv": [4.5, 14, 5, 16], "texture": "#2"},
+				"east": {"uv": [3.75, 14, 4.5, 16], "texture": "#2"},
+				"south": {"uv": [3.75, 14, 4.5, 16], "texture": "#2"},
+				"west": {"uv": [3.75, 14, 4.5, 16], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 13",
+			"from": [7.6, 0.94496, 20.3],
+			"to": [8.4, 4.39496, 20.7],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.10496, 19.92147]},
+			"faces": {
+				"north": {"uv": [7.75, 12.5, 8.5, 16], "texture": "#2"},
+				"east": {"uv": [7.25, 12.5, 7.75, 16], "texture": "#2"},
+				"south": {"uv": [6.5, 12.5, 7.25, 16], "texture": "#2"},
+				"west": {"uv": [7.75, 12.5, 7.25, 16], "texture": "#2"},
+				"up": {"uv": [6.5, 12.5, 7.25, 12.75], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [6.5, 16, 7.25, 15.75], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"name": "Tactical Stock 14",
+			"from": [7.705, 1.04496, 19.98],
+			"to": [8.295, 2.89496, 20.3],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8.05, 2.10496, 19.92147]},
+			"faces": {
+				"east": {"uv": [3.5, 14, 3.75, 16], "texture": "#2"},
+				"west": {"uv": [3.5, 14, 3.75, 16], "texture": "#2"},
+				"up": {"uv": [3.5, 14, 3.75, 16], "texture": "#2"},
+				"down": {"uv": [3.5, 15.75, 3.75, 16], "texture": "#2"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Tactical Stock",
+			"origin": [8, 8, 8],
+			"color": 5,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+		}
+	]
+}

@@ -9,10 +9,10 @@
   "general": {
     "alwaysSpread": true,
     "gripType": "jeg:two_handed",
-    "rate": 22,
+    "rate": 28,
     "recoilAngle": 4.0,
     "recoilKick": 0.25,
-    "spread": 0.5
+    "spread": 0.25
   },
   "modules": {
     "attachments": {
@@ -28,7 +28,9 @@
     }
   },
   "projectile": {
-    "damage": 24.0,
+    "advantage": "jeg:very_heavy",
+    "damage": 21.0,
+    "ejectsCasing": true,
     "gravity": true,
     "item": "jeg:rifle_ammo",
     "life": 60,

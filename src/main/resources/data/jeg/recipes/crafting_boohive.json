@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "EBE",
+    "EEE"
+  ],
+  "key": {
+    "E": {
+      "item": "jeg:ectoplasm"
+    },
+    "B": {
+      "item": "minecraft:beehive"
+    }
+  },
+  "result": {
+    "item": "jeg:boohive"
+  }
+}

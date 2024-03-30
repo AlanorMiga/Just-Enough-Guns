@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    },
+    {
+      "item": "jeg:scrap"
+    }
+  ],
+  "result": {
+    "item": "jeg:repair_kit",
+    "count": 1
+  }
+}

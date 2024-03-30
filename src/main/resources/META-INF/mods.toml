@@ -4,9 +4,9 @@ license="GNU GPLv3"
 
 [[mods]]
 modId="jeg"
-version="0.1.1"
+version="0.2.0"
 displayName="Just Enough Guns"
-authors="AlanorMiga"
+authors="MigaMi"
 credits="MrCrayfish, Bomb787"
 description="The essentials needed for a survival friendly gun system done the right way!"
 

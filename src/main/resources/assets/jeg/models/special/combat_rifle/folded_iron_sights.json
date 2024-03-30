@@ -1,0 +1,275 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/combat_rifle"
+	},
+	"elements": [
+		{
+			"name": "Upper Receiver 13",
+			"from": [7.7, 4.945, 14.75],
+			"to": [8.3, 5.145, 15.5],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.445, 11.825]},
+			"faces": {
+				"north": {"uv": [11.75, 0, 11.25, 0.25], "texture": "#1"},
+				"east": {"uv": [11.5, 0, 11.75, 0.75], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [11.25, 0.75, 11.75, 0.5], "texture": "#1"},
+				"west": {"uv": [11.5, 0.75, 11.25, 0], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [11.25, 0, 11.75, 0.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 14",
+			"from": [8.35, 4.89172, 15.13864],
+			"to": [8.55, 5.24172, 15.48864],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8.45, 5.06672, 15.31364]},
+			"faces": {
+				"north": {"uv": [12, 0, 12.25, 0.75], "texture": "#1"},
+				"east": {"uv": [12.5, 0.25, 13, 0.75], "texture": "#1"},
+				"south": {"uv": [12.25, 0, 12.5, 0.75], "texture": "#1"},
+				"west": {"uv": [13, 0.75, 12.5, 0.25], "rotation": 270, "texture": "#1"},
+				"up": {"uv": [12.25, 0.75, 12, 0], "texture": "#1"},
+				"down": {"uv": [12.5, 0, 12.25, 0.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 15",
+			"from": [7.85, 4.78, 15.4],
+			"to": [8.15, 5.08, 15.9],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 4.93, 15.65]},
+			"faces": {
+				"east": {"uv": [10.75, 0.25, 11, 0.75], "rotation": 270, "texture": "#1"},
+				"south": {"uv": [10.75, 0.25, 11, 0.5], "texture": "#1"},
+				"west": {"uv": [10.75, 0.25, 11, 0.75], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [10.75, 0.25, 11, 0.75], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [10.75, 0.25, 11, 0.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 16",
+			"from": [7.6, 4.845, 14.75],
+			"to": [7.7, 5.045, 15.5],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.445, 11.825]},
+			"faces": {
+				"north": {"uv": [11.25, 0.25, 11, 0], "texture": "#1"},
+				"south": {"uv": [11.25, 0.75, 11, 0.5], "texture": "#1"},
+				"west": {"uv": [11.25, 0.75, 11, 0], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [11, 0, 11.25, 0.75], "texture": "#1"},
+				"down": {"uv": [11.25, 0.75, 11, 0], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 17",
+			"from": [8.3, 4.845, 14.75],
+			"to": [8.4, 5.045, 15.5],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.445, 11.825]},
+			"faces": {
+				"north": {"uv": [11.75, 0, 12, 0.25], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [11.75, 0, 12, 0.75], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [11.75, 0.5, 12, 0.75], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [11.75, 0, 12, 0.75], "texture": "#1"},
+				"down": {"uv": [11.75, 0.75, 12, 0], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 18",
+			"from": [7.85, 4.88, 15.9],
+			"to": [8.15, 4.98, 16],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 5.53, 15]},
+			"faces": {
+				"north": {"uv": [10.75, 0, 11, 0.25], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [10.75, 0, 11, 0.25], "rotation": 180, "texture": "#1"},
+				"south": {"uv": [10.75, 0, 11, 0.25], "rotation": 270, "texture": "#1"},
+				"west": {"uv": [10.75, 0, 11, 0.25], "texture": "#1"},
+				"up": {"uv": [10.75, 0, 11, 0.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10.75, 0, 11, 0.25], "rotation": 270, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 19",
+			"from": [7.85, 4.88, 16.1],
+			"to": [8.15, 4.98, 16.2],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 5.53, 15]},
+			"faces": {
+				"north": {"uv": [10.75, 0, 11, 0.25], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [10.75, 0, 11, 0.25], "rotation": 180, "texture": "#1"},
+				"south": {"uv": [10.75, 0, 11, 0.25], "rotation": 270, "texture": "#1"},
+				"west": {"uv": [10.75, 0, 11, 0.25], "texture": "#1"},
+				"up": {"uv": [10.75, 0, 11, 0.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10.75, 0, 11, 0.25], "rotation": 270, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 20",
+			"from": [7.85, 4.88, 16],
+			"to": [7.95, 4.98, 16.1],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 5.53, 15]},
+			"faces": {
+				"east": {"uv": [10.75, 0, 11, 0.25], "rotation": 180, "texture": "#1"},
+				"west": {"uv": [10.75, 0, 11, 0.25], "texture": "#1"},
+				"up": {"uv": [10.75, 0, 11, 0.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10.75, 0, 11, 0.25], "rotation": 270, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Upper Receiver 21",
+			"from": [8.05, 4.88, 16],
+			"to": [8.15, 4.98, 16.1],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 5.53, 15]},
+			"faces": {
+				"east": {"uv": [10.75, 0, 11, 0.25], "rotation": 180, "texture": "#1"},
+				"west": {"uv": [10.75, 0, 11, 0.25], "texture": "#1"},
+				"up": {"uv": [10.75, 0, 11, 0.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [10.75, 0, 11, 0.25], "rotation": 270, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 2",
+			"from": [7.75, 3.495, 6.65],
+			"to": [8.25, 3.995, 7.45],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 3.745, 6.55]},
+			"faces": {
+				"north": {"uv": [8, 4.75, 8.25, 5], "texture": "#1"},
+				"east": {"uv": [8, 4.75, 8.75, 5.75], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [8.5, 5.5, 8.75, 5.75], "texture": "#1"},
+				"west": {"uv": [8.75, 5.75, 8, 4.75], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [8, 4.75, 8.75, 5.75], "texture": "#1"},
+				"down": {"uv": [8.75, 5.75, 8, 4.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 3",
+			"from": [7.45, 3.995, 6.75],
+			"to": [7.75, 4.295, 7.55],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 3.745, 6.55]},
+			"faces": {
+				"north": {"uv": [7.75, 4.75, 8, 5], "texture": "#1"},
+				"east": {"uv": [7.5, 4.75, 8, 5.75], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [8, 5.75, 7.5, 4.75], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [7.5, 4.75, 8, 5.75], "texture": "#1"},
+				"down": {"uv": [8, 5.75, 7.5, 4.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 4",
+			"from": [7.85, 3.95069, 6.755],
+			"to": [8.15, 4.25069, 7.445],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 4.31069, 7.15]},
+			"faces": {
+				"north": {"uv": [9, 4.75, 9.5, 5.25], "texture": "#1"},
+				"east": {"uv": [9.5, 4.75, 8.75, 5.25], "texture": "#1"},
+				"south": {"uv": [9, 4.75, 9.5, 5.25], "texture": "#1"},
+				"west": {"uv": [8.75, 4.75, 9.5, 5.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 5",
+			"from": [7.9, 4.37069, 7.05],
+			"to": [8.1, 5.07069, 7.45],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 4.31069, 7.15]},
+			"faces": {
+				"north": {"uv": [8, 4, 8.25, 4.75], "texture": "#1"},
+				"east": {"uv": [8.75, 4, 8.25, 4.75], "texture": "#1"},
+				"south": {"uv": [8.5, 4, 8.75, 4.75], "texture": "#1"},
+				"west": {"uv": [8.25, 4, 8.75, 4.75], "texture": "#1"},
+				"up": {"uv": [8.25, 4, 8.5, 4.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 6",
+			"from": [7.9, 4.77035, 6.47466],
+			"to": [8.1, 5.07035, 7.04966],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7.99875, 5.65035, 7.3]},
+			"faces": {
+				"east": {"uv": [8.5, 3.5, 8.75, 4], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [8.5, 3.5, 8.75, 4], "rotation": 270, "texture": "#1"},
+				"up": {"uv": [8.5, 3.5, 8.75, 4], "texture": "#1"},
+				"down": {"uv": [8.5, 3.5, 8.75, 4], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 8",
+			"from": [7.85, 4.77035, 6.17535],
+			"to": [8.15, 5.07035, 6.47535],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7.99875, 5.65035, 7.3]},
+			"faces": {
+				"north": {"uv": [8.5, 3.25, 8.75, 3.5], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [8.5, 3.25, 8.75, 3.5], "texture": "#1"},
+				"south": {"uv": [8.75, 4.5, 9, 4.75], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [8.5, 3.25, 8.75, 3.5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Barrel 9",
+			"from": [7.95, 4.77035, 6.27035],
+			"to": [8.05, 5.07035, 6.47535],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.99875, 5.65035, 7.3]},
+			"faces": {
+				"north": {"uv": [8.5, 3.25, 8.75, 3.5], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [8.5, 3.25, 8.75, 3.5], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [8.5, 3.25, 8.75, 3.5], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [8.5, 3.25, 8.75, 3.5], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [8.5, 3.25, 8.75, 3.5], "rotation": 90, "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "FN SCAR-L",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Upper Receiver",
+					"origin": [8, 2.375, 12.03],
+					"color": 6,
+					"children": [
+						{
+							"name": "Railing Iron Sight",
+							"origin": [8, 5.53, 15],
+							"color": 0,
+							"children": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+						}
+					]
+				},
+				{
+					"name": "Barrel",
+					"origin": [8, 8, 8],
+					"color": 4,
+					"children": [
+						{
+							"name": "Barrel Iron Sight",
+							"origin": [7.99875, 5.65035, 7.3],
+							"color": 0,
+							"children": [9, 10, 11, 12, 13, 14, 15]
+						}
+					]
+				}
+			]
+		}
+	]
+}

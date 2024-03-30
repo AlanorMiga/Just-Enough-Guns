@@ -1,0 +1,5 @@
+{
+  "type": "forge:remove_spawns",
+  "biomes": "minecraft:cherry_grove",
+  "entity_types": ["minecraft:zombie", "minecraft:skeleton"]
+}

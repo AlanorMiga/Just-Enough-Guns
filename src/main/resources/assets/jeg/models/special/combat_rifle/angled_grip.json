@@ -1,0 +1,94 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"3": "jeg:item/combat_rifle_attachments_1"
+	},
+	"elements": [
+		{
+			"name": "Angled Grip 1",
+			"from": [7.5, 2.645, 7.75],
+			"to": [8.5, 3.245, 10.15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3.095, 8.825]},
+			"faces": {
+				"north": {"uv": [3, 6.25, 4.25, 7], "texture": "#3"},
+				"east": {"uv": [0, 6.25, 3, 7], "texture": "#3"},
+				"south": {"uv": [3, 6.25, 4.25, 7], "texture": "#3"},
+				"west": {"uv": [3, 6.25, 0, 7], "texture": "#3"},
+				"up": {"uv": [0, 3.75, 3, 5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [0, 5, 3, 6.25], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Angled Grip 2",
+			"from": [7.5, 2.045, 7.75],
+			"to": [8.5, 2.645, 7.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3.095, 8.825]},
+			"faces": {
+				"north": {"uv": [4.25, 5, 5.5, 5.75], "texture": "#3"},
+				"east": {"uv": [5.25, 5, 5.5, 5.75], "texture": "#3"},
+				"south": {"uv": [4.25, 5, 5.5, 5.75], "texture": "#3"},
+				"west": {"uv": [4.5, 5, 4.25, 5.75], "texture": "#3"},
+				"up": {"uv": [0, 3.75, 3, 5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [4.25, 5.5, 5.5, 5.75], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Angled Grip 3",
+			"from": [7.7, 1.7, 9.62],
+			"to": [8.3, 2.7, 10.02],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 2.345, 9.95]},
+			"faces": {
+				"north": {"uv": [3.5, 5, 4.25, 6.25], "texture": "#3"},
+				"east": {"uv": [3.5, 5, 3, 6.25], "texture": "#3"},
+				"south": {"uv": [3.5, 5, 4.25, 6.25], "texture": "#3"},
+				"west": {"uv": [3, 5, 3.5, 6.25], "texture": "#3"},
+				"down": {"uv": [4.75, 3, 5.25, 3.75], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "Angled Grip 4",
+			"from": [7.7, 1.72252, 7.93179],
+			"to": [8.3, 2.12252, 9.56679],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 2.22252, 9.86679]},
+			"faces": {
+				"east": {"uv": [5, 4.5, 3, 5], "texture": "#3"},
+				"west": {"uv": [3, 4.5, 5, 5], "texture": "#3"},
+				"up": {"uv": [3, 3.75, 5, 4.5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [5, 3, 3, 3.75], "rotation": 90, "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Angled Grip",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

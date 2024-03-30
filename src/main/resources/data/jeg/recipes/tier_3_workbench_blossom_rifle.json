@@ -1,0 +1,29 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:gunnite_ingot",
+      "count": 20
+    },
+    {
+      "item": "minecraft:cherry_sapling",
+      "count": 8
+    },
+    {
+      "item": "minecraft:pink_petals",
+      "count": 16
+    },
+    {
+      "item": "jeg:scrap",
+      "count": 75
+    },
+    {
+      "item": "jeg:ectoplasm",
+      "count": 20
+    }
+  ],
+  "result": {
+    "item": "jeg:blossom_rifle"
+  },
+  "time": 30
+}

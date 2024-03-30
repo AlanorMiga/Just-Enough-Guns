@@ -1,0 +1,35 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "builtin/entity",
+	"textures": {
+		"1": "jeg:items/blossom_rifle",
+		"particle": "jeg:items/scopes"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 7, -6.75],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_righthand": {
+			"translation": [-4.5, 10, -2.5],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -2.5],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"gui": {
+			"rotation": [90, -45, 90],
+			"translation": [-4.25, 11, 0],
+			"scale": [2, 2, 2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-4, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	}
+}

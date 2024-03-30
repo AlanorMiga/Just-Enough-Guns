@@ -1,0 +1,55 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"3": "jeg:item/combat_rifle_attachments_1"
+	},
+	"elements": [
+		{
+			"name": "Light Grip 1",
+			"from": [7.5, 2.645, 7.75],
+			"to": [8.5, 3.245, 10.15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3.095, 8.825]},
+			"faces": {
+				"north": {"uv": [3, 9.75, 4.25, 10.5], "texture": "#3"},
+				"east": {"uv": [0, 9.75, 3, 10.5], "texture": "#3"},
+				"south": {"uv": [3, 9.75, 4.25, 10.5], "texture": "#3"},
+				"west": {"uv": [3, 9.75, 0, 10.5], "texture": "#3"},
+				"up": {"uv": [0, 7.25, 3, 8.5], "rotation": 90, "texture": "#3"},
+				"down": {"uv": [0, 8.5, 3, 9.75], "rotation": 90, "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "Light Grip",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}
