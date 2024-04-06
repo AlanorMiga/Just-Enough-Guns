@@ -9,8 +9,8 @@ import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
 import ttv.migami.jeg.client.particle.*;
 import ttv.migami.jeg.init.ModParticleTypes;
-import ttv.migami.jeg.particles.CasingParticle;
-import ttv.migami.jeg.particles.ScrapParticle;
+import ttv.migami.jeg.client.particle.CasingParticle;
+import ttv.migami.jeg.client.particle.ScrapParticle;
 
 /**
  * Author: MrCrayfish
