@@ -159,7 +159,7 @@ public class BeehiveBlockEntityAbstract extends BeehiveBlockEntity
 
     @Override
     public void addOccupantWithPresetTicks(Entity entity, boolean hasNectar, int ticksInHive) {
-        if (entity instanceof Bee && acceptsBee((Bee) entity)) {
+        if (entity instanceof Boo && acceptsBee((Bee) entity)) {
             beeHandler.ifPresent(h -> {
                 if (h.getInhabitants().size() < MAX_BEES) {
                     entity.stopRiding();
@@ -243,9 +243,10 @@ public class BeehiveBlockEntityAbstract extends BeehiveBlockEntity
 
     protected void beeReleasePostAction(Level level, Bee beeEntity, BlockState state, BeehiveBlockEntity.BeeReleaseStatus beeState) {
         beeEntity.setHealth(beeEntity.getMaxHealth());
-        Boo booEntity = (Boo) beeEntity;
-        booEntity.isExposed = false;
-        booEntity.vanishingTime = booEntity.VANISHING_TIME;
+        if (beeEntity instanceof Boo booEntity) {
+            booEntity.isExposed = false;
+            booEntity.vanishingTime = booEntity.VANISHING_TIME;
+        }
 
         if (beeState == BeehiveBlockEntity.BeeReleaseStatus.HONEY_DELIVERED) {
             if (state.hasProperty(BeehiveBlock.HONEY_LEVEL)) {
