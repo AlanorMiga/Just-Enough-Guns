@@ -1,15 +1,23 @@
-package ttv.migami.jeg.particles;
+package ttv.migami.jeg.client.particle;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import ttv.migami.jeg.init.ModItems;
 
 @OnlyIn(Dist.CLIENT)
-public class CasingParticle extends TextureSheetParticle {
-    CasingParticle(ClientLevel pLevel, double pX, double pY, double pZ) {
+public class ScrapParticle extends TextureSheetParticle {
+    private final float uo;
+    private final float vo;
+
+    ScrapParticle(ClientLevel pLevel, double pX, double pY, double pZ, ItemStack itemStack) {
         super(pLevel, pX, pY, pZ, 0.0D, 0.0D, 0.0D);
+        var model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, pLevel, null, 0);
+        this.setSprite(model.getOverrides().resolve(model, itemStack, pLevel, null, 0).getParticleIcon(net.minecraftforge.client.model.data.ModelData.EMPTY));
         this.gravity = 0.75F;
         this.friction = 0.999F;
         this.hasPhysics = true;
@@ -17,8 +25,10 @@ public class CasingParticle extends TextureSheetParticle {
         this.yd *= 0.8F;
         this.zd *= 0.8F;
         this.yd = this.random.nextFloat() * 0.225F + 0.22F;
-        this.quadSize = 0.35F;
+        this.quadSize = 0.1F;
         this.lifetime = (int) (16.0D / (Math.random() * 0.8D + 0.2D));
+        this.uo = this.random.nextFloat() * 3.0F;
+        this.vo = this.random.nextFloat() * 3.0F;
     }
 
     public ParticleRenderType getRenderType() {
@@ -41,6 +51,22 @@ public class CasingParticle extends TextureSheetParticle {
 
     }
 
+    protected float getU0() {
+        return this.sprite.getU((this.uo + 1.0F) / 4.0F * 16.0F);
+    }
+
+    protected float getU1() {
+        return this.sprite.getU(this.uo / 4.0F * 16.0F);
+    }
+
+    protected float getV0() {
+        return this.sprite.getV(this.vo / 4.0F * 16.0F);
+    }
+
+    protected float getV1() {
+        return this.sprite.getV((this.vo + 1.0F) / 4.0F * 16.0F);
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
@@ -50,9 +76,9 @@ public class CasingParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            CasingParticle casingParticle = new CasingParticle(pLevel, pX, pY, pZ);
-            casingParticle.setSpriteFromAge(this.sprite);
-            return casingParticle;
+            ScrapParticle scrapParticle = new ScrapParticle(pLevel, pX, pY, pZ, new ItemStack(ModItems.SCRAP.get()));
+            scrapParticle.setSpriteFromAge(this.sprite);
+            return scrapParticle;
         }
     }
 }
