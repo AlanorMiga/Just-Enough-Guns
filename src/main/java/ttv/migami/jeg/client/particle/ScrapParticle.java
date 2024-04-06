@@ -1,4 +1,4 @@
-package ttv.migami.jeg.particles;
+package ttv.migami.jeg.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
