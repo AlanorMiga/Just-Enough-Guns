@@ -1,6 +1,6 @@
 package ttv.migami.jeg.client;
 
-import com.mrcrayfish.controllable.client.IBindingContext;
+import com.mrcrayfish.controllable.client.binding.IBindingContext;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import ttv.migami.jeg.item.GunItem;

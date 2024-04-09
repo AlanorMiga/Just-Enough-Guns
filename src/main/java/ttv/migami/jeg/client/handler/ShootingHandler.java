@@ -19,6 +19,7 @@ import ttv.migami.jeg.compat.PlayerReviveHelper;
 import ttv.migami.jeg.event.GunFireEvent;
 import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.network.PacketHandler;
+import ttv.migami.jeg.network.message.C2SMessageBurst;
 import ttv.migami.jeg.network.message.C2SMessageShoot;
 import ttv.migami.jeg.network.message.C2SMessageShooting;
 import ttv.migami.jeg.util.GunEnchantmentHelper;
@@ -122,7 +123,7 @@ public class ShootingHandler
         if(player != null)
         {
             ItemStack heldItem = player.getMainHandItem();
-            if(heldItem.getItem() instanceof GunItem && (Gun.hasAmmo(heldItem) || player.isCreative()) && !PlayerReviveHelper.isBleeding(player))
+            if(heldItem.getItem() instanceof GunItem gunItem && (Gun.hasAmmo(heldItem) || player.isCreative()) && !PlayerReviveHelper.isBleeding(player))
             {
                 boolean shooting = KeyBinds.getShootMapping().isDown();
                 if(JustEnoughGuns.controllableLoaded)
@@ -134,6 +135,10 @@ public class ShootingHandler
                     if(!this.shooting)
                     {
                         this.shooting = true;
+                        Gun gun = gunItem.getModifiedGun(heldItem);
+                        if (gun.getGeneral().isBurst()) {
+                            PacketHandler.getPlayChannel().sendToServer(new C2SMessageBurst());
+                        }
                         PacketHandler.getPlayChannel().sendToServer(new C2SMessageShooting(true));
                     }
                 }

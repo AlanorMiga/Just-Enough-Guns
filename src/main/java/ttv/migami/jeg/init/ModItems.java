@@ -141,6 +141,12 @@ public class ModItems {
                     .stacksTo(16)
             ));
 
+    /* Utility Items */
+    /*public static final RegistryObject<Item> GRAPPLING_HOOK = REGISTER.register("grappling_hook",
+            () -> new GrapplingHookItem(new Item.Properties()
+                    .stacksTo(1)
+            ));*/
+
     /* Scope Attachments */
     public static final RegistryObject<Item> HOLOGRAPHIC_SIGHT = REGISTER.register("holographic_sight",
             () -> new ScopeItem(Attachments.HOLOGRAPHIC_SIGHT, new Item.Properties()

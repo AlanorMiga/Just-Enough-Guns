@@ -6,7 +6,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "0.2.0-1.20.1"
+version = "0.3.0-1.20.1"
 group = "ttv.migami"
 archivesBaseName = "JustEnoughGuns"
 
@@ -84,7 +84,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
     implementation fg.deobf('curse.maven:framework-549225:4718251')
     implementation fg.deobf('curse.maven:backpacked-352835:4725669')
-    compileOnly fg.deobf('curse.maven:controllable-317269:4511169')
+    compileOnly fg.deobf('curse.maven:controllable-317269:4598985')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
