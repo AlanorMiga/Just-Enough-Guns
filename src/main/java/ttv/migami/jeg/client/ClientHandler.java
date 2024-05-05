@@ -135,6 +135,9 @@ public class ClientHandler {
         ModelOverrides.register(ModItems.BLOSSOM_RIFLE.get(), new BlossomRifleModel());
         ModelOverrides.register(ModItems.DOUBLE_BARREL_SHOTGUN.get(), new DoubleBarrelShotgunModel());
         ModelOverrides.register(ModItems.HOLY_SHOTGUN.get(), new HolyShotgunModel());
+        ModelOverrides.register(ModItems.ATLANTEAN_SPEAR.get(), new AtlanteanSpearModel());
+        ModelOverrides.register(ModItems.TYPHOONEE.get(), new TyphooneeModel());
+        //ModelOverrides.register(ModItems.BUBBLE_CANNON.get(), new BubbleCannonModel());
     }
 
     private static void registerScreenFactories() {

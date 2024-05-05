@@ -43,7 +43,7 @@ public class BooNest extends BeehiveBlock
         ItemStack itemstack = player.getItemInHand(handIn);
         int i = state.getValue(HONEY_LEVEL);
         if (i >= 5) {
-            if (itemstack.getItem() == Items.AIR) {
+            if (itemstack.getItem() == Items.AIR || itemstack.getItem() == Items.SHEARS) {
                 worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BEEHIVE_ENTER, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 popResource(worldIn, pos, new ItemStack(ModItems.ECTOPLASM.get(), 5));
                 this.resetHoneyLevel(worldIn, state, pos);

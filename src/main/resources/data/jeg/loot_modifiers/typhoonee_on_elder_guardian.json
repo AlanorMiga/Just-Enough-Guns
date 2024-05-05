@@ -1,0 +1,10 @@
+{
+  "type": "jeg:typhoonee_on_elder_guardian",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/elder_guardian"
+    }
+  ],
+  "item": "jeg:typhoonee"
+}

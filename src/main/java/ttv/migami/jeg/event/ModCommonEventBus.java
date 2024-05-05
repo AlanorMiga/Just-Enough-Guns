@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
+import ttv.migami.jeg.entity.Bubble;
 import ttv.migami.jeg.entity.monster.Ghoul;
 import ttv.migami.jeg.init.ModEntities;
 
@@ -20,6 +21,7 @@ public class ModCommonEventBus {
     public static void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.GHOUL.get(), Ghoul.createAttributes().build());
         event.put(ModEntities.BOO.get(), Bee.createAttributes().build());
+        event.put(ModEntities.BUBBLE.get(), Bubble.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -40,7 +42,5 @@ public class ModCommonEventBus {
                 SpawnPlacementRegisterEvent.Operation.OR
         );
     }
-
-
 
 }
