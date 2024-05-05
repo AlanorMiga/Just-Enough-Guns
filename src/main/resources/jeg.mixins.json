@@ -8,7 +8,8 @@
     "mixins": [
         "common.EndPortalBlockMixin",
         "common.LivingEntityMixin",
-        "common.SittingPhaseMixin"
+        "common.SittingPhaseMixin",
+        "common.LeadItemMixin"
     ],
     "client": [
         "client.GameRendererMixin",

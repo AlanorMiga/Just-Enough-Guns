@@ -22,6 +22,8 @@ public class EntityTagGen extends EntityTypeTagsProvider
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
+        this.tag(ModTags.Entities.NONE);
+
         this.tag(ModTags.Entities.HEAVY)
                 .add(EntityType.GHAST)
                 .add(EntityType.HOGLIN)
@@ -68,6 +70,7 @@ public class EntityTagGen extends EntityTypeTagsProvider
                 .add(EntityType.PIGLIN_BRUTE)
                 .add(EntityType.STRIDER)
                 .add(EntityType.WITHER)
-                .add(EntityType.WITHER_SKELETON);
+                .add(EntityType.WITHER_SKELETON)
+                .add(EntityType.ENDERMAN);
     }
 }

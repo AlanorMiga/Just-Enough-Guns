@@ -8,6 +8,7 @@
   },
   "general": {
     "alwaysSpread": true,
+    "fireMode": "jeg:semi_automatic",
     "gripType": "jeg:two_handed",
     "projectileAmount": 18,
     "rate": 8,
@@ -23,7 +24,7 @@
     }
   },
   "projectile": {
-    "advantage": "None",
+    "advantage": "jeg:none",
     "damage": 20.0,
     "item": "jeg:handmade_shell",
     "life": 10,
@@ -33,9 +34,10 @@
   },
   "reloads": {
     "emptyMagTimer": 0,
-    "magFed": true,
     "maxAmmo": 1,
-    "reloadTimer": 45
+    "reloadItem": "jeg:scrap",
+    "reloadTimer": 45,
+    "reloadType": "jeg:mag_fed"
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

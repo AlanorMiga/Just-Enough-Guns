@@ -33,6 +33,8 @@ public class CustomGunLoader extends SimpleJsonResourceReloadListener
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(ResourceLocation.class, JsonDeserializers.RESOURCE_LOCATION);
         builder.registerTypeAdapter(ItemStack.class, JsonDeserializers.ITEM_STACK);
+        builder.registerTypeAdapter(FireMode.class, JsonDeserializers.FIRE_MODE);
+        builder.registerTypeAdapter(ReloadType.class, JsonDeserializers.RELOAD_TYPE);
         builder.registerTypeAdapter(GripType.class, JsonDeserializers.GRIP_TYPE);
         return builder.create();
     });

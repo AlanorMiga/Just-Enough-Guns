@@ -20,6 +20,12 @@ public class ModLootModifiers {
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> TECH_TRASH_SIMPLE_DUNGEON =
             LOOT_MODIFIER_SERIALIZERS.register("tech_trash_on_simple_dungeon", TechTrashOnSimpleDungeonModifier.CODEC);
 
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ATLANTEAN_SPEAR_SHIPWRECK_TREASURE =
+            LOOT_MODIFIER_SERIALIZERS.register("atlantean_spear_on_shipwreck_treasure", AtlanteanSpearOnShipwreckTreasureModifier.CODEC);
+
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> TYPHOONE_ELDER_GUARDIAN =
+            LOOT_MODIFIER_SERIALIZERS.register("typhoonee_on_elder_guardian", TyphooneeOnElderGuardianModifier.CODEC);
+
 
     public static void register(IEventBus bus) {
         LOOT_MODIFIER_SERIALIZERS.register(bus);

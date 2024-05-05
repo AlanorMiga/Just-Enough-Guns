@@ -98,6 +98,15 @@ public enum SpecialModels {
     HOLY_SHOTGUN_GRIP_VERTICAL("holy_shotgun/grip_vertical"),
     HOLY_SHOTGUN_GRIP_ANGLED("holy_shotgun/grip_angled"),
 
+    TYPHOONEE("gun/typhoonee"),
+    TYPHOONEE_MAIN("typhoonee/main"),
+
+    ATLANTEAN_SPEAR("gun/atlantean_spear"),
+    ATLANTEAN_SPEAR_MAIN("atlantean_spear/main"),
+
+    BUBBLE_CANNON("gun/bubble_cannon"),
+    BUBBLE_CANNON_MAIN("bubble_cannon/main"),
+
     FLAME("flame");
 
     /**

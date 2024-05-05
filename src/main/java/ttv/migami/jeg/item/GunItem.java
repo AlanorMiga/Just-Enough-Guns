@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -17,8 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.jeg.JustEnoughGuns;
 import ttv.migami.jeg.client.GunItemStackRenderer;
 import ttv.migami.jeg.client.KeyBinds;
-import ttv.migami.jeg.common.Gun;
-import ttv.migami.jeg.common.NetworkGunManager;
+import ttv.migami.jeg.common.*;
 import ttv.migami.jeg.debug.Debug;
 import ttv.migami.jeg.enchantment.EnchantmentTypes;
 import ttv.migami.jeg.init.ModItems;
@@ -53,7 +53,15 @@ public class GunItem extends Item implements IColored, IMeta {
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
         Gun modifiedGun = this.getModifiedGun(stack);
 
+        String fireMode = modifiedGun.getGeneral().getFireMode().getId().toString();
+        tooltip.add(Component.translatable("info.jeg.fire_mode").withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable("fire_mode." + fireMode).withStyle(ChatFormatting.WHITE)));
+
         Item ammo = ForgeRegistries.ITEMS.getValue(modifiedGun.getProjectile().getItem());
+        Item reloadItem = ForgeRegistries.ITEMS.getValue(modifiedGun.getReloads().getReloadItem());
+        if (modifiedGun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM) {
+            ammo = reloadItem;
+        }
         if (ammo != null) {
             tooltip.add(Component.translatable("info.jeg.ammo_type", Component.translatable(ammo.getDescriptionId()).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
         }
@@ -74,12 +82,12 @@ public class GunItem extends Item implements IColored, IMeta {
         }
 
         float damage = modifiedGun.getProjectile().getDamage();
-        String advantage = modifiedGun.getProjectile().getAdvantage();
+        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
         damage = GunModifierHelper.getModifiedProjectileDamage(stack, damage);
         damage = GunEnchantmentHelper.getAcceleratorDamage(stack, damage);
         tooltip.add(Component.translatable("info.jeg.damage", ChatFormatting.WHITE + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damage) + additionalDamageText).withStyle(ChatFormatting.GRAY));
 
-        if (!Objects.equals(advantage, "None"))
+        if (!advantage.equals(ModTags.Entities.NONE.location()))
         {
             tooltip.add(Component.translatable("info.jeg.advantage").withStyle(ChatFormatting.GRAY)
                     .append(Component.translatable("advantage." + advantage).withStyle(ChatFormatting.GOLD)));
@@ -95,6 +103,14 @@ public class GunItem extends Item implements IColored, IMeta {
         }
 
         tooltip.add(Component.translatable("info.jeg.attachment_help", KeyBinds.KEY_ATTACHMENTS.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH)).withStyle(ChatFormatting.YELLOW));
+
+        if (this instanceof TyphooneeItem) {
+            tooltip.add(Component.translatable("info.jeg.tooltip_item.typhoonee").withStyle(ChatFormatting.GRAY));
+        }
+        else if (this instanceof AtlanteanSpearItem) {
+            tooltip.add(Component.translatable("info.jeg.tooltip_item.atlantean_spear").withStyle(ChatFormatting.GRAY));
+        }
+
     }
 
     @Override
@@ -164,7 +180,7 @@ public class GunItem extends Item implements IColored, IMeta {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (enchantment.category == EnchantmentTypes.SEMI_AUTO_GUN) {
             Gun modifiedGun = this.getModifiedGun(stack);
-            return !modifiedGun.getGeneral().isAuto();
+            return (modifiedGun.getGeneral().getFireMode() != FireMode.AUTOMATIC);
         }
         return super.canApplyAtEnchantingTable(stack, enchantment);
     }

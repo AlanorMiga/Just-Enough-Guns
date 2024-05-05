@@ -22,10 +22,15 @@ public class GunEntityRenderers
     {
         event.registerEntityRenderer(ModEntities.PROJECTILE.get(), ProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.SPECTRE_PROJECTILE.get(), ProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.WATER_PROJECTILE.get(), ProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.WATER_BOMB.get(), ProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.POCKET_BUBBLE.get(), ProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.GRENADE.get(), GrenadeRenderer::new);
         event.registerEntityRenderer(ModEntities.MISSILE.get(), MissileRenderer::new);
         event.registerEntityRenderer(ModEntities.THROWABLE_GRENADE.get(), ThrowableGrenadeRenderer::new);
         event.registerEntityRenderer(ModEntities.THROWABLE_STUN_GRENADE.get(), ThrowableGrenadeRenderer::new);
         event.registerEntityRenderer(ModEntities.THROWABLE_MOLOTOV_COCKTAIL.get(), ThrowableGrenadeRenderer::new);
+        event.registerEntityRenderer(ModEntities.THROWABLE_WATER_BOMB.get(), ThrowableGrenadeRenderer::new);
+        event.registerEntityRenderer(ModEntities.THROWABLE_POCKET_BUBBLE.get(), ThrowableGrenadeRenderer::new);
     }
 }

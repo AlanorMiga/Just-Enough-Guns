@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
-import ttv.migami.jeg.entity.GrenadeEntity;
+import ttv.migami.jeg.entity.throwable.GrenadeEntity;
 
 /**
  * Author: MrCrayfish

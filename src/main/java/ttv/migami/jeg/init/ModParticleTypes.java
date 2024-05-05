@@ -36,4 +36,5 @@ public class ModParticleTypes {
     public static final RegistryObject<SimpleParticleType> HEALING_GLINT = REGISTER.register("healing_glint", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> GHOST_FLAME = REGISTER.register("ghost_flame", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> GHOST_GLINT = REGISTER.register("ghost_glint", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> TYPHOONEE_BEAM = REGISTER.register("typhoonee_beam", () -> new SimpleParticleType(true));
 }

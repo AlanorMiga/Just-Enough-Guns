@@ -19,6 +19,7 @@ import ttv.migami.jeg.client.GunButtonBindings;
 import ttv.migami.jeg.client.screen.GunmetalWorkbenchScreen;
 import ttv.migami.jeg.client.screen.GunniteWorkbenchScreen;
 import ttv.migami.jeg.client.screen.ScrapWorkbenchScreen;
+import ttv.migami.jeg.common.FireMode;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.init.ModSyncedDataKeys;
 import ttv.migami.jeg.item.GunItem;
@@ -234,7 +235,7 @@ public class ControllerHandler
             if(heldItem.getItem() instanceof GunItem)
             {
                 Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
-                if(gun.getGeneral().isAuto())
+                if(gun.getGeneral().getFireMode() == FireMode.AUTOMATIC)
                 {
                     ShootingHandler.get().fire(player, heldItem);
                 }
