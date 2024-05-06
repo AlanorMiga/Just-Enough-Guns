@@ -6,12 +6,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.jeg.Config;
 import ttv.migami.jeg.Reference;
 import ttv.migami.jeg.init.ModSyncedDataKeys;
@@ -74,13 +78,18 @@ public class ReloadTracker
 
     private boolean hasNoAmmo(Player player)
     {
+        if (gun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM) {
+            return Gun.findAmmo(player, this.gun.getReloads().getReloadItem()).stack().isEmpty();
+        }
         return Gun.findAmmo(player, this.gun.getProjectile().getItem()).stack().isEmpty();
     }
 
     private boolean canReload(Player player)
     {
-        if(gun.getReloads().isMagFed())
+        if(gun.getReloads().getReloadType() == ReloadType.MAG_FED ||
+                gun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM)
         {
+            // Extra penalization if the gun is empty
             if(this.isWeaponEmpty())
             {
                 int deltaTicks = player.tickCount - this.startTick;
@@ -163,6 +172,49 @@ public class ReloadTracker
         }
     }
 
+    private void reloadItem(Player player) {
+        AmmoContext context = Gun.findAmmo(player, this.gun.getReloads().getReloadItem());
+        ItemStack ammo = context.stack();
+        if (!ammo.isEmpty()) {
+            CompoundTag tag = this.stack.getTag();
+            if (tag != null) {
+                int maxAmmo = GunEnchantmentHelper.getAmmoCapacity(this.stack, this.gun);
+                tag.putInt("AmmoCount", maxAmmo);
+                ammo.shrink(1);
+            }
+
+            // Trigger that the container changed
+            Container container = context.container();
+            if (container != null) {
+                container.setChanged();
+            }
+        }
+
+        Item waterBucket = Items.WATER_BUCKET;
+        ResourceLocation waterBucketLocation = ForgeRegistries.ITEMS.getKey(waterBucket);
+        if (this.gun.getReloads().getReloadItem().equals(waterBucketLocation)) {
+            Item bucket = Items.BUCKET;
+            ResourceLocation bucketLocation = ForgeRegistries.ITEMS.getKey(bucket);
+            Item item = ForgeRegistries.ITEMS.getValue(bucketLocation);
+            if (item != null) {
+                ItemStack itemStack = new ItemStack(item);
+
+                player.level.addFreshEntity(new ItemEntity(player.level, player.getX(), player.getY(), player.getZ(), itemStack.copy()));
+            }
+        }
+
+        ResourceLocation reloadSound = this.gun.getSounds().getReload();
+        if(reloadSound != null)
+        {
+            double radius = Config.SERVER.reloadMaxDistance.get();
+            double soundX = player.getX();
+            double soundY = player.getY() + 1.0;
+            double soundZ = player.getZ();
+            S2CMessageGunSound message = new S2CMessageGunSound(reloadSound, SoundSource.PLAYERS, (float) soundX, (float) soundY, (float) soundZ, 1.0F, 1.0F, player.getId(), false, true);
+            PacketHandler.getPlayChannel().sendToNearbyPlayers(() -> LevelLocation.create(player.level, soundX, soundY, soundZ, radius), message);
+        }
+    }
+
     private void increaseAmmo(Player player)
     {
         AmmoContext context = Gun.findAmmo(player, this.gun.getProjectile().getItem());
@@ -227,10 +279,13 @@ public class ReloadTracker
                 {
                     final Player finalPlayer = player;
                     final Gun gun = tracker.gun;
-                    if(gun.getReloads().isMagFed()) {
+                    if(gun.getReloads().getReloadType() == ReloadType.MAG_FED) {
                         tracker.increaseMagAmmo(player);
                     }
-                    else if(!gun.getReloads().isMagFed()) {
+                    else if(gun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM) {
+                        tracker.reloadItem(player);
+                    }
+                    else if(gun.getReloads().getReloadType() == ReloadType.MANUAL) {
                         tracker.increaseAmmo(player);
                     }
                     if(tracker.isWeaponFull() || tracker.hasNoAmmo(player))

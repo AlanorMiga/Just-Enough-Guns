@@ -183,6 +183,22 @@
       }
     ]
   },
+  "item.typhoonee.fire": {
+    "subtitle": "subtitle.jeg.typhoonee_fire",
+    "sounds": [
+      {
+        "name": "jeg:item/typhoonee/fire"
+      }
+    ]
+  },
+  "item.typhoonee.prefire": {
+    "subtitle": "subtitle.jeg.typhoonee_prefire",
+    "sounds": [
+      {
+        "name": "jeg:item/typhoonee/prefire"
+      }
+    ]
+  },
   "item.pistol.silenced_fire": {
     "subtitle": "subtitle.jeg.fire.silenced",
     "sounds": [

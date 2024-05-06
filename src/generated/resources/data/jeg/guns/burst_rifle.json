@@ -8,9 +8,8 @@
   },
   "general": {
     "alwaysSpread": true,
-    "auto": true,
-    "burst": true,
     "burstAmount": 3,
+    "fireMode": "jeg:burst",
     "gripType": "jeg:two_handed",
     "rate": 2,
     "recoilAngle": 2.0,
@@ -53,9 +52,10 @@
   },
   "reloads": {
     "emptyMagTimer": 10,
-    "magFed": true,
     "maxAmmo": 30,
-    "reloadTimer": 30
+    "reloadItem": "jeg:scrap",
+    "reloadTimer": 30,
+    "reloadType": "jeg:mag_fed"
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

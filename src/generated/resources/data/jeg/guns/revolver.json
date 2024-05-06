@@ -7,6 +7,7 @@
     }
   },
   "general": {
+    "fireMode": "jeg:semi_automatic",
     "gripType": "jeg:one_handed",
     "rate": 3,
     "recoilAngle": 4.0,
@@ -30,7 +31,7 @@
     }
   },
   "projectile": {
-    "advantage": "None",
+    "advantage": "jeg:none",
     "damage": 5.0,
     "gravity": true,
     "item": "jeg:pistol_ammo",
@@ -42,7 +43,9 @@
   "reloads": {
     "emptyMagTimer": 10,
     "maxAmmo": 8,
-    "reloadTimer": 30
+    "reloadItem": "jeg:scrap",
+    "reloadTimer": 30,
+    "reloadType": "jeg:manual"
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

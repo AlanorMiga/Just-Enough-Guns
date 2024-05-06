@@ -8,6 +8,7 @@
   },
   "general": {
     "alwaysSpread": true,
+    "fireMode": "jeg:semi_automatic",
     "gripType": "jeg:two_handed",
     "projectileAmount": 12,
     "rate": 22,
@@ -54,7 +55,9 @@
   "reloads": {
     "emptyMagTimer": 0,
     "maxAmmo": 6,
-    "reloadTimer": 0
+    "reloadItem": "jeg:scrap",
+    "reloadTimer": 0,
+    "reloadType": "jeg:manual"
   },
   "sounds": {
     "cock": "jeg:item.pistol.cock",

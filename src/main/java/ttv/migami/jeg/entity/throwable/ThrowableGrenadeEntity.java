@@ -6,7 +6,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import ttv.migami.jeg.Config;
-import ttv.migami.jeg.entity.GrenadeEntity;
 import ttv.migami.jeg.init.ModEntities;
 import ttv.migami.jeg.init.ModItems;
 
@@ -56,6 +55,11 @@ public class ThrowableGrenadeEntity extends ThrowableItemEntity
         {
             this.rotation += speed * 50;
         }*/
+        particleTick();
+    }
+
+    public void particleTick()
+    {
         if (this.level.isClientSide)
         {
             this.level.addParticle(ParticleTypes.SMOKE, true, this.getX(), this.getY() + 0.25, this.getZ(), 0, 0, 0);

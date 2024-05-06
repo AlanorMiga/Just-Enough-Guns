@@ -2,10 +2,9 @@ package ttv.migami.jeg.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import ttv.migami.jeg.Reference;
-import ttv.migami.jeg.common.GripType;
-import ttv.migami.jeg.common.Gun;
-import ttv.migami.jeg.common.ModTags;
+import ttv.migami.jeg.common.*;
 import ttv.migami.jeg.init.ModItems;
 import ttv.migami.jeg.init.ModSounds;
 
@@ -26,7 +25,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "revolver"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(3)
                 .setGripType(GripType.ONE_HANDED)
                 .setRecoilKick(0.33F)
@@ -36,7 +35,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(8)
-                .setMagFed(false)
+                .setReloadType(ReloadType.MANUAL)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -71,7 +70,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "waterpipe_shotgun"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(8)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.5F)
@@ -82,7 +81,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(1)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(45)
                 .setEmptyMagTimer(0)
 
@@ -114,7 +113,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "custom_smg"), Gun.Builder.create()
 
                 // General
-                .setAuto(true)
+                .setFireMode(FireMode.AUTOMATIC)
                 .setFireRate(2)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.33F)
@@ -124,7 +123,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(24)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -160,7 +159,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "double_barrel_shotgun"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(8)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.5F)
@@ -171,7 +170,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(2)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(60)
                 .setEmptyMagTimer(0)
 
@@ -205,7 +204,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "semi_auto_rifle"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(4)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.15F)
@@ -215,7 +214,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(16)
-                .setMagFed(false)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -253,7 +252,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "assault_rifle"), Gun.Builder.create()
 
                 // General
-                .setAuto(true)
+                .setFireMode(FireMode.AUTOMATIC)
                 .setFireRate(3)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.22F)
@@ -263,7 +262,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(30)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -301,7 +300,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "pump_shotgun"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(22)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.5F)
@@ -312,7 +311,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(6)
-                .setMagFed(false)
+                .setReloadType(ReloadType.MANUAL)
                 .setReloadTimer(0)
                 .setEmptyMagTimer(0)
 
@@ -321,7 +320,7 @@ public class GunGen extends GunProvider
                 .setEjectsCasing(true)
                 .setProjectileVisible(false)
                 .setDamage(20F)
-                .setAdvantage(ModTags.Entities.HEAVY.location().toString())
+                .setAdvantage(ModTags.Entities.HEAVY.location())
                 .setReduceDamageOverLife(true)
                 .setProjectileSize(0.05F)
                 .setProjectileSpeed(6F)
@@ -353,7 +352,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "bolt_action_rifle"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(28)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.25F)
@@ -363,7 +362,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(4)
-                .setMagFed(false)
+                .setReloadType(ReloadType.MANUAL)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -372,7 +371,7 @@ public class GunGen extends GunProvider
                 .setEjectsCasing(true)
                 .setProjectileVisible(false)
                 .setDamage(21F)
-                .setAdvantage(ModTags.Entities.VERY_HEAVY.location().toString())
+                .setAdvantage(ModTags.Entities.VERY_HEAVY.location())
                 .setProjectileSize(0.05F)
                 .setProjectileSpeed(24F)
                 .setProjectileLife(60)
@@ -398,8 +397,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "burst_rifle"), Gun.Builder.create()
 
                 // General
-                .setAuto(true)
-                .setBurst(true)
+                .setFireMode(FireMode.BURST)
                 .setBurstAmount(3)
                 .setFireRate(2)
                 .setGripType(GripType.TWO_HANDED)
@@ -410,7 +408,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(30)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -419,7 +417,7 @@ public class GunGen extends GunProvider
                 .setEjectsCasing(true)
                 .setProjectileVisible(false)
                 .setDamage(7.0F)
-                .setAdvantage(ModTags.Entities.HEAVY.location().toString())
+                .setAdvantage(ModTags.Entities.HEAVY.location())
                 .setProjectileSize(0.05F)
                 .setProjectileSpeed(16F)
                 .setProjectileLife(80)
@@ -449,7 +447,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "combat_rifle"), Gun.Builder.create()
 
                 // General
-                .setAuto(true)
+                .setFireMode(FireMode.AUTOMATIC)
                 .setFireRate(3)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.25F)
@@ -459,7 +457,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(30)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -468,7 +466,7 @@ public class GunGen extends GunProvider
                 .setEjectsCasing(true)
                 .setProjectileVisible(false)
                 .setDamage(8.0F)
-                .setAdvantage(ModTags.Entities.HEAVY.location().toString())
+                .setAdvantage(ModTags.Entities.HEAVY.location())
                 .setProjectileSize(0.05F)
                 .setProjectileSpeed(16F)
                 .setProjectileLife(80)
@@ -499,7 +497,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "blossom_rifle"), Gun.Builder.create()
 
                 // General
-                .setAuto(true)
+                .setFireMode(FireMode.AUTOMATIC)
                 .setFireRate(2)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.25F)
@@ -509,7 +507,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(30)
-                .setMagFed(true)
+                .setReloadType(ReloadType.MAG_FED)
                 .setReloadTimer(30)
                 .setEmptyMagTimer(10)
 
@@ -518,7 +516,7 @@ public class GunGen extends GunProvider
                 .setEjectsCasing(true)
                 .setProjectileVisible(false)
                 .setDamage(6.75F)
-                .setAdvantage(ModTags.Entities.UNDEAD.location().toString())
+                .setAdvantage(ModTags.Entities.UNDEAD.location())
                 .setProjectileSize(0.1F)
                 .setProjectileSpeed(8F)
                 .setProjectileLife(80)
@@ -548,7 +546,7 @@ public class GunGen extends GunProvider
         this.addGun(new ResourceLocation(Reference.MOD_ID, "holy_shotgun"), Gun.Builder.create()
 
                 // General
-                .setAuto(false)
+                .setFireMode(FireMode.SEMI_AUTO)
                 .setFireRate(14)
                 .setGripType(GripType.TWO_HANDED)
                 .setRecoilKick(0.5F)
@@ -559,7 +557,7 @@ public class GunGen extends GunProvider
 
                 // Reloads
                 .setMaxAmmo(8)
-                .setMagFed(false)
+                .setReloadType(ReloadType.MANUAL)
                 .setReloadTimer(0)
                 .setEmptyMagTimer(0)
 
@@ -568,13 +566,13 @@ public class GunGen extends GunProvider
                 .setEjectsCasing(true)
                 .setProjectileVisible(false)
                 .setDamage(20F)
-                .setAdvantage(ModTags.Entities.UNDEAD.location().toString())
+                .setAdvantage(ModTags.Entities.UNDEAD.location())
                 .setReduceDamageOverLife(true)
                 .setProjectileSize(0.05F)
                 .setProjectileSpeed(8F)
                 .setProjectileLife(10)
                 .setProjectileTrailLengthMultiplier(2)
-                .setProjectileTrailColor(0xFFFF00)
+                .setProjectileTrailColor(0x00DCFF)
                 .setProjectileAffectedByGravity(false)
 
                 // Sounds
@@ -595,6 +593,148 @@ public class GunGen extends GunProvider
                 .setUnderBarrel(0.0F, 0.0, 1.77, 2.125)
 
                 .build());
+
+        /* Water Tier */
+        this.addGun(new ResourceLocation(Reference.MOD_ID, "atlantean_spear"), Gun.Builder.create()
+
+                // General
+                .setFireMode(FireMode.SEMI_AUTO)
+                .setFireRate(32)
+                .setFireTimer(20)
+                .setGripType(GripType.TWO_HANDED)
+                .setRecoilKick(0.5F)
+                .setRecoilAngle(4.0F)
+                .setAlwaysSpread(false)
+                .setSpread(0.0F)
+
+                // Reloads
+                .setMaxAmmo(6)
+                .setReloadType(ReloadType.MANUAL)
+                .setReloadTimer(30)
+                .setEmptyMagTimer(0)
+
+                // Projectile
+                .setAmmo(ModItems.WATER_BOMB.get())
+                .setEjectsCasing(false)
+                .setProjectileVisible(false)
+                .setDamage(10F)
+                .setAdvantage(ModTags.Entities.FIRE.location())
+                .setReduceDamageOverLife(true)
+                .setProjectileSize(0.05F)
+                .setProjectileSpeed(3F)
+                .setProjectileLife(40)
+                .setProjectileTrailLengthMultiplier(0)
+                .setProjectileTrailColor(0x00DCFF)
+                .setProjectileAffectedByGravity(false)
+
+                // Sounds
+                .setFireSound(ModSounds.TYPHOONEE_FIRE.get())
+                .setReloadSound(ModSounds.ITEM_PISTOL_RELOAD.get())
+                .setCockSound(ModSounds.ITEM_PISTOL_COCK.get())
+                .setEnchantedFireSound(ModSounds.TYPHOONEE_FIRE.get())
+                .setPreFireSound(ModSounds.TYPHOONEE_PREFIRE.get())
+
+                // Attachments
+                .setMuzzleFlash(0.8, 0.0, 2.05, -4.03)
+                .setZoom(Gun.Modules.Zoom.builder()
+                        .setFovModifier(0.6F)
+                        .setOffset(0.0, 3.825, -1.25))
+
+                .build());
+
+        this.addGun(new ResourceLocation(Reference.MOD_ID, "typhoonee"), Gun.Builder.create()
+
+                // General
+                .setFireMode(FireMode.PULSE)
+                .setFireRate(32)
+                .setFireTimer(20)
+                .setGripType(GripType.TWO_HANDED)
+                .setRecoilKick(0.5F)
+                .setRecoilAngle(8.0F)
+                .setAlwaysSpread(false)
+                .setSpread(0.0F)
+
+                // Reloads
+                .setReloadItem(Items.WATER_BUCKET)
+                .setMaxAmmo(8)
+                .setReloadType(ReloadType.SINGLE_ITEM)
+                .setReloadTimer(60)
+                .setEmptyMagTimer(20)
+
+                // Projectile
+                .setAmmo(ModItems.POCKET_BUBBLE.get())
+                .setEjectsCasing(false)
+                .setProjectileVisible(false)
+                .setDamage(10F)
+                .setAdvantage(ModTags.Entities.FIRE.location())
+                .setReduceDamageOverLife(true)
+                .setProjectileSize(0.05F)
+                .setProjectileSpeed(10F)
+                .setProjectileLife(3)
+                .setProjectileTrailLengthMultiplier(0)
+                .setProjectileTrailColor(0x00DCFF)
+                .setProjectileAffectedByGravity(false)
+
+                // Sounds
+                .setFireSound(ModSounds.TYPHOONEE_FIRE.get())
+                .setReloadSound(ModSounds.ITEM_PISTOL_RELOAD.get())
+                .setCockSound(ModSounds.ITEM_PISTOL_COCK.get())
+                .setEnchantedFireSound(ModSounds.TYPHOONEE_FIRE.get())
+                .setPreFireSound(ModSounds.TYPHOONEE_PREFIRE.get())
+
+                // Attachments
+                .setMuzzleFlash(0.8, 0.0, 2.5, -3.03)
+                .setZoom(Gun.Modules.Zoom.builder()
+                        .setFovModifier(0.6F)
+                        .setOffset(0.0, 4.45, -1.25))
+
+                .build());
+
+        /* TODO: Revisit this one boi!
+        this.addGun(new ResourceLocation(Reference.MOD_ID, "bubble_cannon"), Gun.Builder.create()
+
+                // General
+                .setFireMode(FireMode.BURST)
+                .setBurstAmount(3)
+                .setFireRate(2)
+                .setGripType(GripType.TWO_HANDED)
+                .setRecoilKick(0.15F)
+                .setRecoilAngle(3.0F)
+                .setAlwaysSpread(true)
+                .setSpread(10.0F)
+
+                // Reloads
+                .setMaxAmmo(3)
+                .setReloadType(ReloadType.MANUAL)
+                .setReloadTimer(30)
+                .setEmptyMagTimer(10)
+
+                // Projectile
+                .setAmmo(ModItems.POCKET_BUBBLE.get())
+                .setEjectsCasing(true)
+                .setProjectileVisible(false)
+                .setDamage(8.0F)
+                .setAdvantage(ModTags.Entities.FIRE.location())
+                .setProjectileSize(0.05F)
+                .setProjectileSpeed(2F)
+                .setProjectileLife(200)
+                .setProjectileTrailLengthMultiplier(2)
+                .setProjectileTrailColor(0xFFFF00)
+                .setProjectileAffectedByGravity(true)
+
+                // Sounds
+                .setFireSound(ModSounds.TYPHOONEE_FIRE.get())
+                .setReloadSound(ModSounds.ITEM_PISTOL_RELOAD.get())
+                .setCockSound(ModSounds.ITEM_PISTOL_COCK.get())
+                .setEnchantedFireSound(ModSounds.TYPHOONEE_FIRE.get())
+
+                // Attachments
+                .setMuzzleFlash(0.8, 0.0, 2.5, -3.03)
+                .setZoom(Gun.Modules.Zoom.builder()
+                        .setFovModifier(0.6F)
+                        .setOffset(0.0, 4.45, -1.25))
+
+                .build());*/
 
     }
 }

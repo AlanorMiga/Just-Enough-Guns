@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import ttv.migami.jeg.entity.throwable.ThrowableGrenadeEntity;
+import ttv.migami.jeg.init.ModItems;
 import ttv.migami.jeg.init.ModSounds;
 
 /**
@@ -52,13 +53,25 @@ public class GrenadeItem extends AmmoItem
     {
         ItemStack stack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
+
+        if (!worldIn.isClientSide()) {
+            if (playerIn instanceof Player) {
+                Player player = (Player) playerIn;
+                if (player.isUnderWater()) {
+                    player.getInventory().add(new ItemStack(ModItems.WATER_BOMB.get()));
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                    stack.shrink(1);
+                }
+            }
+        }
+
         return InteractionResultHolder.consume(stack);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving)
     {
-        if(this.canCook() && !worldIn.isClientSide())
+        if(this.canCook() && !worldIn.isClientSide() && !entityLiving.isUnderWater())
         {
             if(!(entityLiving instanceof Player) || !((Player) entityLiving).isCreative())
                 stack.shrink(1);
@@ -75,7 +88,7 @@ public class GrenadeItem extends AmmoItem
     @Override
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft)
     {
-        if(!worldIn.isClientSide())
+        if(!worldIn.isClientSide()  && !entityLiving.isUnderWater())
         {
             int duration = this.getUseDuration(stack) - timeLeft;
             if(duration >= 10)
