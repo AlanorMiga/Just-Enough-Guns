@@ -1,4 +1,4 @@
-package ttv.migami.jeg.entity;
+package ttv.migami.jeg.entity.throwable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
