@@ -95,6 +95,27 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
             ));
 
+    public static final RegistryObject<AtlanteanSpearItem> ATLANTEAN_SPEAR = REGISTER.register("atlantean_spear",
+            () -> new AtlanteanSpearItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(128)
+                    .rarity(Rarity.EPIC)
+            ));
+
+    public static final RegistryObject<TyphooneeItem> TYPHOONEE = REGISTER.register("typhoonee",
+            () -> new TyphooneeItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(128)
+                    .rarity(Rarity.EPIC)
+            ));
+
+    /*public static final RegistryObject<UnderwaterFirearmItem> BUBBLE_CANNON = REGISTER.register("bubble_cannon",
+            () -> new UnderwaterFirearmItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(128)
+                    .rarity(Rarity.EPIC)
+            ));*/
+
     //public static final RegistryObject<Item> GRENADE_LAUNCHER = REGISTER.register("grenade_launcher", () -> new GunItem(new Item.Properties().stacksTo(1)));
     //public static final RegistryObject<Item> BAZOOKA = REGISTER.register("bazooka", () -> new GunItem(new Item.Properties().stacksTo(1)));
 
@@ -103,15 +124,27 @@ public class ModItems {
     public static final RegistryObject<Item> GRENADE = REGISTER.register("grenade",
             () -> new GrenadeItem(new Item.Properties()
                     .stacksTo(16)
-                    , 20 * 4));
+                    , 20 * 4
+            ));
     public static final RegistryObject<Item> STUN_GRENADE = REGISTER.register("stun_grenade",
             () -> new StunGrenadeItem(new Item.Properties()
                     .stacksTo(16)
-                    , 72000));
+                    , 72000
+            ));
     public static final RegistryObject<Item> MOLOTOV_COCKTAIL = REGISTER.register("molotov_cocktail",
             () -> new MolotovCocktailItem(new Item.Properties()
                     .stacksTo(16)
-                    , 72000));
+                    , 72000
+            ));
+    public static final RegistryObject<Item> WATER_BOMB = REGISTER.register("water_bomb",
+            () -> new WaterBombItem(new Item.Properties()
+                    .stacksTo(16)
+                    , 72000
+            ));
+    public static final RegistryObject<Item> POCKET_BUBBLE = REGISTER.register("pocket_bubble",
+            () -> new PocketBubbleItem(new Item.Properties()
+                    .stacksTo(16)
+            ));
 
     /* Ammo */
     public static final RegistryObject<Item> RIFLE_AMMO = REGISTER.register("rifle_ammo",
@@ -138,6 +171,12 @@ public class ModItems {
                     .stacksTo(16)
             ));
 
+    /* Utility Items */
+    /*public static final RegistryObject<Item> GRAPPLING_HOOK = REGISTER.register("grappling_hook",
+            () -> new GrapplingHookItem(new Item.Properties()
+                    .stacksTo(1)
+            ));*/
+
     /* Scope Attachments */
     public static final RegistryObject<Item> HOLOGRAPHIC_SIGHT = REGISTER.register("holographic_sight",
             () -> new ScopeItem(Attachments.HOLOGRAPHIC_SIGHT, new Item.Properties()
@@ -157,24 +196,27 @@ public class ModItems {
                     new Item.Properties()
                             .stacksTo(1)
                             .durability(300)
-
-                    , false));
+                            
+                    , false
+            ));
     public static final RegistryObject<Item> LIGHT_STOCK = REGISTER.register("light_stock",
             () -> new StockItem(Stock.create(
                     GunModifiers.BETTER_CONTROL),
                     new Item.Properties()
                             .stacksTo(1)
                             .durability(600)
-
-                    , false));
+                            
+                    , false
+            ));
     public static final RegistryObject<Item> TACTICAL_STOCK = REGISTER.register("tactical_stock",
             () -> new StockItem(Stock.create(
                     GunModifiers.STABILISED),
                     new Item.Properties()
                             .stacksTo(1)
                             .durability(800)
-
-                    , false));
+                            
+                    , false
+            ));
     public static final RegistryObject<Item> WEIGHTED_STOCK = REGISTER.register("weighted_stock",
             () -> new StockItem(Stock.create(
                     GunModifiers.SUPER_STABILISED),
@@ -192,7 +234,7 @@ public class ModItems {
                             .stacksTo(1)
                             .durability(500)
             ));
-    //GunModifiers.REDUCED_DAMAGE),
+                            //GunModifiers.REDUCED_DAMAGE),
 
     /* Under Barrel Attachments */
     public static final RegistryObject<Item> LIGHT_GRIP = REGISTER.register("light_grip",
@@ -222,17 +264,17 @@ public class ModItems {
     public static final RegistryObject<Item> SCRAP = REGISTER.register("scrap",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> REPAIR_KIT = REGISTER.register("repair_kit",
-            () -> new Item(new Item.Properties()));
+            () -> new ToolTipItem(new Item.Properties()));
     public static final RegistryObject<Item> TECH_TRASH = REGISTER.register("tech_trash",
-            () -> new Item(new Item.Properties()));
+            () -> new ToolTipItem(new Item.Properties()));
     public static final RegistryObject<Item> CIRCUIT_BOARD = REGISTER.register("circuit_board",
             () -> new Item(new Item.Properties()));
     //public static final RegistryObject<Item> SPRING = REGISTER.register("spring",
     //        () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GUNMETAL_GRIT = REGISTER.register("gunmetal_grit",
-            () -> new Item(new Item.Properties()));
+            () -> new ToolTipItem(new Item.Properties()));
     public static final RegistryObject<Item> GUNMETAL_INGOT = REGISTER.register("gunmetal_ingot",
-            () -> new Item(new Item.Properties()));
+            () -> new ToolTipItem(new Item.Properties()));
     public static final RegistryObject<Item> GUNMETAL_NUGGET = REGISTER.register("gunmetal_nugget",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GUNNITE_INGOT = REGISTER.register("gunnite_ingot",
@@ -242,7 +284,7 @@ public class ModItems {
     public static final RegistryObject<Item> BRIMSTONE_CRYSTAL = REGISTER.register("brimstone_crystal",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ECTOPLASM = REGISTER.register("ectoplasm",
-            () -> new Item(new Item.Properties()));
+            () -> new ToolTipItem(new Item.Properties()));
 
     // Mobs
     public static final RegistryObject<Item> GHOUL_SPAWN_TALISMAN = REGISTER.register("ghoul_spawn_talisman",
@@ -252,10 +294,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.BOO, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
     // Fallbacks
-    public static final RegistryObject<Item> SCAR_L_FALLBACK = REGISTER.register("scar_l",
+    /*public static final RegistryObject<Item> SCAR_L_FALLBACK = REGISTER.register("scar_l",
             () -> new FallbackItem(new Item.Properties()));
 
     public static final RegistryObject<Item> HK_G36_FALLBACK = REGISTER.register("hk_g36",
-            () -> new FallbackItem(new Item.Properties()));
+            () -> new FallbackItem(new Item.Properties()));*/
 
 }

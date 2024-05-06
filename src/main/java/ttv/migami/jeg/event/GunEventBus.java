@@ -1,24 +1,44 @@
 package ttv.migami.jeg.event;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
+import ttv.migami.jeg.common.FireMode;
 import ttv.migami.jeg.common.Gun;
+import ttv.migami.jeg.common.ModTags;
+import ttv.migami.jeg.init.ModEffects;
 import ttv.migami.jeg.init.ModItems;
 import ttv.migami.jeg.init.ModParticleTypes;
 import ttv.migami.jeg.init.ModSounds;
 import ttv.migami.jeg.item.GunItem;
+import ttv.migami.jeg.item.TyphooneeItem;
 import ttv.migami.jeg.item.UnderwaterFirearmItem;
 import ttv.migami.jeg.item.attachment.IAttachment;
 
@@ -38,6 +58,12 @@ public class GunEventBus
         {
             Gun gun = gunItem.getModifiedGun(heldItem);
             if (!(heldItem.getItem() instanceof UnderwaterFirearmItem) && player.isUnderWater())
+            {
+                event.setCanceled(true);
+            }
+
+            ItemCooldowns tracker = player.getCooldowns();
+            if(tracker.isOnCooldown(heldItem.getItem()) && gun.getGeneral().getFireMode() == FireMode.PULSE)
             {
                 event.setCanceled(true);
             }
@@ -95,7 +121,37 @@ public class GunEventBus
                     level.playSound(player, player.blockPosition(), SoundEvents.ANVIL_LAND, SoundSource.PLAYERS, 1.0F, 1.75F);
                 }
             }
+
+            float damage = gun.getProjectile().getDamage();
+            if(gunItem instanceof UnderwaterFirearmItem && tag != null) {
+                if (gunItem instanceof TyphooneeItem) {
+                    typhooneeBlast(level, player, damage);
+                }
+            }
         }
+    }
+
+    @SubscribeEvent
+    public static void onTick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        Level level = player.level;
+
+        ItemCooldowns tracker = player.getCooldowns();
+        ItemStack heldItem = player.getMainHandItem();
+        CompoundTag tag = heldItem.getTag();
+        Minecraft mc = Minecraft.getInstance();
+        /*if(heldItem.getItem() instanceof GunItem gunItem) {
+            if(gunItem instanceof AtlaneanSpearItem && tag != null) {
+                if (player.isUnderWater() && !mc.options.keyAttack.isDown() && !tracker.isOnCooldown(gunItem))
+                {
+                    if (tag.getInt("AmmoCount") < gunItem.getGun().getReloads().getMaxAmmo())
+                    {
+                        tag.putInt("AmmoCount", Math.max(0, tag.getInt("AmmoCount") + 1));
+                        level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, SoundSource.PLAYERS, 3.0F, 1.0F);
+                    }
+                }
+            }
+        }*/
     }
 
     public static void broken(ItemStack stack, Level level, Player player) {
@@ -178,6 +234,76 @@ public class GunEventBus
                         underBarrelStack.hurtAndBreak(1, player, null);
                     }
                 }
+            }
+        }
+    }
+
+    public static void typhooneeBlast(Level level, Player player, float damage) {
+        if(!level.isClientSide()) {
+
+            HitResult result = player.pick(64, 0, false);
+            Vec3 userPos = player.getEyePosition();
+            Vec3 targetPos = result.getLocation();
+            Vec3 distanceTo = targetPos.subtract(userPos);
+            Vec3 normal = distanceTo.normalize();
+
+            for(int i = 3; i < Mth.floor(distanceTo.length()); ++i) {
+                Vec3 vec33 = userPos.add(normal.scale((double)i));
+                if (!player.isUnderWater()) {
+                    ((ServerLevel) level).sendParticles(ParticleTypes.SPLASH, vec33.x, vec33.y, vec33.z, 3, 0.3D, 0.3D, 0.3D, 1.0D);
+                    ((ServerLevel) level).sendParticles(ParticleTypes.FALLING_WATER, vec33.x, vec33.y, vec33.z, 1, 0.3D, 0.3D, 0.3D, 0.0D);
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, vec33.x, vec33.y, vec33.z, 1, 0.4D, 0.4D, 0.4D, 0.4D);
+                }
+                else {
+                    ((ServerLevel) level).sendParticles(ParticleTypes.BUBBLE, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    ((ServerLevel) level).sendParticles(ParticleTypes.BUBBLE, vec33.x, vec33.y, vec33.z, 3, 0.4D, 0.4D, 0.4D, 0.4D);
+                }
+                ((ServerLevel) level).sendParticles(ModParticleTypes.TYPHOONEE_BEAM.get(), vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
+
+            // Extinguish fire in a 5 diameter (2 blocks radius)
+            int radius = 2;
+            BlockPos blockPos = BlockPos.containing(result.getLocation());
+            for (int x = -radius; x <= radius; x++) {
+                for (int y = -radius; y <= radius; y++) {
+                    for (int z = -radius; z <= radius; z++) {
+                        BlockPos blockPos2 = blockPos.offset(x, y, z);
+                        BlockState blockState = level.getBlockState(blockPos2);
+                        if (blockState.getBlock() instanceof FireBlock) {
+                            level.setBlockAndUpdate(blockPos2, Blocks.AIR.defaultBlockState());
+                            level.playSound(null, BlockPos.containing(result.getLocation()), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.2F, 1F);
+                        }
+                    }
+                }
+            }
+
+            EntityHitResult e = ProjectileUtil.getEntityHitResult(level, player, userPos, targetPos, new AABB(userPos, targetPos), TyphooneeItem::canDamage);
+
+
+            if(e != null && e.getEntity() instanceof LivingEntity entity) {
+
+                float advantageMultiplier = 1F;
+                if (entity.getType().is(ModTags.Entities.FIRE))
+                {
+                    advantageMultiplier = 2.0F;
+                }
+
+                if (entity.isOnFire()) {
+                    entity.extinguishFire();
+                    ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD, entity.getX(), entity.getY() + 1, entity.getZ(), 6, 0.3D, 0.3D, 0.3D, 0.0D);
+                }
+                ((ServerLevel) level).sendParticles(ParticleTypes.FALLING_WATER, entity.getX(), entity.getY() + 1, entity.getZ(), 6, 0.3D, 0.3D, 0.3D, 0.0D);
+
+                entity.hurt(player.damageSources().sonicBoom(player), damage * advantageMultiplier);
+                double d1 = 0.5D * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                double d0 = 2.5D * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+                entity.push(normal.x() * d0, normal.y() * d1, normal.z() * d0);
+
+                entity.addEffect(new MobEffectInstance(ModEffects.DEAFENED.get(), 100, 0, false, false));
+                entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 50));
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2));
+
             }
         }
     }

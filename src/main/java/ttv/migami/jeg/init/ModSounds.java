@@ -31,6 +31,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> DOUBLE_BARREL_SHOTGUN_FIRE = register("item.double_barrel_shotgun.fire");
     public static final RegistryObject<SoundEvent> HOLY_SHOTGUN_FIRE = register("item.holy_shotgun.fire");
     public static final RegistryObject<SoundEvent> HOLY_SHOTGUN_SILENCED_FIRE = register("item.holy_shotgun.silenced_fire");
+    public static final RegistryObject<SoundEvent> TYPHOONEE_FIRE = register("item.typhoonee.fire");
+    public static final RegistryObject<SoundEvent> TYPHOONEE_PREFIRE = register("item.typhoonee.prefire");
 
     public static final RegistryObject<SoundEvent> ITEM_PISTOL_RELOAD = register("item.pistol.reload");
     public static final RegistryObject<SoundEvent> ITEM_PISTOL_COCK = register("item.pistol.cock");

@@ -29,5 +29,6 @@ public class ParticleFactoryRegistry
         event.registerSpriteSet(ModParticleTypes.HEALING_GLINT.get(), HealingGlintParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GHOST_FLAME.get(), GhostFlameParticle.Provider::new);
         event.registerSpriteSet(ModParticleTypes.GHOST_GLINT.get(), HealingGlintParticle.GhostProvider::new);
+        event.registerSpriteSet(ModParticleTypes.TYPHOONEE_BEAM.get(), TyphooneeBeamParticle.Provider::new);
     }
 }

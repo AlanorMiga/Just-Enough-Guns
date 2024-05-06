@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import ttv.migami.jeg.client.SpecialModels;
 import ttv.migami.jeg.client.util.RenderUtil;
-import ttv.migami.jeg.entity.MissileEntity;
+import ttv.migami.jeg.entity.projectile.MissileEntity;
 
 /**
  * Author: MrCrayfish
