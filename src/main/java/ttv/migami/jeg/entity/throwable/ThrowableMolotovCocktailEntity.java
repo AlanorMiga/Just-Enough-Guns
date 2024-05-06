@@ -50,6 +50,11 @@ public class ThrowableMolotovCocktailEntity extends ThrowableGrenadeEntity
     public void tick()
     {
         super.tick();
+    }
+
+    @Override
+    public void particleTick()
+    {
         if (this.level.isClientSide)
         {
             this.level.addParticle(ParticleTypes.FLAME, true, this.getX(), this.getY() + 0.25, this.getZ(), 0, 0, 0);

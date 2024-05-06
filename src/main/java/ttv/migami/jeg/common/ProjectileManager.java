@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import ttv.migami.jeg.entity.projectile.ProjectileEntity;
 import ttv.migami.jeg.entity.projectile.SpectreProjectileEntity;
+import ttv.migami.jeg.entity.projectile.WaterProjectileEntity;
 import ttv.migami.jeg.init.ModEntities;
 import ttv.migami.jeg.interfaces.IProjectileFactory;
 
@@ -30,6 +31,7 @@ public class ProjectileManager
 
     private final IProjectileFactory DEFAULT_FACTORY = (worldIn, entity, weapon, item, modifiedGun) -> new ProjectileEntity(ModEntities.PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun);
     private final IProjectileFactory SPECTRE_FACTORY = (worldIn, entity, weapon, item, modifiedGun) -> new SpectreProjectileEntity(ModEntities.SPECTRE_PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun);
+    private final IProjectileFactory WATER_FACTORY = (worldIn, entity, weapon, item, modifiedGun) -> new WaterProjectileEntity(ModEntities.WATER_PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun);
     private final Map<ResourceLocation, IProjectileFactory> projectileFactoryMap = new HashMap<>();
 
     /**

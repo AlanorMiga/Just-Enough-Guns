@@ -46,6 +46,7 @@ import ttv.migami.jeg.client.render.gun.IOverrideModel;
 import ttv.migami.jeg.client.render.gun.ModelOverrides;
 import ttv.migami.jeg.client.util.PropertyHelper;
 import ttv.migami.jeg.client.util.RenderUtil;
+import ttv.migami.jeg.common.FireMode;
 import ttv.migami.jeg.common.GripType;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.common.properties.SightAnimation;
@@ -597,7 +598,7 @@ public class GunRenderingHandler
         if(Config.CLIENT.display.cooldownIndicator.get() && heldItem.getItem() instanceof GunItem)
         {
             Gun gun = ((GunItem) heldItem.getItem()).getGun();
-            if(!gun.getGeneral().isAuto())
+            if(gun.getGeneral().getFireMode() != FireMode.AUTOMATIC)
             {
                 float coolDown = player.getCooldowns().getCooldownPercent(heldItem.getItem(), event.renderTickTime);
                 if(coolDown > 0.0F)

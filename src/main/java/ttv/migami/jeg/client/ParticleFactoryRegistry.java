@@ -32,5 +32,6 @@ public class ParticleFactoryRegistry
         particleManager.register(ModParticleTypes.HEALING_GLINT.get(), HealingGlintParticle.Provider::new);
         particleManager.register(ModParticleTypes.GHOST_FLAME.get(), GhostFlameParticle.Provider::new);
         particleManager.register(ModParticleTypes.GHOST_GLINT.get(), HealingGlintParticle.GhostProvider::new);
+        particleManager.register(ModParticleTypes.TYPHOONEE_BEAM.get(), TyphooneeBeamParticle.Provider::new);
     }
 }

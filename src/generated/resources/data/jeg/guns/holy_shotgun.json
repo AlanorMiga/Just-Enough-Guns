@@ -1,5 +1,6 @@
 {
   "general": {
+    "fireMode": "jeg:semi_automatic",
     "rate": 14,
     "gripType": "jeg:two_handed",
     "recoilAngle": 8.0,
@@ -9,7 +10,9 @@
     "spread": 8.0
   },
   "reloads": {
+    "reloadItem": "jeg:scrap",
     "maxAmmo": 8,
+    "reloadType": "jeg:manual",
     "reloadTimer": 0,
     "emptyMagTimer": 0
   },
@@ -22,6 +25,7 @@
     "speed": 8.0,
     "life": 10,
     "damageReduceOverLife": true,
+    "trailColor": 56575,
     "trailLengthMultiplier": 2.0
   },
   "sounds": {

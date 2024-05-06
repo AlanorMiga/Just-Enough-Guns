@@ -96,6 +96,21 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
                     .tab(JustEnoughGuns.GROUP)));
 
+    /* Water Tier */
+    public static final RegistryObject<AtlanteanSpearItem> ATLANTEAN_SPEAR = REGISTER.register("atlantean_spear",
+            () -> new AtlanteanSpearItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(128)
+                    .rarity(Rarity.EPIC)
+                    .tab(JustEnoughGuns.GROUP)));
+
+    public static final RegistryObject<TyphooneeItem> TYPHOONEE = REGISTER.register("typhoonee",
+            () -> new TyphooneeItem(new Item.Properties()
+                    .stacksTo(1)
+                    .durability(128)
+                    .rarity(Rarity.EPIC)
+                    .tab(JustEnoughGuns.GROUP)));
+
     //public static final RegistryObject<Item> GRENADE_LAUNCHER = REGISTER.register("grenade_launcher", () -> new GunItem(new Item.Properties().stacksTo(1)));
     //public static final RegistryObject<Item> BAZOOKA = REGISTER.register("bazooka", () -> new GunItem(new Item.Properties().stacksTo(1)));
 
@@ -116,6 +131,15 @@ public class ModItems {
                     .stacksTo(16)
                     .tab(JustEnoughGuns.GROUP)
                     , 72000));
+    public static final RegistryObject<Item> WATER_BOMB = REGISTER.register("water_bomb",
+            () -> new WaterBombItem(new Item.Properties()
+                    .stacksTo(16)
+                    .tab(JustEnoughGuns.GROUP)
+                    , 72000));
+    public static final RegistryObject<Item> POCKET_BUBBLE = REGISTER.register("pocket_bubble",
+            () -> new PocketBubbleItem(new Item.Properties()
+                    .tab(JustEnoughGuns.GROUP)
+                    .stacksTo(16)));
 
     /* Ammo */
     public static final RegistryObject<Item> RIFLE_AMMO = REGISTER.register("rifle_ammo",
@@ -235,10 +259,10 @@ public class ModItems {
             () -> new Item(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<Item> REPAIR_KIT = REGISTER.register("repair_kit",
-            () -> new Item(new Item.Properties()
+            () -> new ToolTipItem(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<Item> TECH_TRASH = REGISTER.register("tech_trash",
-            () -> new Item(new Item.Properties()
+            () -> new ToolTipItem(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<Item> CIRCUIT_BOARD = REGISTER.register("circuit_board",
             () -> new Item(new Item.Properties()
@@ -246,10 +270,10 @@ public class ModItems {
     //public static final RegistryObject<Item> SPRING = REGISTER.register("spring",
     //        () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GUNMETAL_GRIT = REGISTER.register("gunmetal_grit",
-            () -> new Item(new Item.Properties()
+            () -> new ToolTipItem(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<Item> GUNMETAL_INGOT = REGISTER.register("gunmetal_ingot",
-            () -> new Item(new Item.Properties()
+            () -> new ToolTipItem(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<Item> GUNMETAL_NUGGET = REGISTER.register("gunmetal_nugget",
             () -> new Item(new Item.Properties()
@@ -264,7 +288,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
     public static final RegistryObject<Item> ECTOPLASM = REGISTER.register("ectoplasm",
-            () -> new Item(new Item.Properties()
+            () -> new ToolTipItem(new Item.Properties()
                     .tab(JustEnoughGuns.GROUP)));
 
     // Mobs
@@ -277,10 +301,10 @@ public class ModItems {
                     .tab(JustEnoughGuns.GROUP)));
 
     // Fallbacks
-    public static final RegistryObject<Item> SCAR_L_FALLBACK = REGISTER.register("scar_l",
+    /*public static final RegistryObject<Item> SCAR_L_FALLBACK = REGISTER.register("scar_l",
             () -> new FallbackItem(new Item.Properties()));
 
     public static final RegistryObject<Item> HK_G36_FALLBACK = REGISTER.register("hk_g36",
-            () -> new FallbackItem(new Item.Properties()));
+            () -> new FallbackItem(new Item.Properties()));*/
 
 }

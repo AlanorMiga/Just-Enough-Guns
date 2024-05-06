@@ -45,6 +45,8 @@ public class NetworkGunManager extends SimplePreparableReloadListener<Map<GunIte
     private static final Gson GSON_INSTANCE = Util.make(() -> {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(ResourceLocation.class, JsonDeserializers.RESOURCE_LOCATION);
+        builder.registerTypeAdapter(FireMode.class, JsonDeserializers.FIRE_MODE);
+        builder.registerTypeAdapter(ReloadType.class, JsonDeserializers.RELOAD_TYPE);
         builder.registerTypeAdapter(GripType.class, JsonDeserializers.GRIP_TYPE);
         builder.registerTypeAdapter(Easings.class, JsonDeserializers.EASING);
         builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);

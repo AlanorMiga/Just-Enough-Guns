@@ -10,6 +10,7 @@
     "minecraft:piglin_brute",
     "minecraft:strider",
     "minecraft:wither",
-    "minecraft:wither_skeleton"
+    "minecraft:wither_skeleton",
+    "minecraft:enderman"
   ]
 }

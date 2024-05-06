@@ -2,14 +2,13 @@ package ttv.migami.jeg.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,8 +18,8 @@ import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.jeg.JustEnoughGuns;
 import ttv.migami.jeg.client.GunItemStackRenderer;
-import ttv.migami.jeg.common.Gun;
-import ttv.migami.jeg.common.NetworkGunManager;
+import ttv.migami.jeg.client.KeyBinds;
+import ttv.migami.jeg.common.*;
 import ttv.migami.jeg.debug.Debug;
 import ttv.migami.jeg.enchantment.EnchantmentTypes;
 import ttv.migami.jeg.init.ModItems;
@@ -29,6 +28,7 @@ import ttv.migami.jeg.util.GunModifierHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.function.Consumer;
@@ -54,7 +54,15 @@ public class GunItem extends Item implements IColored, IMeta {
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
         Gun modifiedGun = this.getModifiedGun(stack);
 
+        String fireMode = modifiedGun.getGeneral().getFireMode().getId().toString();
+        tooltip.add(new TranslatableComponent("info.jeg.fire_mode").withStyle(ChatFormatting.GRAY)
+                .append(new TranslatableComponent("fire_mode." + fireMode).withStyle(ChatFormatting.WHITE)));
+
         Item ammo = ForgeRegistries.ITEMS.getValue(modifiedGun.getProjectile().getItem());
+        Item reloadItem = ForgeRegistries.ITEMS.getValue(modifiedGun.getReloads().getReloadItem());
+        if (modifiedGun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM) {
+            ammo = reloadItem;
+        }
         if (ammo != null) {
             tooltip.add(new TranslatableComponent("info.jeg.ammo_type", new TranslatableComponent(ammo.getDescriptionId()).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
         }
@@ -75,12 +83,12 @@ public class GunItem extends Item implements IColored, IMeta {
         }
 
         float damage = modifiedGun.getProjectile().getDamage();
-        String advantage = modifiedGun.getProjectile().getAdvantage();
+        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
         damage = GunModifierHelper.getModifiedProjectileDamage(stack, damage);
         damage = GunEnchantmentHelper.getAcceleratorDamage(stack, damage);
         tooltip.add(new TranslatableComponent("info.jeg.damage", ChatFormatting.WHITE + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damage) + additionalDamageText).withStyle(ChatFormatting.GRAY));
 
-        if (!Objects.equals(advantage, "None"))
+        if (!advantage.equals(ModTags.Entities.NONE.location()))
         {
             tooltip.add(new TranslatableComponent("info.jeg.advantage").withStyle(ChatFormatting.GRAY)
                     .append(new TranslatableComponent("advantage." + advantage).withStyle(ChatFormatting.GOLD)));
@@ -94,20 +102,21 @@ public class GunItem extends Item implements IColored, IMeta {
                 tooltip.add(new TranslatableComponent("info.jeg.ammo", ChatFormatting.WHITE.toString() + ammoCount + "/" + GunEnchantmentHelper.getAmmoCapacity(stack, modifiedGun)).withStyle(ChatFormatting.GRAY));
             }
         }
+
+        tooltip.add(new TranslatableComponent("info.jeg.attachment_help", KeyBinds.KEY_ATTACHMENTS.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH)).withStyle(ChatFormatting.YELLOW));
+
+        if (this instanceof TyphooneeItem) {
+            tooltip.add(new TranslatableComponent("info.jeg.tooltip_item.typhoonee").withStyle(ChatFormatting.GRAY));
+        }
+        else if (this instanceof AtlanteanSpearItem) {
+            tooltip.add(new TranslatableComponent("info.jeg.tooltip_item.atlantean_spear").withStyle(ChatFormatting.GRAY));
+        }
+
     }
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
         return true;
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
-        if (this.allowdedIn(group)) {
-            ItemStack stack = new ItemStack(this);
-            stack.getOrCreateTag().putInt("AmmoCount", this.gun.getReloads().getMaxAmmo());
-            stacks.add(stack);
-        }
     }
 
     @Override
@@ -172,7 +181,7 @@ public class GunItem extends Item implements IColored, IMeta {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (enchantment.category == EnchantmentTypes.SEMI_AUTO_GUN) {
             Gun modifiedGun = this.getModifiedGun(stack);
-            return !modifiedGun.getGeneral().isAuto();
+            return (modifiedGun.getGeneral().getFireMode() != FireMode.AUTOMATIC);
         }
         return super.canApplyAtEnchantingTable(stack, enchantment);
     }

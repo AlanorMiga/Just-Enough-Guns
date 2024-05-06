@@ -102,18 +102,15 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
 
     public static class General implements INBTSerializable<CompoundTag>
     {
-        @Optional
-        private boolean auto = false;
-        @Optional
-        private boolean burst = false;
+        @Ignored
+        private FireMode fireMode = FireMode.SEMI_AUTO;
         @Optional
         private int burstAmount;
         private int rate;
+        @Optional
+        private int fireTimer;
         @Ignored
         private GripType gripType = GripType.ONE_HANDED;
-        //private int maxAmmo;
-        //@Optional
-        //private int reloadAmount = 1;
         //@Optional
         private float recoilAngle;
         @Optional
@@ -133,13 +130,11 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         public CompoundTag serializeNBT()
         {
             CompoundTag tag = new CompoundTag();
-            tag.putBoolean("Auto", this.auto);
-            tag.putBoolean("Burst", this.burst);
+            tag.putString("FireMode", this.fireMode.getId().toString());
             tag.putInt("BurstAmount", this.burstAmount);
             tag.putInt("Rate", this.rate);
+            tag.putInt("FireTimer", this.fireTimer);
             tag.putString("GripType", this.gripType.getId().toString());
-            //tag.putInt("MaxAmmo", this.maxAmmo);
-            //tag.putInt("ReloadSpeed", this.reloadAmount);
             tag.putFloat("RecoilAngle", this.recoilAngle);
             tag.putFloat("RecoilKick", this.recoilKick);
             tag.putFloat("RecoilDurationOffset", this.recoilDurationOffset);
@@ -153,13 +148,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         @Override
         public void deserializeNBT(CompoundTag tag)
         {
-            if(tag.contains("Auto", Tag.TAG_ANY_NUMERIC))
+            if(tag.contains("FireMode", Tag.TAG_STRING))
             {
-                this.auto = tag.getBoolean("Auto");
-            }
-            if(tag.contains("Burst", Tag.TAG_ANY_NUMERIC))
-            {
-                this.burst = tag.getBoolean("Burst");
+                this.fireMode = FireMode.getType(ResourceLocation.tryParse(tag.getString("FireMode")));
             }
             if(tag.contains("BurstAmount", Tag.TAG_ANY_NUMERIC))
             {
@@ -169,18 +160,14 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             {
                 this.rate = tag.getInt("Rate");
             }
+            if(tag.contains("FireTimer", Tag.TAG_ANY_NUMERIC))
+            {
+                this.fireTimer = tag.getInt("FireTimer");
+            }
             if(tag.contains("GripType", Tag.TAG_STRING))
             {
                 this.gripType = GripType.getType(ResourceLocation.tryParse(tag.getString("GripType")));
             }
-            /*if(tag.contains("MaxAmmo", Tag.TAG_ANY_NUMERIC))
-            {
-                this.maxAmmo = tag.getInt("MaxAmmo");
-            }
-            if(tag.contains("ReloadSpeed", Tag.TAG_ANY_NUMERIC))
-            {
-                this.reloadAmount = tag.getInt("ReloadSpeed");
-            }*/
             if(tag.contains("RecoilAngle", Tag.TAG_ANY_NUMERIC))
             {
                 this.recoilAngle = tag.getFloat("RecoilAngle");
@@ -221,10 +208,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             Preconditions.checkArgument(this.projectileAmount >= 1, "Projectile amount must be more than or equal to one");
             Preconditions.checkArgument(this.spread >= 0.0F, "Spread must be more than or equal to zero");
             JsonObject object = new JsonObject();
-            if(this.auto) object.addProperty("auto", true);
-            if(this.burst) object.addProperty("burst", true);
-            if(this.burstAmount != 0.0F) object.addProperty("burstAmount", this.burstAmount);
+            object.addProperty("fireMode", this.fireMode.getId().toString());
+            if(this.burstAmount != 0) object.addProperty("burstAmount", this.burstAmount);
             object.addProperty("rate", this.rate);
+            if(this.fireTimer != 0) object.addProperty("fireTimer", this.fireTimer);
             object.addProperty("gripType", this.gripType.getId().toString());
             if(this.recoilAngle != 0.0F) object.addProperty("recoilAngle", this.recoilAngle);
             if(this.recoilKick != 0.0F) object.addProperty("recoilKick", this.recoilKick);
@@ -242,10 +229,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         public General copy()
         {
             General general = new General();
-            general.auto = this.auto;
-            general.burst = this.burst;
+            general.fireMode = this.fireMode;
             general.burstAmount = this.burstAmount;
             general.rate = this.rate;
+            general.fireTimer = this.fireTimer;
             general.gripType = this.gripType;
             general.recoilAngle = this.recoilAngle;
             general.recoilKick = this.recoilKick;
@@ -258,23 +245,15 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         }
 
         /**
-         * @return If this gun is automatic or not
+         * @return The type of grip this weapon uses
          */
-        public boolean isAuto()
+        public FireMode getFireMode()
         {
-            return this.auto;
+            return this.fireMode;
         }
 
         /**
-         * @return If this gun is burst-based or not.
-         */
-        public boolean isBurst()
-        {
-            return this.burst;
-        }
-
-        /**
-         * @return The projectile amount in a burst.
+         * @return The projectile amount in a burst
          */
         public int getBurstAmount()
         {
@@ -290,28 +269,20 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         }
 
         /**
+         * @return The timer before firing
+         */
+        public int getFireTimer()
+        {
+            return this.fireTimer;
+        }
+
+        /**
          * @return The type of grip this weapon uses
          */
         public GripType getGripType()
         {
             return this.gripType;
         }
-
-        /**
-         * @return The maximum amount of ammo this weapon can hold
-         */
-        /*public int getMaxAmmo()
-        {
-            return this.maxAmmo;
-        }*/
-
-        /**
-         * @return The amount of ammo to add to the weapon each reload cycle
-         */
-        /*public int getReloadAmount()
-        {
-            return this.reloadAmount;
-        }*/
 
         /**
          * @return The amount of recoil this gun produces upon firing in degrees
@@ -373,8 +344,12 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
 
     public static class Reloads implements INBTSerializable<CompoundTag>
     {
+        @Optional
+        @Ignored
+        private ResourceLocation reloadItem = new ResourceLocation(Reference.MOD_ID, "scrap");
         private int maxAmmo = 30;
-        private boolean magFed = false;
+        @Ignored
+        private ReloadType reloadType = ReloadType.MANUAL;
         private int reloadTimer = 20;
         private int emptyMagTimer = 5;
         private int reloadAmount = 1;
@@ -383,8 +358,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         public CompoundTag serializeNBT()
         {
             CompoundTag tag = new CompoundTag();
+            tag.putString("ReloadItem", this.reloadItem.toString());
             tag.putInt("MaxAmmo", this.maxAmmo);
-            tag.putBoolean("MagFed", this.magFed);
+            tag.putString("ReloadType", this.reloadType.getId().toString());
             tag.putInt("ReloadTimer", this.reloadTimer);
             tag.putInt("EmptyMagTimer", this.emptyMagTimer);
             tag.putInt("ReloadAmount", this.reloadAmount);
@@ -394,13 +370,17 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         @Override
         public void deserializeNBT(CompoundTag tag)
         {
+            if(tag.contains("ReloadItem", Tag.TAG_STRING))
+            {
+                this.reloadItem = new ResourceLocation(tag.getString("ReloadItem"));
+            }
             if(tag.contains("MaxAmmo", Tag.TAG_ANY_NUMERIC))
             {
                 this.maxAmmo = tag.getInt("MaxAmmo");
             }
-            if(tag.contains("MagFed", Tag.TAG_ANY_NUMERIC))
+            if(tag.contains("ReloadType", Tag.TAG_STRING))
             {
-                this.magFed = tag.getBoolean("MagFed");
+                this.reloadType = ReloadType.getType(ResourceLocation.tryParse(tag.getString("ReloadType")));
             }
             if(tag.contains("ReloadTimer", Tag.TAG_ANY_NUMERIC))
             {
@@ -423,8 +403,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             Preconditions.checkArgument(this.emptyMagTimer >= 0, "Empty mag additional reload timer must be more than or equal to zero");
             Preconditions.checkArgument(this.reloadAmount >= 1, "Reloading amount must be more than or equal to zero");
             JsonObject object = new JsonObject();
+            if(this.reloadItem != null) object.addProperty("reloadItem", this.reloadItem.toString());
             object.addProperty("maxAmmo", this.maxAmmo);
-            if(this.magFed) object.addProperty("magFed", true);
+            object.addProperty("reloadType", this.reloadType.getId().toString());
             object.addProperty("reloadTimer", this.reloadTimer);
             object.addProperty("emptyMagTimer", this.emptyMagTimer);
             if(this.reloadAmount != 1) object.addProperty("reloadAmount", this.reloadAmount);
@@ -434,17 +415,26 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         public Reloads copy()
         {
             Reloads reloads = new Reloads();
+            reloads.reloadItem = this.reloadItem;
             reloads.maxAmmo = this.maxAmmo;
-            reloads.magFed = this.magFed;
+            reloads.reloadType = this.reloadType;
             reloads.reloadTimer = this.reloadTimer;
             reloads.emptyMagTimer = this.emptyMagTimer;
             reloads.reloadAmount = this.reloadAmount;
             return reloads;
         }
 
+        /**
+         * @return The registry id of the reload item
+         */
+        public ResourceLocation getReloadItem()
+        {
+            return this.reloadItem;
+        }
+
         public int getMaxAmmo() { return this.maxAmmo; }
 
-        public boolean isMagFed() { return this.magFed; }
+        public ReloadType getReloadType() { return this.reloadType; }
 
         public int getReloadTimer() { return this.reloadTimer; }
 
@@ -462,7 +452,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         private boolean visible;
         private float damage;
         @Optional
-        private String advantage = "None";
+        private ResourceLocation advantage = new ResourceLocation(Reference.MOD_ID, "none");
         private float size;
         private double speed;
         private int life;
@@ -483,7 +473,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             tag.putBoolean("EjectsCasing", this.ejectsCasing);
             tag.putBoolean("Visible", this.visible);
             tag.putFloat("Damage", this.damage);
-            tag.putString("Advantage", this.advantage);
+            tag.putString("Advantage", this.advantage.toString());
             tag.putFloat("Size", this.size);
             tag.putDouble("Speed", this.speed);
             tag.putInt("Life", this.life);
@@ -515,7 +505,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             }
             if(tag.contains("Advantage", Tag.TAG_STRING))
             {
-                this.advantage = tag.getString("Advantage");
+                this.advantage = new ResourceLocation(tag.getString("Advantage"));
             }
             if(tag.contains("Size", Tag.TAG_ANY_NUMERIC))
             {
@@ -559,7 +549,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             if(this.ejectsCasing) object.addProperty("ejectsCasing", true);
             if(this.visible) object.addProperty("visible", true);
             object.addProperty("damage", this.damage);
-            object.addProperty("advantage", this.advantage);
+            if(this.advantage != null) object.addProperty("advantage", this.advantage.toString());
             object.addProperty("size", this.size);
             object.addProperty("speed", this.speed);
             object.addProperty("life", this.life);
@@ -623,7 +613,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         /**
          * @return The damage caused by this projectile
          */
-        public String getAdvantage()
+        public ResourceLocation getAdvantage()
         {
             return this.advantage;
         }
@@ -702,6 +692,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         @Optional
         @Nullable
         private ResourceLocation enchantedFire;
+        @Optional
+        @Nullable
+        private ResourceLocation preFire;
 
         @Override
         public CompoundTag serializeNBT()
@@ -726,6 +719,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             if(this.enchantedFire != null)
             {
                 tag.putString("EnchantedFire", this.enchantedFire.toString());
+            }
+            if(this.preFire != null)
+            {
+                tag.putString("PreFire", this.preFire.toString());
             }
             return tag;
         }
@@ -753,6 +750,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             {
                 this.enchantedFire = this.createSound(tag, "EnchantedFire");
             }
+            if(tag.contains("PreFire", Tag.TAG_STRING))
+            {
+                this.preFire = this.createSound(tag, "PreFire");
+            }
         }
 
         public JsonObject toJsonObject()
@@ -778,6 +779,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             {
                 object.addProperty("enchantedFire", this.enchantedFire.toString());
             }
+            if(this.preFire != null)
+            {
+                object.addProperty("preFire", this.preFire.toString());
+            }
             return object;
         }
 
@@ -789,6 +794,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             sounds.cock = this.cock;
             sounds.silencedFire = this.silencedFire;
             sounds.enchantedFire = this.enchantedFire;
+            sounds.preFire = this.preFire;
             return sounds;
         }
 
@@ -842,6 +848,15 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         public ResourceLocation getEnchantedFire()
         {
             return this.enchantedFire;
+        }
+
+        /**
+         * @return The registry iid of the sound event when preparing to fire this weapon
+         */
+        @Nullable
+        public ResourceLocation getPreFire()
+        {
+            return this.preFire;
         }
     }
 
@@ -1845,15 +1860,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this.gun.copy(); //Copy since the builder could be used again
         }
 
-        public Builder setAuto(boolean auto)
+        public Builder setFireMode(FireMode fireMode)
         {
-            this.gun.general.auto = auto;
-            return this;
-        }
-
-        public Builder setBurst(boolean burst)
-        {
-            this.gun.general.burst = burst;
+            this.gun.general.fireMode = fireMode;
             return this;
         }
 
@@ -1869,9 +1878,21 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
+        public Builder setFireTimer(int fireTimer)
+        {
+            this.gun.general.fireTimer = fireTimer;
+            return this;
+        }
+
         public Builder setGripType(GripType gripType)
         {
             this.gun.general.gripType = gripType;
+            return this;
+        }
+
+        public Builder setReloadItem(Item item)
+        {
+            this.gun.reloads.reloadItem = ForgeRegistries.ITEMS.getKey(item);
             return this;
         }
 
@@ -1881,9 +1902,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        public Builder setMagFed(boolean magFed)
+        public Builder setReloadType(ReloadType reloadType)
         {
-            this.gun.reloads.magFed = magFed;
+            this.gun.reloads.reloadType = reloadType;
             return this;
         }
 
@@ -2007,7 +2028,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        public Builder setAdvantage(String advantage)
+        public Builder setAdvantage(ResourceLocation advantage)
         {
             this.gun.projectile.advantage = advantage;
             return this;
@@ -2046,6 +2067,12 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
         public Builder setEnchantedFireSound(SoundEvent sound)
         {
             this.gun.sounds.enchantedFire = ForgeRegistries.SOUND_EVENTS.getKey(sound);
+            return this;
+        }
+
+        public Builder setPreFireSound(SoundEvent sound)
+        {
+            this.gun.sounds.preFire = ForgeRegistries.SOUND_EVENTS.getKey(sound);
             return this;
         }
 

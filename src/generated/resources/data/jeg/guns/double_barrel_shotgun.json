@@ -1,5 +1,6 @@
 {
   "general": {
+    "fireMode": "jeg:semi_automatic",
     "rate": 8,
     "gripType": "jeg:two_handed",
     "recoilAngle": 10.0,
@@ -9,15 +10,16 @@
     "spread": 25.0
   },
   "reloads": {
+    "reloadItem": "jeg:scrap",
     "maxAmmo": 2,
-    "magFed": true,
+    "reloadType": "jeg:mag_fed",
     "reloadTimer": 60,
     "emptyMagTimer": 0
   },
   "projectile": {
     "item": "jeg:handmade_shell",
     "damage": 24.0,
-    "advantage": "None",
+    "advantage": "jeg:none",
     "size": 0.05,
     "speed": 6.0,
     "life": 6,

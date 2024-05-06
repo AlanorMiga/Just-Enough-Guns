@@ -13,8 +13,8 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "0.2.0-1.18.2"
-group = "ttv.alanormiga"
+version = "0.3.0-1.18.2"
+group = "ttv.migami"
 archivesBaseName = "JustEnoughGuns"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -102,11 +102,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "Just Enough Guns",
-                "Specification-Vendor"    : "AlanorMiga",
+                "Specification-Vendor"    : "MigaMi",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : "Just Enough Guns",
                 "Implementation-Version"  : project.version,
-                "Implementation-Vendor"   : "AlanorMiga",
+                "Implementation-Vendor"   : "MigaMi",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConfigs"            : "jeg.mixins.json"
         ])

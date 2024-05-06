@@ -1,6 +1,6 @@
 {
   "general": {
-    "auto": true,
+    "fireMode": "jeg:automatic",
     "rate": 3,
     "gripType": "jeg:two_handed",
     "recoilAngle": 4.0,
@@ -9,8 +9,9 @@
     "spread": 3.0
   },
   "reloads": {
+    "reloadItem": "jeg:scrap",
     "maxAmmo": 30,
-    "magFed": true,
+    "reloadType": "jeg:mag_fed",
     "reloadTimer": 30,
     "emptyMagTimer": 10
   },

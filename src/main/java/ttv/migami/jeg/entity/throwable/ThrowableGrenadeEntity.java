@@ -55,6 +55,11 @@ public class ThrowableGrenadeEntity extends ThrowableItemEntity
         {
             this.rotation += speed * 50;
         }*/
+        particleTick();
+    }
+
+    public void particleTick()
+    {
         if (this.level.isClientSide)
         {
             this.level.addParticle(ParticleTypes.SMOKE, true, this.getX(), this.getY() + 0.25, this.getZ(), 0, 0, 0);

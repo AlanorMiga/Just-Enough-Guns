@@ -38,8 +38,12 @@ import ttv.migami.jeg.datagen.EntityTagGen;
 import ttv.migami.jeg.datagen.GunGen;
 import ttv.migami.jeg.datagen.ItemTagGen;
 import ttv.migami.jeg.enchantment.EnchantmentTypes;
+import ttv.migami.jeg.entity.client.BubbleRenderer;
+import ttv.migami.jeg.entity.client.SplashRenderer;
+import ttv.migami.jeg.entity.projectile.PocketBubbleEntity;
 import ttv.migami.jeg.entity.projectile.ProjectileEntity;
 import ttv.migami.jeg.entity.projectile.SpectreProjectileEntity;
+import ttv.migami.jeg.entity.projectile.WhirpoolEntity;
 import ttv.migami.jeg.entity.throwable.GrenadeEntity;
 import ttv.migami.jeg.init.*;
 import ttv.migami.jeg.network.PacketHandler;
@@ -113,6 +117,8 @@ public class JustEnoughGuns {
             ProjectileManager.getInstance().registerFactory(ModItems.HANDMADE_SHELL.get(), (worldIn, entity, weapon, item, modifiedGun) -> new ProjectileEntity(ModEntities.PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun));
             ProjectileManager.getInstance().registerFactory(ModItems.SHOTGUN_SHELL.get(), (worldIn, entity, weapon, item, modifiedGun) -> new ProjectileEntity(ModEntities.PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun));
             ProjectileManager.getInstance().registerFactory(ModItems.SPECTRE_AMMO.get(), (worldIn, entity, weapon, item, modifiedGun) -> new SpectreProjectileEntity(ModEntities.SPECTRE_PROJECTILE.get(), worldIn, entity, weapon, item, modifiedGun));
+            ProjectileManager.getInstance().registerFactory(ModItems.WATER_BOMB.get(), (worldIn, entity, weapon, item, modifiedGun) -> new WhirpoolEntity(ModEntities.WATER_BOMB.get(), worldIn, entity, weapon, item, modifiedGun));
+            ProjectileManager.getInstance().registerFactory(ModItems.POCKET_BUBBLE.get(), (worldIn, entity, weapon, item, modifiedGun) -> new PocketBubbleEntity(ModEntities.POCKET_BUBBLE.get(), worldIn, entity, weapon, item, modifiedGun));
             ProjectileManager.getInstance().registerFactory(ModItems.GRENADE.get(), (worldIn, entity, weapon, item, modifiedGun) -> new GrenadeEntity(ModEntities.GRENADE.get(), worldIn, entity, weapon, item, modifiedGun));
             //ProjectileManager.getInstance().registerFactory(ModItems.MISSILE.get(), (worldIn, entity, weapon, item, modifiedGun) -> new MissileEntity(ModEntities.MISSILE.get(), worldIn, entity, weapon, item, modifiedGun));
             PacketHandler.init();
@@ -126,6 +132,8 @@ public class JustEnoughGuns {
         EntityRenderers.register(ModEntities.HEALING_TALISMAN.get(), ThrownItemRenderer::new);
         EntityRenderers.register(ModEntities.GHOUL.get(), GhoulRenderer::new);
         EntityRenderers.register(ModEntities.BOO.get(), BooRenderer::new);
+        EntityRenderers.register(ModEntities.SPLASH.get(), SplashRenderer::new);
+        EntityRenderers.register(ModEntities.BUBBLE.get(), BubbleRenderer::new);
         event.enqueueWork(ClientHandler::setup);
     }
 

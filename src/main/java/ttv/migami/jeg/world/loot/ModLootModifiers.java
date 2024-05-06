@@ -16,7 +16,9 @@ public class ModLootModifiers {
     public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
         event.getRegistry().registerAll(
                 new TechTrashOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"tech_trash_on_simple_dungeon")),
-                new ScrapOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"scrap_on_simple_dungeon"))
+                new ScrapOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"scrap_on_simple_dungeon")),
+                new AtlanteanSpearOnShipwreckTreasureModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"atlantean_spear_on_shipwreck_treasure")),
+                new TyphooneeOnElderGuardianModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"typhoonee_on_elder_guardian"))
         );
     }
 }

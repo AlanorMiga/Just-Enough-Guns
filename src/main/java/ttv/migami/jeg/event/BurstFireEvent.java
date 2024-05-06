@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
+import ttv.migami.jeg.common.FireMode;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.event.GunFireEvent.Post;
 import ttv.migami.jeg.event.GunFireEvent.Pre;
@@ -25,7 +26,7 @@ public class BurstFireEvent {
         {
 
             Gun gun = gunItem.getModifiedGun(heldItem);
-            if (gun.getGeneral().isBurst())
+            if (gun.getGeneral().getFireMode() == FireMode.BURST)
             {
                 int serverModifier = event.getEntity().getServer() == null ? 2 : 1;
                 if (burstCount / serverModifier >= gun.getGeneral().getBurstAmount())
@@ -48,7 +49,7 @@ public class BurstFireEvent {
             if(heldItem.getItem() instanceof GunItem gunItem)
             {
                 Gun gun = gunItem.getModifiedGun(heldItem);
-                if (gun.getGeneral().isBurst())
+                if (gun.getGeneral().getFireMode() == FireMode.BURST)
                 {
                     if (burstCount <= gun.getGeneral().getBurstAmount())
                     {
@@ -67,7 +68,7 @@ public class BurstFireEvent {
             CompoundTag tag = heldItem.getTag();
 
             Gun gun = gunItem.getModifiedGun(heldItem);
-            if (tag != null && gun.getGeneral().isBurst())
+            if (tag != null && gun.getGeneral().getFireMode() == FireMode.BURST)
             {
                 burst = tag.getBoolean("Bursting");
             }
@@ -80,7 +81,7 @@ public class BurstFireEvent {
         if(heldItem.getItem() instanceof GunItem gunItem)
         {
             Gun gun = gunItem.getModifiedGun(heldItem);
-            if (gun.getGeneral().isBurst())
+            if (gun.getGeneral().getFireMode() == FireMode.BURST)
             {
                 CompoundTag tag = heldItem.getOrCreateTag();
                 if (!isBursting(heldItem))
@@ -96,7 +97,7 @@ public class BurstFireEvent {
         if(heldItem.getItem() instanceof GunItem gunItem)
         {
             Gun gun = gunItem.getModifiedGun(heldItem);
-            if (gun.getGeneral().isBurst())
+            if (gun.getGeneral().getFireMode() == FireMode.BURST)
             {
                 CompoundTag tag = heldItem.getOrCreateTag();
                 burstCount = 0;

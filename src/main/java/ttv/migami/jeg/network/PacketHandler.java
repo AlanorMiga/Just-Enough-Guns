@@ -29,6 +29,7 @@ public class PacketHandler
                 .registerPlayMessage(C2SMessageAim.class, NetworkDirection.PLAY_TO_SERVER)
                 .registerPlayMessage(C2SMessageReload.class, NetworkDirection.PLAY_TO_SERVER)
                 .registerPlayMessage(C2SMessageShoot.class, NetworkDirection.PLAY_TO_SERVER)
+                .registerPlayMessage(C2SMessagePreFireSound.class, NetworkDirection.PLAY_TO_SERVER)
                 .registerPlayMessage(C2SMessageBurst.class, NetworkDirection.PLAY_TO_SERVER)
                 .registerPlayMessage(C2SMessageUnload.class, NetworkDirection.PLAY_TO_SERVER)
                 .registerPlayMessage(S2CMessageStunGrenade.class, NetworkDirection.PLAY_TO_CLIENT)

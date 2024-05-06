@@ -28,6 +28,7 @@ public class ModTags
 
     public static class Entities
     {
+        public static final TagKey<EntityType<?>> NONE = tag("none");
         public static final TagKey<EntityType<?>> HEAVY = tag("heavy");
         public static final TagKey<EntityType<?>> VERY_HEAVY = tag("very_heavy");
         public static final TagKey<EntityType<?>> UNDEAD = tag("undead");

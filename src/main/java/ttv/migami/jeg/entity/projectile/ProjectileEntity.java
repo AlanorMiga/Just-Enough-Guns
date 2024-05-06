@@ -9,6 +9,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundExplodePacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -496,10 +497,10 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
             this.onHitEntity(entity, result.getLocation(), startVec, endVec, entityHitResult.isHeadshot());
 
             int collateralLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.COLLATERAL.get(), weapon);
-            String advantage = modifiedGun.getProjectile().getAdvantage();
+            ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
 
             if(!(entity.getType().is(ModTags.Entities.GHOST) &&
-                    advantage.matches(ModTags.Entities.UNDEAD.location().toString())) ||
+                    advantage.equals(ModTags.Entities.UNDEAD.location())) ||
                     collateralLevel == 0)
             {
                 this.remove(RemovalReason.KILLED);
@@ -511,13 +512,13 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
 
     public float advantageMultiplier(Entity entity)
     {
-        String advantage = modifiedGun.getProjectile().getAdvantage();
+        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
         float advantageMultiplier = 1F;
 
-        if(advantage != null)
+        if (!advantage.equals(ModTags.Entities.NONE.location()))
         {
             // Deal extra damage and light on fire the undead!
-            if (advantage.matches(ModTags.Entities.UNDEAD.location().toString()))
+            if (advantage.equals(ModTags.Entities.UNDEAD.location()))
             {
                 if (entity.getType().is(ModTags.Entities.UNDEAD) || entity.getType().is(ModTags.Entities.GHOST))
                 {
@@ -525,25 +526,25 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                     entity.setSecondsOnFire(2);
                 }
             }
-        }
 
-        // Entity type disadvantage by weight!
-        if (entity.getType().is(ModTags.Entities.HEAVY))
-        {
-            if (advantage.matches(ModTags.Entities.HEAVY.location().toString()) ||
-                    advantage.matches(ModTags.Entities.VERY_HEAVY.location().toString()))
+            // Entity type disadvantage by weight!
+            if (entity.getType().is(ModTags.Entities.HEAVY))
             {
-                advantageMultiplier = 1.25F;
+                if (advantage.equals(ModTags.Entities.HEAVY.location()) ||
+                        advantage.equals(ModTags.Entities.VERY_HEAVY.location()))
+                {
+                    advantageMultiplier = 1.25F;
+                }
+                else advantageMultiplier = 0.50F;
             }
-            else advantageMultiplier = 0.50F;
-        }
-        else if (entity.getType().is(ModTags.Entities.VERY_HEAVY))
-        {
-            if (advantage.matches(ModTags.Entities.HEAVY.location().toString()))
+            else if (entity.getType().is(ModTags.Entities.VERY_HEAVY))
             {
-                advantageMultiplier = 1F;
+                if (advantage.equals(ModTags.Entities.HEAVY.location()))
+                {
+                    advantageMultiplier = 1F;
+                }
+                else advantageMultiplier = 0.25F;
             }
-            else advantageMultiplier = 0.25F;
         }
 
         return advantageMultiplier;
@@ -555,7 +556,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
         float newDamage = this.getCriticalDamage(this.weapon, this.random, damage);
         boolean critical = damage != newDamage;
         damage = newDamage;
-        String advantage = modifiedGun.getProjectile().getAdvantage();
+        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
         damage *= advantageMultiplier(entity);
 
         if(headshot)
@@ -565,9 +566,12 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
 
         DamageSource source = new DamageSourceProjectile("bullet", this, shooter, weapon).setProjectile();
 
+
         if(!(entity.getType().is(ModTags.Entities.GHOST) &&
-                !advantage.matches(ModTags.Entities.UNDEAD.location().toString())))
+                !advantage.equals(ModTags.Entities.UNDEAD.location())))
+        {
             entity.hurt(source, damage);
+        }
 
         if(this.shooter instanceof Player)
         {

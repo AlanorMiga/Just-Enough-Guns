@@ -1,7 +1,6 @@
 {
   "general": {
-    "auto": true,
-    "burst": true,
+    "fireMode": "jeg:burst",
     "burstAmount": 3,
     "rate": 2,
     "gripType": "jeg:two_handed",
@@ -11,8 +10,9 @@
     "spread": 2.0
   },
   "reloads": {
+    "reloadItem": "jeg:scrap",
     "maxAmmo": 30,
-    "magFed": true,
+    "reloadType": "jeg:mag_fed",
     "reloadTimer": 30,
     "emptyMagTimer": 10
   },

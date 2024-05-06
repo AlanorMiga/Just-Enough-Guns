@@ -12,6 +12,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ttv.migami.jeg.JustEnoughGuns;
+import ttv.migami.jeg.common.FireMode;
 import ttv.migami.jeg.common.GripType;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.compat.PlayerReviveHelper;
@@ -19,6 +20,7 @@ import ttv.migami.jeg.event.GunFireEvent;
 import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.C2SMessageBurst;
+import ttv.migami.jeg.network.message.C2SMessagePreFireSound;
 import ttv.migami.jeg.network.message.C2SMessageShoot;
 import ttv.migami.jeg.network.message.C2SMessageShooting;
 import ttv.migami.jeg.util.GunEnchantmentHelper;
@@ -30,6 +32,7 @@ import ttv.migami.jeg.util.GunModifierHelper;
 public class ShootingHandler
 {
     private static ShootingHandler instance;
+    private int fireTimer;
 
     public static ShootingHandler get()
     {
@@ -135,7 +138,7 @@ public class ShootingHandler
                     {
                         this.shooting = true;
                         Gun gun = gunItem.getModifiedGun(heldItem);
-                        if (gun.getGeneral().isBurst()) {
+                        if (gun.getGeneral().getFireMode() == FireMode.BURST) {
                             PacketHandler.getPlayChannel().sendToServer(new C2SMessageBurst());
                         }
                         PacketHandler.getPlayChannel().sendToServer(new C2SMessageShooting(true));
@@ -179,13 +182,42 @@ public class ShootingHandler
             ItemStack heldItem = player.getMainHandItem();
             if(heldItem.getItem() instanceof GunItem)
             {
+                Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
+                if(!mc.options.keyAttack.isDown() && gun.getGeneral().getFireTimer() != 0)
+                {
+                    fireTimer = gun.getGeneral().getFireTimer();
+                }
                 if(mc.options.keyAttack.isDown())
                 {
-                    Gun gun = ((GunItem) heldItem.getItem()).getModifiedGun(heldItem);
-                    this.fire(player, heldItem);
-                    if(!gun.getGeneral().isAuto())
+                    if(gun.getGeneral().getFireTimer() != 0)
                     {
-                        mc.options.keyAttack.setDown(false);
+                        ItemCooldowns tracker = player.getCooldowns();
+                        if(fireTimer > 0 && !tracker.isOnCooldown(heldItem.getItem())) {
+                            if (fireTimer == gun.getGeneral().getFireTimer() - 2)
+                            {
+                                PacketHandler.getPlayChannel().sendToServer(new C2SMessagePreFireSound(player));
+                            }
+                            // If the player is in water, reduce the preFiring in half
+                            if (player.isUnderWater()) {
+                                fireTimer--;
+                            }
+                            fireTimer--;
+                        } else {
+                            // Execute after preFire timer ends
+                            this.fire(player, heldItem);
+                            if (gun.getGeneral().getFireMode() == FireMode.SEMI_AUTO || gun.getGeneral().getFireMode() == FireMode.PULSE)
+                            {
+                                mc.options.keyAttack.setDown(false);
+                                fireTimer = gun.getGeneral().getFireTimer();
+                            }
+                        }
+                    }
+                    else {
+                        this.fire(player, heldItem);
+                        if(gun.getGeneral().getFireMode() == FireMode.SEMI_AUTO)
+                        {
+                            mc.options.keyAttack.setDown(false);
+                        }
                     }
                 }
             }

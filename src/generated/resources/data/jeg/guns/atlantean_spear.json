@@ -1,0 +1,49 @@
+{
+  "general": {
+    "fireMode": "jeg:semi_automatic",
+    "rate": 32,
+    "fireTimer": 20,
+    "gripType": "jeg:two_handed",
+    "recoilAngle": 4.0,
+    "recoilKick": 0.5
+  },
+  "reloads": {
+    "reloadItem": "jeg:scrap",
+    "maxAmmo": 6,
+    "reloadType": "jeg:manual",
+    "reloadTimer": 30,
+    "emptyMagTimer": 0
+  },
+  "projectile": {
+    "item": "jeg:water_bomb",
+    "damage": 10.0,
+    "advantage": "jeg:fire",
+    "size": 0.05,
+    "speed": 3.0,
+    "life": 40,
+    "damageReduceOverLife": true,
+    "trailColor": 56575,
+    "trailLengthMultiplier": 0.0
+  },
+  "sounds": {
+    "fire": "jeg:item.typhoonee.fire",
+    "reload": "jeg:item.pistol.reload",
+    "cock": "jeg:item.pistol.cock",
+    "enchantedFire": "jeg:item.typhoonee.fire",
+    "preFire": "jeg:item.typhoonee.prefire"
+  },
+  "display": {
+    "flash": {
+      "yOffset": 2.05,
+      "zOffset": -4.03,
+      "size": 0.8
+    }
+  },
+  "modules": {
+    "zoom": {
+      "yOffset": 3.825,
+      "zOffset": -1.25,
+      "fovModifier": 0.6
+    }
+  }
+}
