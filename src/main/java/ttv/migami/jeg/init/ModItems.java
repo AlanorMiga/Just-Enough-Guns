@@ -95,6 +95,7 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
             ));
 
+    /* Water Tier */
     public static final RegistryObject<AtlanteanSpearItem> ATLANTEAN_SPEAR = REGISTER.register("atlantean_spear",
             () -> new AtlanteanSpearItem(new Item.Properties()
                     .stacksTo(1)
