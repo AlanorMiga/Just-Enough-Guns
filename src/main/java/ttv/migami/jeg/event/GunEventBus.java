@@ -132,29 +132,6 @@ public class GunEventBus
         }
     }
 
-    @SubscribeEvent
-    public static void onTick(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
-        Level level = player.level;
-
-        ItemCooldowns tracker = player.getCooldowns();
-        ItemStack heldItem = player.getMainHandItem();
-        CompoundTag tag = heldItem.getTag();
-        Minecraft mc = Minecraft.getInstance();
-        /*if(heldItem.getItem() instanceof GunItem gunItem) {
-            if(gunItem instanceof AtlaneanSpearItem && tag != null) {
-                if (player.isUnderWater() && !mc.options.keyAttack.isDown() && !tracker.isOnCooldown(gunItem))
-                {
-                    if (tag.getInt("AmmoCount") < gunItem.getGun().getReloads().getMaxAmmo())
-                    {
-                        tag.putInt("AmmoCount", Math.max(0, tag.getInt("AmmoCount") + 1));
-                        level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, SoundSource.PLAYERS, 3.0F, 1.0F);
-                    }
-                }
-            }
-        }*/
-    }
-
     public static void broken(ItemStack stack, Level level, Player player) {
         int maxDamage = stack.getMaxDamage();
         int currentDamage = stack.getDamageValue();
