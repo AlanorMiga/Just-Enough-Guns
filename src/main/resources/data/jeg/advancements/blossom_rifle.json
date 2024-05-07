@@ -1,0 +1,37 @@
+{
+    "display": {
+        "title": {
+            "translate": "jeg.advancements.blossom_rifle.title"
+        },
+        "description": {
+            "translate": "jeg.advancements.blossom_rifle.description"
+        },
+        "icon": {
+            "item": "jeg:blossom_rifle"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "Item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "jeg:blossom_rifle"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+          "Item"
+        ]
+      ],
+    "parent": "jeg:burst_rifle"
+}

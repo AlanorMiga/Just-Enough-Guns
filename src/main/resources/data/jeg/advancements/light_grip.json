@@ -1,0 +1,37 @@
+{
+    "display": {
+        "title": {
+            "translate": "jeg.advancements.light_grip.title"
+        },
+        "description": {
+            "translate": "jeg.advancements.light_grip.description"
+        },
+        "icon": {
+            "item": "jeg:light_grip"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "Item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "jeg:light_grip"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+          "Item"
+        ]
+      ],
+    "parent": "jeg:angled_grip"
+}

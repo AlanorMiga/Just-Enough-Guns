@@ -1,0 +1,37 @@
+{
+    "display": {
+        "title": {
+            "translate": "jeg.advancements.root.title"
+        },
+        "description": {
+            "translate": "jeg.advancements.root.description"
+        },
+        "icon": {
+            "item": "jeg:gunnite_workbench"
+        },
+        "frame": "task",
+        "show_toast": false,
+        "announce_to_chat": false,
+        "hidden": false,
+        "background": "jeg:textures/block/gunnite_block.png"
+    },
+    "criteria": {
+        "Item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "jeg:scrap"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+          "Item"
+        ]
+      ]
+}

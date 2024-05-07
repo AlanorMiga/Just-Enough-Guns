@@ -1,0 +1,37 @@
+{
+    "display": {
+        "title": {
+            "translate": "jeg.advancements.revolver.title"
+        },
+        "description": {
+            "translate": "jeg.advancements.revolver.description"
+        },
+        "icon": {
+            "item": "jeg:revolver"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    "criteria": {
+        "Item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "jeg:revolver"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+          "Item"
+        ]
+      ],
+    "parent": "jeg:scrap_workbench"
+}
