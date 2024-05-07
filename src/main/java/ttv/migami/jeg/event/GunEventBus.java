@@ -1,6 +1,5 @@
 package ttv.migami.jeg.event;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -27,7 +26,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
@@ -130,29 +128,6 @@ public class GunEventBus
                 }
             }
         }
-    }
-
-    @SubscribeEvent
-    public static void onTick(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
-        Level level = player.level;
-
-        ItemCooldowns tracker = player.getCooldowns();
-        ItemStack heldItem = player.getMainHandItem();
-        CompoundTag tag = heldItem.getTag();
-        Minecraft mc = Minecraft.getInstance();
-        /*if(heldItem.getItem() instanceof GunItem gunItem) {
-            if(gunItem instanceof AtlaneanSpearItem && tag != null) {
-                if (player.isUnderWater() && !mc.options.keyAttack.isDown() && !tracker.isOnCooldown(gunItem))
-                {
-                    if (tag.getInt("AmmoCount") < gunItem.getGun().getReloads().getMaxAmmo())
-                    {
-                        tag.putInt("AmmoCount", Math.max(0, tag.getInt("AmmoCount") + 1));
-                        level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, SoundSource.PLAYERS, 3.0F, 1.0F);
-                    }
-                }
-            }
-        }*/
     }
 
     public static void broken(ItemStack stack, Level level, Player player) {
