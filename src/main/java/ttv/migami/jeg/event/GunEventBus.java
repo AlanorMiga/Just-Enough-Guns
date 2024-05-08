@@ -322,6 +322,10 @@ public class GunEventBus
         {
             serverLevel.sendParticles(casingType,
                     particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0);
+            if (playerEntity.getMainHandItem().getItem().toString().matches(ModItems.BLOSSOM_RIFLE.get().toString())) {
+                serverLevel.sendParticles(ParticleTypes.CHERRY_LEAVES,
+                        particlePos.x, particlePos.y, particlePos.z, 1, 0.3, 0.2, 0.3, 0);
+            }
         }
     }
 
