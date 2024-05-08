@@ -497,7 +497,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
             this.onHitEntity(entity, result.getLocation(), startVec, endVec, entityHitResult.isHeadshot());
 
             int collateralLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.COLLATERAL.get(), weapon);
-            ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
+            ResourceLocation advantage = this.getProjectile().getAdvantage();
 
             if(!(entity.getType().is(ModTags.Entities.GHOST) &&
                     advantage.equals(ModTags.Entities.UNDEAD.location())) ||
@@ -512,7 +512,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
 
     public float advantageMultiplier(Entity entity)
     {
-        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
+        ResourceLocation advantage = this.getProjectile().getAdvantage();
         float advantageMultiplier = 1F;
 
         if (!advantage.equals(ModTags.Entities.NONE.location()))
@@ -556,7 +556,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
         float newDamage = this.getCriticalDamage(this.weapon, this.random, damage);
         boolean critical = damage != newDamage;
         damage = newDamage;
-        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
+        ResourceLocation advantage = this.getProjectile().getAdvantage();
         damage *= advantageMultiplier(entity);
 
         if(headshot)
