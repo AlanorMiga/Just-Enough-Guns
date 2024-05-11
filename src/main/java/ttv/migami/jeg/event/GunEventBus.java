@@ -1,6 +1,5 @@
 package ttv.migami.jeg.event;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -27,7 +26,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
@@ -107,7 +105,7 @@ public class GunEventBus
             Gun gun = gunItem.getModifiedGun(heldItem);
             if (gun.getProjectile().ejectsCasing() && tag != null)
             {
-                if (tag.getInt("AmmoCount") >= 1) {
+                if (tag.getInt("AmmoCount") >= 1 || player.getAbilities().instabuild) {
                     //event.getEntity().level.playSound(player, player.blockPosition(), SoundInit.GARAND_PING.get(), SoundSource.MASTER, 3.0F, 1.0F);
                     ejectCasing(level, player);
                 }
