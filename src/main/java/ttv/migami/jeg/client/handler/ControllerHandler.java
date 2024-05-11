@@ -128,21 +128,21 @@ public class ControllerHandler
                 ItemStack heldItem = player.getMainHandItem();
                 if(heldItem.getItem() instanceof GunItem)
                 {
-                    actions.put(GunButtonBindings.AIM, new Action(Component.translatable("cgm.action.aim"), Action.Side.RIGHT));
-                    actions.put(GunButtonBindings.SHOOT, new Action(Component.translatable("cgm.action.shoot"), Action.Side.RIGHT));
+                    actions.put(GunButtonBindings.AIM, new Action(Component.translatable("jeg.action.aim"), Action.Side.RIGHT));
+                    actions.put(GunButtonBindings.SHOOT, new Action(Component.translatable("jeg.action.shoot"), Action.Side.RIGHT));
 
                     GunItem gunItem = (GunItem) heldItem.getItem();
                     Gun modifiedGun = gunItem.getModifiedGun(heldItem);
                     CompoundTag tag = heldItem.getTag();
                     if(tag != null && tag.getInt("AmmoCount") < GunEnchantmentHelper.getAmmoCapacity(heldItem, modifiedGun))
                     {
-                        actions.put(GunButtonBindings.RELOAD, new Action(Component.translatable("cgm.action.reload"), Action.Side.LEFT));
+                        actions.put(GunButtonBindings.RELOAD, new Action(Component.translatable("jeg.action.reload"), Action.Side.LEFT));
                     }
 
                     Scope scope = Gun.getScope(heldItem);
                     if(scope != null && AimingHandler.get().isAiming())
                     {
-                        actions.put(GunButtonBindings.STEADY_AIM, new Action(Component.translatable("cgm.action.steady_aim"), Action.Side.RIGHT));
+                        actions.put(GunButtonBindings.STEADY_AIM, new Action(Component.translatable("jeg.action.steady_aim"), Action.Side.RIGHT));
                     }
                 }
             }

@@ -32,6 +32,10 @@ public class BurstFireEvent {
                 if (burstCount / serverModifier >= gun.getGeneral().getBurstAmount())
                 {
                     applyBurstTag(heldItem);
+
+                    // Applies a cooldown after the burst has been fired.
+                    /*ItemCooldowns tracker = player.getCooldowns();
+                    tracker.addCooldown(heldItem.getItem(), 20);*/
                 }
 
                 if (isBursting(heldItem)) {

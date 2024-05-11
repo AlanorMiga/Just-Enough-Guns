@@ -279,7 +279,7 @@ public class ModItems {
     public static final RegistryObject<Item> GUNMETAL_NUGGET = REGISTER.register("gunmetal_nugget",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GUNNITE_INGOT = REGISTER.register("gunnite_ingot",
-            () -> new Item(new Item.Properties()));
+            () -> new ToolTipItem(new Item.Properties()));
     public static final RegistryObject<Item> RAW_BRIMSTONE = REGISTER.register("raw_brimstone",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BRIMSTONE_CRYSTAL = REGISTER.register("brimstone_crystal",

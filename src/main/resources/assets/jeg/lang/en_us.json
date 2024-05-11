@@ -103,6 +103,7 @@
   "info.jeg.tooltip_item": "Tooltip Item template!",
   "info.jeg.tooltip_item.gunmetal_ingot": "Gunmetal is obtained by recycling Granite!",
   "info.jeg.tooltip_item.gunmetal_grit": "Gunmetal is obtained by smelting this!",
+  "info.jeg.tooltip_item.gunnite_ingot": "Gunnite is obtained on the Gunmetal Workbench!",
   "info.jeg.tooltip_item.tech_trash": "Obtained by mining Scrap ore!",
   "info.jeg.tooltip_item.repair_kit": "Can repair guns if used on an anvil!",
   "info.jeg.tooltip_item.ectoplasm": "Can be harvested with Boo Nests/Hives!",
