@@ -105,7 +105,7 @@ public class GunEventBus
             Gun gun = gunItem.getModifiedGun(heldItem);
             if (gun.getProjectile().ejectsCasing() && tag != null)
             {
-                if (tag.getInt("AmmoCount") >= 1) {
+                if (tag.getInt("AmmoCount") >= 1 || player.getAbilities().instabuild) {
                     //event.getEntity().level.playSound(player, player.blockPosition(), SoundInit.GARAND_PING.get(), SoundSource.MASTER, 3.0F, 1.0F);
                     ejectCasing(level, player);
                 }

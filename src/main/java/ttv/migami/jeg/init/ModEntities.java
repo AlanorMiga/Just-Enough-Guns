@@ -56,6 +56,7 @@ public class ModEntities
                 .setUpdateInterval(1)
                 .noSummon()
                 .fireImmune()
+                .noSave()
                 .setShouldReceiveVelocityUpdates(true).build(id));
     }
 
@@ -78,6 +79,7 @@ public class ModEntities
                 .setTrackingRange(0)
                 .noSummon()
                 .fireImmune()
+                .noSave()
                 .setShouldReceiveVelocityUpdates(false)
                 .setCustomClientFactory((spawnEntity, world) -> null)
                 .build(id));
