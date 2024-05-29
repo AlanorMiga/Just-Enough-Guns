@@ -102,7 +102,7 @@ public class AmmoCounterRenderer {
 
         int segmentWidth = (BAR_WIDTH - (Math.min(maxAmount, 30) - 1) * SEGMENT_PADDING) / Math.min(maxAmount, 30);
         int barColor = (alpha << 24) | 0xFFFFFF;
-        int backgroundColor = (125 << 24) | 0x000000;
+        int backgroundColor = (alpha << 24) | 0x3F3F3F;
         int segmentsPerRow = Math.min(maxAmount, 30);
         int numRows = (int) Math.ceil((double) maxAmount / segmentsPerRow);
 

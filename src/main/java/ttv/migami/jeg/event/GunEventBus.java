@@ -220,7 +220,7 @@ public class GunEventBus
                     damageAttachments(heldItem, level, player);
                 }
                 if (heldItem.getDamageValue() >= (heldItem.getMaxDamage() / 1.5)) {
-                    level.playSound(player, player.blockPosition(), SoundEvents.ANVIL_LAND, SoundSource.PLAYERS, 1.0F, 1.75F);
+                    level.playSound(player, player.blockPosition(), SoundEvents.ANVIL_LAND, SoundSource.PLAYERS, 0.5F, 1.75F);
                 }
             }
 

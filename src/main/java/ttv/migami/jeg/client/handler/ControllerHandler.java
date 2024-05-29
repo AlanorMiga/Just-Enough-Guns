@@ -26,6 +26,7 @@ import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.attachment.impl.Scope;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.C2SMessageAttachments;
+import ttv.migami.jeg.network.message.C2SMessageMelee;
 import ttv.migami.jeg.network.message.C2SMessageUnload;
 import ttv.migami.jeg.util.GunModifierHelper;
 
@@ -69,6 +70,11 @@ public class ControllerHandler
                     if(heldItem.getItem() instanceof GunItem)
                     {
                         shouldCancel = true;
+                        if(state && !ControllerHandler.isAiming())
+                        //if(state)
+                        {
+                            PacketHandler.getPlayChannel().sendToServer(new C2SMessageMelee());
+                        }
                     }
                 }
                 else if(originalButton == GunButtonBindings.RELOAD.getButton())
