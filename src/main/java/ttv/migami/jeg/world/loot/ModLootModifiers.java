@@ -18,7 +18,8 @@ public class ModLootModifiers {
                 new TechTrashOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"tech_trash_on_simple_dungeon")),
                 new ScrapOnSimpleDungeonModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"scrap_on_simple_dungeon")),
                 new AtlanteanSpearOnShipwreckTreasureModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"atlantean_spear_on_shipwreck_treasure")),
-                new TyphooneeOnElderGuardianModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"typhoonee_on_elder_guardian"))
+                new TyphooneeOnElderGuardianModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"typhoonee_on_elder_guardian")),
+                new GrenadeOnCreeperModifier.Serializer().setRegistryName(new ResourceLocation(Reference.MOD_ID,"grenade_on_creeper"))
         );
     }
 }

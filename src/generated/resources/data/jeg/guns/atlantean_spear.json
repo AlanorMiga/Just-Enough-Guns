@@ -8,7 +8,6 @@
     "recoilKick": 0.5
   },
   "reloads": {
-    "reloadItem": "jeg:scrap",
     "maxAmmo": 6,
     "reloadType": "jeg:manual",
     "reloadTimer": 30,

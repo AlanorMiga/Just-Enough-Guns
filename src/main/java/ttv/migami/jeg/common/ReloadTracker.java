@@ -23,6 +23,7 @@ import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.S2CMessageGunSound;
 import ttv.migami.jeg.util.GunEnchantmentHelper;
+import ttv.migami.jeg.util.GunModifierHelper;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -67,7 +68,7 @@ public class ReloadTracker
     private boolean isWeaponFull()
     {
         CompoundTag tag = this.stack.getOrCreateTag();
-        return tag.getInt("AmmoCount") >= GunEnchantmentHelper.getAmmoCapacity(this.stack, this.gun);
+        return tag.getInt("AmmoCount") >= GunModifierHelper.getModifiedAmmoCapacity(this.stack, this.gun);
     }
 
     private boolean isWeaponEmpty()
@@ -144,9 +145,9 @@ public class ReloadTracker
         if(ammoStack.length > 0)
         {
             CompoundTag tag = this.stack.getTag();
-            int ammoAmount = Math.min(ammoInInventory(ammoStack), GunEnchantmentHelper.getAmmoCapacity(this.stack, this.gun));
+            int ammoAmount = Math.min(ammoInInventory(ammoStack), GunModifierHelper.getModifiedAmmoCapacity(this.stack, this.gun));
             int currentAmmo = tag.getInt("AmmoCount");
-            int maxAmmo = GunEnchantmentHelper.getAmmoCapacity(this.stack, this.gun);
+            int maxAmmo = GunModifierHelper.getModifiedAmmoCapacity(this.stack, this.gun);
             int amount = maxAmmo - currentAmmo;
             if(tag != null)
             {
@@ -179,7 +180,7 @@ public class ReloadTracker
         if (!ammo.isEmpty()) {
             CompoundTag tag = this.stack.getTag();
             if (tag != null) {
-                int maxAmmo = GunEnchantmentHelper.getAmmoCapacity(this.stack, this.gun);
+                int maxAmmo = GunModifierHelper.getModifiedAmmoCapacity(this.stack, this.gun);
                 tag.putInt("AmmoCount", maxAmmo);
                 ammo.shrink(1);
             }
@@ -192,8 +193,11 @@ public class ReloadTracker
         }
 
         Item waterBucket = Items.WATER_BUCKET;
+        Item lavaBucket = Items.LAVA_BUCKET;
         ResourceLocation waterBucketLocation = ForgeRegistries.ITEMS.getKey(waterBucket);
-        if (this.gun.getReloads().getReloadItem().equals(waterBucketLocation)) {
+        ResourceLocation lavaBucketLocation = ForgeRegistries.ITEMS.getKey(lavaBucket);
+        if (this.gun.getReloads().getReloadItem().equals(waterBucketLocation) ||
+                this.gun.getReloads().getReloadItem().equals(lavaBucketLocation)) {
             Item bucket = Items.BUCKET;
             ResourceLocation bucketLocation = ForgeRegistries.ITEMS.getKey(bucket);
             Item item = ForgeRegistries.ITEMS.getValue(bucketLocation);
@@ -227,7 +231,7 @@ public class ReloadTracker
             CompoundTag tag = this.stack.getTag();
             if(tag != null)
             {
-                int maxAmmo = GunEnchantmentHelper.getAmmoCapacity(this.stack, this.gun);
+                int maxAmmo = GunModifierHelper.getModifiedAmmoCapacity(this.stack, this.gun);
                 amount = Math.min(amount, maxAmmo - tag.getInt("AmmoCount"));
                 tag.putInt("AmmoCount", tag.getInt("AmmoCount") + amount);
             }
@@ -260,6 +264,7 @@ public class ReloadTracker
         if(event.phase == TickEvent.Phase.START && !event.player.level.isClientSide)
         {
             Player player = event.player;
+
             if(ModSyncedDataKeys.RELOADING.getValue(player))
             {
                 if(!RELOAD_TRACKER_MAP.containsKey(player))

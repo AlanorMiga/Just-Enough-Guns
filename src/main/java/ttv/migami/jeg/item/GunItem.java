@@ -99,7 +99,7 @@ public class GunItem extends Item implements IColored, IMeta {
                 tooltip.add(new TranslatableComponent("info.jeg.ignore_ammo").withStyle(ChatFormatting.AQUA));
             } else {
                 int ammoCount = tagCompound.getInt("AmmoCount");
-                tooltip.add(new TranslatableComponent("info.jeg.ammo", ChatFormatting.WHITE.toString() + ammoCount + "/" + GunEnchantmentHelper.getAmmoCapacity(stack, modifiedGun)).withStyle(ChatFormatting.GRAY));
+                tooltip.add(new TranslatableComponent("info.jeg.ammo", ChatFormatting.WHITE.toString() + ammoCount + "/" + GunModifierHelper.getModifiedAmmoCapacity(stack, modifiedGun)).withStyle(ChatFormatting.GRAY));
             }
         }
 

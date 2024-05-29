@@ -4,6 +4,25 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.fml.ModList;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
 import ttv.migami.jeg.Config;
 import ttv.migami.jeg.Reference;
 import ttv.migami.jeg.client.handler.GunRenderingHandler;
@@ -13,29 +32,6 @@ import ttv.migami.jeg.common.container.AttachmentContainer;
 import ttv.migami.jeg.common.container.slot.AttachmentSlot;
 import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.attachment.IAttachment;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.ConfigGuiHandler;
-import net.minecraftforge.fml.ModList;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +44,7 @@ import java.util.List;
 public class AttachmentScreen extends AbstractContainerScreen<AttachmentContainer>
 {
     private static final ResourceLocation GUI_TEXTURES = new ResourceLocation("jeg:textures/gui/attachments.png");
-    private static final Component CONFIG_TOOLTIP = new TranslatableComponent("jeg.button.config.tooltip");
+    private static final Component CONFIG_TOOLTIP = new TextComponent("jeg.button.config.tooltip");
 
     private final Inventory playerInventory;
     private final Container weaponInventory;
@@ -137,15 +133,15 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
                 IAttachment.Type type = IAttachment.Type.values()[i];
                 if(!this.menu.getSlot(i).isActive())
                 {
-                    this.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent("slot.jeg.attachment." + type.getTranslationKey()), new TranslatableComponent("slot.jeg.attachment.not_applicable")), mouseX, mouseY);
+                    this.renderComponentTooltip(poseStack, Arrays.asList(new TextComponent("slot.jeg.attachment." + type.getTranslationKey()), new TextComponent("slot.jeg.attachment.not_applicable")), mouseX, mouseY);
                 }
                 else if(this.menu.getSlot(i) instanceof AttachmentSlot slot && slot.getItem().isEmpty() && !this.isCompatible(this.menu.getCarried(), slot))
                 {
-                    this.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent("slot.jeg.attachment.incompatible").withStyle(ChatFormatting.YELLOW)), mouseX, mouseY);
+                    this.renderComponentTooltip(poseStack, Arrays.asList(new TextComponent("slot.jeg.attachment.incompatible").withStyle(ChatFormatting.YELLOW)), mouseX, mouseY);
                 }
                 else if(this.weaponInventory.getItem(i).isEmpty())
                 {
-                    this.renderComponentTooltip(poseStack, Collections.singletonList(new TranslatableComponent("slot.jeg.attachment." + type.getTranslationKey())), mouseX, mouseY);
+                    this.renderComponentTooltip(poseStack, Collections.singletonList(new TextComponent("slot.jeg.attachment." + type.getTranslationKey())), mouseX, mouseY);
                 }
             }
         }
@@ -169,7 +165,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
-        RenderUtil.scissor(left + 26, top + 17, 142, 70);
+        RenderUtil.scissor(left + 26, top + 17, 124, 70);
 
         PoseStack stack = RenderSystem.getModelViewStack();
         stack.pushPose();
@@ -207,8 +203,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY)
-    {
+    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_TEXTURES);
         int left = (this.width - this.imageWidth) / 2;
@@ -217,15 +212,13 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
 
         /* Draws the icons for each attachment slot. If not applicable
          * for the weapon, it will draw a cross instead. */
-        for(int i = 0; i < IAttachment.Type.values().length; i++)
-        {
-            if(!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i)))
-            {
-                this.blit(poseStack, left + 8, top + 17 + i * 18, 176, 0, 16, 16);
-            }
-            else if(this.weaponInventory.getItem(i).isEmpty())
-            {
-                this.blit(poseStack, left + 8, top + 17 + i * 18, 176, 16 + i * 16, 16, 16);
+        for (int i = 0; i < IAttachment.Type.values().length; i++) {
+            int x = i < 4 ? 8 : 152; // Adjust x coordinate for right side slots
+            int y = 17 + (i % 4) * 18; // Adjust y coordinate for slots
+            if (!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i))) {
+                this.blit(poseStack, left + x, top + y, 176, 0, 16, 16);
+            } else if (this.weaponInventory.getItem(i).isEmpty()) {
+                this.blit(poseStack, left + x, top + y, 176, 16 + (i % 5) * 16, 16, 16);
             }
         }
     }
@@ -239,6 +232,10 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
             return true;
 
         if(!slot.getItem().isEmpty())
+            return true;
+
+        // Not compatible check
+        if (stack.getItem() instanceof SwordItem)
             return true;
 
         if(!(slot instanceof AttachmentSlot s))
@@ -258,6 +255,10 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         if(stack.isEmpty())
             return true;
 
+        // Not compatible check
+        if (stack.getItem() instanceof SwordItem)
+            return true;
+
         if(!(stack.getItem() instanceof IAttachment<?> attachment))
             return false;
 
@@ -275,7 +276,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     {
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
-        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 142, 70))
+        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 124, 70))
         {
             if(scroll < 0 && this.windowZoom > 0)
             {
@@ -297,7 +298,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
 
-        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 142, 70))
+        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 124, 70))
         {
             if(!this.mouseGrabbed && (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT))
             {

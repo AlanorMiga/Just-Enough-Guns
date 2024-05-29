@@ -84,7 +84,7 @@ public class Boo extends Bee
         this.goalSelector.addGoal(2, this.breedGoal);
         this.followParentGoal = new FollowParentGoal(this, 1.25D);
         this.goalSelector.addGoal(5, this.followParentGoal);
-        this.goalSelector.addGoal(5, new UpdateNestGoal());
+        this.goalSelector.addGoal(0, new UpdateNestGoal());
         this.goToHiveGoal = new BooGoToHiveGoal();
         this.goalSelector.addGoal(5, this.goToHiveGoal);
         this.goalSelector.addGoal(8, new BooWanderGoal());

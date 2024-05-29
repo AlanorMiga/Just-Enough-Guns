@@ -32,11 +32,12 @@ public interface IAttachment<T extends Attachment>
     }
 
     enum Type
-    {
+    {   
         SCOPE("scope", "Scope", "scope"),
         BARREL("barrel", "Barrel", "barrel"),
         STOCK("stock", "Stock", "stock"),
-        UNDER_BARREL("under_barrel", "Under_Barrel", "underBarrel");
+        UNDER_BARREL("under_barrel", "Under_Barrel", "underBarrel"),
+        MAGAZINE("magazine", "Magazine", "magazine");
 
         private final String translationKey;
         private final String tagKey;

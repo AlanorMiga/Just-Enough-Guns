@@ -65,11 +65,11 @@
 			"scale": [2, 2, 2]
 		},
 		"firstperson_righthand": {
-			"rotation": [90, 0, 0],
-			"translation": [2.25, 3.5, 0]
+			"translation": [2.25, 0.75, 0],
+			"scale": [2, 2, 2]
 		},
 		"ground": {
-			"translation": [0, -3, -0.05],
+			"translation": [0, 1, -0.05],
 			"scale": [2, 2, 2]
 		},
 		"gui": {

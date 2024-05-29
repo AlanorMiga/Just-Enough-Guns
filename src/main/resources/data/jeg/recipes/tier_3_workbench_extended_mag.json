@@ -1,0 +1,21 @@
+{
+  "type": "jeg:gunnite_workbench",
+  "materials": [
+    {
+      "item": "jeg:scrap",
+      "count": 15
+    },
+    {
+      "item": "jeg:gunmetal_ingot",
+      "count": 10
+    },
+    {
+      "item": "minecraft:chest",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "jeg:extended_mag"
+  },
+  "time": 30
+}

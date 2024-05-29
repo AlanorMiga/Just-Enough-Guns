@@ -25,8 +25,9 @@ import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.attachment.impl.Scope;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.C2SMessageAttachments;
+import ttv.migami.jeg.network.message.C2SMessageMelee;
 import ttv.migami.jeg.network.message.C2SMessageUnload;
-import ttv.migami.jeg.util.GunEnchantmentHelper;
+import ttv.migami.jeg.util.GunModifierHelper;
 
 /**
  * Author: MrCrayfish
@@ -67,6 +68,11 @@ public class ControllerHandler
                 if(heldItem.getItem() instanceof GunItem)
                 {
                     event.setCanceled(true);
+                    if(event.getState() && !ControllerHandler.isAiming())
+                    //if(event.getState())
+                    {
+                        PacketHandler.getPlayChannel().sendToServer(new C2SMessageMelee());
+                    }
                 }
             }
             else if(button == GunButtonBindings.RELOAD.getButton())
@@ -135,7 +141,7 @@ public class ControllerHandler
                 GunItem gunItem = (GunItem) heldItem.getItem();
                 Gun modifiedGun = gunItem.getModifiedGun(heldItem);
                 CompoundTag tag = heldItem.getTag();
-                if(tag != null && tag.getInt("AmmoCount") < GunEnchantmentHelper.getAmmoCapacity(heldItem, modifiedGun))
+                if(tag != null && tag.getInt("AmmoCount") < GunModifierHelper.getModifiedAmmoCapacity(heldItem, modifiedGun))
                 {
                     event.getActions().put(GunButtonBindings.RELOAD, new Action(new TranslatableComponent("jeg.action.reload"), Action.Side.LEFT));
                 }

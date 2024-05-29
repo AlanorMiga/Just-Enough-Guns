@@ -9,7 +9,6 @@
     "spread": 4.0
   },
   "reloads": {
-    "reloadItem": "jeg:scrap",
     "maxAmmo": 24,
     "reloadType": "jeg:mag_fed",
     "reloadTimer": 30,
@@ -52,6 +51,9 @@
         "zOffset": -2.0
       },
       "stock": {
+        "scale": 0.0
+      },
+      "magazine": {
         "scale": 0.0
       }
     }

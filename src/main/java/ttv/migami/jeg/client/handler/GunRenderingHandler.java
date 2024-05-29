@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import com.mrcrayfish.controllable.Controllable;
+import com.mrcrayfish.controllable.client.Controller;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -30,6 +32,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -39,9 +43,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import ttv.migami.jeg.Config;
+import ttv.migami.jeg.JustEnoughGuns;
 import ttv.migami.jeg.Reference;
+import ttv.migami.jeg.client.GunButtonBindings;
 import ttv.migami.jeg.client.GunModel;
 import ttv.migami.jeg.client.GunRenderType;
+import ttv.migami.jeg.client.KeyBinds;
 import ttv.migami.jeg.client.render.gun.IOverrideModel;
 import ttv.migami.jeg.client.render.gun.ModelOverrides;
 import ttv.migami.jeg.client.util.PropertyHelper;
@@ -66,6 +73,8 @@ import java.util.*;
 
 public class GunRenderingHandler
 {
+    protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+
     private static GunRenderingHandler instance;
 
     public static GunRenderingHandler get()
@@ -89,6 +98,12 @@ public class GunRenderingHandler
     private int sprintCooldown;
     private float sprintIntensity;
 
+    private int meleeTransition;
+    private int prevMeleeTransition;
+    private boolean isMeleeAttacking;
+    private int meleeCooldown;
+    private boolean meleePressed;
+
     private float offhandTranslate;
     private float prevOffhandTranslate;
 
@@ -99,6 +114,8 @@ public class GunRenderingHandler
     private float prevImmersiveRoll;
     private float fallSway;
     private float prevFallSway;
+
+    private boolean controllerFlag;
 
     private boolean usedConfiguredFov;
 
@@ -130,9 +147,49 @@ public class GunRenderingHandler
             return;
 
         this.updateSprinting();
+        this.updateMelee();
         this.updateMuzzleFlash();
         this.updateOffhandTranslate();
         this.updateImmersiveCamera();
+    }
+
+    private void updateMelee() {
+        this.prevMeleeTransition = this.meleeTransition;
+
+        Minecraft mc = Minecraft.getInstance();
+
+        if(JustEnoughGuns.controllableLoaded)
+        {
+            Controller controller = Controllable.getController();
+            controllerFlag = controller != null && controller.isButtonPressed(GunButtonBindings.STEADY_AIM.getButton());
+        }
+
+        if (mc.player != null) {
+            if((!KeyBinds.KEY_MELEE.isDown() && !controllerFlag) && this.meleeCooldown == 0) {
+                this.meleePressed = false;
+            }
+
+            if((KeyBinds.KEY_MELEE.isDown() || controllerFlag) && !this.isMeleeAttacking && this.meleeCooldown == 0 && !this.meleePressed) {
+                this.isMeleeAttacking = true;
+                this.meleeTransition = 0;
+                this.meleeCooldown = 14;
+                this.meleePressed = true;
+            }
+
+            if(this.isMeleeAttacking) {
+                if(this.meleeTransition < 5) {
+                    this.meleeTransition++;
+                } else {
+                    this.isMeleeAttacking = false;
+                }
+            } else if(this.meleeTransition > 0) {
+                this.meleeTransition--;
+            }
+
+            if(this.meleeCooldown > 0) {
+                this.meleeCooldown--;
+            }
+        }
     }
 
     private void updateSprinting()
@@ -140,7 +197,7 @@ public class GunRenderingHandler
         this.prevSprintTransition = this.sprintTransition;
 
         Minecraft mc = Minecraft.getInstance();
-        if(mc.player != null && mc.player.isSprinting() && !ModSyncedDataKeys.SHOOTING.getValue(mc.player) && !ModSyncedDataKeys.RELOADING.getValue(mc.player) && !AimingHandler.get().isAiming() && this.sprintCooldown == 0)
+        if(mc.player != null && mc.player.isSprinting() && !ModSyncedDataKeys.SHOOTING.getValue(mc.player) && !ModSyncedDataKeys.RELOADING.getValue(mc.player) && !AimingHandler.get().isAiming() && this.sprintCooldown == 0 && this.meleeCooldown == 0)
         {
             if(this.sprintTransition < 5)
             {
@@ -192,7 +249,7 @@ public class GunRenderingHandler
             return;
 
         this.sprintTransition = 0;
-        this.sprintCooldown = 20; //TODO make a config option
+        this.sprintCooldown = 20; // TODO make a config option
 
         ItemStack heldItem = event.getStack();
         GunItem gunItem = (GunItem) heldItem.getItem();
@@ -399,6 +456,7 @@ public class GunRenderingHandler
         this.applyRecoilTransforms(poseStack, heldItem, modifiedGun);
         this.applyReloadTransforms(poseStack, event.getPartialTicks());
         this.applyShieldTransforms(poseStack, player, modifiedGun, event.getPartialTicks());
+        this.applyMeleeTransforms(modifiedGun, hand, poseStack, event.getPartialTicks());
 
         /* Determines the lighting for the weapon. Weapon will appear bright from muzzle flash or light sources */
         int blockLight = player.isOnFire() ? 15 : player.level.getBrightness(LightLayer.BLOCK, new BlockPos(player.getEyePosition(event.getPartialTicks())));
@@ -489,18 +547,52 @@ public class GunRenderingHandler
 
     private void applySprintingTransforms(Gun modifiedGun, HumanoidArm hand, PoseStack poseStack, float partialTicks)
     {
+        Minecraft mc = Minecraft.getInstance();
+
         if(Config.CLIENT.display.sprintAnimation.get() && modifiedGun.getGeneral().getGripType().getHeldAnimation().canApplySprintingAnimation())
         {
             float leftHanded = hand == HumanoidArm.LEFT ? -1 : 1;
             float transition = (this.prevSprintTransition + (this.sprintTransition - this.prevSprintTransition) * partialTicks) / 5F;
             transition = (float) Math.sin((transition * Math.PI) / 2);
-            poseStack.translate(-0.25 * leftHanded * transition, -0.1 * transition, 0);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(45F * leftHanded * transition));
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(-25F * transition));
+
+            if ((Gun.getAttachment(IAttachment.Type.BARREL, mc.player.getMainHandItem()).getItem() instanceof SwordItem)) {
+                //poseStack.translate(-0.25 * leftHanded * transition, -0.1 * transition, 0);
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(15F * transition));
+            }
+            else if (modifiedGun.getGeneral().getGripType().equals(GripType.TWO_HANDED)){
+                poseStack.translate(-0.25 * leftHanded * transition, -0.1 * transition, 0);
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(45F * leftHanded * transition));
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(-25F * transition));
+            } else {
+                poseStack.translate(0 * leftHanded * transition, 0.5 * transition, 0);
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(55F * transition));
+            }
+
         }
     }
 
-    //Right arm that grabs the gun
+    private void applyMeleeTransforms(Gun modifiedGun, HumanoidArm hand, PoseStack poseStack, float partialTicks) {
+        Minecraft mc = Minecraft.getInstance();
+
+        float leftHanded = hand == HumanoidArm.LEFT ? -1 : 1;
+        float transition = (this.prevMeleeTransition + (this.meleeTransition - this.prevMeleeTransition) * partialTicks) / 5F;
+        transition = (float) Math.sin((transition * Math.PI) / 2);
+
+        if ((Gun.getAttachment(IAttachment.Type.BARREL, mc.player.getMainHandItem()).getItem() instanceof SwordItem)) {
+            poseStack.translate(-1.0 * leftHanded * transition, 0.4 * transition, -0.3 * transition);
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(100F * leftHanded * transition));
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(45F * transition));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(45F * transition));
+        }
+        else {
+            poseStack.translate(-0.8 * leftHanded * transition, 0.2 * transition, -0.1 * transition);
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(100F * leftHanded * transition));
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(-35F * transition));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(35F * transition));
+        }
+
+    }
+
     private void applyReloadTransforms(PoseStack poseStack, float partialTicks)
     {
         float reloadProgress = ReloadHandler.get().getReloadProgress(partialTicks);
@@ -639,7 +731,7 @@ public class GunRenderingHandler
         }
     }
 
-    public boolean renderWeapon(@Nullable LivingEntity entity, ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float partialTicks)
+    public boolean renderWeapon(@Nullable LivingEntity entity, ItemStack stack, ItemTransforms.TransformType display, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float partialTicks)
     {
         if(stack.getItem() instanceof GunItem)
         {
@@ -654,12 +746,12 @@ public class GunRenderingHandler
                 }
             }
 
-            RenderUtil.applyTransformType(stack, poseStack, transformType, entity);
+            RenderUtil.applyTransformType(stack, poseStack, display, entity);
 
             this.renderingWeapon = stack;
-            this.renderGun(entity, transformType, model.isEmpty() ? stack : model, poseStack, renderTypeBuffer, light, partialTicks);
-            this.renderAttachments(entity, transformType, stack, poseStack, renderTypeBuffer, light, partialTicks);
-            this.renderMuzzleFlash(entity, poseStack, renderTypeBuffer, stack, transformType, partialTicks);
+            this.renderGun(entity, display, model.isEmpty() ? stack : model, poseStack, renderTypeBuffer, light, partialTicks);
+            this.renderAttachments(entity, display, stack, poseStack, renderTypeBuffer, light, partialTicks);
+            this.renderMuzzleFlash(entity, poseStack, renderTypeBuffer, stack, display, partialTicks);
             this.renderingWeapon = null;
 
             poseStack.popPose();
@@ -668,24 +760,25 @@ public class GunRenderingHandler
         return false;
     }
 
-    private void renderGun(@Nullable LivingEntity entity, ItemTransforms.TransformType transformType, ItemStack stack, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float partialTicks)
+    private void renderGun(@Nullable LivingEntity entity, ItemTransforms.TransformType display, ItemStack stack, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float partialTicks)
     {
         if(ModelOverrides.hasModel(stack))
         {
             IOverrideModel model = ModelOverrides.getModel(stack);
             if(model != null)
             {
-                model.render(partialTicks, transformType, stack, ItemStack.EMPTY, entity, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY);
+                model.render(partialTicks, display, stack, ItemStack.EMPTY, entity, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY);
             }
         }
         else
         {
-            BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(stack);
+            Level level = entity != null ? entity.level : null;
+            BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getModel(stack, level, entity, 0);
             Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, bakedModel);
         }
     }
 
-    private void renderAttachments(@Nullable LivingEntity entity, ItemTransforms.TransformType transformType, ItemStack stack, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float partialTicks)
+    private void renderAttachments(@Nullable LivingEntity entity, ItemTransforms.TransformType display, ItemStack stack, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light, float partialTicks)
     {
         if(stack.getItem() instanceof GunItem)
         {
@@ -721,16 +814,17 @@ public class GunRenderingHandler
                         poseStack.scale((float) scale.x, (float) scale.y, (float) scale.z);
                         poseStack.translate(-center.x, -center.y, -center.z);
 
-                            IOverrideModel model = ModelOverrides.getModel(attachmentStack);
-                            if(model != null)
-                            {
-                                model.render(partialTicks, transformType, attachmentStack, stack, entity, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY);
-                            }
-                            else
-                            {
-                                BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(attachmentStack);
-                                Minecraft.getInstance().getItemRenderer().render(attachmentStack, ItemTransforms.TransformType.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, GunModel.wrap(bakedModel));
-                            }
+                        IOverrideModel model = ModelOverrides.getModel(attachmentStack);
+                        if(model != null)
+                        {
+                            model.render(partialTicks, display, attachmentStack, stack, entity, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY);
+                        }
+                        else
+                        {
+                            Level level = entity != null ? entity.level : null;
+                            BakedModel bakedModel = Minecraft.getInstance().getItemRenderer().getModel(attachmentStack, level, entity, 0);
+                            Minecraft.getInstance().getItemRenderer().render(attachmentStack, ItemTransforms.TransformType.NONE, false, poseStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, GunModel.wrap(bakedModel));
+                        }
 
                         poseStack.popPose();
                     }
@@ -739,13 +833,13 @@ public class GunRenderingHandler
         }
     }
 
-    private void renderMuzzleFlash(@Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, ItemStack weapon, ItemTransforms.TransformType transformType, float partialTicks)
+    private void renderMuzzleFlash(@Nullable LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, ItemStack weapon, ItemTransforms.TransformType display, float partialTicks)
     {
         Gun modifiedGun = ((GunItem) weapon.getItem()).getModifiedGun(weapon);
         if(modifiedGun.getDisplay().getFlash() == null)
             return;
 
-        if(transformType != ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND && transformType != ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND && transformType != ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && transformType != ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND)
+        if(display != ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND && display != ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND && display != ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && display != ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND)
             return;
 
         if(entity == null || !this.entityIdForMuzzleFlash.contains(entity.getId()))
@@ -804,7 +898,6 @@ public class GunRenderingHandler
         poseStack.popPose();
     }
 
-    //Left arm used for grabbing the ammo
     private void renderReloadArm(PoseStack poseStack, MultiBufferSource buffer, int light, Gun modifiedGun, ItemStack stack, HumanoidArm hand, float translateX)
     {
         Minecraft mc = Minecraft.getInstance();
@@ -820,7 +913,7 @@ public class GunRenderingHandler
         int side = hand.getOpposite() == HumanoidArm.RIGHT ? 1 : -1;
         poseStack.translate(translateX * side, 0, 0);
 
-        float interval = GunEnchantmentHelper.getReloadInterval(stack);
+        float interval = GunEnchantmentHelper.getRealReloadSpeed(stack);
         float reload = ((mc.player.tickCount - ReloadHandler.get().getStartReloadTick() + mc.getFrameTime()) % interval) / interval;
         float percent = 1.0F - reload;
         if(percent >= 0.5F)
@@ -830,7 +923,6 @@ public class GunRenderingHandler
         percent *= 2F;
         percent = percent < 0.5 ? 2 * percent * percent : -1 + (4 - 2 * percent) * percent;
 
-        //Renders the hand itself
         poseStack.translate(3.5 * side * 0.0625, -0.5625, -0.5625);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180F));
         poseStack.translate(0, -0.35 * (1.0 - percent), 0);
@@ -842,7 +934,6 @@ public class GunRenderingHandler
 
         RenderUtil.renderFirstPersonArm(mc.player, hand.getOpposite(), poseStack, buffer, light);
 
-        //Renders the ammo/magazine
         if(reload < 0.5F)
         {
             poseStack.pushPose();
@@ -854,7 +945,6 @@ public class GunRenderingHandler
             boolean isModel = model.isGui3d();
             this.random.setSeed(Item.getId(item));
             int count = Math.min(modifiedGun.getReloads().getReloadAmount(), 5);
-
             for(int i = 0; i < count; ++i)
             {
                 poseStack.pushPose();

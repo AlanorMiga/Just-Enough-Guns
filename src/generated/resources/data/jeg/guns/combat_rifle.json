@@ -9,7 +9,6 @@
     "spread": 3.0
   },
   "reloads": {
-    "reloadItem": "jeg:scrap",
     "maxAmmo": 30,
     "reloadType": "jeg:mag_fed",
     "reloadTimer": 30,
@@ -51,9 +50,8 @@
         "zOffset": 5.5
       },
       "barrel": {
-        "yOffset": 3.75,
-        "zOffset": -7.45,
-        "scale": 0.800000011920929
+        "yOffset": 3.78,
+        "zOffset": -7.5
       },
       "stock": {
         "scale": 0.0
@@ -61,6 +59,9 @@
       "underBarrel": {
         "yOffset": 2.8,
         "zOffset": -1.0,
+        "scale": 0.0
+      },
+      "magazine": {
         "scale": 0.0
       }
     }

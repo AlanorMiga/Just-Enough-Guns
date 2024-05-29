@@ -10,7 +10,6 @@
     "spread": 15.0
   },
   "reloads": {
-    "reloadItem": "jeg:scrap",
     "maxAmmo": 1,
     "reloadType": "jeg:mag_fed",
     "reloadTimer": 45,

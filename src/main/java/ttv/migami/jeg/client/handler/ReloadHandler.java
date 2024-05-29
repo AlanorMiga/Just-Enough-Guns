@@ -18,7 +18,8 @@ import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.C2SMessageReload;
 import ttv.migami.jeg.network.message.C2SMessageUnload;
-import ttv.migami.jeg.util.GunEnchantmentHelper;
+import ttv.migami.jeg.network.message.C2SMessageLeftOverAmmo;
+import ttv.migami.jeg.util.GunModifierHelper;
 
 /**
  * Author: MrCrayfish
@@ -56,6 +57,8 @@ public class ReloadHandler
         Player player = Minecraft.getInstance().player;
         if(player != null)
         {
+            PacketHandler.getPlayChannel().sendToServer(new C2SMessageLeftOverAmmo());
+
             if(ModSyncedDataKeys.RELOADING.getValue(player))
             {
                 if(this.reloadingSlot != player.getInventory().selected)
@@ -100,7 +103,7 @@ public class ReloadHandler
                     if(tag != null && !tag.contains("IgnoreAmmo", Tag.TAG_BYTE))
                     {
                         Gun gun = ((GunItem) stack.getItem()).getModifiedGun(stack);
-                        if(tag.getInt("AmmoCount") >= GunEnchantmentHelper.getAmmoCapacity(stack, gun))
+                        if(tag.getInt("AmmoCount") >= GunModifierHelper.getModifiedAmmoCapacity(stack, gun))
                             return;
                         if(MinecraftForge.EVENT_BUS.post(new GunReloadEvent.Pre(player, stack)))
                             return;

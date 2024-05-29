@@ -9,8 +9,13 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
@@ -31,9 +36,11 @@ import ttv.migami.jeg.client.settings.GunOptions;
 import ttv.migami.jeg.client.util.PropertyHelper;
 import ttv.migami.jeg.debug.IEditorMenu;
 import ttv.migami.jeg.debug.client.screen.EditorScreen;
+import ttv.migami.jeg.enchantment.EnchantmentTypes;
 import ttv.migami.jeg.init.ModBlocks;
 import ttv.migami.jeg.init.ModContainers;
 import ttv.migami.jeg.init.ModItems;
+import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.IColored;
 import ttv.migami.jeg.item.attachment.IAttachment;
 import ttv.migami.jeg.network.PacketHandler;
@@ -57,6 +64,7 @@ public class ClientHandler {
         MinecraftForge.EVENT_BUS.register(ReloadHandler.get());
         MinecraftForge.EVENT_BUS.register(ShootingHandler.get());
         MinecraftForge.EVENT_BUS.register(SoundHandler.get());
+        MinecraftForge.EVENT_BUS.register(MeleeHandler.get());
         MinecraftForge.EVENT_BUS.register(new PlayerModelHandler());
 
         /* Only register controller events if Controllable is loaded otherwise it will crash */
@@ -126,6 +134,12 @@ public class ClientHandler {
         ModelOverrides.register(ModItems.ATLANTEAN_SPEAR.get(), new AtlanteanSpearModel());
         ModelOverrides.register(ModItems.TYPHOONEE.get(), new TyphooneeModel());
         //ModelOverrides.register(ModItems.BUBBLE_CANNON.get(), new BubbleCannonModel());
+        ModelOverrides.register(Items.WOODEN_SWORD, new BayonetWoodenModel());
+        ModelOverrides.register(Items.STONE_SWORD, new BayonetStoneModel());
+        ModelOverrides.register(Items.IRON_SWORD, new BayonetIronModel());
+        ModelOverrides.register(Items.GOLDEN_SWORD, new BayonetGoldenModel());
+        ModelOverrides.register(Items.DIAMOND_SWORD, new BayonetDiamondModel());
+        ModelOverrides.register(Items.NETHERITE_SWORD, new BayonetNetheriteModel());
     }
 
     private static void registerScreenFactories() {

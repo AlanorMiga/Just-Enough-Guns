@@ -8,7 +8,6 @@
     "spread": 3.0
   },
   "reloads": {
-    "reloadItem": "jeg:scrap",
     "maxAmmo": 16,
     "reloadType": "jeg:mag_fed",
     "reloadTimer": 30,
@@ -60,6 +59,9 @@
       "underBarrel": {
         "yOffset": 2.3,
         "zOffset": 1.4
+      },
+      "magazine": {
+        "scale": 0.0
       }
     }
   }
