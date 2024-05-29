@@ -153,6 +153,7 @@ public class GunGen extends GunProvider
                         .setOffset(0.0, 3.85, -1.75))
                 .setBarrel(1.0F, 0.0, 3.0, -2.0)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
+                .setMagazine(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 
@@ -246,6 +247,7 @@ public class GunGen extends GunProvider
                 .setBarrel(1.0F, 0.0, 3.05, -5.8)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(1.0F, 0.0, 2.3, 1.4)
+                .setMagazine(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 
@@ -294,6 +296,7 @@ public class GunGen extends GunProvider
                 .setBarrel(1.0F, 0.0, 2.75, -4.9)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(1.0F, 0.0, 1.5, 1.85)
+                .setMagazine(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 
@@ -441,6 +444,7 @@ public class GunGen extends GunProvider
                 .setBarrel(1.0F, 0.0, 3.5, -6)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(1.0F, 0.0, 2.4, 1.2)
+                .setMagazine(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 
@@ -487,9 +491,10 @@ public class GunGen extends GunProvider
                         .setFovModifier(0.6F)
                         .setOffset(0.0, 5.8, -1.75))
                 .setScope(1.0F, 0.0, 4.75, 5.5)
-                .setBarrel(0.8F, 0.0, 3.75, -7.45)
+                .setBarrel(1.0F, 0.0, 3.78, -7.5)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(0.0F, 0.0, 2.8, -1.0)
+                .setMagazine(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 
@@ -537,9 +542,10 @@ public class GunGen extends GunProvider
                         .setFovModifier(0.6F)
                         .setOffset(0.0, 4.15, -1.75))
                 .setScope(1.0F, 0.0, 3.85, 4.6)
-                .setBarrel(0.8F, 0.0, 3.395, -7.5)
+                .setBarrel(1.0F, 0.0, 3.4, -7.5)
                 .setStock(0.0F, 0.0, 0.0, 0.0)
                 .setUnderBarrel(1.0F, 0.0, 2.25, 1.4)
+                .setMagazine(0.0F, 0.0, 0.0, 0.0)
 
                 .build());
 

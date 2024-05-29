@@ -31,8 +31,8 @@ public class SplashRenderer extends EntityRenderer<Splash> {
                        MultiBufferSource pBuffer, int pPackedLight) {
         pPoseStack.pushPose();
         pPoseStack.mulPose(Vector3f.YP.rotationDegrees(pEntity.tickCount * 10));
-        pPoseStack.scale(1, -1, 1);
-        pPoseStack.translate(0.0D, -1.5D, 0.0D);
+        //pPoseStack.scale(1, -1, 1);
+        //pPoseStack.translate(0.0D, -1.5D, 0.0D);
 
         index ++;
         VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(new ResourceLocation(Reference.MOD_ID, "textures/entity/splash_" + pEntity.getTextureIndex() + ".png")));

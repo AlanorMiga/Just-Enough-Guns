@@ -29,6 +29,7 @@ import ttv.migami.jeg.debug.IEditorMenu;
 import ttv.migami.jeg.debug.client.screen.widget.DebugButton;
 import ttv.migami.jeg.debug.client.screen.widget.DebugSlider;
 import ttv.migami.jeg.debug.client.screen.widget.DebugToggle;
+import ttv.migami.jeg.init.ModItems;
 import ttv.migami.jeg.item.ScopeItem;
 import ttv.migami.jeg.item.attachment.IAttachment;
 import ttv.migami.jeg.item.attachment.impl.Scope;
@@ -402,7 +403,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             Preconditions.checkArgument(this.emptyMagTimer >= 0, "Empty mag additional reload timer must be more than or equal to zero");
             Preconditions.checkArgument(this.reloadAmount >= 1, "Reloading amount must be more than or equal to zero");
             JsonObject object = new JsonObject();
-            if(this.reloadItem != null) object.addProperty("reloadItem", this.reloadItem.toString());
+            if(!this.reloadItem.toString().matches(ModItems.SCRAP.getId().toString())) object.addProperty("reloadItem", this.reloadItem.toString());
             object.addProperty("maxAmmo", this.maxAmmo);
             object.addProperty("reloadType", this.reloadType.getId().toString());
             object.addProperty("reloadTimer", this.reloadTimer);
@@ -1138,6 +1139,9 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             @Optional
             @Nullable
             private ScaledPositioned underBarrel;
+            @Optional
+            @Nullable
+            private ScaledPositioned magazine;
 
             @Nullable
             public ScaledPositioned getScope()
@@ -1163,6 +1167,12 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                 return this.underBarrel;
             }
 
+            @Nullable
+            public ScaledPositioned getMagazine()
+            {
+                return this.magazine;
+            }
+
             @Override
             public CompoundTag serializeNBT()
             {
@@ -1182,6 +1192,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                 if(this.underBarrel != null)
                 {
                     tag.put("UnderBarrel", this.underBarrel.serializeNBT());
+                }
+                if(this.magazine != null)
+                {
+                    tag.put("Magazine", this.magazine.serializeNBT());
                 }
                 return tag;
             }
@@ -1205,6 +1219,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                 {
                     this.underBarrel = this.createScaledPositioned(tag, "UnderBarrel");
                 }
+                if(tag.contains("Magazine", Tag.TAG_COMPOUND))
+                {
+                    this.magazine = this.createScaledPositioned(tag, "Magazine");
+                }
             }
 
             public JsonObject toJsonObject()
@@ -1225,6 +1243,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                 if(this.underBarrel != null)
                 {
                     object.add("underBarrel", this.underBarrel.toJsonObject());
+                }
+                if(this.magazine != null)
+                {
+                    object.add("magazine", this.magazine.toJsonObject());
                 }
                 return object;
             }
@@ -1247,6 +1269,10 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                 if(this.underBarrel != null)
                 {
                     attachments.underBarrel = this.underBarrel.copy();
+                }
+                if(this.magazine != null)
+                {
+                    attachments.magazine = this.magazine.copy();
                 }
                 return attachments;
             }
@@ -1582,6 +1608,8 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                     return this.modules.attachments.stock != null;
                 case UNDER_BARREL:
                     return this.modules.attachments.underBarrel != null;
+                case MAGAZINE:
+                    return this.modules.attachments.magazine != null;
             }
         }
         return false;
@@ -1602,6 +1630,8 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
                     return this.modules.attachments.stock;
                 case UNDER_BARREL:
                     return this.modules.attachments.underBarrel;
+                case MAGAZINE:
+                    return this.modules.attachments.magazine;
             }
         }
         return null;
@@ -1756,6 +1786,20 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             if(attachment.contains("Under_Barrel", Tag.TAG_COMPOUND))
             {
                 attachment.remove("Under_Barrel");
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    public static ItemStack removeMagazineStack(ItemStack gun)
+    {
+        CompoundTag compound = gun.getTag();
+        if(compound != null && compound.contains("Attachments", Tag.TAG_COMPOUND))
+        {
+            CompoundTag attachment = compound.getCompound("Attachments");
+            if(attachment.contains("Magazine", Tag.TAG_COMPOUND))
+            {
+                attachment.remove("Magazine");
             }
         }
         return ItemStack.EMPTY;
@@ -2075,7 +2119,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        @Deprecated(since = "1.3.0", forRemoval = true)
+        //@Deprecated(since = "1.3.0", forRemoval = true)
         public Builder setMuzzleFlash(double size, double xOffset, double yOffset, double zOffset)
         {
             Display.Flash flash = new Display.Flash();
@@ -2098,14 +2142,14 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        @Deprecated(since = "1.3.0", forRemoval = true)
+        //@Deprecated(since = "1.3.0", forRemoval = true)
         public Builder setZoom(Modules.Zoom.Builder builder)
         {
             this.gun.modules.zoom = builder.build();
             return this;
         }
 
-        @Deprecated(since = "1.3.0", forRemoval = true)
+        //@Deprecated(since = "1.3.0", forRemoval = true)
         public Builder setScope(float scale, double xOffset, double yOffset, double zOffset)
         {
             ScaledPositioned positioned = new ScaledPositioned();
@@ -2117,7 +2161,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        @Deprecated(since = "1.3.0", forRemoval = true)
+        //@Deprecated(since = "1.3.0", forRemoval = true)
         public Builder setBarrel(float scale, double xOffset, double yOffset, double zOffset)
         {
             ScaledPositioned positioned = new ScaledPositioned();
@@ -2129,7 +2173,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        @Deprecated(since = "1.3.0", forRemoval = true)
+        //@Deprecated(since = "1.3.0", forRemoval = true)
         public Builder setStock(float scale, double xOffset, double yOffset, double zOffset)
         {
             ScaledPositioned positioned = new ScaledPositioned();
@@ -2141,7 +2185,7 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             return this;
         }
 
-        @Deprecated(since = "1.3.0", forRemoval = true)
+        //@Deprecated(since = "1.3.0", forRemoval = true)
         public Builder setUnderBarrel(float scale, double xOffset, double yOffset, double zOffset)
         {
             ScaledPositioned positioned = new ScaledPositioned();
@@ -2150,6 +2194,17 @@ public class Gun implements INBTSerializable<CompoundTag>, IEditorMenu
             positioned.yOffset = yOffset;
             positioned.zOffset = zOffset;
             this.gun.modules.attachments.underBarrel = positioned;
+            return this;
+        }
+
+        public Builder setMagazine(float scale, double xOffset, double yOffset, double zOffset)
+        {
+            ScaledPositioned positioned = new ScaledPositioned();
+            positioned.scale = scale;
+            positioned.xOffset = xOffset;
+            positioned.yOffset = yOffset;
+            positioned.zOffset = zOffset;
+            this.gun.modules.attachments.magazine = positioned;
             return this;
         }
     }

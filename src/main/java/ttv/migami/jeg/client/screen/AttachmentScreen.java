@@ -21,6 +21,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModList;
 import org.lwjgl.glfw.GLFW;
@@ -167,7 +168,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
-        RenderUtil.scissor(left + 26, top + 17, 142, 70);
+        RenderUtil.scissor(left + 26, top + 17, 124, 70);
 
         PoseStack stack = RenderSystem.getModelViewStack();
         stack.pushPose();
@@ -205,8 +206,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY)
-    {
+    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI_TEXTURES);
         int left = (this.width - this.imageWidth) / 2;
@@ -215,15 +215,13 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
 
         /* Draws the icons for each attachment slot. If not applicable
          * for the weapon, it will draw a cross instead. */
-        for(int i = 0; i < IAttachment.Type.values().length; i++)
-        {
-            if(!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i)))
-            {
-                this.blit(poseStack, left + 8, top + 17 + i * 18, 176, 0, 16, 16);
-            }
-            else if(this.weaponInventory.getItem(i).isEmpty())
-            {
-                this.blit(poseStack, left + 8, top + 17 + i * 18, 176, 16 + i * 16, 16, 16);
+        for (int i = 0; i < IAttachment.Type.values().length; i++) {
+            int x = i < 4 ? 8 : 152; // Adjust x coordinate for right side slots
+            int y = 17 + (i % 4) * 18; // Adjust y coordinate for slots
+            if (!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i))) {
+                this.blit(poseStack, left + x, top + y, 176, 0, 16, 16);
+            } else if (this.weaponInventory.getItem(i).isEmpty()) {
+                this.blit(poseStack, left + x, top + y, 176, 16 + (i % 5) * 16, 16, 16);
             }
         }
     }
@@ -237,6 +235,10 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
             return true;
 
         if(!slot.getItem().isEmpty())
+            return true;
+
+        // Not compatible check
+        if (stack.getItem() instanceof SwordItem)
             return true;
 
         if(!(slot instanceof AttachmentSlot s))
@@ -256,6 +258,10 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         if(stack.isEmpty())
             return true;
 
+        // Not compatible check
+        if (stack.getItem() instanceof SwordItem)
+            return true;
+
         if(!(stack.getItem() instanceof IAttachment<?> attachment))
             return false;
 
@@ -273,7 +279,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     {
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
-        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 142, 70))
+        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 124, 70))
         {
             if(scroll < 0 && this.windowZoom > 0)
             {
@@ -295,7 +301,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
 
-        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 142, 70))
+        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 124, 70))
         {
             if(!this.mouseGrabbed && (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT))
             {

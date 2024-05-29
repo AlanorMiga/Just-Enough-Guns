@@ -40,7 +40,6 @@
   "reloads": {
     "emptyMagTimer": 0,
     "maxAmmo": 2,
-    "reloadItem": "jeg:scrap",
     "reloadTimer": 60,
     "reloadType": "jeg:mag_fed"
   },

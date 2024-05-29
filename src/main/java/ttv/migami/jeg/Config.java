@@ -71,7 +71,12 @@ public class Config
     public static class Display
     {
         public final ForgeConfigSpec.BooleanValue oldAnimations;
+        public final ForgeConfigSpec.BooleanValue vanillaSwordTextures;
         public final ForgeConfigSpec.ConfigValue<String> crosshair;
+        public final ForgeConfigSpec.BooleanValue displayAmmoGUI;
+        public final ForgeConfigSpec.BooleanValue classicAmmoGUI;
+        public final ForgeConfigSpec.IntValue displayAmmoGUIXOffset;
+        public final ForgeConfigSpec.IntValue displayAmmoGUIYOffset;
         public final ForgeConfigSpec.BooleanValue cooldownIndicator;
         public final ForgeConfigSpec.BooleanValue weaponSway;
         public final ForgeConfigSpec.DoubleValue swaySensitivity;
@@ -87,7 +92,12 @@ public class Config
             builder.comment("Configuration for display related options").push("display");
             {
                 this.oldAnimations = builder.comment("If true, uses the old animation poses for weapons. This is only for nostalgic reasons and not recommended to switch back.").define("oldAnimations", false);
+                this.vanillaSwordTextures = builder.comment("If true, bayonets will instead use the Minecraft sword texture.").define("vanillaSwordTextures", false);
                 this.crosshair = builder.comment("The custom crosshair to use for weapons. Go to (Options > Controls > Mouse Settings > Crosshair) in game to change this!").define("crosshair", Crosshair.DEFAULT.getLocation().toString());
+                this.displayAmmoGUI = builder.comment("If enabled, renders a HUD element displaying the gun's current ammo and its name.").define("displayAmmoGUI", true);
+                this.classicAmmoGUI = builder.comment("If enabled, renders the classic ammo HUD instead of the JEG one.").define("classicAmmoGUI", false);
+                this.displayAmmoGUIXOffset = builder.comment("Offsets the ammo HUD by the specified X value.").defineInRange("displayAmmoGUIXOffset", 0, -650, 0);
+                this.displayAmmoGUIYOffset = builder.comment("Offsets the ammo HUD by the specified Y value.").defineInRange("displayAmmoGUIYOffset", 0, -350, 0);
                 this.cooldownIndicator = builder.comment("If enabled, renders a cooldown indicator to make it easier to learn when you fire again.").define("cooldownIndicator", true);
                 this.weaponSway = builder.comment("If enabled, the weapon will sway when the player moves their look direction. This does not affect aiming and is only visual.").define("weaponSway", true);
                 this.swaySensitivity = builder.comment("The sensistivity of the visual weapon sway when the player moves their look direciton. The higher the value the more sway.").defineInRange("swaySensitivity", 0.3, 0.0, 1.0);
@@ -160,6 +170,7 @@ public class Config
     public static class Common
     {
         public final Gameplay gameplay;
+        public final World world;
         public final Network network;
         public final AggroMobs aggroMobs;
         public final Missiles missiles;
@@ -172,6 +183,7 @@ public class Config
             builder.push("common");
             {
                 this.gameplay = new Gameplay(builder);
+                this.world = new World(builder);
                 this.network = new Network(builder);
                 this.aggroMobs = new AggroMobs(builder);
                 this.missiles = new Missiles(builder);
@@ -189,6 +201,10 @@ public class Config
     public static class Gameplay
     {
         public final Griefing griefing;
+        public final ForgeConfigSpec.BooleanValue gunDurability;
+        public final ForgeConfigSpec.BooleanValue gunJamming;
+        public final ForgeConfigSpec.BooleanValue underwaterFiring;
+        public final ForgeConfigSpec.BooleanValue gunAdvantage;
         public final ForgeConfigSpec.DoubleValue growBoundingBoxAmount;
         public final ForgeConfigSpec.BooleanValue enableHeadShots;
         public final ForgeConfigSpec.DoubleValue headShotDamageMultiplier;
@@ -203,6 +219,10 @@ public class Config
             builder.comment("Properties relating to gameplay").push("gameplay");
             {
                 this.griefing = new Griefing(builder);
+                this.gunDurability = builder.comment("If enabled, both guns and attachment will receive damage upon firing a gun.").define("gunDurability", true);
+                this.gunJamming = builder.comment("If enabled, guns will have an increasing chance of jamming the lower durability they have left.").define("gunJamming", true);
+                this.gunAdvantage = builder.comment("If enabled, guns will deal less/more damage depending on their advantage.").define("gunAdvantage", true);
+                this.underwaterFiring = builder.comment("If enabled, guns will be able to shoot underwater (There are guns that already do this).").define("underwaterFiring", false);
                 this.growBoundingBoxAmount = builder.comment("The extra amount to expand an entity's bounding box when checking for projectile collision. Setting this value higher will make it easier to hit entities").defineInRange("growBoundingBoxAmount", 0.3, 0.0, 1.0);
                 this.enableHeadShots = builder.comment("Enables the check for head shots for players. Projectiles that hit the head of a player will have increased damage.").define("enableHeadShots", true);
                 this.headShotDamageMultiplier = builder.comment("The value to multiply the damage by if projectile hit the players head").defineInRange("headShotDamageMultiplier", 1.25, 1.0, Double.MAX_VALUE);
@@ -211,6 +231,27 @@ public class Config
                 this.enableKnockback = builder.comment("If true, projectiles will cause knockback when an entity is hit. By default this is set to true to match the behaviour of Minecraft.").define("enableKnockback", true);
                 this.knockbackStrength = builder.comment("Sets the strengthof knockback when shot by a bullet projectile. Knockback must be enabled for this to take effect. If value is equal to zero, knockback will use default minecraft value").defineInRange("knockbackStrength", 0.15, 0.0, 1.0);
                 this.improvedHitboxes = builder.comment("If true, improves the accuracy of weapons by considering the ping of the player. This has no affect on singleplayer. This will add a little overhead if enabled.").define("improvedHitboxes", false);
+            }
+            builder.pop();
+        }
+    }
+
+    /**
+     * World related config options
+     */
+    public static class World
+    {
+        public final ForgeConfigSpec.BooleanValue booSpawning;
+        public final ForgeConfigSpec.BooleanValue ghoulSpawning;
+        public final ForgeConfigSpec.BooleanValue creepersDropLiveGrenades;
+
+        public World(ForgeConfigSpec.Builder builder)
+        {
+            builder.comment("Properties relating to the JEG world and its ecosystem").push("world");
+            {
+               this.booSpawning = builder.comment("If disabled, Boos will not generate.").define("booSpawning", true);
+               this.ghoulSpawning = builder.comment("If disabled, Ghouls will not generate.").define("ghoulSpawning", true);
+               this.creepersDropLiveGrenades = builder.comment("If enabled, Creepers have a 5% chance of dropping a live grenade.").define("creepersDropLiveGrenades", true);
             }
             builder.pop();
         }

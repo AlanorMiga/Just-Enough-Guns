@@ -1,9 +1,14 @@
 package ttv.migami.jeg.util;
 
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.enchantment.Enchantments;
 import ttv.migami.jeg.common.Gun;
+import ttv.migami.jeg.init.ModItems;
 import ttv.migami.jeg.interfaces.IGunModifier;
+import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.attachment.IAttachment;
 
 /**
@@ -261,5 +266,64 @@ public class GunModifierHelper
         }
         chance += GunEnchantmentHelper.getPuncturingChance(weapon);
         return Mth.clamp(chance, 0F, 1F);
+    }
+
+    public static int getModifiedAmmoCapacity(ItemStack weapon, Gun modifiedGun)
+    {
+        double percentage;
+        int capacity = modifiedGun.getReloads().getMaxAmmo();
+        if (Gun.getAttachment(IAttachment.Type.MAGAZINE, weapon).getItem() == ModItems.EXTENDED_MAG.get())
+        {
+            percentage = 0.5;
+            int ammoIncrease = (int) (percentage * capacity);
+            capacity += ammoIncrease;
+        }
+        return capacity;
+    }
+
+    public static float getSwordDamage(Player player) {
+        float damage = 1;
+
+        if (player.getMainHandItem().getItem() instanceof GunItem && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem swordItem) {
+            damage = swordItem.getDamage();
+
+            ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
+            damage = damage + bayonet.getEnchantmentLevel(Enchantments.SHARPNESS);
+        }
+
+        return damage;
+    }
+
+    public static int getSwordKnockBack(Player player) {
+        int level = 0;
+
+        if (player.getMainHandItem().getItem() instanceof GunItem && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem) {
+            ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
+            level = level + bayonet.getEnchantmentLevel(Enchantments.KNOCKBACK);
+        }
+
+        return level;
+    }
+
+    public static int getSwordFireAspect(Player player) {
+        int level = 0;
+
+        if (player.getMainHandItem().getItem() instanceof GunItem && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem) {
+            ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
+            level = level + bayonet.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
+        }
+
+        return level;
+    }
+
+    public static int getSwordSweepingEdge(Player player) {
+        int level = 0;
+
+        if (player.getMainHandItem().getItem() instanceof GunItem && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem) {
+            ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
+            level = level + bayonet.getEnchantmentLevel(Enchantments.SWEEPING_EDGE);
+        }
+
+        return level;
     }
 }

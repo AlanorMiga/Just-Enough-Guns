@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.common.container.slot.AttachmentSlot;
 import ttv.migami.jeg.init.ModContainers;
@@ -52,11 +53,21 @@ public class AttachmentContainer extends AbstractContainerMenu
         this.weapon = playerInventory.getSelected();
         this.playerInventory = playerInventory;
 
-        for(int i = 0; i < IAttachment.Type.values().length; i++)
+        int numSlots = IAttachment.Type.values().length;
+
+        // Add 4 slots on the left side
+        for(int i = 0; i < 4; i++)
         {
             this.addSlot(new AttachmentSlot(this, this.weaponInventory, this.weapon, IAttachment.Type.values()[i], playerInventory.player, i, 8, 17 + i * 18));
         }
 
+        // Add 4 slots on the right side
+        for(int i = 4; i < numSlots; i++)
+        {
+            this.addSlot(new AttachmentSlot(this, this.weaponInventory, this.weapon, IAttachment.Type.values()[i], playerInventory.player, i, 152, 17 + (i - 4) * 18)); // 176 is the x coordinate for the right side slots
+        }
+
+        // Inventory slots
         for(int i = 0; i < 3; i++)
         {
             for(int j = 0; j < 9; j++)
@@ -65,6 +76,7 @@ public class AttachmentContainer extends AbstractContainerMenu
             }
         }
 
+        // Hotbar slots
         for(int i = 0; i < 9; i++)
         {
             if(i == playerInventory.selected)
@@ -104,6 +116,10 @@ public class AttachmentContainer extends AbstractContainerMenu
         for(int i = 0; i < this.getWeaponInventory().getContainerSize(); i++)
         {
             ItemStack attachment = this.getSlot(i).getItem();
+            if(attachment.getItem() instanceof SwordItem)
+            {
+                attachments.put(("Barrel"), attachment.save(new CompoundTag()));
+            }
             if(attachment.getItem() instanceof IAttachment)
             {
                 attachments.put(((IAttachment) attachment.getItem()).getType().getTagKey(), attachment.save(new CompoundTag()));
@@ -159,3 +175,4 @@ public class AttachmentContainer extends AbstractContainerMenu
         return this.weaponInventory;
     }
 }
+

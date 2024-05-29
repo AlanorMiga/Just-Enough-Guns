@@ -5,7 +5,6 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
-import ttv.migami.jeg.entity.client.BubbleModel;
 import ttv.migami.jeg.entity.client.ModModelLayers;
 import ttv.migami.jeg.entity.client.SplashModel;
 
@@ -14,7 +13,5 @@ public class ModClientEventsBus {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ModModelLayers.SPLASH, SplashModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.BUBBLE, BubbleModel::createBodyLayer);
-
     }
 }

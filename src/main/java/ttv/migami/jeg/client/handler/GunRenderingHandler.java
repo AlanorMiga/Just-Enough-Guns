@@ -27,9 +27,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
@@ -43,6 +41,7 @@ import ttv.migami.jeg.Config;
 import ttv.migami.jeg.Reference;
 import ttv.migami.jeg.client.GunModel;
 import ttv.migami.jeg.client.GunRenderType;
+import ttv.migami.jeg.client.KeyBinds;
 import ttv.migami.jeg.client.render.gun.IOverrideModel;
 import ttv.migami.jeg.client.render.gun.ModelOverrides;
 import ttv.migami.jeg.client.util.PropertyHelper;
@@ -67,6 +66,8 @@ import java.util.*;
 
 public class GunRenderingHandler
 {
+    protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+
     private static GunRenderingHandler instance;
 
     public static GunRenderingHandler get()
@@ -89,6 +90,12 @@ public class GunRenderingHandler
     private int prevSprintTransition;
     private int sprintCooldown;
     private float sprintIntensity;
+
+    private int meleeTransition;
+    private int prevMeleeTransition;
+    private boolean isMeleeAttacking;
+    private int meleeCooldown;
+    private boolean meleePressed;
 
     private float offhandTranslate;
     private float prevOffhandTranslate;
@@ -119,9 +126,43 @@ public class GunRenderingHandler
             return;
 
         this.updateSprinting();
+        this.updateMelee();
         this.updateMuzzleFlash();
         this.updateOffhandTranslate();
         this.updateImmersiveCamera();
+    }
+
+    private void updateMelee() {
+        this.prevMeleeTransition = this.meleeTransition;
+
+        Minecraft mc = Minecraft.getInstance();
+
+        if (mc.player != null) {
+            if(!KeyBinds.KEY_MELEE.isDown() && this.meleeCooldown == 0) {
+                this.meleePressed = false;
+            }
+
+            if(KeyBinds.KEY_MELEE.isDown() && !this.isMeleeAttacking && this.meleeCooldown == 0 && !this.meleePressed) {
+                this.isMeleeAttacking = true;
+                this.meleeTransition = 0;
+                this.meleeCooldown = 14;
+                this.meleePressed = true;
+            }
+
+            if(this.isMeleeAttacking) {
+                if(this.meleeTransition < 5) {
+                    this.meleeTransition++;
+                } else {
+                    this.isMeleeAttacking = false;
+                }
+            } else if(this.meleeTransition > 0) {
+                this.meleeTransition--;
+            }
+
+            if(this.meleeCooldown > 0) {
+                this.meleeCooldown--;
+            }
+        }
     }
 
     private void updateSprinting()
@@ -129,7 +170,7 @@ public class GunRenderingHandler
         this.prevSprintTransition = this.sprintTransition;
 
         Minecraft mc = Minecraft.getInstance();
-        if(mc.player != null && mc.player.isSprinting() && !ModSyncedDataKeys.SHOOTING.getValue(mc.player) && !ModSyncedDataKeys.RELOADING.getValue(mc.player) && !AimingHandler.get().isAiming() && this.sprintCooldown == 0)
+        if(mc.player != null && mc.player.isSprinting() && !ModSyncedDataKeys.SHOOTING.getValue(mc.player) && !ModSyncedDataKeys.RELOADING.getValue(mc.player) && !AimingHandler.get().isAiming() && this.sprintCooldown == 0 && this.meleeCooldown == 0)
         {
             if(this.sprintTransition < 5)
             {
@@ -181,7 +222,7 @@ public class GunRenderingHandler
             return;
 
         this.sprintTransition = 0;
-        this.sprintCooldown = 20; //TODO make a config option
+        this.sprintCooldown = 20; // TODO make a config option
 
         ItemStack heldItem = event.getStack();
         GunItem gunItem = (GunItem) heldItem.getItem();
@@ -388,6 +429,7 @@ public class GunRenderingHandler
         this.applyRecoilTransforms(poseStack, heldItem, modifiedGun);
         this.applyReloadTransforms(poseStack, event.getPartialTick());
         this.applyShieldTransforms(poseStack, player, modifiedGun, event.getPartialTick());
+        this.applyMeleeTransforms(modifiedGun, hand, poseStack, event.getPartialTick());
 
         /* Determines the lighting for the weapon. Weapon will appear bright from muzzle flash or light sources */
         int blockLight = player.isOnFire() ? 15 : player.level.getBrightness(LightLayer.BLOCK, new BlockPos(player.getEyePosition(event.getPartialTick())));
@@ -478,15 +520,50 @@ public class GunRenderingHandler
 
     private void applySprintingTransforms(Gun modifiedGun, HumanoidArm hand, PoseStack poseStack, float partialTicks)
     {
+        Minecraft mc = Minecraft.getInstance();
+
         if(Config.CLIENT.display.sprintAnimation.get() && modifiedGun.getGeneral().getGripType().getHeldAnimation().canApplySprintingAnimation())
         {
             float leftHanded = hand == HumanoidArm.LEFT ? -1 : 1;
             float transition = (this.prevSprintTransition + (this.sprintTransition - this.prevSprintTransition) * partialTicks) / 5F;
             transition = (float) Math.sin((transition * Math.PI) / 2);
-            poseStack.translate(-0.25 * leftHanded * transition, -0.1 * transition, 0);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(45F * leftHanded * transition));
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(-25F * transition));
+
+            if ((Gun.getAttachment(IAttachment.Type.BARREL, mc.player.getMainHandItem()).getItem() instanceof SwordItem)) {
+                //poseStack.translate(-0.25 * leftHanded * transition, -0.1 * transition, 0);
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(15F * transition));
+            }
+            else if (modifiedGun.getGeneral().getGripType().equals(GripType.TWO_HANDED)){
+                poseStack.translate(-0.25 * leftHanded * transition, -0.1 * transition, 0);
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(45F * leftHanded * transition));
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(-25F * transition));
+            } else {
+                poseStack.translate(0 * leftHanded * transition, 0.5 * transition, 0);
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(55F * transition));
+            }
+
         }
+    }
+
+    private void applyMeleeTransforms(Gun modifiedGun, HumanoidArm hand, PoseStack poseStack, float partialTicks) {
+        Minecraft mc = Minecraft.getInstance();
+
+        float leftHanded = hand == HumanoidArm.LEFT ? -1 : 1;
+        float transition = (this.prevMeleeTransition + (this.meleeTransition - this.prevMeleeTransition) * partialTicks) / 5F;
+        transition = (float) Math.sin((transition * Math.PI) / 2);
+
+        if ((Gun.getAttachment(IAttachment.Type.BARREL, mc.player.getMainHandItem()).getItem() instanceof SwordItem)) {
+            poseStack.translate(-1.0 * leftHanded * transition, 0.4 * transition, -0.3 * transition);
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(100F * leftHanded * transition));
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(45F * transition));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(45F * transition));
+        }
+        else {
+            poseStack.translate(-0.8 * leftHanded * transition, 0.2 * transition, -0.1 * transition);
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(100F * leftHanded * transition));
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(-35F * transition));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(35F * transition));
+        }
+
     }
 
     private void applyReloadTransforms(PoseStack poseStack, float partialTicks)
@@ -809,7 +886,7 @@ public class GunRenderingHandler
         int side = hand.getOpposite() == HumanoidArm.RIGHT ? 1 : -1;
         poseStack.translate(translateX * side, 0, 0);
 
-        float interval = GunEnchantmentHelper.getReloadInterval(stack);
+        float interval = GunEnchantmentHelper.getRealReloadSpeed(stack);
         float reload = ((mc.player.tickCount - ReloadHandler.get().getStartReloadTick() + mc.getFrameTime()) % interval) / interval;
         float percent = 1.0F - reload;
         if(percent >= 0.5F)

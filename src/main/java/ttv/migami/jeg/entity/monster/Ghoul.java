@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import ttv.migami.jeg.Config;
 import ttv.migami.jeg.init.ModParticleTypes;
 import ttv.migami.jeg.init.ModSounds;
 
@@ -25,10 +27,6 @@ public class Ghoul extends Zombie {
 
    public Ghoul(EntityType<? extends Zombie> pEntityType, Level pLevel) {
       super(pEntityType, pLevel);
-   }
-
-   public static boolean checkGhoulSpawnRules(EntityType<Ghoul> pGhoul, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-      return checkMonsterSpawnRules(pGhoul, pLevel, pSpawnType, pPos, pRandom) && (pSpawnType == MobSpawnType.SPAWNER || pLevel.canSeeSky(pPos));
    }
 
    protected boolean isSunSensitive() {
@@ -69,7 +67,7 @@ public class Ghoul extends Zombie {
             if (rng <= d)
             {
                serverLevel.sendParticles(ModParticleTypes.GHOST_FLAME.get(),
-                       this.getX(), this.getY(), this.getZ(), 1, 0.2, 1.2, 0.2, 0.0);
+                       this.getX(), this.getBbHeight() * 0.5, this.getZ(), 1, 0.2, 1.2, 0.2, 0.0);
             }
          }
       }
@@ -113,4 +111,9 @@ public class Ghoul extends Zombie {
               .add(Attributes.ARMOR, 4.0D)
               .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
    }
+
+   public static boolean checkMonsterSpawnRules(EntityType<? extends Monster> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+      return Config.COMMON.world.ghoulSpawning.get() && pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
+   }
+
 }

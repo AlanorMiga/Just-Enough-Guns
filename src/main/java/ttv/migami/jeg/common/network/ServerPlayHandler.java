@@ -1,12 +1,15 @@
 package ttv.migami.jeg.common.network;
 
 import com.mrcrayfish.framework.api.network.LevelLocation;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,17 +18,17 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -48,6 +51,7 @@ import ttv.migami.jeg.init.ModSyncedDataKeys;
 import ttv.migami.jeg.interfaces.IProjectileFactory;
 import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.IColored;
+import ttv.migami.jeg.item.attachment.IAttachment;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.C2SMessagePreFireSound;
 import ttv.migami.jeg.network.message.C2SMessageShoot;
@@ -56,6 +60,7 @@ import ttv.migami.jeg.network.message.S2CMessageGunSound;
 import ttv.migami.jeg.util.GunEnchantmentHelper;
 import ttv.migami.jeg.util.GunModifierHelper;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -377,6 +382,92 @@ public class ServerPlayHandler
     /**
      * @param player
      */
+    public static void stopSprinting(Player player) {
+        player.setSprinting(false);
+
+        if(player.level.isClientSide) {
+            Minecraft.getInstance().options.keySprint.setDown(false);
+        }
+    }
+
+
+    /**
+     * @param player
+     */
+    public static void handleMelee(ServerPlayer player) {
+        ItemStack stack = player.getMainHandItem();
+        ItemCooldowns tracker = player.getCooldowns();
+        double offsetX;
+        double offsetY;
+        double offsetZ;
+
+        if (stack.getItem() instanceof GunItem gunItem && !tracker.isOnCooldown(stack.getItem())) {
+
+            Level level = player.level;
+
+            ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
+            int maxDamage = bayonet.getMaxDamage();
+            int currentDamage = bayonet.getDamageValue();
+
+            double attackRange = 2.0;
+            double sweepAngle = Math.toRadians(100);
+
+            Vec3 playerPos = player.position();
+            Vec3 lookVec = player.getLookAngle();
+
+            List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(attackRange));
+
+            level.playSound(null, player.getOnPos(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 2F, 1F);
+            tracker.addCooldown(stack.getItem(), 15);
+
+            JustEnoughGuns.LOGGER.atInfo().log("called");
+
+            for (LivingEntity entity : entities) {
+                Vec3 entityPos = entity.position().subtract(playerPos);
+                double angle = Math.acos(entityPos.normalize().dot(lookVec.normalize()));
+
+                JustEnoughGuns.LOGGER.atInfo().log("hit");
+
+                if (angle < sweepAngle / 2 && entity != player) {
+
+                    if (!player.level.isClientSide) {
+
+                        Vec3 direction = entity.position().subtract(player.position()).normalize();
+
+                        entity.push(direction.x * GunModifierHelper.getSwordKnockBack(player), 0.5, direction.z * GunModifierHelper.getSwordKnockBack(player));
+
+                        if (currentDamage <= maxDamage / 1.5) {
+                            entity.hurt(new DamageSource("generic"), GunModifierHelper.getSwordDamage(player) / 1.5F);
+
+                            if (GunModifierHelper.getSwordFireAspect(player) > 0) {
+                                entity.setSecondsOnFire(2 * GunModifierHelper.getSwordFireAspect(player));
+                            }
+                        } else {
+                            level.playSound(player, player.getOnPos(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 3.0F, 1.0F);
+                        }
+
+                        if (!player.getAbilities().instabuild && Config.COMMON.gameplay.gunDurability.get() && currentDamage <= maxDamage / 1.5) {
+                            bayonet.hurtAndBreak(8, player, null);
+                        }
+                    }
+                }
+            }
+
+            offsetX = lookVec.x * 1.8;
+            offsetY = lookVec.y * 1.8 + player.getEyeHeight();
+            offsetZ = lookVec.z * 1.8;
+            playerPos = player.getPosition(1F).add(offsetX, offsetY, offsetZ);
+
+            if (!level.isClientSide) {
+                ((ServerLevel) level).sendParticles(ParticleTypes.SWEEP_ATTACK, playerPos.x, playerPos.y, playerPos.z, 1, 0, 0, 0, 0.0);
+            }
+
+        }
+    }
+
+    /**
+     * @param player
+     */
     public static void handleUnload(ServerPlayer player) {
         ItemStack stack = player.getMainHandItem();
         if (stack.getItem() instanceof GunItem gunItem) {
@@ -404,6 +495,36 @@ public class ServerPlayHandler
                     if (remaining > 0) {
                         spawnAmmo(player, new ItemStack(item, remaining));
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * @param player
+     */
+    public static void handleExtraAmmo(ServerPlayer player) {
+        ItemStack stack = player.getMainHandItem();
+        if (stack.getItem() instanceof GunItem gunItem) {
+            Gun gun = gunItem.getModifiedGun(stack);
+            CompoundTag tag = stack.getTag();
+            if (tag != null && tag.contains("AmmoCount", Tag.TAG_INT)) {
+                int currentAmmo = tag.getInt("AmmoCount");
+
+                if (currentAmmo > GunModifierHelper.getModifiedAmmoCapacity(stack, gun)) {
+
+                    ResourceLocation id = gun.getProjectile().getItem();
+                    Item item = ForgeRegistries.ITEMS.getValue(id);
+                    if (item == null) {
+                        return;
+                    }
+                    int residue = currentAmmo - gun.getReloads().getMaxAmmo();
+
+                    tag.putInt("AmmoCount", currentAmmo - residue);
+
+                    JustEnoughGuns.LOGGER.atInfo().log(String.valueOf(residue));
+                    spawnAmmo(player, new ItemStack(item, residue));
+
                 }
             }
         }

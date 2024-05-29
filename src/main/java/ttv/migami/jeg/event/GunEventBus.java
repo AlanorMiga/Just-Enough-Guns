@@ -18,6 +18,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
@@ -26,8 +29,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import ttv.migami.jeg.Config;
 import ttv.migami.jeg.Reference;
 import ttv.migami.jeg.common.FireMode;
 import ttv.migami.jeg.common.Gun;
@@ -40,10 +45,108 @@ import ttv.migami.jeg.item.GunItem;
 import ttv.migami.jeg.item.TyphooneeItem;
 import ttv.migami.jeg.item.UnderwaterFirearmItem;
 import ttv.migami.jeg.item.attachment.IAttachment;
+import ttv.migami.jeg.util.GunModifierHelper;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GunEventBus
 {
+    static final Map<UUID, Long> runningPlayers = new HashMap<>();
+    private static final long RUN_DURATION_THRESHOLD = 2000;
+
+    // Bayonet
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            Player player = event.player;
+            UUID playerId = player.getUUID();
+
+            if (player.isSprinting() && player.getMainHandItem().getItem() instanceof GunItem gunItem) {
+                long currentTime = System.currentTimeMillis();
+                runningPlayers.putIfAbsent(playerId, currentTime);
+
+                ItemCooldowns tracker = player.getCooldowns();
+                if (currentTime - runningPlayers.get(playerId) >= RUN_DURATION_THRESHOLD
+                        && !tracker.isOnCooldown(gunItem)
+                        && !player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
+                        && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem swordItem) {
+
+                    ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
+
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10, 0, false, false));
+                    float damage = swordItem.getDamage();
+
+                    int maxDamage = bayonet.getMaxDamage();
+                    int currentDamage = bayonet.getDamageValue();
+                    if (currentDamage >= maxDamage / 1.5) {
+                        damage = 0;
+                    }
+
+                    damage = damage + bayonet.getEnchantmentLevel(Enchantments.SHARPNESS);
+
+                    if (runningPlayers.containsKey(playerId)) {
+                        AABB boundingBox = player.getBoundingBox().inflate(1.5);
+                        float finalDamage = damage;
+
+                        player.level.getEntities(player, boundingBox).forEach(entity -> {
+                            if (entity != player && entity instanceof LivingEntity target && target.invulnerableTime == 0) {
+                                Vec3 direction = entity.position().subtract(player.position()).normalize();
+
+                                if (GunModifierHelper.getSwordSweepingEdge(player) < 2) {
+                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 2, false, false));
+                                }
+
+                                target.push(direction.x * GunModifierHelper.getSwordKnockBack(player), 0.5, direction.z * GunModifierHelper.getSwordKnockBack(player));
+
+                                if (currentDamage <= maxDamage / 1.5) {
+                                    target.hurt(new DamageSource("generic"), GunModifierHelper.getSwordDamage(player) / 1.5F);
+                                    player.level.playSound(null, player.getOnPos(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 2F, 1F);
+
+                                    if (GunModifierHelper.getSwordFireAspect(player) > 0) {
+                                        entity.setSecondsOnFire(2 * GunModifierHelper.getSwordFireAspect(player));
+                                    }
+
+                                    if (player.level instanceof ServerLevel serverLevel) {
+                                        serverLevel.sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), (int) finalDamage, 0.3, entity.getBbHeight(), 0.3, 0.2);
+                                    }
+                                } else {
+                                    player.level.playSound(player, player.blockPosition(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 3.0F, 1.0F);
+                                }
+
+                                Vec3 pushBackDirection = player.position().subtract(target.position()).normalize();
+                                double pushBackForce = 1.0;
+                                player.push(pushBackDirection.x * pushBackForce, 0.5, pushBackDirection.z * pushBackForce);
+
+                                if (!player.getAbilities().instabuild && Config.COMMON.gameplay.gunDurability.get() && currentDamage <= maxDamage / 1.5) {
+                                    bayonet.hurtAndBreak(15, player, null);
+                                }
+                            }
+                        });
+
+                        Vec3 start = player.getEyePosition(1.0F);
+                        Vec3 look = player.getLookAngle();
+                        Vec3 end = start.add(look.scale(0.5));
+
+                        HitResult hitResult = player.level.clip(new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+
+                        if (hitResult.getType() == HitResult.Type.BLOCK) {
+                            Vec3 pushBackDirection = player.getLookAngle().normalize().scale(-1);
+                            double pushBackForce = 1.0;
+
+                            player.level.playSound(player, player.blockPosition(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 3.0F, 1.0F);
+                            player.push(pushBackDirection.x * pushBackForce, 0.5, pushBackDirection.z * pushBackForce);
+                        }
+                    }
+                }
+            } else {
+                runningPlayers.remove(playerId);
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void preShoot(GunFireEvent.Pre event)
     {
@@ -56,7 +159,7 @@ public class GunEventBus
         if(heldItem.getItem() instanceof GunItem gunItem)
         {
             Gun gun = gunItem.getModifiedGun(heldItem);
-            if (!(heldItem.getItem() instanceof UnderwaterFirearmItem) && player.isUnderWater())
+            if (!(heldItem.getItem() instanceof UnderwaterFirearmItem) && player.isUnderWater() && !Config.COMMON.gameplay.underwaterFiring.get())
             {
                 event.setCanceled(true);
             }
@@ -73,10 +176,11 @@ public class GunEventBus
                     event.getEntity().getCooldowns().addCooldown(event.getStack().getItem(), gun.getGeneral().getRate());
                     event.setCanceled(true);
                 }
+
                 //This is the Jam function
                 int maxDamage = heldItem.getMaxDamage();
                 int currentDamage = heldItem.getDamageValue();
-                if (currentDamage >= maxDamage / 1.5) {
+                if (currentDamage >= maxDamage / 1.5 && Config.COMMON.gameplay.gunJamming.get()) {
                     if (Math.random() >= 0.975) {
                         event.getEntity().playSound(ModSounds.ITEM_PISTOL_COCK.get(), 1.0F, 1.0F);
                         int coolDown = gun.getGeneral().getRate() * 10;
@@ -112,7 +216,7 @@ public class GunEventBus
             }
 
             if (heldItem.isDamageableItem() && tag != null) {
-                if (tag.getInt("AmmoCount") >= 1) {
+                if (tag.getInt("AmmoCount") >= 1 && Config.COMMON.gameplay.gunDurability.get()) {
                     damageGun(heldItem, level, player);
                     damageAttachments(heldItem, level, player);
                 }
@@ -174,7 +278,7 @@ public class GunEventBus
 
                 //Barrel
                 ItemStack barrelStack = Gun.getAttachment(IAttachment.Type.BARREL, stack);
-                if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.BARREL) && barrelStack.isDamageableItem()) {
+                if (Gun.hasAttachmentEquipped(stack, IAttachment.Type.BARREL) && barrelStack.isDamageableItem() && !(barrelStack.getItem() instanceof SwordItem)) {
                     int maxDamage = barrelStack.getMaxDamage();
                     int currentDamage = barrelStack.getDamageValue();
                     if (currentDamage == (maxDamage - 1)) {

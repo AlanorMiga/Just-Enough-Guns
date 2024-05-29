@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ttv.migami.jeg.Config;
@@ -28,7 +29,7 @@ import ttv.migami.jeg.item.attachment.impl.Scope;
 import ttv.migami.jeg.network.PacketHandler;
 import ttv.migami.jeg.network.message.C2SMessageAttachments;
 import ttv.migami.jeg.network.message.C2SMessageUnload;
-import ttv.migami.jeg.util.GunEnchantmentHelper;
+import ttv.migami.jeg.util.GunModifierHelper;
 
 /**
  * Author: MrCrayfish
@@ -138,7 +139,7 @@ public class ControllerHandler
                 GunItem gunItem = (GunItem) heldItem.getItem();
                 Gun modifiedGun = gunItem.getModifiedGun(heldItem);
                 CompoundTag tag = heldItem.getTag();
-                if(tag != null && tag.getInt("AmmoCount") < GunEnchantmentHelper.getAmmoCapacity(heldItem, modifiedGun))
+                if(tag != null && tag.getInt("AmmoCount") < GunModifierHelper.getModifiedAmmoCapacity(heldItem, modifiedGun))
                 {
                     event.getActions().put(GunButtonBindings.RELOAD, new Action(Component.translatable("jeg.action.reload"), Action.Side.LEFT));
                 }
