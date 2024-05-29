@@ -1,0 +1,170 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/blossom_rifle",
+		"particle": "jeg:item/scopes"
+	},
+	"elements": [
+		{
+			"name": "Magazine",
+			"from": [7.65, 1.345, 12.17542],
+			"to": [8.35, 2.145, 13.37542],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1.95899, 12.21042]},
+			"faces": {
+				"north": {"uv": [4.5, 0.75, 3.75, 1.75], "texture": "#1"},
+				"east": {"uv": [2.25, 0.75, 3.75, 1.75], "texture": "#1"},
+				"south": {"uv": [4.5, 0.75, 3.75, 1.75], "texture": "#1"},
+				"west": {"uv": [3.75, 0.75, 2.25, 1.75], "texture": "#1"},
+				"down": {"uv": [2.25, 1.5, 3.75, 1.75], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine",
+			"from": [7.65, 0.545, 12.07542],
+			"to": [8.35, 1.345, 13.27542],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1.95899, 12.21042]},
+			"faces": {
+				"north": {"uv": [4.5, 1.75, 3.75, 2.75], "texture": "#1"},
+				"east": {"uv": [2.25, 1.75, 3.75, 2.75], "texture": "#1"},
+				"south": {"uv": [4.5, 1.75, 3.75, 2.75], "texture": "#1"},
+				"west": {"uv": [3.75, 1.75, 2.25, 2.75], "texture": "#1"},
+				"up": {"uv": [2.25, 1.75, 3.75, 2], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [2.25, 2.5, 3.75, 2.75], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine",
+			"from": [7.65, -0.255, 11.97542],
+			"to": [8.35, 0.545, 13.17542],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1.95899, 12.21042]},
+			"faces": {
+				"north": {"uv": [4.5, 2.75, 3.75, 3.75], "texture": "#1"},
+				"east": {"uv": [2.25, 2.75, 3.75, 3.75], "texture": "#1"},
+				"south": {"uv": [4.5, 2.75, 3.75, 3.75], "texture": "#1"},
+				"west": {"uv": [3.75, 2.75, 2.25, 3.75], "texture": "#1"},
+				"up": {"uv": [2.25, 2.75, 3.75, 2.5], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [2.25, 3.75, 3.75, 4.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.595, 0.645, 12.835],
+			"to": [7.595, 1.645, 13.835],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.545, 1.145, 13.335]},
+			"faces": {
+				"west": {"uv": [3, 5.5, 1.75, 6.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [8.39119, 1.245, 11.51587],
+			"to": [8.39119, 2.245, 12.51587],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8.39119, 1.145, 12.01587]},
+			"faces": {
+				"west": {"uv": [3, 5.5, 1.75, 6.75], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.595, -0.055, 11.835],
+			"to": [7.595, 0.545, 12.435],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [7.595, 0.245, 12.135]},
+			"faces": {
+				"west": {"uv": [3.75, 5.75, 3, 6.5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [8.395, 0.045, 12.735],
+			"to": [8.395, 0.645, 13.335],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8.395, 0.345, 13.035]},
+			"faces": {
+				"west": {"uv": [3.75, 5.75, 3, 6.5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.595, 1.345, 11.735],
+			"to": [7.595, 1.945, 12.335],
+			"rotation": {"angle": -45, "axis": "y", "origin": [7.545, 1.645, 12.135]},
+			"faces": {
+				"west": {"uv": [3.75, 5.75, 3, 6.5], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [114, 0, 0],
+			"translation": [0, 5.25, 2],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [2.25, 5, 0],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, -2, -3.8],
+			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [4.25, -2, 0],
+			"scale": [3, 3, 3]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-8, 0, -1.75],
+			"scale": [4, 4, 4]
+		}
+	},
+	"groups": [
+		{
+			"name": "Assault Rifle",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Leaf",
+					"origin": [8, 4.045, 7.085],
+					"color": 0,
+					"children": []
+				},
+				{
+					"name": "Grip",
+					"origin": [8, 8, 8],
+					"color": 5,
+					"children": []
+				},
+				{
+					"name": "Receiver",
+					"origin": [8, 4.47, 14.795],
+					"color": 0,
+					"children": []
+				},
+				{
+					"name": "Magazine",
+					"origin": [8, 2.375, 12.03],
+					"color": 0,
+					"children": [0, 1, 2]
+				},
+				{
+					"name": "Barrel",
+					"origin": [8, 8, 8],
+					"color": 4,
+					"children": []
+				},
+				{
+					"name": "Flowers",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [3, 4, 5, 6, 7]
+				}
+			]
+		}
+	]
+}

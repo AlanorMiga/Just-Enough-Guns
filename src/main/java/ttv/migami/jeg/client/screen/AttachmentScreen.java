@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModList;
 import org.joml.Matrix4f;
@@ -127,7 +128,9 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
 
         for(int i = 0; i < IAttachment.Type.values().length; i++)
         {
-            if(RenderUtil.isMouseWithin(mouseX, mouseY, startX + 7, startY + 16 + i * 18, 18, 18))
+            int x = i < 4 ? 8 : 152; // Adjust x coordinate for right side slots
+            int y = 17 + (i % 4) * 18; // Adjust y coordinate for slots
+            if(RenderUtil.isMouseWithin(mouseX, mouseY, startX + x, startY + y, 18, 18))
             {
                 IAttachment.Type type = IAttachment.Type.values()[i];
                 if(!this.menu.getSlot(i).isActive())
@@ -150,7 +153,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
 
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
-        pGuiGraphics.enableScissor(left + 26, top + 17, left + 26 + 142, top + 17 + 70);
+        pGuiGraphics.enableScissor(left + 26, top + 17, left + 26 + 124, top + 17 + 70);
         pGuiGraphics.pose().pushPose();
         pGuiGraphics.pose().translate(96, 50, 150);
         pGuiGraphics.pose().translate(this.windowX + (this.mouseGrabbed && this.mouseGrabbedButton == 0 ? mouseX - this.mouseClickedX : 0), 0, 0);
@@ -194,10 +197,12 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         /* Draws the icons for each attachment slot. If not applicable
          * for the weapon, it will draw a cross instead. */
         for (int i = 0; i < IAttachment.Type.values().length; i++) {
+            int x = i < 4 ? 8 : 152; // Adjust x coordinate for right side slots
+            int y = 17 + (i % 4) * 18; // Adjust y coordinate for slots
             if (!this.canPlaceAttachmentInSlot(this.menu.getCarried(), this.menu.getSlot(i))) {
-                pGuiGraphics.blit(GUI_TEXTURES, left + 8, top + 17 + i * 18, 176, 0, 16, 16);
+                pGuiGraphics.blit(GUI_TEXTURES, left + x, top + y, 176, 0, 16, 16);
             } else if (this.weaponInventory.getItem(i).isEmpty()) {
-                pGuiGraphics.blit(GUI_TEXTURES, left + 8, top + 17 + i * 18, 176, 16 + i * 16, 16, 16);
+                pGuiGraphics.blit(GUI_TEXTURES, left + x, top + y, 176, 16 + (i % 5) * 16, 16, 16);
             }
         }
     }
@@ -216,6 +221,10 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         if(!(slot instanceof AttachmentSlot s))
             return true;
 
+        // Not compatible check
+        if (stack.getItem() instanceof SwordItem)
+            return true;
+
         if(!(stack.getItem() instanceof IAttachment<?> a))
             return true;
 
@@ -228,6 +237,10 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     private boolean isCompatible(ItemStack stack, AttachmentSlot slot)
     {
         if(stack.isEmpty())
+            return true;
+
+        // Not compatible check
+        if (stack.getItem() instanceof SwordItem)
             return true;
 
         if(!(stack.getItem() instanceof IAttachment<?> attachment))
@@ -247,7 +260,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
     {
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
-        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 142, 70))
+        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 124, 70))
         {
             if(scroll < 0 && this.windowZoom > 0)
             {
@@ -269,7 +282,7 @@ public class AttachmentScreen extends AbstractContainerScreen<AttachmentContaine
         int startX = (this.width - this.imageWidth) / 2;
         int startY = (this.height - this.imageHeight) / 2;
 
-        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 142, 70))
+        if(RenderUtil.isMouseWithin((int) mouseX, (int) mouseY, startX + 26, startY + 17, 124, 70))
         {
             if(!this.mouseGrabbed && (button == GLFW.GLFW_MOUSE_BUTTON_LEFT || button == GLFW.GLFW_MOUSE_BUTTON_RIGHT))
             {

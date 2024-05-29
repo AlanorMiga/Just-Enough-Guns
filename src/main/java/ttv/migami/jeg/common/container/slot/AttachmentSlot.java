@@ -5,6 +5,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.common.container.AttachmentContainer;
@@ -51,22 +52,37 @@ public class AttachmentSlot extends Slot
     @Override
     public boolean mayPlace(ItemStack stack)
     {
-        if(!(this.weapon.getItem() instanceof GunItem))
+        if (!(this.weapon.getItem() instanceof GunItem))
         {
             return false;
         }
         GunItem item = (GunItem) this.weapon.getItem();
         Gun modifiedGun = item.getModifiedGun(this.weapon);
-        if (!(stack.getItem() instanceof IAttachment attachment))
+
+        if (!(stack.getItem() instanceof IAttachment || stack.getItem() instanceof SwordItem))
         {
             return false;
         }
+
+        IAttachment attachment;
+
+        if (stack.getItem() instanceof SwordItem)
+        {
+            attachment = new PseudoBarrel(stack);
+        }
+        else
+        {
+            attachment = (IAttachment) stack.getItem();
+        }
+
         if (item instanceof MakeshiftGunItem)
         {
             if (attachment instanceof MakeshiftStockItem ||
                     attachment instanceof BarrelItem ||
                     attachment instanceof ScopeItem ||
-                    attachment instanceof UnderBarrelItem)
+                    attachment instanceof UnderBarrelItem ||
+                    attachment instanceof MagazineItem ||
+                    attachment instanceof PseudoBarrel)
             {
                 return attachment.getType() == this.type && modifiedGun.canAttachType(this.type) && attachment.canAttachTo(this.weapon);
             }

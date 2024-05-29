@@ -1,0 +1,53 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/semi_auto_rifle",
+		"particle": "jeg:item/semi_auto_rifle"
+	},
+	"elements": [
+		{
+			"name": "Magazine 1",
+			"from": [7.7, 1.105, 11.775],
+			"to": [8.3, 1.705, 12.875],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 2.345, 11.775]},
+			"faces": {
+				"north": {"uv": [7.75, 5, 7, 5.75], "texture": "#1"},
+				"east": {"uv": [5.75, 5, 7, 5.75], "texture": "#1"},
+				"south": {"uv": [5.75, 5, 5, 5.75], "texture": "#1"},
+				"west": {"uv": [7, 5, 5.75, 5.75], "texture": "#1"},
+				"up": {"uv": [7, 6.5, 5.75, 7.25], "texture": "#1"},
+				"down": {"uv": [5.75, 5.75, 7, 6.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 2",
+			"from": [7.7, 0.55, 11.545],
+			"to": [8.3, 1.15, 12.645],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 1.79, 11.545]},
+			"faces": {
+				"north": {"uv": [6.25, 5.5, 6, 5.75], "texture": "#1"},
+				"east": {"uv": [5.75, 5.5, 6.25, 5.75], "texture": "#1"},
+				"south": {"uv": [6, 5.5, 5.75, 5.75], "texture": "#1"},
+				"west": {"uv": [6.25, 5.5, 5.75, 5.75], "texture": "#1"},
+				"up": {"uv": [6.25, 5.5, 5.75, 5.75], "texture": "#1"},
+				"down": {"uv": [6, 5.5, 5.75, 5.75], "texture": "#1"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Assault Rifle",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Magazine",
+					"origin": [8, 2.375, 12.03],
+					"color": 0,
+					"children": [0, 1]
+				}
+			]
+		}
+	]
+}

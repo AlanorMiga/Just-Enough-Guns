@@ -4,7 +4,6 @@ import com.mrcrayfish.framework.api.network.LevelLocation;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,7 +25,10 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BellBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.TargetBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.*;
@@ -35,10 +37,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
-import ttv.migami.jeg.common.Gun.Projectile;
 import ttv.migami.jeg.Config;
 import ttv.migami.jeg.common.BoundingBoxManager;
 import ttv.migami.jeg.common.Gun;
+import ttv.migami.jeg.common.Gun.Projectile;
 import ttv.migami.jeg.common.ModTags;
 import ttv.migami.jeg.common.SpreadTracker;
 import ttv.migami.jeg.event.GunProjectileHitEvent;
@@ -464,7 +466,8 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                 bell.attemptToRing(this.level(), pos, blockHitResult.getDirection());
             }
 
-            int fireStarterLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIRE_STARTER.get(), this.weapon);
+            // Fire
+            /*int fireStarterLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIRE_STARTER.get(), this.weapon);
             if(fireStarterLevel > 0 && Config.COMMON.gameplay.griefing.setFireToBlocks.get())
             {
                 BlockPos offsetPos = pos.relative(blockHitResult.getDirection());
@@ -474,7 +477,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                     this.level().setBlock(offsetPos, fireState, 11);
                     ((ServerLevel) this.level()).sendParticles(ParticleTypes.LAVA, hitVec.x - 1.0 + this.random.nextDouble() * 2.0, hitVec.y, hitVec.z - 1.0 + this.random.nextDouble() * 2.0, 4, 0, 0, 0, 0);
                 }
-            }
+            }*/
             return;
         }
 
@@ -494,18 +497,19 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
                 }
             }
 
-            int fireStarterLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIRE_STARTER.get(), this.weapon);
+            // Fire
+            /*int fireStarterLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIRE_STARTER.get(), this.weapon);
             if(fireStarterLevel > 0)
             {
                 entity.setSecondsOnFire(2);
-            }
+            }*/
 
             this.onHitEntity(entity, result.getLocation(), startVec, endVec, entityHitResult.isHeadshot());
 
             int collateralLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.COLLATERAL.get(), weapon);
             ResourceLocation advantage = this.getProjectile().getAdvantage();
 
-            if(!(entity.getType().is(ModTags.Entities.GHOST) &&
+            if(!(entity.getType().is(ModTags.Entities.GHOST) && Config.COMMON.gameplay.gunAdvantage.get() &&
                     advantage.equals(ModTags.Entities.UNDEAD.location())) ||
                     collateralLevel == 0)
             {
@@ -563,7 +567,9 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
         boolean critical = damage != newDamage;
         damage = newDamage;
         ResourceLocation advantage = this.getProjectile().getAdvantage();
-        damage *= advantageMultiplier(entity);
+        if (Config.COMMON.gameplay.gunAdvantage.get()) {
+            damage *= advantageMultiplier(entity);
+        }
 
         if(headshot)
         {
@@ -684,7 +690,7 @@ public class ProjectileEntity extends Entity implements IEntityAdditionalSpawnDa
         if(this.projectile.isDamageReduceOverLife())
         {
             float modifier = ((float) this.projectile.getLife() - (float) (this.tickCount - 1)) / (float) this.projectile.getLife();
-            initialDamage *= modifier;
+            initialDamage *= Math.min(modifier, 1);
         }
         float damage = initialDamage / this.general.getProjectileAmount();
         damage = GunModifierHelper.getModifiedDamage(this.weapon, this.modifiedGun, damage);

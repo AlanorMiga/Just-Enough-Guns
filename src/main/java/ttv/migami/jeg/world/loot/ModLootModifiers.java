@@ -26,6 +26,8 @@ public class ModLootModifiers {
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> TYPHOONE_ELDER_GUARDIAN =
             LOOT_MODIFIER_SERIALIZERS.register("typhoonee_on_elder_guardian", TyphooneeOnElderGuardianModifier.CODEC);
 
+    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> GRENADE_CREEPER =
+            LOOT_MODIFIER_SERIALIZERS.register("grenade_on_creeper", GrenadeOnCreeperModifier.CODEC);
 
     public static void register(IEventBus bus) {
         LOOT_MODIFIER_SERIALIZERS.register(bus);

@@ -1,0 +1,117 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/combat_rifle"
+	},
+	"elements": [
+		{
+			"name": "Magazine 1",
+			"from": [7.6, 1.245, 11.675],
+			"to": [8.4, 2.145, 13.075],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.345, 11.825]},
+			"faces": {
+				"north": {"uv": [5.25, 2, 4.5, 3.25], "texture": "#1"},
+				"east": {"uv": [2.75, 2, 4.5, 3.25], "texture": "#1"},
+				"south": {"uv": [2.75, 2, 2, 3.25], "texture": "#1"},
+				"west": {"uv": [4.5, 2, 2.75, 3.25], "texture": "#1"},
+				"up": {"uv": [2.75, 7, 4.5, 7.75], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [2.75, 3, 3, 3.25], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 2",
+			"from": [7.6, -0.755, 12.075],
+			"to": [8.4, -0.355, 12.775],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.395, 12.325]},
+			"faces": {
+				"north": {"uv": [3.5, 7, 3.75, 6.25], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [2.75, 5.75, 3.75, 6.25], "texture": "#1"},
+				"south": {"uv": [2.75, 6.25, 2, 5.75], "texture": "#1"},
+				"west": {"uv": [3.75, 5.75, 2.75, 6.25], "texture": "#1"},
+				"down": {"uv": [2.75, 6.25, 3.5, 7], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 3",
+			"from": [7.6, -0.555, 11.375],
+			"to": [8.4, -0.355, 12.075],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.395, 12.325]},
+			"faces": {
+				"north": {"uv": [5.25, 6, 4.5, 6.25], "texture": "#1"},
+				"east": {"uv": [3.75, 5.75, 4.5, 6], "texture": "#1"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"west": {"uv": [4.5, 5.75, 3.75, 6], "texture": "#1"},
+				"up": {"uv": [5, 6, 5.25, 6.25], "texture": "#1"},
+				"down": {"uv": [3.75, 6.25, 4.5, 7], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 5",
+			"from": [7.6, 0.445, 11.575],
+			"to": [8.4, 1.245, 12.975],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.395, 12.325]},
+			"faces": {
+				"north": {"uv": [5.25, 3.25, 4.5, 4.5], "texture": "#1"},
+				"east": {"uv": [2.75, 3.25, 4.5, 4.5], "texture": "#1"},
+				"south": {"uv": [2.75, 4.5, 2, 3.25], "texture": "#1"},
+				"west": {"uv": [4.5, 3.25, 2.75, 4.5], "texture": "#1"},
+				"up": {"uv": [4.25, 3.25, 4.5, 3.5], "texture": "#1"},
+				"down": {"uv": [2.75, 4.25, 3, 4.5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 7",
+			"from": [7.6, -0.355, 11.475],
+			"to": [8.4, 0.445, 12.875],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0.395, 12.325]},
+			"faces": {
+				"north": {"uv": [5.25, 4.5, 4.5, 5.75], "texture": "#1"},
+				"east": {"uv": [2.75, 4.5, 4.5, 5.75], "texture": "#1"},
+				"south": {"uv": [2.75, 4.5, 2, 5.75], "texture": "#1"},
+				"west": {"uv": [4.5, 4.5, 2.75, 5.75], "texture": "#1"},
+				"up": {"uv": [4.25, 4.5, 4.5, 4.75], "texture": "#1"},
+				"down": {"uv": [2.75, 5.5, 3, 5.75], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 6.5, -6.75]
+		},
+		"firstperson_righthand": {
+			"translation": [-3.5, 9, -1]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, 5, -1]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [1.25, 4.5, 0],
+			"scale": [1.2, 1.2, 1.2]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-3.25, 11.25, -2],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "FN SCAR-L",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Magazine",
+					"origin": [8, 2.375, 12.03],
+					"color": 0,
+					"children": [0, 1, 2, 3, 4]
+				}
+			]
+		}
+	]
+}

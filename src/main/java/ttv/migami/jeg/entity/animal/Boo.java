@@ -11,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.PoiTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,10 +27,12 @@ import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,6 +41,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import ttv.migami.jeg.Config;
 import ttv.migami.jeg.blockentity.BeehiveBlockEntityAbstract;
 import ttv.migami.jeg.common.ModTags;
 import ttv.migami.jeg.init.ModEntities;
@@ -89,7 +93,7 @@ public class Boo extends Bee
         this.goalSelector.addGoal(2, this.breedGoal);
         this.followParentGoal = new FollowParentGoal(this, 1.25D);
         this.goalSelector.addGoal(5, this.followParentGoal);
-        this.goalSelector.addGoal(5, new Boo.UpdateNestGoal());
+        this.goalSelector.addGoal(0, new Boo.UpdateNestGoal());
         this.goToHiveGoal = new Boo.BooGoToHiveGoal();
         this.goalSelector.addGoal(5, this.goToHiveGoal);
         this.goalSelector.addGoal(8, new BooWanderGoal());
@@ -167,14 +171,14 @@ public class Boo extends Bee
                     if (rng <= d)
                     {
                         serverLevel.sendParticles(ParticleTypes.CLOUD,
-                                this.getX(), this.getY() + 0.2, this.getZ(), 2, 0.3, 0.25, 0.3, 0.0);
+                                this.getX(), this.getBbHeight() * 0.5, this.getZ(), 2, 0.3, 0.25, 0.3, 0.0);
                     }
                 }
 
                 if (rng <= d)
                 {
                     serverLevel.sendParticles(ModParticleTypes.GHOST_FLAME.get(),
-                            this.getX(), this.getY() + 0.5, this.getZ(), 1, 0.2, 0.2, 0.2, 0.0);
+                            this.getX(), this.getBbHeight() * 0.5, this.getZ(), 1, 0.2, 0.2, 0.2, 0.0);
                 }
             }
         }
@@ -609,5 +613,9 @@ public class Boo extends Bee
             Vec3 vec32 = HoverRandomPos.getPos(Boo.this, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
             return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(Boo.this, 8, 4, -2, vec3.x, vec3.z, (float)Math.PI / 2F);
         }
+    }
+
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+        return Config.COMMON.world.booSpawning.get() && pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && isBrightEnoughToSpawn(pLevel, pPos);
     }
 }

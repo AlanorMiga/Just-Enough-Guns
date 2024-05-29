@@ -198,4 +198,15 @@ public interface IGunModifier
     {
         return 0F;
     }
+
+    /**
+     * Modifies the ammo capacity of a weapon.
+     *
+     * @param rate the current fire rate
+     * @return the new fire rate
+     */
+    default int modifyAmmoCapacity(int rate)
+    {
+        return rate;
+    }
 }

@@ -11,6 +11,7 @@ import ttv.migami.jeg.common.Attachments;
 import ttv.migami.jeg.common.GunModifiers;
 import ttv.migami.jeg.item.*;
 import ttv.migami.jeg.item.attachment.impl.Barrel;
+import ttv.migami.jeg.item.attachment.impl.Magazine;
 import ttv.migami.jeg.item.attachment.impl.Stock;
 import ttv.migami.jeg.item.attachment.impl.UnderBarrel;
 
@@ -259,6 +260,13 @@ public class ModItems {
                     Item.Properties()
                     .stacksTo(1)
                     .durability(800)
+            ));
+
+    /* Magazine */
+    public static final RegistryObject<Item> EXTENDED_MAG = REGISTER.register("extended_mag",
+            () -> new MagazineItem(Magazine.create(),
+                    new Item.Properties()
+                            .stacksTo(1)
             ));
 
     /* Items */
