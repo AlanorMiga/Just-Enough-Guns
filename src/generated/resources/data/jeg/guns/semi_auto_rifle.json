@@ -20,6 +20,9 @@
         "yOffset": 3.05,
         "zOffset": -5.8
       },
+      "magazine": {
+        "scale": 0.0
+      },
       "scope": {
         "yOffset": 3.145,
         "zOffset": 6.0
@@ -52,7 +55,6 @@
   "reloads": {
     "emptyMagTimer": 10,
     "maxAmmo": 16,
-    "reloadItem": "jeg:scrap",
     "reloadTimer": 30,
     "reloadType": "jeg:mag_fed"
   },

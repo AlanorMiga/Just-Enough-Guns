@@ -1,0 +1,37 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "jeg:item/custom_smg",
+		"particle": "jeg:item/custom_smg"
+	},
+	"elements": [
+		{
+			"name": "Magazine",
+			"from": [7.7, -0.92, 12.5],
+			"to": [8.3, 2.58, 13.55],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 2.48, 8.4]},
+			"faces": {
+				"north": {"uv": [7.75, 4, 8.5, 8.5], "texture": "#0"},
+				"east": {"uv": [6.5, 4, 7.75, 8.5], "texture": "#0"},
+				"south": {"uv": [7.75, 4, 8.5, 8.5], "texture": "#0"},
+				"west": {"uv": [7.75, 4, 6.5, 8.5], "texture": "#0"},
+				"up": {"uv": [7.75, 8.5, 8.5, 9.75], "texture": "#0"},
+				"down": {"uv": [6.5, 8.5, 7.75, 9.25], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"firstperson_righthand": {
+			"translation": [-5.5, 13.5, 7.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "Custom SMG",
+			"origin": [8, 3, 7.9],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

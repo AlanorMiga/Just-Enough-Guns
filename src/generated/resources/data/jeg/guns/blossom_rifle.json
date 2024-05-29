@@ -18,9 +18,11 @@
   "modules": {
     "attachments": {
       "barrel": {
-        "scale": 0.800000011920929,
-        "yOffset": 3.395,
+        "yOffset": 3.4,
         "zOffset": -7.5
+      },
+      "magazine": {
+        "scale": 0.0
       },
       "scope": {
         "yOffset": 3.85,
@@ -54,7 +56,6 @@
   "reloads": {
     "emptyMagTimer": 10,
     "maxAmmo": 30,
-    "reloadItem": "jeg:scrap",
     "reloadTimer": 30,
     "reloadType": "jeg:mag_fed"
   },

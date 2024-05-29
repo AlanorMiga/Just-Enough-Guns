@@ -15,6 +15,7 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraftforge.api.distmarker.Dist;
@@ -66,6 +67,7 @@ public class ClientHandler {
         MinecraftForge.EVENT_BUS.register(ReloadHandler.get());
         MinecraftForge.EVENT_BUS.register(ShootingHandler.get());
         MinecraftForge.EVENT_BUS.register(SoundHandler.get());
+        MinecraftForge.EVENT_BUS.register(MeleeHandler.get());
         MinecraftForge.EVENT_BUS.register(new PlayerModelHandler());
 
         /* Only register controller events if Controllable is loaded otherwise it will crash */
@@ -136,6 +138,13 @@ public class ClientHandler {
         ModelOverrides.register(ModItems.ATLANTEAN_SPEAR.get(), new AtlanteanSpearModel());
         ModelOverrides.register(ModItems.TYPHOONEE.get(), new TyphooneeModel());
         //ModelOverrides.register(ModItems.BUBBLE_CANNON.get(), new BubbleCannonModel());
+        ModelOverrides.register(Items.WOODEN_SWORD, new BayonetWoodenModel());
+        ModelOverrides.register(Items.STONE_SWORD, new BayonetStoneModel());
+        ModelOverrides.register(Items.IRON_SWORD, new BayonetIronModel());
+        ModelOverrides.register(Items.GOLDEN_SWORD, new BayonetGoldenModel());
+        ModelOverrides.register(Items.DIAMOND_SWORD, new BayonetDiamondModel());
+        ModelOverrides.register(Items.NETHERITE_SWORD, new BayonetNetheriteModel());
+
     }
 
     private static void registerScreenFactories() {

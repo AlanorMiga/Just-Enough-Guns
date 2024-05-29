@@ -14,12 +14,14 @@ public class KeyBinds
     public static final KeyMapping KEY_RELOAD = new KeyMapping("key.jeg.reload", GLFW.GLFW_KEY_R, "key.categories.jeg");
     public static final KeyMapping KEY_UNLOAD = new KeyMapping("key.jeg.unload", GLFW.GLFW_KEY_U, "key.categories.jeg");
     public static final KeyMapping KEY_ATTACHMENTS = new KeyMapping("key.jeg.attachments", GLFW.GLFW_KEY_Z, "key.categories.jeg");
+    public static final KeyMapping KEY_MELEE = new KeyMapping("key.jeg.melee", GLFW.GLFW_KEY_V, "key.categories.jeg");
 
     public static void registerKeyMappings(RegisterKeyMappingsEvent event)
     {
         event.register(KEY_RELOAD);
         event.register(KEY_UNLOAD);
         event.register(KEY_ATTACHMENTS);
+        event.register(KEY_MELEE);
     }
 
     public static KeyMapping getAimMapping()

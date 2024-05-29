@@ -27,12 +27,16 @@ public enum SpecialModels {
     COMBAT_RIFLE_VERTICAL_GRIP("combat_rifle/vertical_grip"),
     COMBAT_RIFLE_LIGHT_GRIP("combat_rifle/light_grip"),
     COMBAT_RIFLE_ANGLED_GRIP("combat_rifle/angled_grip"),
+    COMBAT_RIFLE_MAGAZINE_DEFAULT("combat_rifle/magazine_default"),
+    COMBAT_RIFLE_MAGAZINE_EXTENDED("combat_rifle/magazine_extended"),
 
     ASSAULT_RIFLE("gun/assault_rifle"),
     ASSAULT_RIFLE_MAIN("assault_rifle/main"),
     ASSAULT_RIFLE_EJECTOR("assault_rifle/ejector"),
     ASSAULT_RIFLE_STOCK_MAKESHIFT("assault_rifle/stock_makeshift"),
     ASSAULT_RIFLE_SILENCER("assault_rifle/silencer"),
+    ASSAULT_RIFLE_MAGAZINE_DEFAULT("assault_rifle/magazine_default"),
+    ASSAULT_RIFLE_MAGAZINE_EXTENDED("assault_rifle/magazine_extended"),
 
     REVOLVER("gun/revolver"),
     REVOLVER_MAIN("revolver/main"),
@@ -48,6 +52,8 @@ public enum SpecialModels {
     SEMI_AUTO_RIFLE_EJECTOR("semi_auto_rifle/ejector"),
     SEMI_AUTO_RIFLE_STOCK_MAKESHIFT("semi_auto_rifle/stock_makeshift"),
     SEMI_AUTO_RIFLE_SILENCER("semi_auto_rifle/silencer"),
+    SEMI_AUTO_RIFLE_MAGAZINE_DEFAULT("semi_auto_rifle/magazine_default"),
+    SEMI_AUTO_RIFLE_MAGAZINE_EXTENDED("semi_auto_rifle/magazine_extended"),
 
     BURST_RIFLE("gun/burst_rifle"),
     BURST_RIFLE_MAIN("burst_rifle/main"),
@@ -56,6 +62,8 @@ public enum SpecialModels {
     BURST_RIFLE_STOCK_TACTICAL("burst_rifle/stock_tactical"),
     BURST_RIFLE_STOCK_LIGHT("burst_rifle/stock_light"),
     BURST_RIFLE_STOCK_WEIGHTED("burst_rifle/stock_weighted"),
+    BURST_RIFLE_MAGAZINE_DEFAULT("burst_rifle/magazine_default"),
+    BURST_RIFLE_MAGAZINE_EXTENDED("burst_rifle/magazine_extended"),
 
     PUMP_SHOTGUN("gun/pump_shotgun"),
     PUMP_SHOTGUN_MAIN("pump_shotgun/main"),
@@ -75,6 +83,8 @@ public enum SpecialModels {
     CUSTOM_SMG_EJECTOR("custom_smg/ejector"),
     CUSTOM_SMG_STOCK_MAKESHIFT("custom_smg/stock_makeshift"),
     CUSTOM_SMG_SILENCER("custom_smg/silencer"),
+    CUSTOM_SMG_MAGAZINE_DEFAULT("custom_smg/magazine_default"),
+    CUSTOM_SMG_MAGAZINE_EXTENDED("custom_smg/magazine_extended"),
 
     BLOSSOM_RIFLE("gun/blossom_rifle"),
     BLOSSOM_RIFLE_MAIN("blossom_rifle/main"),
@@ -84,6 +94,8 @@ public enum SpecialModels {
     BLOSSOM_RIFLE_STOCK_TACTICAL("blossom_rifle/stock_tactical"),
     BLOSSOM_RIFLE_STOCK_WEIGHTED("blossom_rifle/stock_weighted"),
     BLOSSOM_RIFLE_SILENCER("blossom_rifle/silencer"),
+    BLOSSOM_RIFLE_MAGAZINE_DEFAULT("blossom_rifle/magazine_default"),
+    BLOSSOM_RIFLE_MAGAZINE_EXTENDED("blossom_rifle/magazine_extended"),
 
     DOUBLE_BARREL_SHOTGUN("gun/double_barrel_shotgun"),
     DOUBLE_BARREL_SHOTGUN_MAIN("double_barrel_shotgun/main"),
@@ -107,7 +119,21 @@ public enum SpecialModels {
     BUBBLE_CANNON("gun/bubble_cannon"),
     BUBBLE_CANNON_MAIN("bubble_cannon/main"),
 
-    FLAME("flame");
+    FLAME("flame"),
+
+    BAYONET_WOODEN("bayonet/wooden"),
+    BAYONET_STONE("bayonet/stone"),
+    BAYONET_IRON("bayonet/iron"),
+    BAYONET_GOLDEN("bayonet/golden"),
+    BAYONET_DIAMOND("bayonet/diamond"),
+    BAYONET_NETHERITE("bayonet/netherite"),
+
+    CUSTOM_BAYONET_WOODEN(bayonetTextures("wooden")),
+    CUSTOM_BAYONET_STONE(bayonetTextures("stone")),
+    CUSTOM_BAYONET_IRON(bayonetTextures("iron")),
+    CUSTOM_BAYONET_GOLDEN(bayonetTextures("golden")),
+    CUSTOM_BAYONET_DIAMOND(bayonetTextures("diamond")),
+    CUSTOM_BAYONET_NETHERITE(bayonetTextures("netherite"));
 
     /**
      * The location of an item model in the [MOD_ID]/models/special/[NAME] folder
@@ -167,5 +193,12 @@ public enum SpecialModels {
         {
             model.cachedModel = null;
         }
+    }
+
+    static String bayonetTextures(String material) {
+        /*if (Config.CLIENT.display.vanillaSwordTextures.get()) {
+            return "bayonet/" + material;
+        }*/
+        return "bayonet/custom_" + material;
     }
 }

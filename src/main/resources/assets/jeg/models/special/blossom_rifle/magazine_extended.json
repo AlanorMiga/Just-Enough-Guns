@@ -1,0 +1,241 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "jeg:item/magazines",
+		"1_1": "jeg:item/blossom_rifle",
+		"particle": "jeg:item/scopes"
+	},
+	"elements": [
+		{
+			"name": "Magazine 1",
+			"from": [7.6, 1.245, 12.18],
+			"to": [8.4, 2.145, 13.38],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.145, 12.23]},
+			"faces": {
+				"north": {"uv": [4.75, 0, 5.75, 1.25], "texture": "#1"},
+				"east": {"uv": [3, 0, 4.75, 1.25], "texture": "#1"},
+				"south": {"uv": [5.75, 0, 4.75, 1.25], "texture": "#1"},
+				"west": {"uv": [4.75, 0, 3, 1.25], "texture": "#1"},
+				"up": {"uv": [3, 4.25, 4.75, 5.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 1, 4.75, 1.25], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 2",
+			"from": [7.5775, 1.13, 12.18],
+			"to": [8.4225, 1.245, 13.37],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7.9975, 2.145, 12.23]},
+			"faces": {
+				"south": {"uv": [5.75, 1, 4.75, 1.25], "texture": "#1"},
+				"down": {"uv": [4.75, 1, 5.75, 1.25], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 2",
+			"from": [7.3, -0.755, 12.48],
+			"to": [8.7, -0.355, 13.08],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 0.195, 12.73]},
+			"faces": {
+				"north": {"uv": [4, 5.25, 3.75, 7], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [3, 3.75, 4, 4.25], "texture": "#1"},
+				"south": {"uv": [5, 5.25, 4.5, 7], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [4, 3.75, 3, 4.25], "texture": "#1"},
+				"down": {"uv": [3, 5.25, 4, 7], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 3",
+			"from": [7.3, -0.555, 11.88],
+			"to": [8.7, -0.355, 12.48],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 0.195, 12.83]},
+			"faces": {
+				"north": {"uv": [4.5, 5.25, 4.75, 7], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [4, 3.75, 4.75, 4], "texture": "#1"},
+				"west": {"uv": [4.75, 3.75, 4, 4], "texture": "#1"},
+				"up": {"uv": [4, 7, 4.75, 5.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [4, 5.25, 4.75, 7], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 4",
+			"from": [7.3, 0.445, 12.08],
+			"to": [8.7, 1.245, 13.28],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 0.195, 12.73]},
+			"faces": {
+				"north": {"uv": [4.75, 1.25, 6.5, 2.5], "texture": "#1"},
+				"east": {"uv": [3, 1.25, 4.75, 2.5], "texture": "#1"},
+				"south": {"uv": [6.5, 1.25, 4.75, 2.5], "texture": "#1"},
+				"west": {"uv": [4.75, 1.25, 3, 2.5], "texture": "#1"},
+				"up": {"uv": [3.75, 1.25, 5.5, 1.5], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 2.25, 4.75, 2.5], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 5",
+			"from": [8.255, 1.175, 12.185],
+			"to": [8.555, 2.15, 13.375],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8.455, 1.575, 12.58]},
+			"faces": {
+				"north": {"uv": [4.75, 0, 5, 1.25], "texture": "#1"},
+				"east": {"uv": [3, 0, 4.75, 1.25], "texture": "#1"},
+				"south": {"uv": [4.75, 0, 5, 1.25], "texture": "#1"},
+				"up": {"uv": [3.75, 0, 5.5, 0.25], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 1, 4.75, 1.25], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 6",
+			"from": [7.445, 1.175, 12.185],
+			"to": [7.745, 2.15, 13.375],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [7.545, 1.575, 12.58]},
+			"faces": {
+				"north": {"uv": [5.75, 0, 5.5, 1.25], "texture": "#1"},
+				"south": {"uv": [5.75, 0, 5.5, 1.25], "texture": "#1"},
+				"west": {"uv": [4.75, 0, 3, 1.25], "texture": "#1"},
+				"up": {"uv": [3.75, 0.25, 5.5, 0], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 1.25, 4.75, 1], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Magazine 5",
+			"from": [7.3, -0.355, 11.98],
+			"to": [8.7, 0.445, 13.18],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 0.195, 12.73]},
+			"faces": {
+				"north": {"uv": [4.75, 2.5, 6.5, 3.75], "texture": "#1"},
+				"east": {"uv": [3, 2.5, 4.75, 3.75], "texture": "#1"},
+				"south": {"uv": [6.5, 2.5, 4.75, 3.75], "texture": "#1"},
+				"west": {"uv": [4.75, 2.5, 3, 3.75], "texture": "#1"},
+				"up": {"uv": [3.75, 2.5, 5.5, 2.75], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 3.5, 4.75, 3.75], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.245, 0.645, 12.835],
+			"to": [7.245, 1.645, 13.835],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.195, 1.145, 13.335]},
+			"faces": {
+				"west": {"uv": [3, 5.5, 1.75, 6.75], "texture": "#1_1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [8.76619, 0.745, 11.61587],
+			"to": [8.76619, 1.745, 12.61587],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8.76619, 0.645, 12.11587]},
+			"faces": {
+				"west": {"uv": [3, 5.5, 1.75, 6.75], "texture": "#1_1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.26, -0.055, 11.835],
+			"to": [7.26, 0.545, 12.435],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [7.26, 0.245, 12.135]},
+			"faces": {
+				"west": {"uv": [3.75, 5.75, 3, 6.5], "texture": "#1_1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [8.77, 0.045, 12.735],
+			"to": [8.77, 0.645, 13.335],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8.77, 0.345, 13.035]},
+			"faces": {
+				"west": {"uv": [3.75, 5.75, 3, 6.5], "texture": "#1_1"}
+			}
+		},
+		{
+			"name": "Flower",
+			"from": [7.255, 1.345, 11.835],
+			"to": [7.255, 1.945, 12.435],
+			"rotation": {"angle": -45, "axis": "y", "origin": [7.205, 1.645, 12.235]},
+			"faces": {
+				"west": {"uv": [3.75, 5.75, 3, 6.5], "texture": "#1_1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [114, 0, 0],
+			"translation": [0, 5.25, 2],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [2.25, 5, 0],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_lefthand": {
+			"translation": [3.75, -3.25, 0]
+		},
+		"ground": {
+			"translation": [0, -2, -3.8],
+			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [4.25, -2, 0],
+			"scale": [3, 3, 3]
+		},
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"translation": [-8, 0, -1.75],
+			"scale": [4, 4, 4]
+		}
+	},
+	"groups": [
+		{
+			"name": "Magazine",
+			"origin": [8, 9.605, 8.055],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7]
+		},
+		{
+			"name": "main",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Assault Rifle",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [
+						{
+							"name": "Leaf",
+							"origin": [8, 4.045, 7.085],
+							"color": 0,
+							"children": []
+						},
+						{
+							"name": "Grip",
+							"origin": [8, 8, 8],
+							"color": 5,
+							"children": []
+						},
+						{
+							"name": "Receiver",
+							"origin": [8, 4.47, 14.795],
+							"color": 0,
+							"children": []
+						},
+						{
+							"name": "Barrel",
+							"origin": [8, 8, 8],
+							"color": 4,
+							"children": []
+						},
+						{
+							"name": "Flowers",
+							"origin": [8, 8, 8],
+							"color": 0,
+							"children": [8, 9, 10, 11, 12]
+						}
+					]
+				}
+			]
+		}
+	]
+}

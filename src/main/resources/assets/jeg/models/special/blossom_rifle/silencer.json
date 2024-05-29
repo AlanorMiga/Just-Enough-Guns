@@ -2,13 +2,14 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "jeg:item/blossom_rifle"
+		"1": "jeg:item/blossom_rifle",
+		"particle": "jeg:item/scopes"
 	},
 	"elements": [
 		{
 			"name": "Supressor 1",
-			"from": [7.88462, 2.67, 0.45],
-			"to": [8.88462, 3.67, 4.55],
+			"from": [7.86462, 2.65, 0.45],
+			"to": [8.90462, 3.69, 4.55],
 			"rotation": {"angle": -45, "axis": "z", "origin": [8.45962, 3.745, 2.55]},
 			"faces": {
 				"north": {"uv": [13, 3.75, 13.75, 4.5], "rotation": 90, "texture": "#1"},
@@ -79,29 +80,31 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [0, 7, -6.75],
-			"scale": [1.25, 1.25, 1.25]
+			"rotation": [114, 0, 0],
+			"translation": [0, 5.25, 2],
+			"scale": [2, 2, 2]
 		},
 		"firstperson_righthand": {
-			"translation": [-2.5, 10, -2.5],
-			"scale": [1.25, 1.25, 1.25]
+			"rotation": [90, 0, 0],
+			"translation": [2.25, 5, 0],
+			"scale": [2, 2, 2]
 		},
 		"firstperson_lefthand": {
 			"translation": [3.75, -3.25, 0]
 		},
 		"ground": {
-			"translation": [0, 5, -1],
-			"scale": [1.25, 1.25, 1.25]
+			"translation": [0, -2, -3.8],
+			"scale": [2, 2, 2]
 		},
 		"gui": {
 			"rotation": [30, 225, 0],
-			"translation": [1.25, 4.5, 0],
-			"scale": [1.25, 1.25, 1.25]
+			"translation": [4.25, -2, 0],
+			"scale": [3, 3, 3]
 		},
 		"fixed": {
 			"rotation": [0, 90, 0],
-			"translation": [-3.25, 11.25, -2],
-			"scale": [2, 2, 2]
+			"translation": [-8, 0, -1.75],
+			"scale": [4, 4, 4]
 		}
 	},
 	"groups": [
@@ -111,10 +114,17 @@
 			"color": 0,
 			"children": [
 				{
-					"name": "Supressor",
+					"name": "silencer",
 					"origin": [8, 8, 8],
 					"color": 0,
-					"children": [0, 1, 2, 3, 4, 5, 6]
+					"children": [
+						{
+							"name": "Supressor",
+							"origin": [8, 8, 8],
+							"color": 0,
+							"children": [0, 1, 2, 3, 4, 5, 6]
+						}
+					]
 				}
 			]
 		}

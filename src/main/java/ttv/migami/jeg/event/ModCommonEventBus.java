@@ -1,9 +1,7 @@
 package ttv.migami.jeg.event;
 
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
@@ -11,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ttv.migami.jeg.Reference;
 import ttv.migami.jeg.entity.Bubble;
+import ttv.migami.jeg.entity.animal.Boo;
 import ttv.migami.jeg.entity.monster.Ghoul;
 import ttv.migami.jeg.init.ModEntities;
 
@@ -30,7 +29,7 @@ public class ModCommonEventBus {
                 ModEntities.GHOUL.get(),
                 SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.WORLD_SURFACE,
-                Zombie::checkMonsterSpawnRules,
+                Ghoul::checkMonsterSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR
         );
 
@@ -38,7 +37,7 @@ public class ModCommonEventBus {
                 ModEntities.BOO.get(),
                 SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.WORLD_SURFACE,
-                Animal::checkAnimalSpawnRules,
+                Boo::checkAnimalSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR
         );
     }

@@ -1,0 +1,17 @@
+{
+  "type": "jeg:scrap_workbench",
+  "materials": [
+    {
+      "item": "jeg:ectoplasm",
+      "count": 4
+    },
+    {
+      "item": "minecraft:paper",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "jeg:healing_talisman"
+  },
+  "time": 30
+}
