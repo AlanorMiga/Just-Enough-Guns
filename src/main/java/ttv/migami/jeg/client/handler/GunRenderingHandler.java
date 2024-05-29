@@ -5,6 +5,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.mrcrayfish.controllable.Controllable;
+import com.mrcrayfish.controllable.client.input.Controller;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -37,7 +39,9 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Matrix4f;
 import ttv.migami.jeg.Config;
+import ttv.migami.jeg.JustEnoughGuns;
 import ttv.migami.jeg.Reference;
+import ttv.migami.jeg.client.GunButtonBindings;
 import ttv.migami.jeg.client.GunModel;
 import ttv.migami.jeg.client.GunRenderType;
 import ttv.migami.jeg.client.KeyBinds;
@@ -107,6 +111,8 @@ public class GunRenderingHandler
     private float fallSway;
     private float prevFallSway;
 
+    private boolean controllerFlag;
+
     @Nullable
     private ItemStack renderingWeapon;
 
@@ -136,12 +142,18 @@ public class GunRenderingHandler
 
         Minecraft mc = Minecraft.getInstance();
 
+        if(JustEnoughGuns.controllableLoaded)
+        {
+            Controller controller = Controllable.getController();
+            controllerFlag = controller != null && controller.isButtonPressed(GunButtonBindings.STEADY_AIM.getButton());
+        }
+
         if (mc.player != null) {
-            if(!KeyBinds.KEY_MELEE.isDown() && this.meleeCooldown == 0) {
+            if((!KeyBinds.KEY_MELEE.isDown() && !controllerFlag) && this.meleeCooldown == 0) {
                 this.meleePressed = false;
             }
 
-            if(KeyBinds.KEY_MELEE.isDown() && !this.isMeleeAttacking && this.meleeCooldown == 0 && !this.meleePressed) {
+            if((KeyBinds.KEY_MELEE.isDown() || controllerFlag) && !this.isMeleeAttacking && this.meleeCooldown == 0 && !this.meleePressed) {
                 this.isMeleeAttacking = true;
                 this.meleeTransition = 0;
                 this.meleeCooldown = 14;
