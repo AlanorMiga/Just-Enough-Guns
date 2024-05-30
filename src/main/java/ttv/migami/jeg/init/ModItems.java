@@ -267,6 +267,7 @@ public class ModItems {
             () -> new MagazineItem(Magazine.create(),
                     new Item.Properties()
                             .stacksTo(1)
+                            .tab(JustEnoughGuns.GROUP)
             ));
 
     /* Items */
