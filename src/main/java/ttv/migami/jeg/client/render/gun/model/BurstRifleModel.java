@@ -45,6 +45,8 @@ public class BurstRifleModel implements IOverrideModel {
         {
             if (Gun.getAttachment(IAttachment.Type.MAGAZINE, stack).getItem() == ModItems.EXTENDED_MAG.get())
                 RenderUtil.renderModel(SpecialModels.BURST_RIFLE_MAGAZINE_EXTENDED.getModel(), stack, matrixStack, buffer, light, overlay);
+            if (Gun.getAttachment(IAttachment.Type.MAGAZINE, stack).getItem() == ModItems.DRUM_MAG.get())
+                RenderUtil.renderModel(SpecialModels.BURST_RIFLE_MAGAZINE_DRUM.getModel(), stack, matrixStack, buffer, light, overlay);
         }
         else
             RenderUtil.renderModel(SpecialModels.BURST_RIFLE_MAGAZINE_DEFAULT.getModel(), stack, matrixStack, buffer, light, overlay);

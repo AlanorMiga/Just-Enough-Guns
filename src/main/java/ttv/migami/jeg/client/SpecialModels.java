@@ -29,6 +29,7 @@ public enum SpecialModels {
     COMBAT_RIFLE_ANGLED_GRIP("combat_rifle/angled_grip"),
     COMBAT_RIFLE_MAGAZINE_DEFAULT("combat_rifle/magazine_default"),
     COMBAT_RIFLE_MAGAZINE_EXTENDED("combat_rifle/magazine_extended"),
+    COMBAT_RIFLE_MAGAZINE_DRUM("combat_rifle/magazine_drum"),
 
     ASSAULT_RIFLE("gun/assault_rifle"),
     ASSAULT_RIFLE_MAIN("assault_rifle/main"),
@@ -37,6 +38,7 @@ public enum SpecialModels {
     ASSAULT_RIFLE_SILENCER("assault_rifle/silencer"),
     ASSAULT_RIFLE_MAGAZINE_DEFAULT("assault_rifle/magazine_default"),
     ASSAULT_RIFLE_MAGAZINE_EXTENDED("assault_rifle/magazine_extended"),
+    ASSAULT_RIFLE_MAGAZINE_DRUM("assault_rifle/magazine_drum"),
 
     REVOLVER("gun/revolver"),
     REVOLVER_MAIN("revolver/main"),
@@ -64,6 +66,7 @@ public enum SpecialModels {
     BURST_RIFLE_STOCK_WEIGHTED("burst_rifle/stock_weighted"),
     BURST_RIFLE_MAGAZINE_DEFAULT("burst_rifle/magazine_default"),
     BURST_RIFLE_MAGAZINE_EXTENDED("burst_rifle/magazine_extended"),
+    BURST_RIFLE_MAGAZINE_DRUM("burst_rifle/magazine_drum"),
 
     PUMP_SHOTGUN("gun/pump_shotgun"),
     PUMP_SHOTGUN_MAIN("pump_shotgun/main"),
@@ -96,6 +99,7 @@ public enum SpecialModels {
     BLOSSOM_RIFLE_SILENCER("blossom_rifle/silencer"),
     BLOSSOM_RIFLE_MAGAZINE_DEFAULT("blossom_rifle/magazine_default"),
     BLOSSOM_RIFLE_MAGAZINE_EXTENDED("blossom_rifle/magazine_extended"),
+    BLOSSOM_RIFLE_MAGAZINE_DRUM("blossom_rifle/magazine_drum"),
 
     DOUBLE_BARREL_SHOTGUN("gun/double_barrel_shotgun"),
     DOUBLE_BARREL_SHOTGUN_MAIN("double_barrel_shotgun/main"),

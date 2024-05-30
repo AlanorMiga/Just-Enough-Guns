@@ -278,6 +278,12 @@ public class GunModifierHelper
             int ammoIncrease = (int) (percentage * capacity);
             capacity += ammoIncrease;
         }
+        if (Gun.getAttachment(IAttachment.Type.MAGAZINE, weapon).getItem() == ModItems.DRUM_MAG.get())
+        {
+            percentage = 1.0;
+            int ammoIncrease = (int) (percentage * capacity);
+            capacity += ammoIncrease;
+        }
         return capacity;
     }
 
@@ -289,6 +295,9 @@ public class GunModifierHelper
 
             ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
             damage = damage + bayonet.getEnchantmentLevel(Enchantments.SHARPNESS);
+        }
+        if (player.getMainHandItem().getItem() == ModItems.ATLANTEAN_SPEAR.get()) {
+            damage = 8;
         }
 
         return damage;

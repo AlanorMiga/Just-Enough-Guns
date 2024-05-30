@@ -1,6 +1,7 @@
 package ttv.migami.jeg.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -51,66 +52,67 @@ public class GunItem extends Item implements IColored, IMeta {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
-        Gun modifiedGun = this.getModifiedGun(stack);
+        if (Screen.hasShiftDown()) {
+            Gun modifiedGun = this.getModifiedGun(stack);
 
-        String fireMode = modifiedGun.getGeneral().getFireMode().getId().toString();
-        tooltip.add(Component.translatable("info.jeg.fire_mode").withStyle(ChatFormatting.GRAY)
-                .append(Component.translatable("fire_mode." + fireMode).withStyle(ChatFormatting.WHITE)));
+            String fireMode = modifiedGun.getGeneral().getFireMode().getId().toString();
+            tooltip.add(Component.translatable("info.jeg.fire_mode").withStyle(ChatFormatting.GRAY)
+                    .append(Component.translatable("fire_mode." + fireMode).withStyle(ChatFormatting.WHITE)));
 
-        Item ammo = ForgeRegistries.ITEMS.getValue(modifiedGun.getProjectile().getItem());
-        Item reloadItem = ForgeRegistries.ITEMS.getValue(modifiedGun.getReloads().getReloadItem());
-        if (modifiedGun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM) {
-            ammo = reloadItem;
-        }
-        if (ammo != null) {
-            tooltip.add(Component.translatable("info.jeg.ammo_type", Component.translatable(ammo.getDescriptionId()).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
-        }
+            Item ammo = ForgeRegistries.ITEMS.getValue(modifiedGun.getProjectile().getItem());
+            Item reloadItem = ForgeRegistries.ITEMS.getValue(modifiedGun.getReloads().getReloadItem());
+            if (modifiedGun.getReloads().getReloadType() == ReloadType.SINGLE_ITEM) {
+                ammo = reloadItem;
+            }
+            if (ammo != null) {
+                tooltip.add(Component.translatable("info.jeg.ammo_type", Component.translatable(ammo.getDescriptionId()).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
+            }
 
-        String additionalDamageText = "";
-        CompoundTag tagCompound = stack.getTag();
-        if (tagCompound != null) {
-            if (tagCompound.contains("AdditionalDamage", Tag.TAG_ANY_NUMERIC)) {
-                float additionalDamage = tagCompound.getFloat("AdditionalDamage");
-                additionalDamage += GunModifierHelper.getAdditionalDamage(stack);
+            String additionalDamageText = "";
+            CompoundTag tagCompound = stack.getTag();
+            if (tagCompound != null) {
+                if (tagCompound.contains("AdditionalDamage", Tag.TAG_ANY_NUMERIC)) {
+                    float additionalDamage = tagCompound.getFloat("AdditionalDamage");
+                    additionalDamage += GunModifierHelper.getAdditionalDamage(stack);
 
-                if (additionalDamage > 0) {
-                    additionalDamageText = ChatFormatting.GREEN + " +" + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(additionalDamage);
-                } else if (additionalDamage < 0) {
-                    additionalDamageText = ChatFormatting.RED + " " + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(additionalDamage);
+                    if (additionalDamage > 0) {
+                        additionalDamageText = ChatFormatting.GREEN + " +" + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(additionalDamage);
+                    } else if (additionalDamage < 0) {
+                        additionalDamageText = ChatFormatting.RED + " " + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(additionalDamage);
+                    }
                 }
             }
-        }
 
-        float damage = modifiedGun.getProjectile().getDamage();
-        ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
-        damage = GunModifierHelper.getModifiedProjectileDamage(stack, damage);
-        damage = GunEnchantmentHelper.getAcceleratorDamage(stack, damage);
-        tooltip.add(Component.translatable("info.jeg.damage", ChatFormatting.WHITE + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damage) + additionalDamageText).withStyle(ChatFormatting.GRAY));
+            float damage = modifiedGun.getProjectile().getDamage();
+            ResourceLocation advantage = modifiedGun.getProjectile().getAdvantage();
+            damage = GunModifierHelper.getModifiedProjectileDamage(stack, damage);
+            damage = GunEnchantmentHelper.getAcceleratorDamage(stack, damage);
+            tooltip.add(Component.translatable("info.jeg.damage", ChatFormatting.WHITE + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damage) + additionalDamageText).withStyle(ChatFormatting.GRAY));
 
-        if (!advantage.equals(ModTags.Entities.NONE.location()))
-        {
-            tooltip.add(Component.translatable("info.jeg.advantage").withStyle(ChatFormatting.GRAY)
-                    .append(Component.translatable("advantage." + advantage).withStyle(ChatFormatting.GOLD)));
-        }
-
-        if (tagCompound != null) {
-            if (tagCompound.getBoolean("IgnoreAmmo")) {
-                tooltip.add(Component.translatable("info.jeg.ignore_ammo").withStyle(ChatFormatting.AQUA));
-            } else {
-                int ammoCount = tagCompound.getInt("AmmoCount");
-                tooltip.add(Component.translatable("info.jeg.ammo", ChatFormatting.WHITE.toString() + ammoCount + "/" + GunModifierHelper.getModifiedAmmoCapacity(stack, modifiedGun)).withStyle(ChatFormatting.GRAY));
+            if (!advantage.equals(ModTags.Entities.NONE.location())) {
+                tooltip.add(Component.translatable("info.jeg.advantage").withStyle(ChatFormatting.GRAY)
+                        .append(Component.translatable("advantage." + advantage).withStyle(ChatFormatting.GOLD)));
             }
+
+            if (tagCompound != null) {
+                if (tagCompound.getBoolean("IgnoreAmmo")) {
+                    tooltip.add(Component.translatable("info.jeg.ignore_ammo").withStyle(ChatFormatting.AQUA));
+                } else {
+                    int ammoCount = tagCompound.getInt("AmmoCount");
+                    tooltip.add(Component.translatable("info.jeg.ammo", ChatFormatting.WHITE.toString() + ammoCount + "/" + GunModifierHelper.getModifiedAmmoCapacity(stack, modifiedGun)).withStyle(ChatFormatting.GRAY));
+                }
+            }
+        } else {
+            tooltip.add(Component.translatable("info.jeg.shift_tooltip").withStyle(ChatFormatting.WHITE));
         }
 
         tooltip.add(Component.translatable("info.jeg.attachment_help", KeyBinds.KEY_ATTACHMENTS.getTranslatedKeyMessage().getString().toUpperCase(Locale.ENGLISH)).withStyle(ChatFormatting.YELLOW));
 
         if (this instanceof TyphooneeItem) {
             tooltip.add(Component.translatable("info.jeg.tooltip_item.typhoonee").withStyle(ChatFormatting.GRAY));
-        }
-        else if (this instanceof AtlanteanSpearItem) {
+        } else if (this instanceof AtlanteanSpearItem) {
             tooltip.add(Component.translatable("info.jeg.tooltip_item.atlantean_spear").withStyle(ChatFormatting.GRAY));
         }
-
     }
 
     @Override
