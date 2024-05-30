@@ -29,7 +29,7 @@
 		"fixed": {
 			"rotation": [0, 90, 0],
 			"translation": [-4, 11.25, -2],
-			"scale": [2, 2, 2]
+			"scale": [2.5, 2.5, 2.5]
 		}
 	}
 }

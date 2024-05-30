@@ -54,6 +54,7 @@ import ttv.migami.jeg.common.GripType;
 import ttv.migami.jeg.common.Gun;
 import ttv.migami.jeg.common.properties.SightAnimation;
 import ttv.migami.jeg.event.GunFireEvent;
+import ttv.migami.jeg.init.ModItems;
 import ttv.migami.jeg.init.ModSyncedDataKeys;
 import ttv.migami.jeg.item.GrenadeItem;
 import ttv.migami.jeg.item.GunItem;
@@ -562,7 +563,7 @@ public class GunRenderingHandler
         float transition = (this.prevMeleeTransition + (this.meleeTransition - this.prevMeleeTransition) * partialTicks) / 5F;
         transition = (float) Math.sin((transition * Math.PI) / 2);
 
-        if ((Gun.getAttachment(IAttachment.Type.BARREL, mc.player.getMainHandItem()).getItem() instanceof SwordItem)) {
+        if ((Gun.getAttachment(IAttachment.Type.BARREL, mc.player.getMainHandItem()).getItem() instanceof SwordItem || mc.player.getMainHandItem().getItem() == ModItems.ATLANTEAN_SPEAR.get())) {
             poseStack.translate(-1.0 * leftHanded * transition, 0.4 * transition, -0.3 * transition);
             poseStack.mulPose(Axis.YP.rotationDegrees(100F * leftHanded * transition));
             poseStack.mulPose(Axis.XP.rotationDegrees(45F * transition));
