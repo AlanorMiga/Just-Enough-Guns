@@ -263,6 +263,12 @@ public class ModItems {
                             .tab(JustEnoughGuns.GROUP)
             ));
 
+    public static final RegistryObject<Item> DRUM_MAG = REGISTER.register("drum_mag",
+            () -> new MagazineItem(Magazine.create(),
+                    new Item.Properties()
+                            .stacksTo(1)
+            ));
+
     /* Items */
     public static final RegistryObject<Item> SCRAP = REGISTER.register("scrap",
             () -> new Item(new Item.Properties()

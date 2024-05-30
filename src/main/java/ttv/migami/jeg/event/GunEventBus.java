@@ -72,7 +72,7 @@ public class GunEventBus
                 if (currentTime - runningPlayers.get(playerId) >= RUN_DURATION_THRESHOLD
                         && !tracker.isOnCooldown(gunItem)
                         && !player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
-                        && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem swordItem) {
+                        && (Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem swordItem)) {
 
                     ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
 
@@ -94,6 +94,8 @@ public class GunEventBus
                         player.level.getEntities(player, boundingBox).forEach(entity -> {
                             if (entity != player && entity instanceof LivingEntity target && target.invulnerableTime == 0) {
                                 Vec3 direction = entity.position().subtract(player.position()).normalize();
+
+                                player.invulnerableTime = 40;
 
                                 if (GunModifierHelper.getSwordSweepingEdge(player) < 2) {
                                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 2, false, false));
@@ -118,7 +120,9 @@ public class GunEventBus
 
                                 Vec3 pushBackDirection = player.position().subtract(target.position()).normalize();
                                 double pushBackForce = 1.0;
-                                player.push(pushBackDirection.x * pushBackForce, 0.5, pushBackDirection.z * pushBackForce);
+                                if (GunModifierHelper.getSwordSweepingEdge(player) < 3) {
+                                    player.push(pushBackDirection.x * pushBackForce, 0.5, pushBackDirection.z * pushBackForce);
+                                }
 
                                 if (!player.getAbilities().instabuild && Config.COMMON.gameplay.gunDurability.get() && currentDamage <= maxDamage / 1.5) {
                                     bayonet.hurtAndBreak(15, player, null);
