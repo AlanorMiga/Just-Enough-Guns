@@ -1,16 +1,16 @@
 {
-  "type": "jeg:gunmetal_workbench",
+  "type": "jeg:gunnite_workbench",
   "materials": [
     {
       "item": "jeg:scrap",
-      "count": 15
+      "count": 25
     },
     {
-      "item": "jeg:gunmetal_ingot",
+      "item": "jeg:gunnite_ingot",
       "count": 10
     },
     {
-      "item": "minecraft:chest",
+      "item": "minecraft:ender_chest",
       "count": 3
     }
   ],

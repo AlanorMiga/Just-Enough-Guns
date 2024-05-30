@@ -71,7 +71,7 @@ public class GunEventBus
                 if (currentTime - runningPlayers.get(playerId) >= RUN_DURATION_THRESHOLD
                         && !tracker.isOnCooldown(gunItem)
                         && !player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
-                        && Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem swordItem) {
+                        && (Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem()).getItem() instanceof SwordItem swordItem)) {
 
                     ItemStack bayonet = Gun.getAttachment(IAttachment.Type.BARREL, player.getMainHandItem());
 

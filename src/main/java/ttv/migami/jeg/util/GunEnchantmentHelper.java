@@ -63,6 +63,9 @@ public class GunEnchantmentHelper
         if (Gun.getAttachment(IAttachment.Type.MAGAZINE, weapon).getItem() == ModItems.EXTENDED_MAG.get()) {
             modifier = 2;
         }
+        if (Gun.getAttachment(IAttachment.Type.MAGAZINE, weapon).getItem() == ModItems.DRUM_MAG.get()) {
+            modifier = 3;
+        }
 
         int speed = modifiedGun.getReloads().getEmptyMagTimer() + modifiedGun.getReloads().getReloadTimer() * modifier;
 
